@@ -112,7 +112,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public Position p_salarySelect(String posid) {
 		Position pos = sqlSession.selectOne("com.omg.position.p_salarySelect",posid);
-		return null;
+		return pos;
 	}
 
 }

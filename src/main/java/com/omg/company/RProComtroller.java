@@ -212,4 +212,11 @@ public class RProComtroller {
 		return pos;
 	}
 	
+	@RequestMapping("/p_salarySelect")
+	public @ResponseBody Position p_salarySelect(HttpSession session,
+                 @RequestParam("posid")String id){
+		Position pos = empService.p_salarySelect(id);
+		return pos;
+	}
+	
 }

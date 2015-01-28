@@ -359,12 +359,12 @@
 			 		
 					$("#t_sal").keydown(function(){
 						posId = $("select[name='pos']").val();
-						alert(posId);
+						//alert(posId);
 						$.ajax({
 							url: "p_salarySelect",
 							data:"posid="+posId,
 							dataType:"json",
-							async: false,
+							//async: false,
 							success:function(json){
 								min = json.minSalary;
 								max = json.maxSalary;
