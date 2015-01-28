@@ -67,6 +67,7 @@
 		$.ajax({
 			url : "ListColleague",
 			dataType : "json",
+			async:false,
 			success : function(json) {
 				$("#ListColleague").empty();
 				var str = "";
@@ -108,7 +109,7 @@
 													+ "</td>";
 											str += "<div >"
 													+ "<td>"
-													+ "<select name='SelectTeam'><option>D01</option><option>D02</option><option>D03</option><option>D04</option></select>"
+													+ "<select name='SelectTeam' id='selectTeam'><option>D01</option><option>D02</option><option>D03</option><option>D04</option></select>"
 													+ "</td>" + "</div>";
 											str += "<td>"
 													+ "<input type='button' value='결정'>"
@@ -120,10 +121,31 @@
 						$("#startPro").append(str);
 					}
 				});
+		
+		$.ajax({
+			url : "selectTeam",
+			dataType : "json",
+			async:false,
+			success : function(json) {
+				$("#selectTeam").empty();
+				var str = "";
+				$.each(json, function(index, item) {
+
+				
+					str += "<option>" + item.team_id + "</option>";
+
+					
+
+				});
+				$("#selectTeam").append(str);
+			}
+		});
+		
 
 		$.ajax({
 			url : "SCVList",
 			dataType : "json",
+			async : false,
 			success : function(json) {
 				$("#SCVList").empty();
 				var str = "";
