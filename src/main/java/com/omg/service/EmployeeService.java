@@ -41,5 +41,13 @@ public class EmployeeService {
 		List<Departments> list = empdao.p_deptSelect();
 		return list;
 	}
+	public List<Teams> p_teamSelect() {
+		List<Teams> list = empdao.p_teamSelect();
+		return list;
+	}
+	public List<Position> p_posSelect() {
+		List<Position> list = empdao.p_posSelect();
+		return list;
+	}
 	
 }
