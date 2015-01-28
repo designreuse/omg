@@ -58,6 +58,25 @@ public class RProComtroller {
 		return "pages/pro/s_pro_det_up";
 	}
 	
+	@RequestMapping(value="/insertpro", method=RequestMethod.POST)
+	public String insertpro(HttpSession session, 
+			@RequestParam("proid") String proId,
+			@RequestParam("proname") String proName,
+			@RequestParam("proprice") long price,
+			@RequestParam("start") Date start,
+			@RequestParam("end") Date end,
+			@RequestParam("deptid") String deptId){
+		Projects protemp = new Projects();
+		protemp.setProjectId(proId);
+		protemp.setProjectName(proName);
+		protemp.setProjectPrice(price);
+		protemp.setStartDate(start);
+		protemp.setEndDate(end);
+		protemp.setDepartmentId(deptId);
+		int ret = salService.salProjectInsert(protemp);
+		return "redirect:index_s";
+	}
+	
 	@RequestMapping(value="/salProUpdate", method=RequestMethod.POST)
 	public String salProUpdate(HttpSession session, 
 			@RequestParam("proId") String proId,
@@ -74,8 +93,12 @@ public class RProComtroller {
 		protemp.setStartDate(start);
 		protemp.setEndDate(end);
 		protemp.setDeptName(deptName);
-	//	Projects pro = salService.salProjectByProId(proId);
-	//	model.addAttribute("pro", pro);
+		int ret = salService.salProjectUpdate(protemp);
+		System.out.println(ret);
+		if(ret >=1){
+			Projects pro = salService.salProjectByProId(proId);
+			model.addAttribute("pro", pro);
+		}
 		return "pages/pro/s_pro_det_up";
 	}
 	

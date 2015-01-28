@@ -14,9 +14,16 @@
 		<result property="approvalName" column="approval_name"/>
 	</resultMap>
 	
+	<insert id="proInsert" parameterType="Projects">
+		insert into 
+		projects(project_id,project_name,project_price,start_date,end_date,department_id) 
+		values(#{projectId},#{projectName},#{projectPrice},#{startDate},#{endDate},#{departmentId})
+	</insert>
+	
+	
 	<update id="proUpdate" parameterType="Projects">
 		update project 
-		set project_name = #{projectName}, project_price = #{projectPrice}, start_date = #{startDate}, end_date = #{endDate}, department_id = #{departmentId}   
+		set project_name = #{projectName}, project_price = #{projectPrice}, start_date = #{startDate}, end_date = #{endDate}, department_id = #{departmentId}, approval = null, approvalName = null
 		where project_id = #{projectId}
 	</update>
 	
