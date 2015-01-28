@@ -69,7 +69,6 @@ public class DProController {
 		//System.out.println("Zz");
 		Employees emps = (Employees)session.getAttribute("user"); 
 		List<DProcess> SCVList = dProService.SCVList();
-		
 		return SCVList;
 
 }
