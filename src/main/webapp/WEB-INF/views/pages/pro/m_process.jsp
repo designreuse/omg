@@ -38,7 +38,7 @@
 				$.each(json, function(index, item) {
 
 					str += "<tr>";
-					str += "<td>" + (index+1)+"</td>";
+					str += "<td>" + (index + 1) + "</td>";
 					str += "<td>" + item.employeeName + "</td>";
 					str += "<td>" + item.phone + "</td>";
 					str += "<td>" + item.email + "</td>";
@@ -46,12 +46,11 @@
 					str += "</tr>";
 
 				});
-				
+
 				$("#colist").append(str);
 			}
 		});
-		
-		
+
 		//현재 투입중인 프로젝트리스트
 		$.ajax({
 
@@ -108,14 +107,11 @@
 
 		});
 
+		//current 버튼 눌렀을 경우.
+		$("#bnt_window").on("click", "#curr", function() {
+			$("#window").empty();
+		});
 
-		
-		
-		
-		
-		
-		
-		
 	});
 </script>
 </head>
@@ -132,158 +128,110 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>개발 부서 업무</h1>
+				<h1>유지보수 부서 업무</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i>Home</a></li>
-					<li class="active">개발 부서 업무</li>
+					<li class="active">유지 보수 업무</li>
 				</ol>
 			</section>
 
 			<!-- Main content -->
 			<section class="content">
+				<!-- 세션1개로 통합하기 -->
+				<div class="mailbox row">
+					<div class="col-xs-12">
+						<div class="box box-solid">
+							<div class="box-body">
+								<div class="row">
 
-
-				<div class="box box-solid">
-					<div class="box-header">
-						<h3 class="box-title">Current Project</h3>
-					</div>
-					<div class="box-body">
-
-
-						<!-- /.col (LEFT) -->
-
-						<!-- /.row -->
-						<div class="table-responsive">
-							<table id="gode" class="table table-hover">
-
-								<thead>
-									<tr>
-										<th>Project명</th>
-										<th>관련 기술</th>
-										<th>Start day</th>
-										<th>End day</th>
-									</tr>
-								</thead>
-								<tbody id="relist">
-								</tbody>
-							</table>
-						</div>
-
-
-						<!-- /.col (RIGHT) -->
-
-						<!-- /.row -->
-					</div>
-					<!-- /.box-body -->
-					<div class="box-footer clearfix">
-						<div class="pull-right"></div>
-					</div>
-					<!-- box-footer -->
-				</div>
-				<!-- /.box -->
-
-				<!-- /.col (MAIN) -->
-
-				<!-- MAILBOX END -->
-			</section>
-
-			<!-- Main content -->
-			<section class="content">
-
-
-				<div class="box box-solid">
-					<div class="box-header">
-						<h3 class="box-title">Colleague</h3>
-					</div>
-					<div class="box-body">
-						<div class="row">
-
-							<!-- /.col (LEFT) -->
-
-
-							<!-- /.row -->
-							<div class="table-responsive">
-								<table id="gode" class="table table-hover">
-
-									<thead>
-										<tr>
-											<th> NO.</th>
-											<th>Name</th>
-											<th>Phone</th>
-											<th>Email</th>
-											<th>Position</th>
-										</tr>
-									</thead>
-									<tbody id="colist">
-									</tbody>
-								</table>
-							</div>
-
-
-							<!-- /.col (RIGHT) -->
-						</div>
-						<!-- /.row -->
-					</div>
-					<!-- /.box-body -->
-					<div class="box-footer clearfix">
-						<div class="pull-right"></div>
-					</div>
-					<!-- box-footer -->
-				</div>
-			</section>
-
-			<section class="content">
-				
-
-					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title">My Career</h3>
-						</div>
-						<div class="box-body">
-							<div class="row">
-
-								<!-- /.col (LEFT) -->
-								
-									
-									<!-- /.row -->
-									<div class="table-responsive">
-										<table id="gode" class="table table-hover">
-											<thead>
-												<tr>
-													<!-- <th>NO.</th> -->
-													<th>Project명</th>
-													<th>관련 기술</th>
-													<th>Start day</th>
-													<th>End day</th>
-												</tr>
-											</thead>
-
-											<tbody id="exlist">
-											</tbody>
-										</table>
+									<div class="col-md-2 col-sm-4" id="bnt_window">
+										<!--세션나눠주기  -->
+										<div class="box-header">
+											<!--박스 머리말  -->
+											<h3 class="box-title" id="h3">업무 조회</h3>
+										</div>
+										<div style="margin-top: 15px;">
+											<a id="curr" class="btn btn-danger btn-flat">Current
+												project</a>
+										</div>
+										<div style="margin-top: 15px;">
+											<a id="sale" class="btn btn-warning btn-flat">My Career</a>
+										</div>
 									</div>
 
-								
-								<!-- /.col (RIGHT) -->
-							</div>
-							<!-- /.row -->
-						</div>
-						<!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<div class="pull-right"></div>
-						</div>
-						<!-- box-footer -->
-					</div>
-					<!-- /.box -->
 
-					<!-- /.col (MAIN) -->
-			
-				<!-- MAILBOX END -->
-			</section>
-			<!-- /.content -->
-		</aside>
-		<!-- /.right-side -->
+									<div id="detailview" class="col-md-10 col-sm-8">
+										<div class="box-header">
+											<h3 class="box-title">Current Project</h3>
+										</div>
+										<div class="box-body">
+
+											<div class="table-responsive">	
+												<table class="table table-bordered" border="1">
+													<thead>
+														<tr>
+															<th>Project명</th>
+															<th>관련 기술</th>
+															<th>Start day</th>
+															<th>End day</th>
+														</tr>
+													</thead>
+													<tbody id="relist">
+													</tbody>
+												</table>
+											</div>
+											<!--테이블 responsive 끝  -->
+										</div><!--relist 끝  -->
+
+
+										<div class="box-header">
+											<h3 class="box-title">Colleague</h3>
+										</div>
+										<div class="box-body">
+											<div class="table-responsive">
+												<table class="table table-bordered" border="1">
+													<thead>
+														<tr>
+															<th>NO.</th>
+															<th>Name</th>
+															<th>Phone</th>
+															<th>Email</th>
+															<th>Position</th>
+														</tr>
+													</thead>
+													<tbody id="colist">
+													</tbody>
+												</table>
+											</div>
+										</div><!--colleageu리스트 끝  -->
+
+										<!-- /.box-body -->
+										<div class="box-footer clearfix">
+											<div class="pull-right"></div>
+										</div>
+										<!--박스푸터끝  이건넘김 -->
+
+
+									</div>
+								</div>
+							</div>
+							<!--row 박스나누기끝  -->
+						</div>
+						<!--박스바디끝  -->
+					</div>
+					<!-- 미백효과 끝 -->
+				</div>
+				<!--칼럼12로 나누기 끝  -->
+	</div>
+	<!-- 메일박스 끝 -->
+
+	</section>
+	<!--세션끝  -->
+
+	<!-- /.content -->
+	</aside>
+	<!-- /.right-side -->
 	</div>
 	<!-- ./wrapper -->
 
