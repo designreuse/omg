@@ -191,16 +191,11 @@
 						success : function(txt){
 						}
 					});
-				
 					$(this).next("#jointext").text("신청완료됨.");
-					
 				}
 			}
-			 
 			$(this).attr("href", "index");
-			 
 		});
-		
 		
 		$("#studylist").on("click", "#del",  function() {
 			var creId = $(this).attr("cre2");
@@ -280,7 +275,7 @@
 									<input type="button" id="add" onclick="location.href='studySupply'" value="new">
 									<input type="button" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">
 								</div>
-							</div>
+						</div>
 					</div>
 				</div>
 

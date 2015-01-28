@@ -20,4 +20,6 @@ public interface EmployeeDAO {
 	
 	//직원등록 안에서 사용될 부분 (select)
 	List<Departments> p_deptSelect();
+	List<Teams> p_teamSelect();
+	List<Position> p_posSelect();
 }

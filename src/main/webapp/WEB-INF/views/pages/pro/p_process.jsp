@@ -100,11 +100,6 @@
     					$("#list").append(str);
     				}
     			});
-    			
-    			//직원관리 버튼 눌렀을 경우.
-    			$("#bnt_window").on("click","#emp",function(){
-    				$("#window").empty(); 
-    			});
     		}
 
     		$("#manage").click(function(){
@@ -299,6 +294,7 @@
 			$(this).attr("href","index_p");				
 		});
 		
+
 		//새로운 직원 등록하기
 		$("#bnt").on("click","#new_bnt",function(){
 			$("#detailview").empty();
@@ -310,28 +306,50 @@
 					str += "<tr>"+"<th>사 번</th>"+"<td><input type='text' name='id'></td></tr>";
 					str += "<tr>"+"<th>이 름</th>"+"<td><input type='text'name='name'></td></tr>";
 					str += "<tr>"+"<th>입사일</th>"+"<td><input type='text' name='hiredate'></td></tr>";
-					str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='manager'></td>";
+					str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='manager'></td></tr>";
 					str += "<tr>"+"<th>부 서</th>";
 					$.ajax({
 						url: "p_deptSelect",
 						dataType:"json",
 						async: false,
 						success:function(json){
-							str += "<td><select name='deptSelect'>";
+							str += "<td><select name='dept'>";
 							$.each(json,function(index,item){
 								str += "<option value="+item.departmentId+">"+item.departmentName+"</option>";
 							});
-							str += "</select></td>";
+							str += "</select></td></tr>";
 						}
 					}); 
-					
-					
-					str += "<tr>"+"<th> 팀 </th>"+"<td><input type='text' name='team'></td>";
-					str += "<tr>"+"<th>직 책</th>"+"<td><input type='text' name='pos'></td>";
-					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text' name='salary'></td>";
-					str += "<tr>"+"<th>핸드폰</th>"+"<td><input type='text'name='phone'></td>";
-					str += "<tr>"+"<th>주 소</th>"+"<td><input type='text' name='address'></td>";
-					str += "<tr>"+"<th>성 별</th>"+"<td><input type='text'name='gender'></td>";
+					str += "<tr>"+"<th> 팀 </th>";
+					$.ajax({
+						url: "p_teamSelect",
+						dataType:"json",
+						async: false,
+						success:function(json){
+							str += "<td><select name='team'>";
+							$.each(json,function(index,item){
+								str += "<option value="+item.teamId+">"+item.teamName+"</option>";
+							});
+							str += "</select></td></tr>";
+						}
+					}); 
+					str += "<tr>"+"<th>직 책</th>";
+					$.ajax({
+						url: "p_posSelect",
+						dataType:"json",
+						async: false,
+						success:function(json){
+							str += "<td><select name='pos'>";
+							$.each(json,function(index,item){
+								str += "<option value="+item.positionId+">"+item.positionName+"</option>";
+							});
+							str += "</select></td></tr>";
+						}
+					}); 
+					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text' name='salary'></td><span id='sal'></span></tr>";
+					str += "<tr>"+"<th>핸드폰</th>"+"<td><input type='text'name='phone'></td></tr>";
+					str += "<tr>"+"<th>주 소</th>"+"<td><input type='text' name='address'></td></tr>";
+					str += "<tr>"+"<th>성 별</th>"+"<td><input type='text'name='gender'></td></tr>";
 					str += "<tr>"+"<th>비밀번호</th>"+"<td><input type='text' name='password'></td>"; 
 					str += "</tr></table>"; 
 					str += "<input type='submit'  class='btn btn-primary btn-sm' value='등록'>";
@@ -341,6 +359,7 @@
 			 
 		
 		});
+		
 		
 		//선택된 직원 삭제하기
 		$("#bnt").on("click","#del_bnt",function(){
