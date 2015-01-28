@@ -177,4 +177,16 @@ public class RProComtroller {
 		return dept;
 	}
 	
+	@RequestMapping("/p_teamSelect")
+	public @ResponseBody List<Teams> p_teamSelect(){
+		List<Teams> team = empService.p_teamSelect();
+		return team;
+	}
+	
+	@RequestMapping("/p_posSelect")
+	public @ResponseBody List<Position> p_posSelect(){
+		List<Position> pos = empService.p_posSelect();
+		return pos;
+	}
+	
 }

@@ -97,6 +97,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return list;
 	}
 
+	@Override
+	public List<Teams> p_teamSelect() {
+		List<Teams> list = sqlSession.selectList("com.omg.team.selectTeam");
+		return list;
+	}
 
+	@Override
+	public List<Position> p_posSelect() {
+		List<Position> list = sqlSession.selectList("com.omg.position.selectAll");
+		return list;
+	}
 
 }
