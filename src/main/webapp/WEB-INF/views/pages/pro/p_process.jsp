@@ -346,7 +346,7 @@
 							str += "</select></td></tr>";
 						}
 					}); 
-					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text' name='salary'></td></tr>";
+					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text' name='salary'></td><span id='sal'></span></tr>";
 					str += "<tr>"+"<th>핸드폰</th>"+"<td><input type='text'name='phone'></td></tr>";
 					str += "<tr>"+"<th>주 소</th>"+"<td><input type='text' name='address'></td></tr>";
 					str += "<tr>"+"<th>성 별</th>"+"<td><input type='text'name='gender'></td></tr>";
@@ -359,6 +359,7 @@
 			 
 		
 		});
+		
 		
 		//선택된 직원 삭제하기
 		$("#bnt").on("click","#del_bnt",function(){
