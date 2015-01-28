@@ -9,5 +9,5 @@ public interface ProjectDAO {
 	int salProjectTotle(int date);
 	Projects salProjectByProId(String proId);
 	int salProjectUpdate(Projects pro);
-	
+	int salProjectInsert(Projects pro);
 }

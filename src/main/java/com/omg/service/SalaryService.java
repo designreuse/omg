@@ -37,16 +37,6 @@ public class SalaryService {
 		return ret;
 	}
 	
-	// 프로젝트 업데이트
-	public int salProjectUpdate(Projects pro) {
-		String deptId = deptDAO.DeptIdByDeptName(pro.getDeptName());
-		pro.setDepartmentId(deptId);
-		int ret = projectDAO.salProjectUpdate(pro);
-		System.out.println(ret);
-		//return ret;
-		return 0;
-	}
-	
 	// detail 자세히 보기
 	public Projects salProjectByProId(String proId) {
 		Projects pro = projectDAO.salProjectByProId(proId);
@@ -61,5 +51,20 @@ public class SalaryService {
 			pro.setApprovalName("확인중");
 		}
 		return pro;
+	}
+	
+	// 프로젝트 업데이트
+	public int salProjectUpdate(Projects pro) {
+		String deptId = deptDAO.DeptIdByDeptName(pro.getDeptName());
+		pro.setDepartmentId(deptId);
+		int ret = projectDAO.salProjectUpdate(pro);
+		System.out.println(ret);
+		return ret;
+	}
+	
+	// project 입력하기
+	public int salProjectInsert(Projects pro) {
+		int ret = projectDAO.salProjectInsert(pro);
+		return ret;
 	}
 }
