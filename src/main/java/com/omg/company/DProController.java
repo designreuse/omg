@@ -72,4 +72,13 @@ public class DProController {
 		return SCVList;
 
 }
+	
+	@RequestMapping(value = "/selectTeam")
+	public @ResponseBody List<DProcess> teams(HttpSession session, Model model){
+		
+		Employees emps = (Employees)session.getAttribute("user"); 
+		List<DProcess> teams = dProService.teams();
+		return teams;
+
+}
 }
