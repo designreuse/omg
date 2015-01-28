@@ -311,6 +311,7 @@
 												<div class="table-responsive">
 													<table border="1" style="border-top: solid;">
 														<tbody id="insertProTech"><!-- 프로잭트 기술 등록 하기 -->
+															<tr><th colspan="2"> 프로젝트 증록하는 화면 </th></tr>
 															<tr><th>프 로 젝 트<br>ID:</th><td><input type="text" name="proid" /></td></tr>
 															<tr><th>프 로 젝 트:</th><td><input type="text" name="proname" /></td></tr>
 															<tr><th>금 액 :</th><td><input type="text" name="proprice" /></td></tr>
