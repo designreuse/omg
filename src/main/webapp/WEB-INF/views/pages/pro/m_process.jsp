@@ -107,10 +107,7 @@
 
 		});
 
-		//current 버튼 눌렀을 경우.
-		$("#bnt_window").on("click", "#curr", function() {
-			$("#window").empty();
-		});
+
 
 	});
 </script>
@@ -152,11 +149,11 @@
 											<h3 class="box-title" id="h3">업무 조회</h3>
 										</div>
 										<div style="margin-top: 15px;">
-											<a id="curr" class="btn btn-danger btn-flat">Current
+											<a id="re" class="btn btn-danger btn-flat">Current
 												project</a>
 										</div>
 										<div style="margin-top: 15px;">
-											<a id="sale" class="btn btn-warning btn-flat">My Career</a>
+											<a id="ex" class="btn btn-warning btn-flat">My Career</a>
 										</div>
 									</div>
 
@@ -249,15 +246,11 @@
 
 </body>
 </html>
-<%-- 질랑형설명필요
-<script src="<c:url value='/resources/js/jquery.tmpl.js'/>"></script>
-<script id="exerciseTemplate" type="text/x-jquery-tmpl">
-   <tr>
-      <td>\${exercise_date }</td>
-      <td>\${body_name }</td>
-      <td>\${exercise_name }</td>
-      <td>\${cnt }</td>
-      <td>\${set_cnt }</td>
-      <td>\${exercise_time }</td>
-   </tr>                                    
-   </script> --%>
+<script>
+/* mycarrer눌렀을때  */
+$("#bnt_window").on("click","#ex",function(){
+	$("#detailview").empty();
+	$("#h3").text("My Career");
+});
+
+</script>
