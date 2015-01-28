@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.omg.projects">	
+	<resultMap type="Projects" id="pro">
+		<result property="projectId" column="project_id"/>
+		<result property="projectName" column="project_name"/>
+		<result property="startDate" column="start_date"/>
+		<result property="endDate" column="end_date"/>
+		<result property="projectPrice" column="project_price"/>
+		<result property="teamId" column="team_id"/>
+		<result property="departmentId" column="department_id"/>
+		<result property="approvalName" column="approval_name"/>
+	</resultMap>
+	
+	<update id="proUpdate" parameterType="Projects">
+		update project 
+		set project_name = #{projectName}, project_price = #{projectPrice}, start_date = #{startDate}, end_date = #{endDate}, department_id = #{departmentId}   
+		where project_id = #{projectId}
+	</update>
+	
+	<!-- 리스트 뿌려주기 -->
+	<select id="salProjects" resultMap="pro" parameterType="map">
+		<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY start_date, end_date DESC) rnum, p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, t.team_name teamName,  d.department_name deptName 
+	    	FROM projects p, departments d, teams t 
+	    	WHERE p.department_id = d.department_id and p.team_id = t.team_id(+) ]]> 
+	 		<if test="apping != null">
+	    		and p.approval is null 
+	    	</if> -->
+	    	<if test="appnot != null">
+	    		and p.approval = 'X'
+	    	</if>
+	    	<if test="append != null">
+	    		<![CDATA[and p.end_date <= sysdate and approval = 'O']]> 
+	    	</if>
+	    <![CDATA[)  
+	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        ORDER BY start_date, end_date DESC
+	    ]]> 
+	</select>
+	<!-- 글 개수 -->
+    <select id="salProjectTotle" resultType="Integer" parameterType="map">
+        SELECT NVL(COUNT(start_date), 0) 
+        FROM projects 
+     	<where>
+       		<if test="apping != null">
+	    		<![CDATA[and approval is null]]> 
+	    	</if>
+	    	<if test="appnot != null">
+	    		<![CDATA[and approval = 'X']]> 
+	    	</if>
+	    	<if test="append != null">
+	    		<![CDATA[and end_date <= sysdate and approval = 'O']]> 
+	    	</if>
+	    	and 1=1
+	    </where> 
+    </select>
+    
+    <select id="salProjectByProId" resultMap="pro" parameterType="String">
+        select p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, t.team_name teamName,  d.department_name deptName
+        FROM projects p, departments d, teams t
+        where p.department_id = d.department_id and p.team_id = t.team_id(+) and p.project_id =#{proId}
+    </select>
+</mapper>

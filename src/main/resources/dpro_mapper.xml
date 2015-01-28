@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.omg.dpro">
+<resultMap type="DProcess" id="dto">
+<result property="projectId" column="PROJECT_ID"/>
+<result property="projectName" column="PROJECT_NAME"/>
+<result property="startDate" column="START_DATE"/>
+<result property="endDate" column="END_DATE"/>
+<result property="tech" column="TECH_ID"/>
+<result property="techName" column="TECH_NAME"/>
+<result property="teamId" column="TEAM_ID"/>
+<result property="departmentId" column="DEPARTMENT_ID"/>
+<result property="employeeId" column="EMPLOYEE_ID"/>
+<result property="name" column="NAME"/>
+<result property="phone" column="PHONE"/>
+<result property="email" column="EMAIL"/>
+<result property="positionName" column="POSITION_NAME"/>
+</resultMap>
+<select id="dpro" resultMap="dto" parameterType="String">
+<![CDATA[ select * from employees e, project_emp pe, projects pro, project_tech prote, techs tech
+where pe.employee_id= e.employee_id
+and pe.project_id = pro.project_id
+and prote.project_id = pro.project_id
+and prote.tech_id = tech.tech_id
+and e.employee_id= #{employeeId}
+and sysdate >= start_date and sysdate <= end_date]]>
+</select>
+
+<select id="listColleague" resultMap="dto">
+<![CDATA[
+select * from project_emp pe, employees e, position po
+where pe.EMPLOYEE_ID=e.EMPLOYEE_ID
+and e.position_id=po.position_id
+and project_id=
+(
+select pe.PROJECT_ID from employees e, project_emp pe, projects pro, project_tech prote, techs tech
+where pe.employee_id= e.employee_id
+and pe.project_id = pro.project_id
+and prote.project_id = pro.project_id
+and prote.tech_id = tech.tech_id
+and sysdate >= start_date and sysdate <= end_date
+and e.employee_id= #{employeeId})
+]]>
+</select>
+
+<select id="listProjects" resultMap="dto" parameterType="String">
+<![CDATA[ select * from employees e, project_emp pe, projects pro, project_tech prote, techs tech
+where pe.employee_id= e.employee_id
+and pe.project_id = pro.project_id
+and prote.project_id = pro.project_id
+and prote.tech_id = tech.tech_id
+and e.employee_id= #{employeeId}
+and sysdate >= end_date]]>
+</select>
+
+<select id="startProjects" resultMap="dto" parameterType="String">
+<![CDATA[ select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp, project_tech prote, techs tech
+where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
+and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
+and prote.project_id = pro.project_id
+and prote.tech_id = tech.tech_id
+and pro.START_DATE>=sysdate
+and emp.EMPLOYEE_ID = #{employeeId} ]]>
+</select>
+
+<select id="SCV" resultMap="dto">
+select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID from employees e, position p
+where e.POSITION_ID = p.POSITION_ID
+and e.DEPARTMENT_ID = 'D'
+and e.EMPLOYEE_ID not in (
+select e.EMPLOYEE_ID from employees e, project_emp pe
+where e.EMPLOYEE_ID = pe.EMPLOYEE_ID)
+</select>
+
+<select id="team" resultMap="dto">
+select * from teams
+where team_id like 'D%'
+</select>
+</mapper>

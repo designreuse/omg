@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.omg.employee">
+	<resultMap type="Employees" id="dto">
+		<result property="teamId" column="team_id"/>
+		<result property="departmentId" column="department_id"/>
+		<result property="positionId" column="position_id"/>
+		<result property="employeeId" column="employee_id"/>
+	</resultMap>
+	
+	<resultMap type="Employees" id="dto2">
+		<result property="posName" column="position_name"/>
+		<result property="teamName" column="team_name"/>
+		<result property="deptName" column="department_name"/>
+		<result property="teamId" column="team_id"/>
+		<result property="employeeId" column="employee_id"/>
+		<result property="departmentId" column="department_id"/>
+		<result property="positionId" column="position_id"/>
+		<result property="maxSalary" column="max_salary"/>
+		<result property="minSalary" column="min_salary"/>
+	</resultMap>
+	
+	<select id="selectEmpList" resultMap="dto">
+		select * from employees
+	</select>
+	<select id="selectEmpinfo" resultMap="dto" parameterType="String">
+		select * from employees where department_id = #{deptID}
+	</select>
+	
+	<select id="selectPassword" resultMap="dto" parameterType="Employees">
+		select * from employees where employee_id = #{employeeId} and password = #{password}
+	</select>
+	<select id="passSeurch" resultMap="dto" parameterType="map">
+		select * from employees where employee_id = #{empId} and name = #{name} and email = #{email}
+	</select>
+	
+	<select id = "selectlist" resultMap="dto" parameterType="String">
+	select * from employees where employee_id=#{empid}
+	</select>
+	
+	<update id= "updateinfo" parameterType="Employees">
+	update employees set password=#{password},phone=#{phone},address=#{address},email=#{email}
+	where employee_id=#{employeeId}
+	</update>
+	
+	<!-- 인사.회계팀 일반사용자 부서별 직원정보 조회 -->
+	<select id="p_selectEmp" parameterType="String" resultMap="dto2">
+		select e.employee_id, e.name, d.department_name, t.team_name, p.position_name, e.salary, e.hiredate, e.phone, e.address, e.commition
+		from employees e, departments d, teams t, position p
+		where e.department_id = d.department_id
+		and  e.team_id = t.team_id(+)
+		and  e.position_id = p.position_id
+		and  e.department_id = #{departmentId}
+	</select>
+	
+	<!-- 인사.회계팀 일반사용자 직원정보 수정 -->
+	<update id= "p_updateEmp" parameterType="Employees">
+		update employees set department_id=#{departmentId}, team_id=#{teamId}, position_id=#{positionId}, salary=#{salary},manager=#{manager}, commition=#{commition}
+		where employee_id=#{employeeId}
+	</update>
+	
+	<!-- 인사.회계팀 일반사용자 직원 삭제 -->
+	<delete id="p_deleteEmp" parameterType="String">
+		delete from employees where employee_id=#{employeeId} 
+	</delete>
+	
+	<!-- 인사.회계팀 일반사용자 직원 등록 -->
+	<insert id="p_insertEmp" parameterType="Employees">
+		insert into employees (employee_id, name, phone, address, salary, manager, position_id, department_id, team_id, hiredate, password, gender)
+		values(#{employeeId},#{name},#{phone},#{address},#{salary},#{manager},#{positionId},#{departmentId},#{teamId},#{hiredate},#{password},#{gender})
+	</insert>
+	
+</mapper>

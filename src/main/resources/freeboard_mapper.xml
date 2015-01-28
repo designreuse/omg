@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.omg.freeboard">
+	<resultMap type="FreeBoard" id="dto">
+		<result property="freeboardNum" column="FREEBOARD_NUM" />
+		<result property="title" column="TITLE" />
+		<result property="content" column="CONTENT" />
+		<result property="writer" column="WRITER" />
+		<result property="writerName" column="Name"/>
+		<result property="credate" column="CREDATE" />
+	</resultMap>
+	<resultMap type="Comments" id="dto2">
+		<result property="commentsNum" column="COMMENTS_NUM" />
+		<result property="freeboardNum" column="FREEBOARD_NUM" />
+		<result property="commentsWriter" column="COMMENTS_WRITER" />
+		<result property="commentsContent" column="COMMENTS_CONTENT" />
+		<result property="commentsCredate" column="COMMENTS_CREDATE" />
+	</resultMap>
+	<insert id="insertBoard" parameterType="FreeBoard">
+		insert into FREEBOARD
+		(FREEBOARD_NUM, Title, CONTENT, WRITER, CREDATE)
+		values(free_seq.nextval ,#{title}, #{content}, #{writer}, sysdate)
+	</insert>
+
+	<select id="FreeBoard" parameterType="java.util.Map" resultMap="dto">
+  	<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY FREEBOARD_NUM DESC) rnum, 
+	    			FREEBOARD_NUM, Title, CONTENT, WRITER, CREDATE, COUNT FROM FREEBOARD
+	    
+	        )  WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        	ORDER BY FREEBOARD_NUM DESC
+	    ]]>
+	</select>
+
+	<select id="totalCount" resultType="Integer">
+		SELECT
+		NVL(COUNT(FREEBOARD_NUM), 0) FROM FREEBOARD
+	</select>
+
+	<select id="detailBoard" resultMap="dto">
+		select FREEBOARD_NUM, Title, CONTENT, WRITER, e.NAME NAME, CREDATE
+		from FREEBOARD f, EMPLOYEES e
+		where e.EMPLOYEE_ID = f.WRITER
+		and FREEBOARD_NUM = #{freeboardNum}
+	</select>
+	<delete id="deleteBoard" parameterType="Integer">
+		delete from FREEBOARD
+		where FREEBOARD_NUM = #{freeboardNum}
+	</delete>
+	<update id="updateBoard" parameterType="FreeBoard">
+		update FREEBOARD set
+		CONTENT = #{content}, Title = #{title} where
+		FREEBOARD_NUM=#{freeboardNum}
+	</update>
+	<update id="countBoard" parameterType="Integer">
+		update FREEBOARD
+		set
+		COUNT=COUNT+1
+		where FREEBOARD_NUM=#{freeboardNum}
+	</update>
+	
+	<select id="selectListBoard" parameterType="java.util.Map" resultMap="dto">
+  	<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY FREEBOARD_NUM DESC) rnum, FREEBOARD_NUM, Title, CONTENT, WRITER, CREDATE, COUNT 
+	    	from FREEBOARD
+	    	where title like '%'||#{title}||'%') 
+	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	       	ORDER BY FREEBOARD_NUM DESC
+	    ]]>
+	</select>
+	
+<!-- 댓글 -->
+	<insert id="insertComments" parameterType="Comments">
+		insert into COMMENTS
+		(COMMENTS_NUM, FREEBOARD_NUM, COMMENTS_WRITER,
+		COMMENTS_CONTENT,
+		COMMENTS_CREDATE)
+		values(COMMENTS_SEQ.nextval , #{freeboardNum},
+		#{commentsWriter}, #{commentsContent},
+		sysdate)
+	</insert>
+	<select id="listComments" parameterType="Integer"
+		resultMap="dto2">
+	<!-- <![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY COMMENTS_NUM DESC) rnum, 
+	    			COMMENTS_NUM , COMMENTS_WRITER, COMMENTS_CONTENT, COMMENTS_CREDATE FROM COMMENTS
+	    
+	        )  WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        	ORDER BY COMMENTS_NUM DESC
+	    ]]> -->
+	    select * from COMMENTS where FREEBOARD_NUM = #{FREEBOARD_NUM} order by COMMENTS_NUM
+	</select>
+	
+	<delete id="deleteComment" parameterType="Integer">
+		delete from COMMENTS
+		where COMMENTS_NUM = #{COMMENTS_NUM}
+	</delete>
+	
+	<delete id="deleteComments" parameterType="Integer">
+		delete from COMMENTS
+		where FREEBOARD_NUM = #{FREEBOARD_NUM}
+	</delete>
+	
+	<!-- <select id="commentsTotal" resultType="Integer">
+		SELECT
+		NVL(COUNT(COMMENTS_NUM), 0) FROM COMMENTS
+	</select> -->
+                 
+</mapper>

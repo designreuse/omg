@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.omg.message">
+	<resultMap type="Messages" id="dto">
+		<result property="messageNum" column="message_num"/>
+		<result property="sendId" column="send_id"/>
+		<result property="receiveId" column="receive_id"/>
+	</resultMap>
+	
+	<insert id="sendMessage" parameterType="Messages">
+		insert into messages(message_num, send_id, receive_id, title, content, credate) 
+		values(meg_seq.nextval, #{sendId}, #{receiveId}, #{title}, #{content}, sysdate)
+	</insert>
+	
+	<!-- 글 개수 -->
+    <select id="totalCount" resultType="Integer" parameterType="String">
+        SELECT NVL(COUNT(message_num), 0) 
+        FROM messages WHERE receive_id=#{receiveId}
+    </select>
+    
+    <!-- 리스트 -->
+	<select id="selectMsgs" parameterType="java.util.Map" resultMap="dto">
+		<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY message_num DESC) rnum, message_num, send_id, receive_id, credate, title, content 
+	    	FROM messages WHERE receive_id=#{receiveId})  
+	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        ORDER BY message_num DESC
+	    ]]> 
+	</select>
+	<select id="selectMsg" resultMap="dto" parameterType="String">
+		select * from messages where receive_id=#{receiveId} order by credate desc
+	</select>
+	
+	<select id="selectByNum" resultMap="dto" parameterType="int">
+		select * from messages where message_num=#{messageNum} 
+	</select>
+	
+	<!-- 검색 후 글갯수 -->
+	<select id="selectMsgByName" resultMap="dto" parameterType="map">
+		<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY message_num DESC) rnum, message_num, send_id, receive_id, credate, title, content 
+	    	FROM messages WHERE receive_id=#{receiveId} AND send_id=#{sendId})  
+	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        ORDER BY credate DESC
+	    ]]>
+	</select>
+	
+	<!-- 검색 후 글 개수 -->
+    <select id="totalCountByName" resultType="Integer" parameterType="map">
+        SELECT NVL(COUNT(message_num), 0) 
+        FROM messages WHERE receive_id=#{receiveId} AND send_id=#{sendId}
+    </select>
+	
+	<delete id="deleteMsg" parameterType="int">
+		delete from messages 
+		<where>
+			<foreach item="msg" index="msgnums" collection="array" open="message_num in (" close=")" separator=",">
+				#{msg}
+			</foreach>
+		</where>
+	</delete>
+</mapper>

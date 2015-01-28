@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.omg.study">
+	<resultMap type="Studys" id="dto">
+		<result property="studyNum" column="study_num"/>
+		<result property="studyName" column="study_name"/>
+		<result property="memberCnt" column="member_cnt"/>
+		<result property="writer" column="writer"/>
+		<result property="studyday" column="studyday"/>
+		<result property="employeeId" column="employee_id"/>
+		<result property="teamName" column="team_name"/>
+		<result property="name" column="name"/>
+		<result property="joincnt" column="count"/>
+		<result property="startDate" column="start_date"/>
+		<result property="techName" column="tech_name"/>
+		<result property="departmentName" column="department_name"/> 
+	</resultMap> 
+	
+	<!-- 스터디 조회 (select)-->
+	<select id="listStudy" resultMap="dto" parameterType="map">
+		<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY study_num DESC) rnum, study_num, study_name,member_cnt,writer,count, name, studyday,start_date,tech_name
+			from studys s, employees e where s.writer = e.employee_id order by study_num desc)  
+	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        ORDER BY study_num DESC
+	    ]]> 
+	</select>
+	<!-- 스터디 조회 (select) POST-->
+	<select id="listStudy2" resultMap="dto" >
+		select   study_num, study_name,member_cnt,writer,count, name, studyday,start_date, tech_name
+		from studys s, employees e
+		where s.writer = e.employee_id 
+		order by study_num desc
+	</select>
+	<!-- 새로운 스터디 등록(insert) -->
+	<insert id="insertStudy" parameterType="Studys">
+		insert into studys(study_num,study_name,member_cnt,writer,studyday,start_date,tech_name)
+		 values(num.nextval,#{studyName},#{memberCnt},#{writer},#{studyday},#{startDate},#{techName})
+	</insert>
+	
+	<!-- 기술테이블에서 기술 조회 (select) -->
+	<select id="selectTech" resultType="String" >
+		select tech_name
+		from techs
+	</select>
+	
+	<!-- 신청자 수  증가 -->
+	<update id="updateJoinCnt" parameterType="Integer">
+		update studys
+		set
+		count=count+1
+		where study_num=#{studyNum}
+	</update>
+	
+	<!-- 신청자 수  감소 -->
+	<update id="minusJoinCnt" parameterType="Integer">
+		update studys
+		set
+		count=count-1
+		where study_num=#{studyNum}
+	</update>
+	
+	
+	<!-- 스터디 삭제(delete)  -->
+	<delete id="deleteStudy" parameterType="map">
+		delete from studys where writer=#{writer} and study_num=#{studyNum} 
+	</delete>
+	
+	<!-- 스터디 삭제하기 전 참여하고 있는 직원들 삭제 (delete) -->
+	<delete id="deleteStudyMem" parameterType="int">
+		delete from study_supply where study_num=#{studyNum}		
+	</delete>
+	
+	
+	<!-- 스터디 참여신청(insert)  studynum vs studyname 어떤걸로 입력줄까? (스터디 구분) -->
+	<insert id="joinStudy" parameterType="Studys">
+		insert into study_supply values(#{userId},#{studyNum},sysdate)
+	</insert>
+	
+	<!-- 신청한 스터디 인지 확인(select) -->
+	<select id="infostudy" parameterType="map" resultMap="dto">
+		select *
+		from study_supply
+		where employee_id = #{employeeId}
+	    and study_num = #{studyNum}
+	</select>
+	
+	<!-- 신청한 스터디 목록보기(select) -->
+	<select id="myStudy" resultMap="dto" parameterType="String">
+		select s.study_num, s.study_name, e.name, s.studyday 
+		from studys s, study_supply a, employees e
+		where s.study_num=a.study_num
+		and s.writer = e.employee_id
+		and a.employee_id=#{employeeId} 
+	</select>
+	
+	<!-- 스터디 참여취소(delete)  -->
+	<delete id="cancelStudy" parameterType="map">
+		delete from study_supply where employee_id=#{employeeId} and study_num=#{studyNum}		
+	</delete>
+	
+	<!-- 스터디 신청한 직원들 목록보기(select) -->
+	<select id="studentList" resultMap="dto" parameterType="int">
+	select e.employee_id, e.name, d.department_name, a.supplydate
+	from studys s, study_supply a, employees e, departments d
+	where s.study_num = a.study_num
+		and  a.employee_id = e.employee_id
+		and e.department_id = d.department_id
+		and  s.study_num=#{studyNum}
+	</select>
+	
+	<!-- 해당 스터디 정보 조회 (select) -->
+	<select id="studyByNum"  resultMap="dto" parameterType="int">
+		select * 
+		from studys
+		where study_num=#{studyNum}
+	</select>
+	
+	<!-- 스터디 정보 수정 (update) -->
+	<update id="studyUpdate" parameterType="Studys">
+		update studys 
+		set member_cnt=#{memberCnt} , studyday=#{studyday}
+		where study_num=#{studyNum}
+	</update>
+ 
+	<!-- 스터디 수(select) -->
+	<select id="totalStudy"  resultType="Integer">
+		SELECT NVL(COUNT(study_num), 0) 
+        FROM studys
+	</select>
+	
+</mapper>

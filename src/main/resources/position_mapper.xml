@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.omg.position">
+	<resultMap type="Position" id="dto">
+		<result property="positionId" column="position_id" />
+		<result property="positionName" column="position_name" />
+		<result property="maxSalary" column="max_salary" />
+		<result property="minSalary" column="min_salary" />
+	</resultMap>
+
+	<select id="selectAll" resultMap="dto">
+		select * from position
+	</select>
+	
+	<!-- 인사.회계팀 일반사용자 직원 등록시 연봉 체크 -->
+	<select id="p_salarySelect" resultMap="dto" parameterType="String">
+		select max_salary, min_salary
+		from position
+		where position_id=#{positionId}
+	</select>
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam.notice.mapper">
+	<resultMap type="Notice" id="dto">
+		<result property="notice_num" column="notice_num" />
+		<result property="departmentId" column="department_id" />
+	</resultMap>
+
+	<resultMap type="Notice" id="dto2">
+		<result property="notice_num" column="notice_num" />
+		<result property="departmentId" column="department_id" />
+		<result property="title" column="title" />
+		<result property="checked" column="checked" />
+		<result property="writer" column="writer" />
+		<result property="writerName" column="writerName" />
+		<result property="content" column="content" />
+		<result property="count" column="count" />
+	</resultMap>
+
+
+
+
+
+	<select id="insertboard" parameterType="Notice">
+		insert into
+		notices(notice_num,credate,content,title,checked,writer,department_id)
+		values(notice_num.nextval,sysdate,#{content},#{title},#{checked},#{writer},#{departmentId})
+	</select>
+
+
+	<select id="detailNotice" resultMap="dto2" parameterType="int">
+		select * from notices where notice_num=#{notice_num}
+
+	</select>
+
+
+
+	<delete id="deleteNotice" parameterType="string">
+		delete from notices where notice_num = #{delete}
+	</delete>
+
+
+	<update id="updateNotice" parameterType="Notice">
+
+		update notices
+		set content=#{content},title=#{title},checked=#{checked}
+		where notice_num=#{notice_num}
+
+	</update>
+
+	<update id="countNotice" parameterType="Integer">
+		update notices
+		set count=count+1
+		where notice_num=#{notice_num}
+	</update>
+
+
+
+	<!-- 리스트 CDATA는 등호들을 문자화 시켜준다  그냥 공지사항 리스트 보이기-->
+	<select id="listboard" parameterType="java.util.Map" resultMap="dto2">
+		<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY notice_num DESC) rnum, 
+	    			notice_num,credate,content,title,checked,writer,department_id,count FROM notices
+	    			where checked='O'
+	    
+	        )  WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        	ORDER BY notice_num DESC
+	    ]]>
+	</select>
+
+
+
+
+	<!-- 글 개수 -->
+	<select id="totalCount" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(notice_num), 0) FROM notices
+		<if test="dept!=null">
+		where department_id=#{dept}
+		and checked=#{checked}
+		</if>
+		<if test="dept==null">
+		where checked='O'
+		</if>
+
+
+
+	</select>
+
+
+
+
+	<!--부서별로 글쓴 리스트 나타내기  -->
+	<select id="listdept" parameterType="map" resultMap="dto2">
+		<if test="dept==null">
+			<![CDATA[ SELECT * FROM (
+	    			SELECT ROW_NUMBER() OVER(ORDER BY notice_num DESC) rnum, 
+	    				notice_num,credate,content,title,checked,writer,department_id,count FROM notices			
+	    				where checked=#{checked}
+	    
+	        	)  WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        		ORDER BY notice_num DESC
+	    	]]>
+	    </if>
+	    <if test="dept!=null">
+	    	<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY notice_num DESC) rnum, 
+	    			notice_num,credate,content,title,checked,writer,department_id,count FROM notices			
+	    			where department_id=#{dept} and checked=#{checked}
+	    
+	        )  WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        	ORDER BY notice_num DESC
+	    ]]>
+	    </if>
+	</select>
+
+
+	<!-- 글 개수 -->
+	<select id="totalCountdept" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(notice_num), 0) FROM notices
+		where
+		department_id=#{departmentId} and checked=#{checked}
+	</select>
+
+</mapper>
