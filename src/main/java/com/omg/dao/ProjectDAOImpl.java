@@ -22,8 +22,8 @@ public class ProjectDAOImpl implements ProjectDAO {
 	@Override
 	public List<Projects> selectProject(int page, int date) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		int startPage = (page-1) * 10 + 1;
-		int endPage = startPage + (10 - 1);
+		int startPage = (page-1) * 15 + 1;
+		int endPage = startPage + (15 - 1);
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
 		if(date == 1){

@@ -29,7 +29,7 @@
 		startpage = 1;
 		endpage = 0;
 		total = 0;
-		enddateck= 1;				// 날짜 하는것..
+		date = 0;				// 날짜 하는것..
 		$.ajax({          			// 프로잭트 기술 보여주기
 			url : "techlist",
 			dataType : "json",
@@ -37,7 +37,7 @@
 				$("#techlist").empty();
 				var td = "";
 				$.each(json, function(index, item) {
-					td += "<tr><td>"+item.techName+"</td></tr>";
+					td += "<tr><td>"+item.techName+"("+item.techId+")"+"</td></tr>";
 				});
 				$(td).appendTo($("#techlist"));
 			}
@@ -46,23 +46,23 @@
 		$.ajax({          			// 프로잭트 리스트 보여주기
 			url : "salProlist",
 			dataType : "json",
-			data : "page="+startpage+"&date=0",
+			data : "page="+startpage+"&date="+date,
 			success : function(json) {
 				if(json != ""){
 					$("#prolist").empty();
 					$.each(json, function(index, item) {
 						td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
-							 "<td>"+item.deptName+"</td>"+
-							 "<td>"+item.projectName+"</td>"+
+							 "<td>"+item.deptName+"</a></td>"+
+							 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' protech='해야됨'  app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 							 "<td>"+item.startDate+"</td>"+
 							 "<td>"+item.endDate+"</td>"+
 							 "<td>"+item.projectPrice+"</td>";
 							 if(item.approval == null){
-									td += "<td style='color:red;'>승인대기</td>"+
-										  "<td style='color:red;'>확인중</td>";
+									td += "<td style='color:blue;'>승인대기</td>"+
+										  "<td style='color:blue;'>확인중</td>";
 							 }else if(item.approval == 'X'){
-								 td += "<td>"+item.approval+"</td>"+
-								 	   "<td style='color:red;'>불가</td>";
+								 td += "<td style='color:red;'>"+item.approval+"</td>"+
+								 	   "<td style='color:red;'>"+item.approvalName+"</td>";
 							 }else {
 								 td += "<td>"+item.approval+"</td>";
 								 if(item.approvalName == null){
@@ -83,16 +83,17 @@
 		$.ajax({					// ProjectList 페이지 총페이지수 구하기
 			url: "salPrototle" ,
 			dataType: "text",
-			data : "date=0",
+			data : "date="+date,
 			success : function(text) {
-				endpage = parseInt(((text-1) / 10) + 1);
+				endpage = parseInt(((text-1) / 15) + 1);
 				$("#page").text(startpage);
 				$("#total").text(text);
 				$("#nextdesc").removeClass("disabled");
 			}
 		});
 		
-		function ckdatelist(date) {								// 버튼이 눌렸을경우
+		function ckdatelist(date2) {								// 버튼이 눌렸을경우
+			date = date2;
 			$.ajax({          								// 프로잭트 리스트 보여주기
 				url : "salProlist",
 				dataType : "json",
@@ -103,16 +104,16 @@
 						$.each(json, function(index, item) {
 							td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
 								 "<td>"+item.deptName+"</td>"+
-								 "<td>"+item.projectName+"</td>"+
+								 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' protech='해야됨' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 								 "<td>"+item.startDate+"</td>"+
 								 "<td>"+item.endDate+"</td>"+
 								 "<td>"+item.projectPrice+"</td>";
 								 if(item.approval == null){
-										td += "<td style='color:red;'>승인대기</td>"+
-											  "<td style='color:red;'>확인중</td>";
+										td += "<td style='color:blue;'>승인대기</td>"+
+											  "<td style='color:blue;'>확인중</td>";
 								 }else if(item.approval == 'X'){
-									 td += "<td>"+item.approval+"</td>"+
-									 	   "<td style='color:red;'>불가</td>";
+									 td += "<td style='color:red;'>"+item.approval+"</td>"+
+									 	   "<td style='color:red;'>"+item.approvalName+"</td>";
 								 }else {
 									 td += "<td>"+item.approval+"</td>";
 									 if(item.approvalName == null){
@@ -132,7 +133,7 @@
 				dataType: "text",
 				data : "date="+date,
 				success : function(text) {
-					endpage = parseInt(((text-1) / 10) + 1);
+					endpage = parseInt(((text-1) / 15) + 1);
 					$("#page").text(startpage);
 					$("#total").text(text);
 					$("#nextdesc").removeClass("disabled");
@@ -164,25 +165,26 @@
 		$("#buttoncontroll").on("click","#nextasc",function() {
 			startpage--;
 			if(startpage >= 1){
-				$.ajax({          								// 프로잭트 리스트 보여주기
+				$.ajax({          			// 프로잭트 리스트 보여주기
 					url : "salProlist",
 					dataType : "json",
-					data : "page="+startpage,
+					data : "page="+startpage+"&date="+date,
 					success : function(json) {
-						$("#prolist").empty();
-						$.each(json, function(index, item) {
-							td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
-								 "<td>"+item.deptName+"</td>"+
-								 "<td>"+item.projectName+"</td>"+
-								 "<td>"+item.startDate+"</td>"+
-								 "<td>"+item.endDate+"</td>"+
-								 "<td>"+item.projectPrice+"</td>";
-								 if(item.approval == null){
-										td += "<td style='color:red;'>승인대기</td>"+
-											  "<td style='color:red;'>확인중</td>";
+						if(json != ""){
+							$("#prolist").empty();
+							$.each(json, function(index, item) {
+								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
+									 "<td>"+item.deptName+"</a></td>"+
+									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' protech='해야됨' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+									 "<td>"+item.startDate+"</td>"+
+									 "<td>"+item.endDate+"</td>"+
+									 "<td>"+item.projectPrice+"</td>";
+									 if(item.approval == null){
+											td += "<td style='color:blue;'>승인대기</td>"+
+												  "<td style='color:blue;'>확인중</td>";
 									 }else if(item.approval == 'X'){
-										 td += "<td>"+item.approval+"</td>"+
-										 	   "<td style='color:red;'>불가</td>";
+										 td += "<td style='color:red;'>"+item.approval+"</td>"+
+										 	   "<td style='color:red;'>"+item.approvalName+"</td>";
 									 }else {
 										 td += "<td>"+item.approval+"</td>";
 										 if(item.approvalName == null){
@@ -190,10 +192,10 @@
 										 }else{
 											 td +="<td>"+item.approvalName+"</td>"; 
 										 }
-									 }
-								 
-							$("<tr>"+td+"</tr>").appendTo($("#prolist"));
-						});
+									}
+								$("<tr>"+td+"</tr>").appendTo($("#prolist"));
+							});
+						}
 					}
 				});
 				$("#page").text(startpage);
@@ -212,35 +214,37 @@
 		$("#buttoncontroll").on("click","#nextdesc",function() {
 			startpage++;
 			if(startpage <= endpage){
-				$.ajax({          								// 프로잭트 리스트 보여주기
+				$.ajax({          			// 프로잭트 리스트 보여주기
 					url : "salProlist",
 					dataType : "json",
-					data : "page="+startpage,
+					data : "page="+startpage+"&date="+date,
 					success : function(json) {
-						$("#prolist").empty();
-						$.each(json, function(index, item) {
-							td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
-								 "<td>"+item.deptName+"</td>"+
-								 "<td>"+item.projectName+"</td>"+
-								 "<td>"+item.startDate+"</td>"+
-								 "<td>"+item.endDate+"</td>"+
-								 "<td>"+item.projectPrice+"</td>";
-								 if(item.approval == null){
-									td += "<td style='color:red;'>승인대기</td>"+
-										  "<td style='color:red;'>확인중</td>";
-								 }else if(item.approval == 'X'){
-									 td += "<td style='color:red;'>"+item.approval+"</td>"+
-									 	   "<td style='color:red;'>"+item.approvalName+"</td>";
-							 	 }else {
-									 td += "<td>"+item.approval+"</td>";
-									 if(item.approvalName == null){
-										 td +="<td style='color:blue;'>확인중</td>";
-									 }else{
-										 td +="<td>"+item.approvalName+"</td>"; 
-									 }
-								 }
-							$("<tr>"+td+"</tr>").appendTo($("#prolist"));
-						});
+						if(json != ""){
+							$("#prolist").empty();
+							$.each(json, function(index, item) {
+								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
+									 "<td>"+item.deptName+"</td>"+
+									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' protech='해야됨' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+									 "<td>"+item.startDate+"</td>"+
+									 "<td>"+item.endDate+"</td>"+
+									 "<td>"+item.projectPrice+"</td>";
+									 if(item.approval == null){
+											td += "<td style='color:blue;'>승인대기</td>"+
+												  "<td style='color:blue;'>확인중</td>";
+									 }else if(item.approval == 'X'){
+										 td += "<td style='color:red;'>"+item.approval+"</td>"+
+										 	   "<td style='color:red;'>"+item.approvalName+"</td>";
+									 }else {
+										 td += "<td>"+item.approval+"</td>";
+										 if(item.approvalName == null){
+											 td +="<td style='color:blue;'>확인중</td>";
+										 }else{
+											 td +="<td>"+item.approvalName+"</td>"; 
+										 }
+									}
+								$("<tr>"+td+"</tr>").appendTo($("#prolist"));
+							});
+						}
 					}
 				});
 				$("#page").text(startpage);
@@ -288,16 +292,33 @@
 										<!-- BOXES are complex enough to move the .box-header around.
                                                  This is an example of having the box header within the box body -->
 										<div class="box-header">
-											<div id="proinsert" ><!-- 팀장이 프로잭트 등록하기  -->
+											<div id="proinsert" align="center"><!-- 팀장이 프로잭트 등록하기  -->
+												<form action="insert" method="post">
+													<h6><b> 프로젝트 등록창</b></h6>
+													<table border="1" style="border-top: solid;">
+														<tbody ><!-- 프로잭트 기술 등록 하기 -->
+															<tr><th colspan="2" style="background-color: #ccffaa;text-align: center;"> 프로젝트 등록 </th></tr>
+															<tr><th>프 로 젝 트<br>ID</th><td><input type="text" name="proid" /></td></tr>
+															<tr><th>프 로 젝 트</th><td><input type="text" name="proname" /></td></tr>
+															<tr><th>금 액 </th><td><input type="text" name="proprice" /></td></tr>
+															<tr><th>시작일<br>(y-m-d)</th><td><input type="text" name="start" /></td></tr>
+															<tr><th>종료일<br>(y-m-d)</th><td><input type="text" name="end" /></td></tr>
+															<tr><th>부서ID</th><td><input type="text" name="deptId" /><br>(개발:D, 유지보수:M)</td></tr>
+														</tbody>
+													</table>
+													<div align="right">
+														<input type="submit" value="입력"><input type="reset" value="리셋">
+													</div>
+												</form>
 											</div>
 										</div>
 										<div style="margin-top: 15px;"> 
-											<div id="proinsert">
-												<h6><b>현제 회사의 기술들 목록</b></h6>
+											<div align="center">
+												<h6><b>회사 기술 목록</b></h6>
 												<div class="table-responsive">
 													<table border="1" style="border-top: solid;">
 														<thead>
-															<tr align="center" style="background-color: #ccffaa; color: #3333ff">
+															<tr align="center" style="background-color: #ccffaa;">
 																<th width="130"><h5> 기술명 </h5></th>
 															</tr>
 														</thead>
@@ -308,21 +329,21 @@
 														</tbody>
 													</table>
 												</div>
-												<div class="table-responsive">
-													<table border="1" style="border-top: solid;">
-														<tbody id="insertProTech"><!-- 프로잭트 기술 등록 하기 -->
-															<tr><th colspan="2"> 프로젝트 증록하는 화면 </th></tr>
-															<tr><th>프 로 젝 트<br>ID:</th><td><input type="text" name="proid" /></td></tr>
-															<tr><th>프 로 젝 트:</th><td><input type="text" name="proname" /></td></tr>
-															<tr><th>금 액 :</th><td><input type="text" name="proprice" /></td></tr>
-															<tr><th>시작일<br>(y-m-d):</th><td><input type="text" name="start" /></td></tr>
-															<tr><th>종료일<br>(y-m-d):</th><td><input type="text" name="end" /></td></tr>
-															<tr><th>부서ID:</th><td><input type="text" name="deptId" /><br>부서(개발:D, 유지보수:M)</td></tr>
-														</tbody>
-													</table>
+												<div class="table-responsive" align="center">
+													<form action="insert" method="post">
+														<h6><b> 프로젝트 기술 등록창 </b></h6>
+														<table border="1" style="border-top: solid;">
+															<tbody id="insertProTech"><!-- 프로잭트 기술 등록 하기 -->
+																<tr><th colspan="2" style="background-color: #ccffaa;text-align: center;"> 기술 등록 </th></tr>
+																<tr><th colspan="2" style="text-align: center;color: red;"> 프로젝트를 선택해주세요! </th></tr>
+															</tbody>
+														</table>
+														<div id="insertProTechBtn" align="right">
+														</div>
+													</form>
 												</div>
 											</div>
-																					</div>
+										</div>
 									</div>
 									<!-- /.col (LEFT) -->
 									<div class="col-md-9 col-sm-8">
@@ -367,10 +388,6 @@
 							</div>
 							<!-- /.box-body -->
 							<div class="box-footer clearfix">
-								<div class="col-sm-6" id="insertbtn"><!-- 등록 버튼 이곳에 -->
-									<a id="ProInBtn" class="btn btn-default">프로젝트 등록</a>
-									<a id="ProTechInBtn" class="btn btn-default">프로젝트 기술 등록</a>
-								</div>
 								<div id="buttoncontroll" class="pull-right">
 								<span id="page"></span>/<span id="total"></span>
 									<span id="buttoncontroll">
@@ -430,13 +447,12 @@
 						alert('한개만 선택해주세요!!');
 					}
 				}else{
-					alert('이미 승인되어 프로젝트를 하고 있습니다.');
+					alert('승인된 프로젝트 수정 불가');
 				}
 			});
 			
 			// 삭제하는 부분  -> 팀장
 			$("#deletepro").click(function() {
-				alert("삭제");
 				var cbox = [];
 				$("input[name=cbox]:checked").each(function() {
 					cbox.push($(this).val());
@@ -449,7 +465,29 @@
 				}
 			});
 			
-			// 
+			// thch 보여주기 및 입력하기
+			$("#prolist").on("click", "#proInTech", function() {
+				var proid = $(this).attr("proid");
+				var proname = $(this).attr("proname");
+				var protech = $(this).attr("protech");
+				var app = $(this).attr("app");
+				//alert(proid+"  "+proname+"  "+protech);
+				if(app != 'O'){
+					$("#insertProTech").empty();
+					$("#insertProTechBtn").empty();
+					var protechlist = "<tr><th colspan='2' style='background-color: #ccffaa;text-align: center;'> 기술 등록 </th></tr>"+
+									  "<tr><th>프로젝트<br>ID</th><td>"+proid+"</td></tr>"+
+									  "<tr><th>프로젝트</th><td>"+proname+"</td></tr>"+
+									  "<tr><th>기술 LIST</th><td>"+protech+"</td></tr>"+
+									  "<tr><th>기술 입력(ID)</th><td><input type='text' name='deptId' /></td></tr>";
+					var protechbtn = "<input type='submit' value='입력'><input type='reset' value='리셋'>";
+					$("#insertProTech").append(protechlist);
+					$("#insertProTechBtn").append(protechbtn);
+				}else{
+					alert('승인된 프로젝트 입니다.')
+				}
+			});
+			
 			// 프로젝트 등록하는 것 -> 팀장 이 할 것
 			//var form = ""
 		});
