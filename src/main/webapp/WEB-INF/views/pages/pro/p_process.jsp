@@ -346,7 +346,7 @@
 							str += "</select></td></tr>";
 						}
 					}); 
-					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text' name='salary'></td><span id='sal'></span></tr>";
+					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text'  id='t_sal' name='salary'></td><span id='sal'></span></tr>";
 					str += "<tr>"+"<th>핸드폰</th>"+"<td><input type='text'name='phone'></td></tr>";
 					str += "<tr>"+"<th>주 소</th>"+"<td><input type='text' name='address'></td></tr>";
 					str += "<tr>"+"<th>성 별</th>"+"<td><input type='text'name='gender'></td></tr>";
@@ -356,9 +356,28 @@
 				    str += "<a  class='btn btn-primary btn-sm' id='cancel' >취소</a>";
 				    str += "</form></div>";
 					$(str).appendTo($("#detailview"));  
-			 
+			 		
+					$("#t_sal").keydown(function(){
+						posId = $("select[name='pos']").val();
+						alert(posId);
+						$.ajax({
+							url: "p_salarySelect",
+							data:"posid="+posId,
+							dataType:"json",
+							async: false,
+							success:function(json){
+								min = json.minSalary;
+								max = json.maxSalary;
+								alert(min);
+								
+								$(this).next("#sal").text("minSalary: "+min + " / maxSalary: " +max);
+							}
+						});
+							
+					});
 		
 		});
+		
 		
 		
 		//선택된 직원 삭제하기
