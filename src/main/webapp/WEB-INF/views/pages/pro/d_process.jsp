@@ -67,7 +67,7 @@
 		$.ajax({
 			url : "ListColleague",
 			dataType : "json",
-			async:false,
+			async : false,
 			success : function(json) {
 				$("#ListColleague").empty();
 				var str = "";
@@ -86,61 +86,39 @@
 			}
 		});
 
-		$
-				.ajax({
-					url : "startPro",
-					dataType : "json",
-					success : function(json) {
-						$("#startPro").empty();
-						var str = "";
-						$
-								.each(
-										json,
-										function(index, item) {
-
-											str += "<tr>";
-											str += "<td>" + item.projectName
-													+ "</td>";
-											str += "<td>" + item.techName
-													+ "</td>";
-											str += "<td>" + item.startDate
-													+ "</td>";
-											str += "<td>" + item.endDate
-													+ "</td>";
-											str += "<div >"
-													+ "<td>"
-													+ "<select name='SelectTeam' id='selectTeam'><option>D01</option><option>D02</option><option>D03</option><option>D04</option></select>"
-													+ "</td>" + "</div>";
-											str += "<td>"
-													+ "<input type='button' value='결정'>"
-													+ "<input type='button' value='수정'>"
-													+ "</td>";
-											str += "</tr>";
-
-										});
-						$("#startPro").append(str);
-					}
-				});
-		
 		$.ajax({
-			url : "selectTeam",
+			url : "startPro",
 			dataType : "json",
-			async:false,
 			success : function(json) {
-				$("#selectTeam").empty();
+				$("#startPro").empty();
 				var str = "";
 				$.each(json, function(index, item) {
 
-				
-					str += "<option>" + item.team_id + "</option>";
-
-					
-
-				});
-				$("#selectTeam").append(str);
+					str += "<tr>";
+					str += "<td>" + item.projectName + "</td>";
+					str += "<td>" + item.techName + "</td>";
+					str += "<td>" + item.startDate + "</td>";
+					str += "<td>" + item.endDate + "</td>";
+					$.ajax({
+						url : "selectTeam",
+						dataType : "json",
+						async : false,
+						success : function(json) {
+							str += "<td><select name='selectTeam'>";
+							$.each(json, function(index, item) {
+								
+								str += "<option value="+item.teamName+">"+item.teamName+"</option>";
+		                     });
+		                     str += "</select></td>";
+							}
+						});
+					str += "<td>" + "<input type='button' value='결정'>"
+					+ "<input type='button' value='수정'>" + "</td>";
+			str += "</tr>";
+					});
+				$("#startPro").append(str);
 			}
 		});
-		
 
 		$.ajax({
 			url : "SCVList",
@@ -157,10 +135,7 @@
 					str += "<td>" + item.phone + "</td>";
 					str += "<td>" + item.email + "</td>";
 					str += "<td>" + item.positionName + "</td>";
-					str += "<td>" + item.teamId + "</td>";
-					str += "<div>" + "<td>"
-							+ "<input type='button' value='투입' name='투입'>"
-							+ "</td>" + "</div>";
+					str += "<td>" + item.teamName + "</td>";
 					str += "</tr>";
 
 				});
@@ -197,52 +172,52 @@
 			<section class="content">
 
 				<c:if test="${user.teamId==null}">
-					
-						
-						
-							<div class="box box-solid">
-								<div class="box-header">
-									<h3 class="box-title">Start Projects</h3>
-								</div>
-								<div class="box-body">
-								<div class="row">
 
 
 
-									<!-- /.col (LEFT) -->
-
-									<!-- /.row -->
-									<div class="table-responsive">
-										<table id="gode" class="table table-hover">
-
-											<thead>
-												<tr>
-													<th>Project명</th>
-													<th>관련 기술</th>
-													<th>Start day</th>
-													<th>End day</th>
-													<th>Team</th>
-													<th>[결정/수정]</th>
-												</tr>
-											</thead>
-											<tbody id="startPro">
-											</tbody>
-
-
-										</table>
-									</div>
-
-
-									<!-- /.col (RIGHT) -->
-									<!-- /.row -->
-								</div>
-								<!-- /.box-body -->
-								<div class="box-footer clearfix">
-									<div class="pull-right"></div>
-								</div>
-								<!-- box-footer -->
-							</div>
+					<div class="box box-solid">
+						<div class="box-header">
+							<h3 class="box-title">Start Projects</h3>
 						</div>
+						<div class="box-body">
+							<div class="row">
+
+
+
+								<!-- /.col (LEFT) -->
+
+								<!-- /.row -->
+								<div class="table-responsive">
+									<table id="gode" class="table table-hover">
+
+										<thead>
+											<tr>
+												<th>Project명</th>
+												<th>관련 기술</th>
+												<th>Start day</th>
+												<th>End day</th>
+												<th>Team</th>
+												<th>[결정/수정]</th>
+											</tr>
+										</thead>
+										<tbody id="startPro">
+										</tbody>
+
+
+									</table>
+								</div>
+
+
+								<!-- /.col (RIGHT) -->
+								<!-- /.row -->
+							</div>
+							<!-- /.box-body -->
+							<div class="box-footer clearfix">
+								<div class="pull-right"></div>
+							</div>
+							<!-- box-footer -->
+						</div>
+					</div>
 				</c:if>
 				<%-- <c:if test="${}"> --%>
 				<c:if test="${user.teamId==null}">
@@ -251,33 +226,32 @@
 							<h3 class="box-title">SCV</h3>
 						</div>
 						<div class="box-body">
-							
-
-								<!-- /.col (LEFT) -->
 
 
-								<!-- /.row -->
-								<div class="table-responsive">
-									<table id="gode" class="table table-hover">
-
-										<thead>
-											<tr>
-												<th>Name</th>
-												<th>Phone</th>
-												<th>Email</th>
-												<th>Position</th>
-												<th>Team</th>
-												<th>Register</th>
-											</tr>
-										</thead>
-										<tbody id="SCVList">
-										</tbody>
-									</table>
-								</div>
+							<!-- /.col (LEFT) -->
 
 
-								<!-- /.col (RIGHT) -->
-							
+							<!-- /.row -->
+							<div class="table-responsive">
+								<table id="gode" class="table table-hover">
+
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Phone</th>
+											<th>Email</th>
+											<th>Position</th>
+											<th>Team</th>
+										</tr>
+									</thead>
+									<tbody id="SCVList">
+									</tbody>
+								</table>
+							</div>
+
+
+							<!-- /.col (RIGHT) -->
+
 							<!-- /.row -->
 						</div>
 						<!-- /.box-body -->

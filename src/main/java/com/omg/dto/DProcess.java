@@ -12,6 +12,7 @@ public class DProcess {
 	private String tech;
 	private String techName;
 	private String teamId;
+	private String teamName;
 	private String departmentId;
 	private String employeeId;
 	private String name;
@@ -97,6 +98,10 @@ public class DProcess {
 	public void setPositionName(String positionName) {
 		this.positionName = positionName;
 	}
-	
-	
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 }
