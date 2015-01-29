@@ -332,8 +332,13 @@
 				dataType: "text",
 				success : function(text) {
 					endpage = parseInt(((text-1) / 5) + 1);
-					$("#page").text(startpage);
-					$("#totle").text(text);
+					if(text == 0){
+						$("#page").text(0);
+						$("#totle").text(0);
+					}else{
+						$("#page").text(startpage);
+						$("#totle").text(text);
+					}
 				}
 			});
 			

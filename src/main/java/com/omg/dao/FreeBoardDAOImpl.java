@@ -1,14 +1,12 @@
 package com.omg.dao;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.session.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
-import com.omg.dto.FreeBoard;
+import com.omg.dto.*;
 
 @Repository
 public class FreeBoardDAOImpl implements FreeBoardDAO {
@@ -17,8 +15,7 @@ public class FreeBoardDAOImpl implements FreeBoardDAO {
 
 	@Override
 	public FreeBoard board(int freeboardNum) {
-		return sqlSession.selectOne("com.omg.freeboard.detailBoard",
-				freeboardNum);
+		return sqlSession.selectOne("com.omg.freeboard.detailBoard",freeboardNum);
 	}
 
 	@Override
@@ -29,33 +26,20 @@ public class FreeBoardDAOImpl implements FreeBoardDAO {
 	@Override
 	public List<FreeBoard> listBoard(int page) {
 		Map<String, Integer> pageInfo = new HashMap<String, Integer>();
-
 		int startPage = (page - 1) * 10 + 1;
 		int endPage = startPage + (10 - 1);
-		
-		System.out.println("d " + page);
-		
-		
 		pageInfo.put("startPage", startPage);
 		pageInfo.put("endPage", endPage);
-		
 		List<FreeBoard> list = sqlSession.selectList("com.omg.freeboard.FreeBoard", pageInfo);
 		System.out.println("d " + list.size());
 		return list;
-				
-				
 	}
 	
 	@Override
 	public List<FreeBoard> selectList(int page, String title) {
 		Map pageInfo = new HashMap();
-
 		int startPage = (page - 1) * 10 + 1;
 		int endPage = startPage + (10 - 1);
-		
-		System.out.println("d " + page);
-		
-		
 		pageInfo.put("startPage", startPage);
 		pageInfo.put("endPage", endPage);
 		pageInfo.put("title", title);
@@ -63,8 +47,6 @@ public class FreeBoardDAOImpl implements FreeBoardDAO {
 		List<FreeBoard> list = sqlSession.selectList("com.omg.freeboard.selectListBoard", pageInfo);
 		System.out.println("d " + list.size());
 		return list;
-				
-				
 	}
 
 	@Override
@@ -78,10 +60,7 @@ public class FreeBoardDAOImpl implements FreeBoardDAO {
 
 	@Override
 	public int updateList(FreeBoard Board) {
-		// System.out.println("DAO"+Board.getContent());
-		// System.out.println("DAO"+Board.getTitle());
 		int ret = sqlSession.update("com.omg.freeboard.updateBoard", Board);
-		System.out.println(ret);
 		return ret;
 	}
 
@@ -96,5 +75,4 @@ public class FreeBoardDAOImpl implements FreeBoardDAO {
 		int count= sqlSession.update("com.omg.freeboard.countBoard", freeboardNum);
 		return count;
 	}
-
 }

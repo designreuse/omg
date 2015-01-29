@@ -26,6 +26,15 @@
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
 	$(function() {
+		$.ajax({
+			url: "/company/managerck",
+			dataType: "text",
+			async: false,
+			success: function(txt) {
+				permit = txt;
+			}
+		});
+		
 		startpage = 1;
 		endpage = 0;
 		total = 0;
@@ -48,12 +57,16 @@
 			url : "salProlist",
 			dataType : "json",
 			data : "page="+startpage+"&date="+date,
+			async: false,
 			success : function(json) {
 				if(json != ""){
 					$("#prolist").empty();
 					$.each(json, function(index, item) {
-						td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
-							 "<td>"+item.deptName+"</a></td>"+
+						td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>";
+							 if(permit == "T"){
+								 td += "<td>"+item.projectId+"</a></td>";
+							 }
+						td += "<td>"+item.deptName+"</a></td>"+
 							 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 							 "<td>"+item.startDate+"</td>"+
 							 "<td>"+item.endDate+"</td>"+
@@ -293,7 +306,7 @@
 										<!-- BOXES are complex enough to move the .box-header around.
                                                  This is an example of having the box header within the box body -->
 										<div class="box-header">
-											<c:if test="${Manager == 'team'}"> <!-- 팀장이 프로잭트 등록하기  -->
+											<c:if test="${Manager != null}"> <!-- 팀장이 프로잭트 등록하기  -->
 												<div id="proinsert" align="center">
 													<form action="insertpro" method="post">
 														<h6><b> 프로젝트 등록창</b></h6>
@@ -369,6 +382,9 @@
 													<thead>
 														<tr class="unread" align="center" style="background-color: #ccffaa; text-align: center;">
 															<th class="name"> 선  택 </th>
+															<c:if test="${Manager != null}">
+																<th class="name">프로젝트 ID</th>
+															</c:if>
 															<th class="name"> 부 서 </th>
 															<th class="subject"> 프로젝트명 제목(기술등록) </th>
 															<th class="time"> 시 작 일 </th>
