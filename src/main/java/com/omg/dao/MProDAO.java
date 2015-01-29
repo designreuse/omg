@@ -9,5 +9,5 @@ public interface MProDAO {
 	List<MProcess> colist(String teamId);
 	List<MProcess> exlist(String employeeId);
 	List<MProcess> sparelist(String teamId);
-	
-}
+	List<MProcess> putlist(String employeeId);
+	}

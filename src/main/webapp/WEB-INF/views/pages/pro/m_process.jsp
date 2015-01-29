@@ -111,10 +111,10 @@
 		//스페어리스트 눌럿을때 ajax 반응하기
 		$("#spare").click(function(){
 			$.ajax({
-				url : "colist",
+				url : "put",
 				dataType : "json",
 				success : function(json) {
-					$("#colist").empty();
+					$("#putlist").empty();
 					var str = "";
 					$.each(json, function(index, item) {
 
@@ -128,7 +128,7 @@
 
 					});
 
-					$("#colist").append(str);
+					$("#putlist").append(str);
 				}
 			});
 			
@@ -325,10 +325,10 @@ $("#re").click(function(){
 $("#bnt_window").on("click","#spare",function() {
 	$("#detailview").empty();
 	$("#h3").text("Spare List");
-	var spare =  "<div class='box-header'><h3 class='box-title'>투입인원</h3></div><div class='box-body'>"
+	var spare =  "<div class='box-header'><h3 class='box-title'>투입될인원</h3></div><div class='box-body'>"
 	 			 +"<div class='table-responsive'><table class='table table-bordered' border='1'>"
 				 +"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
-				 +"</tr></thead><tbody id='colist'>"
+				 +"</tr></thead><tbody id='putlist'>"
 				 +"</tbody></table></div></div>"
 
 

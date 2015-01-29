@@ -55,16 +55,6 @@ and e.employee_id= #{employeeId}
 and sysdate >= end_date]]>
 </select>
 
-<select id="startProjects" resultMap="dto" parameterType="String">
-<![CDATA[ select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp, project_tech prote, techs tech
-where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
-and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
-and prote.project_id = pro.project_id
-and prote.tech_id = tech.tech_id
-and pro.START_DATE>=sysdate
-and emp.EMPLOYEE_ID = #{employeeId} ]]>
-</select>
-
 
 <select id="sparelist" resultMap="dto">
 select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID 

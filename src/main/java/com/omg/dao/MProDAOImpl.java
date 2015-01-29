@@ -38,6 +38,12 @@ public class MProDAOImpl implements MProDAO {
 		return list;
 	}
 
+	@Override
+	public List<MProcess> putlist(String employeeId) {
+		List<MProcess> list =session.selectList("com.omg.mpro.putlist",employeeId);
+		return list;
+	}
+
 	
 	
 	
