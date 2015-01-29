@@ -237,7 +237,7 @@
 		type="text/javascript"></script>
 	<script>
 	$(function(){
-		
+		 
 		//매출관리 버튼 눌렀을 경우.
 		$("#bnt_window").on("click","#sale",function(){
 			date = new Date();
@@ -247,14 +247,10 @@
 			$("#h3").text("매출 관리");
 			$("#bnt").empty();
 			var sales="<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
-					+"<select name='years'>";
+					+"<select id='years' name='years'>";
 			$(function(){
 				while(start<=year){
-					if(start==year){
-						sales += "<option value="+start+" selected='selected'>"+start+"</option>";
-					} else{
-				 		sales += "<option value="+start+">"+start+"</option>";
-					}
+					sales += "<option value="+start+">"+start+"</option>";
 					start++;
 				}
 			});
@@ -268,19 +264,30 @@
 			sales += "</tbody></table></div>";
 			$(sales).appendTo($("#detailview"));  
 			
+			
 			$(function(){
-			years = $("select[name='years']").val();	
-			$.ajax({
-				url:"p_sumProPrice",
-				data:"year="+years,
-				dataType:"json",
-				async: false,
-				success:function(json){
-					$("#sales").text("총 매출액: "+json);
-				}
-			});
-			});
+				 
+				$('#years').change(function(){
+					years = $("select[name='years']").val();	
+					 
+					$("#sales").empty();
+					$.ajax({
+						url:"p_sumProPrice",
+						data:"year="+years,
+						dataType:"json",
+						success:function(json){
+							$("#sales").text(years+"년도 총 매출액: "+json);
+						},
+						error:function(){
+							$("#sales").text(years+"년도 총 매출액: 0");
+						}
+					});
+					
+				});
+			}); 
+		
 		});
+		
 		
 		$("#emp").click(function(){
 			$(this).attr("href","index_p");

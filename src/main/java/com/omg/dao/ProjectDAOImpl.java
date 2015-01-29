@@ -104,7 +104,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 	@Override
 	public long sumProPrice(String year) {
 		System.out.println(year);
-		 long price = sqlSession.selectOne("com.omg.projects.sumProPrice",year);
+		long price = 0;
+		try{
+			price = sqlSession.selectOne("com.omg.projects.sumProPrice",year);
+		}catch(NullPointerException e){
+			
+		}
 		return price;
 	}
 
