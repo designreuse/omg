@@ -237,6 +237,7 @@
 		type="text/javascript"></script>
 	<script>
 	$(function(){
+		year = 
 		
 		//매출관리 버튼 눌렀을 경우.
 		$("#bnt_window").on("click","#sale",function(){
@@ -244,13 +245,13 @@
 			$("#h3").text("매출 관리");
 			$("#bnt").empty();
 			var sales="<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
-					+"<select name='yeas'></select></span></div></div>"
+					+"<select name='years'></select></span></div></div>"
 					+"<div>총 매출액 나오는 위치</div>"
 					+"<div class='table-responsive'><table class='table table-bordered' border='1'>"
 					+"<thead><tr align='center'><th>부서 이름</th><th>매 출 액</th></tr></thead>"
 					+"<tbody id='list'></tbody></table></div>";
 				
-				$(sales).appendTo($("#detailview"));  
+			$(sales).appendTo($("#detailview"));  
 		});
 		
 		$("#emp").click(function(){
@@ -426,9 +427,10 @@
 							}
 						});
 					});
+					//사번 입력시 중복 확인
 					$("#id").keyup(function(){
 						id_text = $("#id").val();
-						/*  $.ajax({
+						  $.ajax({
 							url: "p_empSelect",
 							data:"posid="+id_text,
 							dataType:"json",
@@ -436,9 +438,12 @@
 							success:function(json){
 								if(json!=null){
 									$("#empId").text("이미 있는 사번입니다.");	
-								}
+								} 
+							},
+							error:function(){
+								$("#empId").text("");	
 							}
-						});   */
+						});   
 					});
 		});
 		

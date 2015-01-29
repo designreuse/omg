@@ -220,4 +220,13 @@ public class RProComtroller {
 		return pos;
 	}
 	
+	@RequestMapping("/p_empSelect")
+	public @ResponseBody Employees p_empSelect(HttpSession session,
+                 @RequestParam("posid")String id){
+		Employees emp = empService.p_empSelect(id);
+		return emp;
+	}
+	
+	
+
 }
