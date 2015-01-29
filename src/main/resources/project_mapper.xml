@@ -70,13 +70,14 @@
 	    		<![CDATA[and end_date <= sysdate and approval = 'O']]> 
 	    	</if>
 	    	and 1=1
-	    </where> 
+	    </where>
     </select>
     
     <select id="salProjectByProId" resultMap="pro" parameterType="String">
         select p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, p.department_id, t.team_name teamName,  d.department_name deptName
         FROM projects p, departments d, teams t
         where p.department_id = d.department_id and p.team_id = t.team_id(+) and p.project_id =#{proId}
+
     </select>
     
     <!-- 기술 부분 -->
