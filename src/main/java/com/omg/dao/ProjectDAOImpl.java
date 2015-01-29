@@ -13,6 +13,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	// sal 프로젝트 등록 부분
 	@Override
 	public int salProjectInsert(Projects pro) {
 		int ret = sqlSession.insert("com.omg.projects.proInsert", pro);
@@ -67,5 +68,49 @@ public class ProjectDAOImpl implements ProjectDAO {
 	public Projects salProjectByProId(String proId) {
 		Projects pro = sqlSession.selectOne("com.omg.projects.salProjectByProId", proId);
 		return pro;
+	}
+	// sal 기술 확인하는 부분
+	@Override
+	public List<String> salSelectTechs(String proId) {
+		List<String> techlist = sqlSession.selectList("com.omg.projects.proContTech", proId);
+		return techlist;
+	}
+
+	@Override
+	public int salProTechInsert(String proId, String TechId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("proId", proId);
+		map.put("techId", TechId);
+		int ret = sqlSession.insert("com.omg.projects.proContTechIn", map);
+		return ret;
+	}
+
+	@Override
+	public int salProTechByDelete(String proId, String TechId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("proId", proId);
+		map.put("techId", TechId);
+		int ret = sqlSession.delete("com.omg.projects.proContTechByDel", map);
+		return ret;
+	}
+
+	@Override
+	public int salProTechDelete(String proId) {
+		int ret = sqlSession.delete("com.omg.projects.proContTechAllDel", proId);
+		return ret;
+	}
+	
+	// 인사&회계 회사 매출 조회
+	@Override
+	public long sumProPrice(String year) {
+		System.out.println(year);
+		 long price = sqlSession.selectOne("com.omg.projects.sumProPrice",year);
+		return price;
+	}
+
+	@Override
+	public long sumBydeptProPrice(Map map) {
+		 long price = sqlSession.selectOne("com.omg.projects.sumBydeptProPrice",map);
+			return price;
 	}
 }

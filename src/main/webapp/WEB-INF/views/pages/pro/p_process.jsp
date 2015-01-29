@@ -240,17 +240,46 @@
 		
 		//매출관리 버튼 눌렀을 경우.
 		$("#bnt_window").on("click","#sale",function(){
+			date = new Date();
+			year = date.getFullYear();	//현재 년도
+			start = 1995;
 			$("#detailview").empty();
 			$("#h3").text("매출 관리");
 			$("#bnt").empty();
 			var sales="<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
-					+"<select name='yeas'></select></span></div></div>"
-					+"<div>총 매출액 나오는 위치</div>"
-					+"<div class='table-responsive'><table class='table table-bordered' border='1'>"
-					+"<thead><tr align='center'><th>부서 이름</th><th>매 출 액</th></tr></thead>"
-					+"<tbody id='list'></tbody></table></div>";
+					+"<select name='years'>";
+			$(function(){
+				while(start<=year){
+					if(start==year){
+						sales += "<option value="+start+" selected='selected'>"+start+"</option>";
+					} else{
+				 		sales += "<option value="+start+">"+start+"</option>";
+					}
+					start++;
+				}
+			});
+					
+			sales +="</select></span></div></div>"
+				+"<h3><div id='sales'></div></h3>"
+				+"<div class='table-responsive'><table class='table table-bordered' border='1'>"
+				+"<thead><tr align='center'><th>부서 이름</th><th>매 출 액</th></tr></thead>"
+				+"<tbody id='list'>";
 				
-				$(sales).appendTo($("#detailview"));  
+			sales += "</tbody></table></div>";
+			$(sales).appendTo($("#detailview"));  
+			
+			$(function(){
+			years = $("select[name='years']").val();	
+			$.ajax({
+				url:"p_sumProPrice",
+				data:"year="+years,
+				dataType:"json",
+				async: false,
+				success:function(json){
+					$("#sales").text("총 매출액: "+json);
+				}
+			});
+			});
 		});
 		
 		$("#emp").click(function(){
@@ -426,9 +455,10 @@
 							}
 						});
 					});
+					//사번 입력시 중복 확인
 					$("#id").keyup(function(){
 						id_text = $("#id").val();
-						/*  $.ajax({
+						  $.ajax({
 							url: "p_empSelect",
 							data:"posid="+id_text,
 							dataType:"json",
@@ -436,9 +466,12 @@
 							success:function(json){
 								if(json!=null){
 									$("#empId").text("이미 있는 사번입니다.");	
-								}
+								} 
+							},
+							error:function(){
+								$("#empId").text("");	
 							}
-						});   */
+						});   
 					});
 		});
 		

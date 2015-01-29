@@ -41,7 +41,7 @@ public class LoginController {
 				session.setAttribute("Manager", "run");
 			}else if(ck == 2){									// 부장
 				session.setAttribute("Manager", "dept");
-			}else if(ck == 3){												// 팀장
+			}else if(ck == 3){									// 팀장
 				session.setAttribute("Manager", "team");
 			}else{
 				session.setAttribute("Manager", null);
@@ -81,5 +81,20 @@ public class LoginController {
 	public String logout(HttpSession session){
 		session.invalidate();  					//세션에 저장되있는것을 버린다.
 		return "redirect:/login";
+	}
+	
+	@RequestMapping("managerck")
+	public @ResponseBody String managerck(HttpSession session){
+		Employees user = (Employees)session.getAttribute("user");
+		String manager = "";
+		int ck = logService.selectManager(user);
+		if(ck == 1){										// 경영부
+			manager = "R";
+		}else if(ck == 2){									// 부장
+			manager = "D";
+		}else if(ck == 3){									// 팀장
+			manager = "T";
+		}
+		return manager;
 	}
 }

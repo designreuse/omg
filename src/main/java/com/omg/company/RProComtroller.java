@@ -73,7 +73,7 @@ public class RProComtroller {
 		protemp.setStartDate(start);
 		protemp.setEndDate(end);
 		protemp.setDepartmentId(deptId);
-		int ret = salService.salProjectInsert(protemp);
+		salService.salProjectInsert(protemp);
 		return "redirect:index_s";
 	}
 	
@@ -99,10 +99,40 @@ public class RProComtroller {
 	
 	@RequestMapping("proDelete")
 	public String proDelete(HttpSession session, @RequestParam("proIds") String[] proids){
-		Integer ret = salService.deletePro(proids);
+		salService.deletePro(proids);
 		return "redirect:index_s";
 	}
 	
+	@RequestMapping("ProByTech")
+	public @ResponseBody List<String> ProByTech(HttpSession session, @RequestParam("proid") String proId){
+		List<String> techlist = salService.salSelectTechs(proId);
+		return techlist;
+	}
+	
+	@RequestMapping("protechIn")
+	public String protechIn(HttpSession session,
+			@RequestParam("proid") String proId,
+			@RequestParam("techname") String techName){
+		salService.salProTechInsert(proId, techName);
+		return "redirect:index_s";
+	}
+	
+	@RequestMapping("protechByDel")
+	public String protechByDel(HttpSession session,
+			@RequestParam("proid") String proId,
+			@RequestParam("techname") String techName){
+		salService.salProTechByDelete(proId, techName);
+		return "redirect:index_s";
+	}
+	
+	@RequestMapping("protechAllDel")
+	public String protechAllDel(HttpSession session,
+			@RequestParam("proid") String proId){
+		salService.salProTechDelete(proId);
+		return "redirect:index_s";
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////	
 	/// 윤지 -> 인사&회계
 	@RequestMapping("index_p")
 	public String personProindex(HttpSession session){
@@ -220,4 +250,33 @@ public class RProComtroller {
 		return pos;
 	}
 	
+	@RequestMapping("/p_empSelect")
+	public @ResponseBody Employees p_empSelect(HttpSession session,
+                 @RequestParam("posid")String id){
+		Employees emp = empService.p_empSelect(id);
+		return emp;
+	}
+	
+	//회사 연도별 매출 조회
+	@RequestMapping("/p_sumProPrice")
+	public @ResponseBody long p_sumProPrice(HttpSession session,
+			@RequestParam("year")String year){
+		long price = empService.p_sumProPrice(year);
+		return price;
+	}
+	
+	//부서별 매출조회
+	@RequestMapping("p_sumBydeptProPrice")
+	public @ResponseBody long p_sumBydeptProPrice(HttpSession session,
+			@RequestParam("year")String year,
+			@RequestParam("dept")String dept){
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("year", year);
+		map.put("departmentId",	dept);
+		
+		long price = empService.p_sumBydeptProPrice(map);
+		return price;
+	}
+
 }

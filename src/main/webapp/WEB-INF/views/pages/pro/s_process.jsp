@@ -35,7 +35,7 @@
 			dataType : "json",
 			success : function(json){
 				$("#techlist").empty();
-				var td = "<td><select id='techclick' name='techbtn'>";
+				var td = "<td><select id='techchange' name='techbtn' disabled><option value=''>-선택해주세요-</option>";
 				$.each(json, function(index, item) {
 					td += "<option value="+item.techName+">"+item.techName+"</option>";
 				});
@@ -54,7 +54,7 @@
 					$.each(json, function(index, item) {
 						td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
 							 "<td>"+item.deptName+"</a></td>"+
-							 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' protech='해야됨'  app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+							 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 							 "<td>"+item.startDate+"</td>"+
 							 "<td>"+item.endDate+"</td>"+
 							 "<td>"+item.projectPrice+"</td>";
@@ -105,7 +105,7 @@
 						$.each(json, function(index, item) {
 							td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
 								 "<td>"+item.deptName+"</td>"+
-								 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' protech='해야됨' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+								 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 								 "<td>"+item.startDate+"</td>"+
 								 "<td>"+item.endDate+"</td>"+
 								 "<td>"+item.projectPrice+"</td>";
@@ -176,7 +176,7 @@
 							$.each(json, function(index, item) {
 								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
 									 "<td>"+item.deptName+"</a></td>"+
-									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' protech='해야됨' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 									 "<td>"+item.startDate+"</td>"+
 									 "<td>"+item.endDate+"</td>"+
 									 "<td>"+item.projectPrice+"</td>";
@@ -225,7 +225,7 @@
 							$.each(json, function(index, item) {
 								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
 									 "<td>"+item.deptName+"</td>"+
-									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' protech='해야됨' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 									 "<td>"+item.startDate+"</td>"+
 									 "<td>"+item.endDate+"</td>"+
 									 "<td>"+item.projectPrice+"</td>";
@@ -293,25 +293,27 @@
 										<!-- BOXES are complex enough to move the .box-header around.
                                                  This is an example of having the box header within the box body -->
 										<div class="box-header">
-											<div id="proinsert" align="center"><!-- 팀장이 프로잭트 등록하기  -->
-												<form action="insertpro" method="post">
-													<h6><b> 프로젝트 등록창</b></h6>
-													<table border="1" style="border-top: solid;">
-														<tbody ><!-- 프로잭트 기술 등록 하기 -->
-															<tr><th colspan="2" style="background-color: #ccffaa;text-align: center;"> 프로젝트 등록 </th></tr>
-															<tr><th>프 로 젝 트<br>ID</th><td><input type="text" name="proid" /></td></tr>
-															<tr><th>프 로 젝 트</th><td><input type="text" name="proname" /></td></tr>
-															<tr><th>금 액(천만원) </th><td><input type="text" name="proprice" /></td></tr>
-															<tr><th>시작일<br>(y-m-d)</th><td><input type="text" name="start" /></td></tr>
-															<tr><th>종료일<br>(y-m-d)</th><td><input type="text" name="end" /></td></tr>
-															<tr><th>부서ID</th><td><input type="text" name="deptid" /><br>(개발:D, 유지보수:M)</td></tr>
-														</tbody>
-													</table>
-													<div align="right">
-														<input type="submit" value="입력"><input type="reset" value="리셋">
-													</div>
-												</form>
-											</div>
+											<c:if test="${Manager == 'team'}"> <!-- 팀장이 프로잭트 등록하기  -->
+												<div id="proinsert" align="center">
+													<form action="insertpro" method="post">
+														<h6><b> 프로젝트 등록창</b></h6>
+														<table border="1" style="border-top: solid;">
+															<tbody ><!-- 프로잭트 기술 등록 하기 -->
+																<tr><th colspan="2" style="background-color: #ccffaa;text-align: center;"> 프로젝트 등록 </th></tr>
+																<tr><th>프 로 젝 트<br>ID</th><td><input type="text" name="proid" /></td></tr>
+																<tr><th>프 로 젝 트</th><td><input type="text" name="proname" /></td></tr>
+																<tr><th>금 액(천만원) </th><td><input type="text" name="proprice" /></td></tr>
+																<tr><th>시작일<br>(y-m-d)</th><td><input type="text" name="start" /></td></tr>
+																<tr><th>종료일<br>(y-m-d)</th><td><input type="text" name="end" /></td></tr>
+																<tr><th>부서ID</th><td><input type="text" name="deptid" /><br>(개발:D, 유지보수:M)</td></tr>
+															</tbody>
+														</table>
+														<div align="right">
+															<button type="submit" class='btn btn-default btn-sm'>입력</button><button type="reset" class='btn btn-default btn-sm'>리셋</button>
+														</div>
+													</form>
+												</div>
+											</c:if>
 										</div>
 										<div style="margin-top: 15px;"> 
 											<div align="center">
@@ -331,7 +333,7 @@
 													</table>
 												</div>
 												<div class="table-responsive" align="center">
-													<form action="insert" method="post">
+													<form action="protechIn" method="post">
 														<h6><b> 프로젝트 기술 등록창 </b></h6>
 														<table border="1" style="border-top: solid;">
 															<tbody id="insertProTech"><!-- 프로잭트 기술 등록 하기 -->
@@ -355,7 +357,9 @@
 													<a id="proNotlist" class="btn btn-danger btn-sm">승인불가</a>
 													<a id="proEndlist" class="btn btn-success btn-sm">승인완료</a>
 													<a id="updatePro" class="btn btn-warning btn-sm">수정</a>
-													<a id="deletepro" class="btn btn-warning btn-sm">삭제</a>
+													<c:if test="${Manager != null}"> <!-- 관리자만 -->
+														<a id="deletepro" class="btn btn-warning btn-sm">삭제</a>
+													</c:if>
 											</div>
 										</div>
 										<!-- /.row -->
@@ -469,28 +473,71 @@
 			// thch 보여주기 및 입력하기
 			$("#prolist").on("click", "#proInTech", function() {
 				var proid = $(this).attr("proid");
+				var techbtn = "";
+				$.ajax({
+					url: "ProByTech",
+					dataType: "json",
+					data: "proid="+proid,
+					async: false,
+					success: function(json) {
+						$.each(json, function(index, item) {
+							techbtn += "<a id='techbtn' class='btn btn-default btn-sm'>"+item+"</a>";
+						});
+						
+					}
+				});
 				var proname = $(this).attr("proname");
-				var protech = $(this).attr("protech");
 				var app = $(this).attr("app");
 				//alert(proid+"  "+proname+"  "+protech);
 				if(app != 'O'){
+					$("#techchange").removeAttr("disabled");
 					$("#insertProTech").empty();
 					$("#insertProTechBtn").empty();
 					var protechlist = "<tr><th colspan='2' style='background-color: #ccffaa;text-align: center;'> 기술 등록 </th></tr>"+
-									  "<tr><th>프로젝트<br>ID</th><td><input type='hidden' name='proid' value='"+proid+"'/>"+proid+"</td></tr>"+
 									  "<tr><th>프로젝트</th><td>"+proname+"</td></tr>"+
-									  "<tr><th>기술 LIST</th><td>"+protech+"</td></tr>"+
-									  "<tr><th>기술 입력(ID)</th><td><input type='text' name='deptId' /></td></tr>";
-					var protechbtn = "<input type='submit' value='입력'><input type='reset' value='리셋'>";
+									  "<tr><th>기술 LIST</th><td><span id='techview'></span></td></tr>"+
+									  "<tr><th>기술 입력(ID)</th><td><input type='text' name='techname' readonly='readonly'/></td></tr>";
+					var protechbtn = "<input type='hidden' name='proid' value='"+proid+"'/><button type='submit' class='btn btn-default btn-sm'>입력</button><button id='techInRe' type='reset' class='btn btn-default btn-sm'>리셋</button><a id='techDel' type='reset' class='btn btn-default btn-sm'>삭제</a><a id='techAllDel' type='reset' class='btn btn-default btn-sm'>전체삭제</a>";
 					$("#insertProTech").append(protechlist);
 					$("#insertProTechBtn").append(protechbtn);
+					$("#techview").append(techbtn);
 				}else{
 					alert('승인된 프로젝트 입니다.');
 				}
 			});
+			// List에서 기술을 눌렸을경우
+			$("#insertProTech").on("click", "a[id=techbtn]", function() {
+				var txt = $(this).text();
+				$("input[name='techname']").attr("value",txt);
+			});
 			
-			// 프로젝트 등록하는 것 -> 팀장 이 할 것
-			//var form = ""
+			// 기술목록에서 선택시 기술 들록 input으로 등록하기
+			$("#techlist").on("change", "#techchange", function() {
+				var data = $(this).val();
+				$("input[name='techname']").attr("value",data);
+			});
+			
+			// 리셋
+			$("#insertProTechBtn").on("click", "#techInRe", function() {
+				$("input[name='techname']").removeAttr("value");
+			});
+			
+			// 기술 삭제
+			$("#insertProTechBtn").on("click", "#techDel", function() {
+				var techName = $("input[name='techname']").val();			// 수정
+				var proId = $("input[type=hidden]").val();
+				if(techName != ""){
+					$(this).attr("href", "protechByDel?proid="+proId+"&techname="+techName);
+				}
+			});
+			
+			// 해당 프로젝트 기술 다 삭제
+			$("#insertProTechBtn").on("click", "#techAllDel", function() {
+				var proId = $("input[type=hidden]").val();
+				if(proId != ""){
+					$(this).attr("href", "protechAllDel?proid="+proId);
+				}
+			});
 		});
 	</script>
 </body>
