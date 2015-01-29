@@ -44,7 +44,7 @@
 				}
 			});
 			
-			if(permit != null){
+			if(permit != "T"){
 				$("#proname").attr("readonly", "readonly");
 				$("#dept").attr("readonly", "readonly");
 			}
