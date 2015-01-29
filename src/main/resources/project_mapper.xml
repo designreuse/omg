@@ -108,7 +108,7 @@
     
     <!-- 윤지 MAPPER 부분 -->
     <!-- 회사 전체매출 년도별 조회 -->
-    <select id="sumProPrice" resultType="int" parameterType="int">
+    <select id="sumProPrice" resultType="long" parameterType="String">
     	select sum(project_price)
 		from projects
 		where to_char(start_date,'yyyy')= #{year}

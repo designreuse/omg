@@ -18,6 +18,6 @@ public interface ProjectDAO {
 	int salProTechDelete(String proId);
 	
 	// 인사회계
-	int sumProPrice(int year);
-	int sumBydeptProPrice(Map map);
+	long sumProPrice(String year);
+	long sumBydeptProPrice(Map map);
 }

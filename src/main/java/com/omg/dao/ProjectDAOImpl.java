@@ -102,14 +102,15 @@ public class ProjectDAOImpl implements ProjectDAO {
 	
 	// 인사&회계 회사 매출 조회
 	@Override
-	public int sumProPrice(int year) {
-		 int price = sqlSession.selectOne("com.omg.projects.sumProPrice",year);
+	public long sumProPrice(String year) {
+		System.out.println(year);
+		 long price = sqlSession.selectOne("com.omg.projects.sumProPrice",year);
 		return price;
 	}
 
 	@Override
-	public int sumBydeptProPrice(Map map) {
-		 int price = sqlSession.selectOne("com.omg.projects.sumBydeptProPrice",map);
+	public long sumBydeptProPrice(Map map) {
+		 long price = sqlSession.selectOne("com.omg.projects.sumBydeptProPrice",map);
 			return price;
 	}
 }

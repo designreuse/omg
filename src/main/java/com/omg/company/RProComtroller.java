@@ -259,15 +259,15 @@ public class RProComtroller {
 	
 	//회사 연도별 매출 조회
 	@RequestMapping("/p_sumProPrice")
-	public @ResponseBody int p_sumProPrice(HttpSession session,
-			@RequestParam("year")int year){
-		int price = empService.p_sumProPrice(year);
+	public @ResponseBody long p_sumProPrice(HttpSession session,
+			@RequestParam("year")String year){
+		long price = empService.p_sumProPrice(year);
 		return price;
 	}
 	
 	//부서별 매출조회
 	@RequestMapping("p_sumBydeptProPrice")
-	public @ResponseBody int p_sumBydeptProPrice(HttpSession session,
+	public @ResponseBody long p_sumBydeptProPrice(HttpSession session,
 			@RequestParam("year")String year,
 			@RequestParam("dept")String dept){
 		
@@ -275,7 +275,7 @@ public class RProComtroller {
 		map.put("year", year);
 		map.put("departmentId",	dept);
 		
-		int price = empService.p_sumBydeptProPrice(map);
+		long price = empService.p_sumBydeptProPrice(map);
 		return price;
 	}
 

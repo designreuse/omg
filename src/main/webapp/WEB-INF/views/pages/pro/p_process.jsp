@@ -260,7 +260,7 @@
 			});
 					
 			sales +="</select></span></div></div>"
-				+"<div id='sales'></div>"
+				+"<h3><div id='sales'></div></h3>"
 				+"<div class='table-responsive'><table class='table table-bordered' border='1'>"
 				+"<thead><tr align='center'><th>부서 이름</th><th>매 출 액</th></tr></thead>"
 				+"<tbody id='list'>";
@@ -268,8 +268,8 @@
 			sales += "</tbody></table></div>";
 			$(sales).appendTo($("#detailview"));  
 			
+			$(function(){
 			years = $("select[name='years']").val();	
-			alert("years="+years);
 			$.ajax({
 				url:"p_sumProPrice",
 				data:"year="+years,
@@ -277,10 +277,8 @@
 				async: false,
 				success:function(json){
 					$("#sales").text("총 매출액: "+json);
-					alert(json);
 				}
-				
-				
+			});
 			});
 		});
 		
