@@ -26,17 +26,6 @@
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
 	$(function() {
-	/* 	$.ajax({
-			url: "/company/managerck",
-			dataType: "text",
-			async: false,
-			success: function(txt) {
-				
-			}
-		});
-		 */
-		
-		
 		startpage = 1;
 		endpage = 0;
 		total = 0;
@@ -368,7 +357,9 @@
 													<a id="proNotlist" class="btn btn-danger btn-sm">승인불가</a>
 													<a id="proEndlist" class="btn btn-success btn-sm">승인완료</a>
 													<a id="updatePro" class="btn btn-warning btn-sm">수정</a>
-													<a id="deletepro" class="btn btn-warning btn-sm">삭제</a>
+													<c:if test="${Manager != null}"> <!-- 관리자만 -->
+														<a id="deletepro" class="btn btn-warning btn-sm">삭제</a>
+													</c:if>
 											</div>
 										</div>
 										<!-- /.row -->

@@ -85,7 +85,16 @@ public class LoginController {
 	
 	@RequestMapping("managerck")
 	public @ResponseBody String managerck(HttpSession session){
-		
-		return null;
+		Employees user = (Employees)session.getAttribute("user");
+		String manager = "";
+		int ck = logService.selectManager(user);
+		if(ck == 1){										// 경영부
+			manager = "R";
+		}else if(ck == 2){									// 부장
+			manager = "D";
+		}else if(ck == 3){									// 팀장
+			manager = "T";
+		}
+		return manager;
 	}
 }
