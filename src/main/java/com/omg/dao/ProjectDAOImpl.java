@@ -14,6 +14,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 	private SqlSession sqlSession;
 	
 	@Override
+	public int salProjectInsert(Projects pro) {
+		int ret = sqlSession.insert("com.omg.projects.proInsert", pro);
+		return ret;
+	}	
+	
+	@Override
 	public int salProjectUpdate(Projects pro) {
 		int ret = sqlSession.update("com.omg.projects.proUpdate", pro);
 		return ret;
@@ -55,5 +61,5 @@ public class ProjectDAOImpl implements ProjectDAO {
 	public Projects salProjectByProId(String proId) {
 		Projects pro = sqlSession.selectOne("com.omg.projects.salProjectByProId", proId);
 		return pro;
-	}	
+	}
 }
