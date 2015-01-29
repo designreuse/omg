@@ -93,7 +93,7 @@
 				$("#startPro").empty();
 				var str = "";
 				$.each(json, function(index, item) {
-
+					str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>"
 					str += "<tr>";
 					str += "<td>" + item.projectName + "</td>";
 					str += "<td>" + item.techName + "</td>";
@@ -107,12 +107,12 @@
 							str += "<td><select name='selectTeam'>";
 							$.each(json, function(index, item) {
 								
-								str += "<option value="+item.teamName+">"+item.teamName+"</option>";
+								str += "<option value="+item.teamId+">"+item.teamName+"</option>";
 		                     });
 		                     str += "</select></td>";
 							}
 						});
-					str += "<td>" + "<input type='button' value='결정'>"
+					str += "<td>" + "<input type='submit'  value='결정'>"
 					+ "</td>";
 			str += "</tr>";
 					});
@@ -188,6 +188,7 @@
 
 								<!-- /.row -->
 								<div class="table-responsive">
+									<form action="setTeam">
 									<table id="gode" class="table table-hover">
 
 										<thead>
@@ -205,7 +206,62 @@
 
 
 									</table>
+									</form>
 								</div>
+								
+								
+
+
+								<!-- /.col (RIGHT) -->
+								<!-- /.row -->
+							</div>
+							<!-- /.box-body -->
+							<div class="box-footer clearfix">
+								<div class="pull-right"></div>
+							</div>
+							<!-- box-footer -->
+						</div>
+					</div>
+				</c:if>
+				
+				<c:if test="${Manager=='team'}">
+
+
+
+					<div class="box box-solid">
+						<div class="box-header">
+							<h3 class="box-title">Start Projects</h3>
+						</div>
+						<div class="box-body">
+							<div class="row">
+
+
+
+								<!-- /.col (LEFT) -->
+
+								<!-- /.row -->
+								<div class="table-responsive">
+									<form action="refuseProject">
+									<table id="gode" class="table table-hover">
+
+										<thead>
+											<tr>
+												<th>Project명</th>
+												<th>관련 기술</th>
+												<th>Start day</th>
+												<th>End day</th>
+												<th>[결정]</th>
+											</tr>
+										</thead>
+										<tbody id="startPro2">
+										</tbody>
+
+
+									</table>
+									</form>
+								</div>
+								
+								
 
 
 								<!-- /.col (RIGHT) -->

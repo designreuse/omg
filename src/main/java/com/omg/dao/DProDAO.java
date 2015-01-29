@@ -1,6 +1,7 @@
 package com.omg.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.omg.dto.DProcess;
 
@@ -13,5 +14,5 @@ public interface DProDAO {
 	List<DProcess> SCVList();
 	List<DProcess> teams();
 	int count();
-	int setTeam();
+	int setTeam(Map map);
 }
