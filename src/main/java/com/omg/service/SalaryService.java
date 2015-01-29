@@ -53,7 +53,7 @@ public class SalaryService {
 		return pro;
 	}
 	
-	// 프로젝트 업데이트
+	// 프로젝트 수정
 	public int salProjectUpdate(Projects pro) {
 		int ret = projectDAO.salProjectUpdate(pro);
 		System.out.println(ret);
@@ -69,6 +69,32 @@ public class SalaryService {
 	// 선택된것 들 삭제 하기 -> 팀장의 권한
 	public int deletePro(String[] proids) {
 		int ret = projectDAO.deletePro(proids);
+		return ret;
+	}
+	
+	// 기술 등록 누르면 관련기술 가져가기
+	public List<String> salSelectTechs(String proId) {
+		List<String> techlist = projectDAO.salSelectTechs(proId);
+		return techlist;
+	}
+	
+	// 해당 프로젝트에 기술 등록하기
+	public int salProTechInsert(String proId, String techName) {
+		String techId = techDAO.techIdByName(techName);
+		int ret = projectDAO.salProTechInsert(proId, techId);
+		return ret;
+	}
+	
+	// 헤당 프로젝트 기술 삭제 하기
+	public int salProTechByDelete(String proId, String techName) {
+		String techId = techDAO.techIdByName(techName);
+		int ret = projectDAO.salProTechByDelete(proId, techId);
+		return ret;
+	}
+	
+	// 해당 프로젝트 기술 모두 삭제하기
+	public int salProTechDelete(String proId) {
+		int ret = projectDAO.salProTechDelete(proId);
 		return ret;
 	}
 }

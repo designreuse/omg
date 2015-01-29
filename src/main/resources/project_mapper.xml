@@ -13,7 +13,7 @@
 		<result property="departmentId" column="department_id"/>
 		<result property="approvalName" column="approval_name"/>
 	</resultMap>
-	
+	<!-- 대현 MAPPER 부분 -->
 	<insert id="proInsert" parameterType="Projects">
 		insert into 
 		projects(project_id,project_name,project_price,start_date,end_date,department_id) 
@@ -79,7 +79,33 @@
         where p.department_id = d.department_id and p.team_id = t.team_id(+) and p.project_id =#{proId}
     </select>
     
+    <!-- 기술 부분 -->
+    <!-- 해당 프로젝트의 TechList  -->
+    <select id="proContTech" resultType="String" parameterType="String">
+    	select t.tech_name
+		from projects p, project_tech ph, techs t
+		where p.project_id = ph.project_id and ph.tech_id = t.tech_id and p.project_id = #{proId}
+    </select>
     
+    <!-- 해당 프로젝트에 tech입력 -->
+    <insert id="proContTechIn" parameterType="map">
+    	insert into project_tech values(#{proId},#{techId})
+    </insert>
+    
+    <!-- 해당하는 프로젝트 thch해당 기술 삭제 -->
+    <delete id="proContTechByDel" parameterType="Map">
+    	delete from project_tech
+		where project_id = #{proId} and tech_id = #{techId}
+    </delete>
+    
+    <!-- 해당 프로젝트 기술 전체 삭제 -->
+    <delete id="proContTechAllDel" parameterType="String">
+    	delete from project_tech
+		where project_id = #{proId}
+    </delete>
+    
+    
+    <!-- 윤지 MAPPER 부분 -->
     <!-- 회사 전체매출 년도별 조회 -->
     <select id="sumProPrice" resultType="int" parameterType="int">
     	select sum(project_price)

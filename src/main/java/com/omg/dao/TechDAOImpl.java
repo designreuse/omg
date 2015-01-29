@@ -18,4 +18,10 @@ public class TechDAOImpl implements TechDAO {
 		List<Techs> list = sqlSession.selectList("com.omg.techs.selectTechs");
 		return list;
 	}
+
+	@Override
+	public String techIdByName(String techName) {
+		String techId = sqlSession.selectOne("com.omg.techs.techIdByName", techName);
+		return techId;
+	}
 }

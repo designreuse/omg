@@ -1,28 +1,17 @@
 package com.omg.company;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
+import org.springframework.web.bind.annotation.*;
 
-import com.omg.dto.Departments;
-import com.omg.dto.Employees;
-import com.omg.dto.Position;
-import com.omg.dto.Projects;
-import com.omg.dto.Teams;
-import com.omg.dto.Techs;
-import com.omg.service.EmployeeService;
-import com.omg.service.SalaryService;
+import com.omg.dto.*;
+import com.omg.service.*;
 
 @Controller
 @RequestMapping("RUN")
@@ -84,7 +73,7 @@ public class RProComtroller {
 		protemp.setStartDate(start);
 		protemp.setEndDate(end);
 		protemp.setDepartmentId(deptId);
-		int ret = salService.salProjectInsert(protemp);
+		salService.salProjectInsert(protemp);
 		return "redirect:index_s";
 	}
 	
@@ -110,10 +99,40 @@ public class RProComtroller {
 	
 	@RequestMapping("proDelete")
 	public String proDelete(HttpSession session, @RequestParam("proIds") String[] proids){
-		Integer ret = salService.deletePro(proids);
+		salService.deletePro(proids);
 		return "redirect:index_s";
 	}
 	
+	@RequestMapping("ProByTech")
+	public @ResponseBody List<String> ProByTech(HttpSession session, @RequestParam("proid") String proId){
+		List<String> techlist = salService.salSelectTechs(proId);
+		return techlist;
+	}
+	
+	@RequestMapping("protechIn")
+	public String protechIn(HttpSession session,
+			@RequestParam("proid") String proId,
+			@RequestParam("techname") String techName){
+		salService.salProTechInsert(proId, techName);
+		return "redirect:index_s";
+	}
+	
+	@RequestMapping("protechByDel")
+	public String protechByDel(HttpSession session,
+			@RequestParam("proid") String proId,
+			@RequestParam("techname") String techName){
+		salService.salProTechByDelete(proId, techName);
+		return "redirect:index_s";
+	}
+	
+	@RequestMapping("protechAllDel")
+	public String protechAllDel(HttpSession session,
+			@RequestParam("proid") String proId){
+		salService.salProTechDelete(proId);
+		return "redirect:index_s";
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////	
 	/// 윤지 -> 인사&회계
 	@RequestMapping("index_p")
 	public String personProindex(HttpSession session){
