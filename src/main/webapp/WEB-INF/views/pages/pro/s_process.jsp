@@ -482,7 +482,7 @@
 									  "<tr><th>프로젝트</th><td>"+proname+"</td></tr>"+
 									  "<tr><th>기술 LIST</th><td>"+protech+"</td></tr>"+
 									  "<tr><th>기술 입력(ID)</th><td><input type='text' name='techId' readonly='readonly'/></td></tr>";
-					var protechbtn = "<button type='submit' class='btn btn-default btn-sm'>입력</button><button id='techInRe' type='reset' class='btn btn-default btn-sm'>리셋</button>";
+					var protechbtn = "<button type='submit' class='btn btn-default btn-sm'>입력</button><button id='techInRe' type='reset' class='btn btn-default btn-sm'>리셋</button><a id='techInDel' type='reset' class='btn btn-default btn-sm'>삭제</>";
 					$("#insertProTech").append(protechlist);
 					$("#insertProTechBtn").append(protechbtn);
 				}else{
@@ -496,10 +496,15 @@
 				$("input[name='techId']").attr("value",data);
 			});
 			
+			// 리셋
 			$("#insertProTechBtn").on("click", "#techInRe", function() {
 				$("input[name='techId']").removeAttr("value");
 			});
 			
+			// 기술 삭제
+			$("#insertProTechBtn").on("click", "#techInDel", function() {
+				alert('삭제');
+			});
 		});
 	</script>
 </body>
