@@ -35,11 +35,12 @@
 			dataType : "json",
 			success : function(json){
 				$("#techlist").empty();
-				var td = "";
+				var td = "<td><select id='techclick' name='techbtn'>";
 				$.each(json, function(index, item) {
-					td += "<tr><td>"+item.techName+"("+item.techId+")"+"</td></tr>";
+					td += "<option value="+item.techName+">"+item.techName+"</option>";
 				});
-				$(td).appendTo($("#techlist"));
+				td +="</select></td>";
+				$("<tr>"+td+"</tr>").appendTo($("#techlist"));
 			}
 		});
 		
@@ -316,15 +317,15 @@
 											<div align="center">
 												<h6><b>회사 기술 목록</b></h6>
 												<div class="table-responsive">
-													<table border="1" style="border-top: solid;">
-														<thead>
-															<tr align="center" style="background-color: #ccffaa;">
-																<th width="130"><h5> 기술명 </h5></th>
+													<table border="1" style="border-top: solid;" >
+														<thead align="center">
+															<tr style="background-color: #ccffaa;">
+																<th style="text-align: center;"><b> 기술명 </b></th>
 															</tr>
 														</thead>
-														<tbody id="techlist"><!-- 기술의 목록이 보이는곳 -->
+														<tbody id="techlist" align="center"><!-- 기술의 목록이 보이는곳 -->
 															<tr>
-																<td style="color: red;" align="center"><b>프로잭트 기술이 없습니다.</b></td>
+																<td><select name='tech'><option value=""> 프로젝트를 선택해주세요!</option></select></td>
 															</tr>
 														</tbody>
 													</table>
@@ -461,7 +462,7 @@
 					alert('선택해주세요');
 				}
 				if(cbox.length != 0){		// 삭제 로직
-					alert(cbox);
+					$(this).attr("href", "proDelete?proIds="+cbox);
 				}
 			});
 			
@@ -476,7 +477,7 @@
 					$("#insertProTech").empty();
 					$("#insertProTechBtn").empty();
 					var protechlist = "<tr><th colspan='2' style='background-color: #ccffaa;text-align: center;'> 기술 등록 </th></tr>"+
-									  "<tr><th>프로젝트<br>ID</th><td>"+proid+"</td></tr>"+
+									  "<tr><th>프로젝트<br>ID</th><td><input type='hidden' name='proid' value='"+proid+"'/>"+proid+"</td></tr>"+
 									  "<tr><th>프로젝트</th><td>"+proname+"</td></tr>"+
 									  "<tr><th>기술 LIST</th><td>"+protech+"</td></tr>"+
 									  "<tr><th>기술 입력(ID)</th><td><input type='text' name='deptId' /></td></tr>";

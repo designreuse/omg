@@ -20,12 +20,20 @@
 		values(#{projectId},#{projectName},#{projectPrice},#{startDate},#{endDate},#{departmentId})
 	</insert>
 	
-	
 	<update id="proUpdate" parameterType="Projects">
-		update project 
-		set project_name = #{projectName}, project_price = #{projectPrice}, start_date = #{startDate}, end_date = #{endDate}, department_id = #{departmentId}, approval = null, approvalName = null
+		update projects 
+		set project_name = #{projectName}, project_price = #{projectPrice}, start_date = #{startDate}, end_date = #{endDate}, department_id = #{departmentId}, approval = null, approval_name = null
 		where project_id = #{projectId}
 	</update>
+	
+	<delete id="proDelete" parameterType="String">
+		delete from projects 
+		<where>
+			<foreach item="proid" index="proIdNum" collection="array" open="project_id in (" close=")" separator=",">
+				#{proid}
+			</foreach>
+		</where>
+	</delete>
 	
 	<!-- 리스트 뿌려주기 -->
 	<select id="salProjects" resultMap="pro" parameterType="map">
@@ -66,7 +74,7 @@
     </select>
     
     <select id="salProjectByProId" resultMap="pro" parameterType="String">
-        select p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, t.team_name teamName,  d.department_name deptName
+        select p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, p.department_id, t.team_name teamName,  d.department_name deptName
         FROM projects p, departments d, teams t
         where p.department_id = d.department_id and p.team_id = t.team_id(+) and p.project_id =#{proId}
     </select>

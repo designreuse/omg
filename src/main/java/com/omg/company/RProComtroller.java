@@ -84,7 +84,7 @@ public class RProComtroller {
 			@RequestParam("price") long price,
 			@RequestParam("start") Date start,
 			@RequestParam("end") Date end,
-			@RequestParam("dept") String deptName,
+			@RequestParam("dept") String deptId,
 			Model model){
 		Projects protemp = new Projects();
 		protemp.setProjectId(proId);
@@ -92,14 +92,15 @@ public class RProComtroller {
 		protemp.setProjectPrice(price);
 		protemp.setStartDate(start);
 		protemp.setEndDate(end);
-		protemp.setDeptName(deptName);
-		int ret = salService.salProjectUpdate(protemp);
-		System.out.println(ret);
-		if(ret >=1){
-			Projects pro = salService.salProjectByProId(proId);
-			model.addAttribute("pro", pro);
-		}
-		return "pages/pro/s_pro_det_up";
+		protemp.setDepartmentId(deptId);;
+		salService.salProjectUpdate(protemp);
+		return "redirect:index_s";
+	}
+	
+	@RequestMapping("proDelete")
+	public String proDelete(HttpSession session, @RequestParam("proIds") String[] proids){
+		Integer ret = salService.deletePro(proids);
+		return "redirect:index_s";
 	}
 	
 	/// 윤지 -> 인사&회계

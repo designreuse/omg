@@ -55,16 +55,20 @@ public class SalaryService {
 	
 	// 프로젝트 업데이트
 	public int salProjectUpdate(Projects pro) {
-		String deptId = deptDAO.DeptIdByDeptName(pro.getDeptName());
-		pro.setDepartmentId(deptId);
 		int ret = projectDAO.salProjectUpdate(pro);
 		System.out.println(ret);
 		return ret;
 	}
 	
-	// project 입력하기
+	// project 입력하기 -> 팀장
 	public int salProjectInsert(Projects pro) {
 		int ret = projectDAO.salProjectInsert(pro);
+		return ret;
+	}
+	
+	// 선택된것 들 삭제 하기 -> 팀장의 권한
+	public int deletePro(String[] proids) {
+		int ret = projectDAO.deletePro(proids);
 		return ret;
 	}
 }

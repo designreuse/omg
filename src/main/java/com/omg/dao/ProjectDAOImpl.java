@@ -26,6 +26,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 	
 	@Override
+	public int deletePro(String[] proids) {
+		int ret = sqlSession.delete("com.omg.projects.proDelete", proids);
+		return ret;
+	}
+	
+	@Override
 	public List<Projects> selectProject(int page, int date) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		int startPage = (page-1) * 15 + 1;

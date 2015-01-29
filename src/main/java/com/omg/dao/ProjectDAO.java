@@ -10,4 +10,5 @@ public interface ProjectDAO {
 	Projects salProjectByProId(String proId);
 	int salProjectUpdate(Projects pro);
 	int salProjectInsert(Projects pro);
+	public int deletePro(String[] proids);
 }
