@@ -12,6 +12,9 @@ import com.omg.dto.*;
 public class EmployeeService {
 	@Autowired
 	private EmployeeDAO empdao;
+	@Autowired
+	private ProjectDAO prodao;
+	
 	
 	public List<Employees> selectEmpName(){
 		List<Employees> list= empdao.selectEmp();
@@ -56,6 +59,15 @@ public class EmployeeService {
 	public Employees p_empSelect(String empid) {
 		Employees emp = empdao.p_empSelect(empid);
 		return emp;
+	}
+	public int p_sumProPrice(int year){
+		int price = prodao.sumProPrice(year);
+		return price;
+	}
+	
+	public int p_sumBydeptProPrice(Map map){
+		int price = prodao.sumBydeptProPrice(map);
+		return price;
 	}
 	
 }

@@ -78,4 +78,23 @@
         FROM projects p, departments d, teams t
         where p.department_id = d.department_id and p.team_id = t.team_id(+) and p.project_id =#{proId}
     </select>
+    
+    
+    <!-- 회사 전체매출 년도별 조회 -->
+    <select id="sumProPrice" resultType="int" parameterType="int">
+    	select sum(project_price)
+		from projects
+		where to_char(start_date,'yyyy')= #{year}
+    </select>
+    
+    <!-- 부서별 년도 매출 조회 -->
+     <select id="sumBydeptProPrice" resultType="int" parameterType="map">
+    	select sum(project_price)
+		from projects
+		where to_char(start_date,'yyyy')= #{year}
+		 and department_id= #{departmentId}
+		 group by (department_id)
+    </select>
+    
+    
 </mapper>

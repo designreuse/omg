@@ -11,4 +11,7 @@ public interface ProjectDAO {
 	int salProjectUpdate(Projects pro);
 	int salProjectInsert(Projects pro);
 	public int deletePro(String[] proids);
+	
+	int sumProPrice(int year);
+	int sumBydeptProPrice(Map map);
 }

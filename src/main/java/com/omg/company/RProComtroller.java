@@ -1,17 +1,28 @@
 package com.omg.company;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
-import org.springframework.ui.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.omg.dto.*;
-import com.omg.service.*;
+import com.omg.dto.Departments;
+import com.omg.dto.Employees;
+import com.omg.dto.Position;
+import com.omg.dto.Projects;
+import com.omg.dto.Teams;
+import com.omg.dto.Techs;
+import com.omg.service.EmployeeService;
+import com.omg.service.SalaryService;
 
 @Controller
 @RequestMapping("RUN")
@@ -220,4 +231,33 @@ public class RProComtroller {
 		return pos;
 	}
 	
+	@RequestMapping("/p_empSelect")
+	public @ResponseBody Employees p_empSelect(HttpSession session,
+                 @RequestParam("posid")String id){
+		Employees emp = empService.p_empSelect(id);
+		return emp;
+	}
+	
+	//회사 연도별 매출 조회
+	@RequestMapping("/p_sumProPrice")
+	public @ResponseBody int p_sumProPrice(HttpSession session,
+			@RequestParam("year")int year){
+		int price = empService.p_sumProPrice(year);
+		return price;
+	}
+	
+	//부서별 매출조회
+	@RequestMapping("p_sumBydeptProPrice")
+	public @ResponseBody int p_sumBydeptProPrice(HttpSession session,
+			@RequestParam("year")String year,
+			@RequestParam("dept")String dept){
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("year", year);
+		map.put("departmentId",	dept);
+		
+		int price = empService.p_sumBydeptProPrice(map);
+		return price;
+	}
+
 }

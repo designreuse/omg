@@ -68,4 +68,21 @@ public class ProjectDAOImpl implements ProjectDAO {
 		Projects pro = sqlSession.selectOne("com.omg.projects.salProjectByProId", proId);
 		return pro;
 	}
+
+	//회사 매출 조회
+	
+	@Override
+	public int sumProPrice(int year) {
+		 int price = sqlSession.selectOne("com.omg.projects.sumProPrice",year);
+		return price;
+	}
+
+	@Override
+	public int sumBydeptProPrice(Map map) {
+		 int price = sqlSession.selectOne("com.omg.projects.sumBydeptProPrice",map);
+			return price;
+	}
+	
+	
+	
 }
