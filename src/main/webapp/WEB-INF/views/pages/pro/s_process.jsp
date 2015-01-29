@@ -35,7 +35,7 @@
 			dataType : "json",
 			success : function(json){
 				$("#techlist").empty();
-				var td = "<td><select id='techclick' name='techbtn'>";
+				var td = "<td><select id='techchange' name='techbtn' disabled><option value=''>-선택해주세요-</option>";
 				$.each(json, function(index, item) {
 					td += "<option value="+item.techName+">"+item.techName+"</option>";
 				});
@@ -308,7 +308,7 @@
 														</tbody>
 													</table>
 													<div align="right">
-														<input type="submit" value="입력"><input type="reset" value="리셋">
+														<button type="submit" class='btn btn-default btn-sm'>입력</button><button type="reset" class='btn btn-default btn-sm'>리셋</button>
 													</div>
 												</form>
 											</div>
@@ -331,7 +331,7 @@
 													</table>
 												</div>
 												<div class="table-responsive" align="center">
-													<form action="insert" method="post">
+													<form action="protechIn" method="post">
 														<h6><b> 프로젝트 기술 등록창 </b></h6>
 														<table border="1" style="border-top: solid;">
 															<tbody id="insertProTech"><!-- 프로잭트 기술 등록 하기 -->
@@ -474,14 +474,15 @@
 				var app = $(this).attr("app");
 				//alert(proid+"  "+proname+"  "+protech);
 				if(app != 'O'){
+					$("#techchange").removeAttr("disabled");
 					$("#insertProTech").empty();
 					$("#insertProTechBtn").empty();
 					var protechlist = "<tr><th colspan='2' style='background-color: #ccffaa;text-align: center;'> 기술 등록 </th></tr>"+
 									  "<tr><th>프로젝트<br>ID</th><td><input type='hidden' name='proid' value='"+proid+"'/>"+proid+"</td></tr>"+
 									  "<tr><th>프로젝트</th><td>"+proname+"</td></tr>"+
 									  "<tr><th>기술 LIST</th><td>"+protech+"</td></tr>"+
-									  "<tr><th>기술 입력(ID)</th><td><input type='text' name='deptId' /></td></tr>";
-					var protechbtn = "<input type='submit' value='입력'><input type='reset' value='리셋'>";
+									  "<tr><th>기술 입력(ID)</th><td><input type='text' name='techId' readonly='readonly'/></td></tr>";
+					var protechbtn = "<button type='submit' class='btn btn-default btn-sm'>입력</button><button id='techInRe' type='reset' class='btn btn-default btn-sm'>리셋</button>";
 					$("#insertProTech").append(protechlist);
 					$("#insertProTechBtn").append(protechbtn);
 				}else{
@@ -489,8 +490,16 @@
 				}
 			});
 			
-			// 프로젝트 등록하는 것 -> 팀장 이 할 것
-			//var form = ""
+			// 기술 선택시 기술 들록 input으로 등록하기
+			$("#techlist").on("change", "#techchange", function() {
+				var data = $(this).val();
+				$("input[name='techId']").attr("value",data);
+			});
+			
+			$("#insertProTechBtn").on("click", "#techInRe", function() {
+				$("input[name='techId']").removeAttr("value");
+			});
+			
 		});
 	</script>
 </body>
