@@ -49,5 +49,13 @@ public class EmployeeService {
 		List<Position> list = empdao.p_posSelect();
 		return list;
 	}
+	public Position p_salarySelect(String posid) {
+		Position pos = empdao.p_salarySelect(posid);
+		return pos;
+	}
+	public Employees p_empSelect(String empid) {
+		Employees emp = empdao.p_empSelect(empid);
+		return emp;
+	}
 	
 }

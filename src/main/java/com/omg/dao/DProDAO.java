@@ -12,5 +12,6 @@ public interface DProDAO {
 	List<DProcess> startProjects(String employeeId);
 	List<DProcess> SCVList();
 	List<DProcess> teams();
-	int count();	
+	int count();
+	int setTeam();
 }
