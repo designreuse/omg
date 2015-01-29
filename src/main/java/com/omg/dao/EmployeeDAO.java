@@ -23,4 +23,5 @@ public interface EmployeeDAO {
 	List<Teams> p_teamSelect();
 	List<Position> p_posSelect();
 	Position p_salarySelect(String posid);
+	Employees p_empSelect(String empid);
 }

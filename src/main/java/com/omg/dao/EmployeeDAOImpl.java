@@ -115,4 +115,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return pos;
 	}
 
+	@Override
+	public Employees p_empSelect(String empid) {
+		Employees emp = sqlSession.selectOne("com.omg.employee.selectlist",empid);
+		return emp;
+	}
+
 }

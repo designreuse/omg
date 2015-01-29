@@ -269,14 +269,69 @@
 				data:"id="+id,
 				dataType:"json",
 				success: function(json){
+					d = json.departmentId;
+					t = json.teamId;
+					p = json.positionId;
+				 
 					var str="";
 						str += "<div class='table-responsive'><form action='p_update?id="+json.employeeId+"' method='POST'><table class='table table-bordered' border='1'>";
 						str += "<tr>"+"<th>사 번</th>"+"<td>" +json.employeeId+ "</td></tr>";
 						str += "<tr>"+"<th>이 름</th>"+"<td>"+json.name+"</td></tr>";
 						str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' value="+json.manager+" name='manager'></td>";
-						str += "<tr>"+"<th>부 서</th>"+"<td><input type='text' value="+json.departmentId+" name='dept'></td>";
-						str += "<tr>"+"<th> 팀 </th>"+"<td><input type='text' value="+json.teamId+" name='team'></td>";
-						str += "<tr>"+"<th>직 책</th>"+"<td><input type='text' value="+json.positionId+" name='pos'></td>";
+						str += "<tr>"+"<th>부 서</th>";
+						$.ajax({
+							url: "p_deptSelect",
+							dataType:"json",
+							async: false,
+							success:function(json){
+								str += "<td><select name='dept'>";
+								$.each(json,function(index,item){
+									if(d==item.departmentId){
+										str += "<option value="+item.departmentId+" selected='selected'>"+item.departmentName+"</option>";
+									} else{
+										str += "<option value="+item.departmentId+">"+item.departmentName+"</option>";									
+									}
+	
+								});
+								str += "</select></td></tr>";
+							}
+						}); 
+						str += "<tr>"+"<th> 팀 </th>";
+						$.ajax({
+							url: "p_teamSelect",
+							dataType:"json",
+							async: false,
+							success:function(json){
+								str += "<td><select name='team'>";
+								$.each(json,function(index,item){
+									if(t==item.teamId){
+										str += "<option value="+item.teamId+" selected='selected'>"+item.teamName+"</option>";
+									} else{
+										str += "<option value="+item.teamId+">"+item.teamName+"</option>";
+									}
+								});
+								str += "</select></td></tr>";
+							}
+						}); 
+						str += "<tr>"+"<th>직 책</th>";
+						$.ajax({
+							url: "p_posSelect",
+							dataType:"json",
+							async: false,
+							success:function(json){
+								str += "<td><select name='pos'>";
+								$.each(json,function(index,item){
+									if(p==item.positionId){
+										str += "<option value="+item.positionId+" selected='selected'>"+item.positionName+"</option>";
+									} else{
+										str += "<option value="+item.positionId+">"+item.positionName+"</option>";
+									}
+								});
+								str += "</select></td></tr>";
+							}
+						});
+						
+						
 						str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text' value="+json.salary+" name='salary'></td>";
 						str += "<tr>"+"<th>Com.</th>"+"<td><input type='text' value="+json.commition+" name='commition'></td>"; 
 						str += "</tr></table>"; 
@@ -303,9 +358,9 @@
 			
 					var str="";
 					str += "<div class='table-responsive'><form action='p_insert' method='POST'><table class='table table-bordered' border='1'>";
-					str += "<tr>"+"<th>사 번</th>"+"<td><input type='text' name='id'></td></tr>";
+					str += "<tr>"+"<th>사 번</th>"+"<td><input type='text' name='id'id='id'><span id='empId'></span></td></tr>";
 					str += "<tr>"+"<th>이 름</th>"+"<td><input type='text'name='name'></td></tr>";
-					str += "<tr>"+"<th>입사일</th>"+"<td><input type='text' name='hiredate'></td></tr>";
+					str += "<tr>"+"<th>입사일(yyyy-mm-dd)</th>"+"<td><input type='text' name='hiredate'></td></tr>";
 					str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='manager'></td></tr>";
 					str += "<tr>"+"<th>부 서</th>";
 					$.ajax({
@@ -346,7 +401,7 @@
 							str += "</select></td></tr>";
 						}
 					}); 
-					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text'  id='t_sal' name='salary'></td><span id='sal'></span></tr>";
+					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text'  id='t_sal' name='salary'><span id='sal'></span></td></tr>";
 					str += "<tr>"+"<th>핸드폰</th>"+"<td><input type='text'name='phone'></td></tr>";
 					str += "<tr>"+"<th>주 소</th>"+"<td><input type='text' name='address'></td></tr>";
 					str += "<tr>"+"<th>성 별</th>"+"<td><input type='text'name='gender'></td></tr>";
@@ -359,23 +414,32 @@
 			 		
 					$("#t_sal").keydown(function(){
 						posId = $("select[name='pos']").val();
-						//alert(posId);
 						$.ajax({
 							url: "p_salarySelect",
 							data:"posid="+posId,
 							dataType:"json",
-							//async: false,
+							async: false,
 							success:function(json){
 								min = json.minSalary;
 								max = json.maxSalary;
-								alert(min);
-								
-								$(this).next("#sal").text("minSalary: "+min + " / maxSalary: " +max);
+								$("#sal").text("minSalary: "+min + " / maxSalary: " +max);
 							}
 						});
-							
 					});
-		
+					$("#id").keyup(function(){
+						id_text = $("#id").val();
+						/*  $.ajax({
+							url: "p_empSelect",
+							data:"posid="+id_text,
+							dataType:"json",
+							async: false,
+							success:function(json){
+								if(json!=null){
+									$("#empId").text("이미 있는 사번입니다.");	
+								}
+							}
+						});   */
+					});
 		});
 		
 		
