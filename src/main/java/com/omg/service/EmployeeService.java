@@ -60,13 +60,13 @@ public class EmployeeService {
 		Employees emp = empdao.p_empSelect(empid);
 		return emp;
 	}
-	public int p_sumProPrice(int year){
-		int price = prodao.sumProPrice(year);
+	public long p_sumProPrice(String year){
+		long price = prodao.sumProPrice(year);
 		return price;
 	}
 	
-	public int p_sumBydeptProPrice(Map map){
-		int price = prodao.sumBydeptProPrice(map);
+	public long p_sumBydeptProPrice(Map map){
+		long price = prodao.sumBydeptProPrice(map);
 		return price;
 	}
 	
