@@ -13,13 +13,15 @@
 <result property="teamId" column="TEAM_ID"/>
 <result property="departmentId" column="DEPARTMENT_ID"/>
 <result property="employeeId" column="EMPLOYEE_ID"/>
-<result property="name" column="NAME"/>
+<result property="employeeName" column="NAME"/>
 <result property="phone" column="PHONE"/>
 <result property="email" column="EMAIL"/>
 <result property="positionName" column="POSITION_NAME"/>
 </resultMap>
+
+<!--현재 프로젝트 리스트  -->
 <select id="relist" resultMap="dto" parameterType="String">
-<![CDATA[ select * from employees e, project_emp pe, projects pro, project_tech prote, techs tech
+<![CDATA[ 	select * from employees e, project_emp pe, projects pro, project_tech prote, techs tech
 where pe.employee_id= e.employee_id
 and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
@@ -28,25 +30,23 @@ and e.employee_id= #{employeeId}
 and sysdate >= start_date and sysdate <= end_date]]>
 </select>
 
+<!--현재 프로젝트 동료리스트  -->
 <select id="colist" resultMap="dto">
 <![CDATA[
-select * from project_emp pe, employees e, position po
-where pe.EMPLOYEE_ID=e.EMPLOYEE_ID
-and e.position_id=po.position_id
-and project_id=
-(
-select pe.PROJECT_ID from employees e, project_emp pe, projects pro, project_tech prote, techs tech
-where pe.employee_id= e.employee_id
-and pe.project_id = pro.project_id
-and prote.project_id = pro.project_id
-and prote.tech_id = tech.tech_id
-and sysdate >= start_date and sysdate <= end_date
-and e.employee_id= #{employeeId})
+select *
+from projects p ,project_emp pe, employees e,position
+where p.project_id = pe.project_id
+and e.employee_id = pe.employee_id
+and e.position_id = position.position_id
+and p.start_date<=sysdate
+and p.end_date>=sysdate
+and e.team_id = #{teamId}
 ]]>
 </select>
 
 <select id="exlist" resultMap="dto" parameterType="String">
-<![CDATA[ select * from employees e, project_emp pe, projects pro, project_tech prote, techs tech
+<![CDATA[ select * 
+from employees e, project_emp pe, projects pro, project_tech prote, techs tech
 where pe.employee_id= e.employee_id
 and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
@@ -66,20 +66,33 @@ and emp.EMPLOYEE_ID = #{employeeId} ]]>
 </select>
 
 
-
-
-
 <select id="sparelist" resultMap="dto">
-select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID from employees e, position p
+select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID 
+from employees e, position p
 where e.POSITION_ID = p.POSITION_ID
-and e.DEPARTMENT_ID = 'D'
 and e.EMPLOYEE_ID not in (
 select e.EMPLOYEE_ID from employees e, project_emp pe
 where e.EMPLOYEE_ID = pe.EMPLOYEE_ID)
+and e.team_id = #{teamId}
 </select>
 
-<select id="team" resultMap="dto">
-select * from teams
-where team_id like 'D%'
+
+<select id="putlist" resultMap="dto">
+<![CDATA[
+select * from project_emp pe, employees e, position po
+where pe.EMPLOYEE_ID=e.EMPLOYEE_ID
+and e.position_id=po.position_id
+and project_id=
+(
+select pe.PROJECT_ID from employees e, project_emp pe, projects pro, project_tech prote, techs tech
+where pe.employee_id= e.employee_id
+and pe.project_id = pro.project_id
+and prote.project_id = pro.project_id
+and prote.tech_id = tech.tech_id
+and sysdate <= start_date
+and e.employee_id= #{employeeId})
+]]>
 </select>
+
+
 </mapper>

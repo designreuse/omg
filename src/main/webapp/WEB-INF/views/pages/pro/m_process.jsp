@@ -39,7 +39,7 @@
 
 					str += "<tr>";
 					str += "<td>" + (index + 1) + "</td>";
-					str += "<td>" + item.Name + "</td>";
+					str += "<td>" + item.employeeName + "</td>";
 					str += "<td>" + item.phone + "</td>";
 					str += "<td>" + item.email + "</td>";
 					str += "<td>" + item.positionName + "</td>";
@@ -78,35 +78,85 @@
 		});
 
 		//과거에 했엇던 프로젝트리스트
-		$("#ex").click(function() {
+		$("#ex").click(function(){
+		$.ajax({
+			url : "exlist",
+			dataType : "json",
+			success : function(json) {
+				$("#exlist").empty();
+				var str = "";
+				$.each(json, function(index, item) {
+					//index는 012345씩증가한다 item은 json를 하나씩 저장함
+					//json에서 index번째를 item에 저장한다는뜻
+
+					str += "<tr>";
+					str += "<td>" + item.projectName + "</td>";
+					str += "<td>" + item.techName + "</td>";
+					str += "<td>" + item.startDate + "</td>";
+					str += "<td>" + item.endDate + "<td>";
+					str += "</tr>";
+
+				});
+				$("#exlist").append(str);
+				//list 아래에 str을 위에서 선언한대로 찍는다
+
+			},
+			error : function() {
+				alert("exlist 에러이다");
+			}
+
+		});
+		});
+		
+		//스페어리스트 눌럿을때 ajax 반응하기
+		$("#spare").click(function(){
 			$.ajax({
-				url : "exlist",
+				url : "colist",
 				dataType : "json",
 				success : function(json) {
-					$("#exlist").empty();
+					$("#colist").empty();
 					var str = "";
 					$.each(json, function(index, item) {
-						//index는 012345씩증가한다 item은 json를 하나씩 저장함
-						//json에서 index번째를 item에 저장한다는뜻
 
 						str += "<tr>";
-						str += "<td>" + item.projectName + "</td>";
-						str += "<td>" + item.techName + "</td>";
-						str += "<td>" + item.startDate + "</td>";
-						str += "<td>" + item.endDate + "<td>";
+						str += "<td>" + (index + 1) + "</td>";
+						str += "<td>" + item.employeeName + "</td>";
+						str += "<td>" + item.phone + "</td>";
+						str += "<td>" + item.email + "</td>";
+						str += "<td>" + item.positionName + "</td>";
 						str += "</tr>";
 
 					});
-					$("#exlist").append(str);
-					//list 아래에 str을 위에서 선언한대로 찍는다
 
-				},
-				error : function() {
-					alert("exlist 에러이다");
+					$("#colist").append(str);
 				}
-
 			});
+			
+			$.ajax({
+				url:"spare",
+				dataType:"json",
+				success:function(json) {
+					$("#sparelist").empty();
+					var str = "";
+					$.each(json, function(index, item) {
+
+						str += "<tr>";
+						str += "<td>" + (index + 1) + "</td>";
+						str += "<td>" + item.employeeName + "</td>";
+						str += "<td>" + item.phone + "</td>";
+						str += "<td>" + item.email + "</td>";
+						str += "<td>" + item.positionName + "</td>";
+						str += "</tr>";
+
+					});
+
+					$("#sparelist").append(str);
+				}
+				
+			});
+			
 		});
+
 
 	});
 </script>
@@ -145,7 +195,8 @@
 										<!--세션나눠주기  -->
 										<div class="box-header">
 											<!--박스 머리말  -->
-											<h3 class="box-title" id="h3">Current project</h3>
+											<h3 class="box-title" id="h3">Current
+												project</h3>
 										</div>
 										<div style="margin-top: 15px;">
 											<a id="re" class="btn btn-danger btn-flat">Current
@@ -154,6 +205,11 @@
 										<div style="margin-top: 15px;">
 											<a id="ex" class="btn btn-warning btn-flat">My Career</a>
 										</div>
+										
+										<div style="margin-top: 15px;">
+											<a id="spare" class="btn btn-primary btn-flat">Spare List</a>
+										</div>
+										
 									</div>
 
 
@@ -163,7 +219,7 @@
 										</div>
 										<div class="box-body">
 
-											<div class="table-responsive">
+											<div class="table-responsive">	
 												<table class="table table-bordered" border="1">
 													<thead>
 														<tr>
@@ -178,8 +234,7 @@
 												</table>
 											</div>
 											<!--테이블 responsive 끝  -->
-										</div>
-										<!--relist 끝  -->
+										</div><!--relist 끝  -->
 
 
 										<div class="box-header">
@@ -201,34 +256,7 @@
 													</tbody>
 												</table>
 											</div>
-										</div>
-										<!--colleageu리스트 끝  -->
-
-
-										<div class="box-header">
-											<h3 class="box-title">sparelist</h3>
-										</div>
-										<div class="box-body">
-											<div class="table-responsive">
-												<table class="table table-bordered" border="1">
-													<thead>
-														<tr>
-															<th>NO.</th>
-															<th>Name</th>
-															<th>Phone</th>
-															<th>Email</th>
-															<th>Position</th>
-														</tr>
-													</thead>
-													<tbody id="sparelist">
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<!--잉여인력 리스트 끝  -->
-
-
-
+										</div><!--colleageu리스트 끝  -->
 
 										<!-- /.box-body -->
 										<div class="box-footer clearfix">
@@ -249,15 +277,12 @@
 				<!--칼럼12로 나누기 끝  -->
 
 
+	</section>
+	<!--세션끝  -->
 
-
-
-			</section>
-			<!--세션끝  -->
-
-			<!-- /.content -->
-		</aside>
-		<!-- /.right-side -->
+	<!-- /.content -->
+	</aside>
+	<!-- /.right-side -->
 	</div>
 	<!-- ./wrapper -->
 
@@ -273,31 +298,51 @@
 	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
 
-	<script>
-		/* mycarrer눌렀을때  */
-		$("#bnt_window")
-				.on(
-						"click",
-						"#ex",
-						function() {
-							$("#detailview").empty();
-							$("#h3").text("My Career");
-							var ex = "<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
-									+ "<select name='yeas'></select></span></div></div>"
-									+ "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
-									+ "<div class='box-body'><div class='table-responsive'>"
-									+ "<table class='table table-bordered' border='1'>"
-									+ "<thead><tr><th>Project명</th>"
-									+ "<th>관련 기술</th><th>Start day</th><th>End day</th>"
-									+ "</tr></thead><tbody id='exlist'></tbody></table></div></div>";
+<script>
 
-							$(ex).appendTo($("#detailview"));
-						});
+/* mycarrer눌렀을때  */
+//bnt_window가 부모입장이다 이안에있는 id가 ex인것을 눌렀을때 발동
+$("#bnt_window").on("click","#ex",function(){
+	$("#detailview").empty();
+	$("#h3").text("My Career");
+	var ex 	= 		"<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
+				   +"<div class='box-body'><div class='table-responsive'>"
+			   	   +"<table class='table table-bordered' border='1'>"
+			       +"<thead><tr><th>Project명</th>"
+				   +"<th>관련 기술</th><th>Start day</th><th>End day</th>"
+				   +"</tr></thead><tbody id='exlist'></tbody></table></div></div>";
 
-		$("#re").click(function() {
-			$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
-		});
-	</script>
+	$(ex).appendTo($("#detailview"));  
+});
+
+
+	//current project눌럿을때
+$("#re").click(function(){
+	$(this).attr("href","index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
+});
+
+//인원추가버튼 눌럿을때
+$("#bnt_window").on("click","#spare",function() {
+	$("#detailview").empty();
+	$("#h3").text("Spare List");
+	var spare =  "<div class='box-header'><h3 class='box-title'>투입인원</h3></div><div class='box-body'>"
+	 			 +"<div class='table-responsive'><table class='table table-bordered' border='1'>"
+				 +"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
+				 +"</tr></thead><tbody id='colist'>"
+				 +"</tbody></table></div></div>"
+
+
+
+				 +"<div class='box-header'><h3 class='box-title'>sparelist</h3></div><div class='box-body'>"
+				 +"<div class='table-responsive'><table class='table table-bordered' border='1'>"
+				 +"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
+				 +"</tr></thead><tbody id='sparelist'>"
+				 +"</tbody></table></div></div>";
+
+		$(spare).appendTo($("#detailview")); 
+});
+
+</script>
 
 </body>
 </html>
