@@ -93,6 +93,7 @@
 		from projects
 		where to_char(start_date,'yyyy')= #{year}
 		 and department_id= #{departmentId}
+		 group by (department_id)
     </select>
     
     
