@@ -18,6 +18,7 @@
 <result property="phone" column="PHONE"/>
 <result property="email" column="EMAIL"/>
 <result property="positionName" column="POSITION_NAME"/>
+<result property="approval" column="APPROVAL"/>
 </resultMap>
 <select id="dpro" resultMap="dto" parameterType="String">
 <![CDATA[ select * from employees e, project_emp pe, projects pro, project_tech prote, techs tech
@@ -52,6 +53,7 @@ where pe.employee_id= e.employee_id
 and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
+and pro.approval = 'O'
 and e.employee_id= #{employeeId}
 and sysdate >= end_date]]>
 </select>
@@ -62,6 +64,8 @@ where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
 and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
 and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
+and pro.approval = 'O'
+and pro.TEAM_ID is null
 and pro.START_DATE>=sysdate
 and emp.EMPLOYEE_ID = #{employeeId} ]]>
 </select>
@@ -84,14 +88,7 @@ where team_id like 'D%'
 
 <update id="setTeam" parameterType="map">
 update projects
-set TEAM_ID = null
-where PROJECT_ID = 
-(select pro.PROJECT_ID from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp, project_tech prote, techs tech
-where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
-and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
-and prote.project_id = pro.project_id
-and prote.tech_id = tech.tech_id
-and pro.START_DATE>=sysdate
-and emp.EMPLOYEE_ID = #{employeeId})
+set TEAM_ID = #{teamId}
+where PROJECT_ID = #{projectId}
 </update>
 </mapper>
