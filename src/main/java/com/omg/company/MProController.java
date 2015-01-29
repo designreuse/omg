@@ -41,11 +41,11 @@ public class MProController {
 		return list;
 	}
 	@RequestMapping("/colist")
-	public @ResponseBody List<MProcess> colist(HttpSession session, Model model, String teamId){
+	public @ResponseBody List<MProcess> colist(HttpSession session, Model model, String employeeId){
 		
 		Employees emps = (Employees)session.getAttribute("user"); 
 		
-		List<MProcess> list = mproService.colist(emps.getTeamId());
+		List<MProcess> list = mproService.colist(emps.getEmployeeId());
 		
 		
 		return list;

@@ -33,14 +33,18 @@ and sysdate >= start_date and sysdate <= end_date]]>
 <!--현재 프로젝트 동료리스트  -->
 <select id="colist" resultMap="dto">
 <![CDATA[
-select *
-from projects p ,project_emp pe, employees e,position
-where p.project_id = pe.project_id
-and e.employee_id = pe.employee_id
-and e.position_id = position.position_id
-and p.start_date<=sysdate
-and p.end_date>=sysdate
-and e.team_id = #{teamId}
+select * from project_emp pe, employees e, position po
+where pe.EMPLOYEE_ID=e.EMPLOYEE_ID
+and e.position_id=po.position_id
+and project_id=
+(
+select pe.PROJECT_ID from employees e, project_emp pe, projects pro, project_tech prote, techs tech
+where pe.employee_id= e.employee_id
+and pe.project_id = pro.project_id
+and prote.project_id = pro.project_id
+and prote.tech_id = tech.tech_id
+and sysdate >= start_date and sysdate <= end_date
+and e.employee_id= #{employeeId})
 ]]>
 </select>
 

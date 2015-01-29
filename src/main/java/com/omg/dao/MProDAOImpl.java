@@ -21,8 +21,8 @@ public class MProDAOImpl implements MProDAO {
 	}
 
 	@Override
-	public List<MProcess> colist(String teamId) {
-		List<MProcess> list =session.selectList("com.omg.mpro.colist",teamId);
+	public List<MProcess> colist(String employeeId) {
+		List<MProcess> list =session.selectList("com.omg.mpro.colist",employeeId);
 		return list;
 	}
 
