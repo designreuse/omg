@@ -53,4 +53,10 @@ public class DProDAOImpl implements DProDAO {
 		return sqlSession.selectList("com.omg.dpro.team");
 	}
 
+	@Override
+	public int setTeam() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

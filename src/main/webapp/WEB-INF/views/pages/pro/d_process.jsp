@@ -113,7 +113,7 @@
 							}
 						});
 					str += "<td>" + "<input type='button' value='결정'>"
-					+ "<input type='button' value='수정'>" + "</td>";
+					+ "</td>";
 			str += "</tr>";
 					});
 				$("#startPro").append(str);
@@ -197,7 +197,7 @@
 												<th>Start day</th>
 												<th>End day</th>
 												<th>Team</th>
-												<th>[결정/수정]</th>
+												<th>[결정]</th>
 											</tr>
 										</thead>
 										<tbody id="startPro">
