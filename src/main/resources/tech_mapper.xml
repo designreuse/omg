@@ -11,4 +11,8 @@
 	<select id="selectTechs" resultMap="tech">
 		select * from techs
 	</select>
+	
+	<select id="techIdByName" resultType="String" parameterType="String">
+		select tech_id from techs where tech_name = #{techName}
+	</select>
 </mapper>
