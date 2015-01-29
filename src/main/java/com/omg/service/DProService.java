@@ -42,4 +42,11 @@ public class DProService {
 		return SCVList;
 		//return null;
 	}
+	
+	public List<DProcess> teams(){
+		
+		List<DProcess> teams = dProDAO.teams();
+		return teams;
+		
+	}
 }

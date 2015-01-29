@@ -293,17 +293,17 @@
                                                  This is an example of having the box header within the box body -->
 										<div class="box-header">
 											<div id="proinsert" align="center"><!-- 팀장이 프로잭트 등록하기  -->
-												<form action="insert" method="post">
+												<form action="insertpro" method="post">
 													<h6><b> 프로젝트 등록창</b></h6>
 													<table border="1" style="border-top: solid;">
 														<tbody ><!-- 프로잭트 기술 등록 하기 -->
 															<tr><th colspan="2" style="background-color: #ccffaa;text-align: center;"> 프로젝트 등록 </th></tr>
 															<tr><th>프 로 젝 트<br>ID</th><td><input type="text" name="proid" /></td></tr>
 															<tr><th>프 로 젝 트</th><td><input type="text" name="proname" /></td></tr>
-															<tr><th>금 액 </th><td><input type="text" name="proprice" /></td></tr>
+															<tr><th>금 액(천만원) </th><td><input type="text" name="proprice" /></td></tr>
 															<tr><th>시작일<br>(y-m-d)</th><td><input type="text" name="start" /></td></tr>
 															<tr><th>종료일<br>(y-m-d)</th><td><input type="text" name="end" /></td></tr>
-															<tr><th>부서ID</th><td><input type="text" name="deptId" /><br>(개발:D, 유지보수:M)</td></tr>
+															<tr><th>부서ID</th><td><input type="text" name="deptid" /><br>(개발:D, 유지보수:M)</td></tr>
 														</tbody>
 													</table>
 													<div align="right">
@@ -365,10 +365,10 @@
 														<tr class="unread" align="center" style="background-color: #ccffaa; text-align: center;">
 															<th class="name"> 선  택 </th>
 															<th class="name"> 부 서 </th>
-															<th class="subject"> 프로젝트명 제목 </th>
+															<th class="subject"> 프로젝트명 제목(기술등록) </th>
 															<th class="time"> 시 작 일 </th>
 															<th class="time"> 종 료 일 </th>
-															<th class="time"> 가    격 </th>
+															<th class="time"> 가 격(천만원) </th>
 															<th class="time">승 인 여 부</th>
 															<th class="time"> 승 인 자 </th>
 														</tr>
@@ -447,7 +447,7 @@
 						alert('한개만 선택해주세요!!');
 					}
 				}else{
-					alert('승인된 프로젝트 수정 불가');
+					alert('승인된 프로젝트 입니다.');
 				}
 			});
 			
@@ -484,7 +484,7 @@
 					$("#insertProTech").append(protechlist);
 					$("#insertProTechBtn").append(protechbtn);
 				}else{
-					alert('승인된 프로젝트 입니다.')
+					alert('승인된 프로젝트 입니다.');
 				}
 			});
 			
