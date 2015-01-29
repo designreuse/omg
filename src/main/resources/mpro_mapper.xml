@@ -69,7 +69,7 @@ and emp.EMPLOYEE_ID = #{employeeId} ]]>
 
 
 
-<select id="SCV" resultMap="dto">
+<select id="sparelist" resultMap="dto">
 select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID from employees e, position p
 where e.POSITION_ID = p.POSITION_ID
 and e.DEPARTMENT_ID = 'D'

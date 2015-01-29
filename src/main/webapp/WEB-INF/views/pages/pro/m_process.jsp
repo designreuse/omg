@@ -39,7 +39,7 @@
 
 					str += "<tr>";
 					str += "<td>" + (index + 1) + "</td>";
-					str += "<td>" + item.employeeName + "</td>";
+					str += "<td>" + item.Name + "</td>";
 					str += "<td>" + item.phone + "</td>";
 					str += "<td>" + item.email + "</td>";
 					str += "<td>" + item.positionName + "</td>";
@@ -62,7 +62,6 @@
 				$.each(json, function(index, item) {
 
 					sta += "<tr>";
-					//sta += "<th>" + (index+1) +"</th>";
 					sta += "<th>" + item.projectName + "</th>";
 					sta += "<th>" + item.techName + "</th>";
 					sta += "<td>" + item.startDate + "</td>";
@@ -79,35 +78,35 @@
 		});
 
 		//과거에 했엇던 프로젝트리스트
-		$.ajax({
-			url : "exlist",
-			dataType : "json",
-			success : function(json) {
-				$("#exlist").empty();
-				var str = "";
-				$.each(json, function(index, item) {
-					//index는 012345씩증가한다 item은 json를 하나씩 저장함
-					//json에서 index번째를 item에 저장한다는뜻
+		$("#ex").click(function() {
+			$.ajax({
+				url : "exlist",
+				dataType : "json",
+				success : function(json) {
+					$("#exlist").empty();
+					var str = "";
+					$.each(json, function(index, item) {
+						//index는 012345씩증가한다 item은 json를 하나씩 저장함
+						//json에서 index번째를 item에 저장한다는뜻
 
-					str += "<tr>";
-					str += "<td>" + item.projectName + "</td>";
-					str += "<td>" + item.techName + "</td>";
-					str += "<td>" + item.startDate + "</td>";
-					str += "<td>" + item.endDate + "<td>";
-					str += "</tr>";
+						str += "<tr>";
+						str += "<td>" + item.projectName + "</td>";
+						str += "<td>" + item.techName + "</td>";
+						str += "<td>" + item.startDate + "</td>";
+						str += "<td>" + item.endDate + "<td>";
+						str += "</tr>";
 
-				});
-				$("#exlist").append(str);
-				//list 아래에 str을 위에서 선언한대로 찍는다
+					});
+					$("#exlist").append(str);
+					//list 아래에 str을 위에서 선언한대로 찍는다
 
-			},
-			error : function() {
-				alert("exlist 에러이다");
-			}
+				},
+				error : function() {
+					alert("exlist 에러이다");
+				}
 
+			});
 		});
-
-
 
 	});
 </script>
@@ -146,7 +145,7 @@
 										<!--세션나눠주기  -->
 										<div class="box-header">
 											<!--박스 머리말  -->
-											<h3 class="box-title" id="h3">업무 조회</h3>
+											<h3 class="box-title" id="h3">Current project</h3>
 										</div>
 										<div style="margin-top: 15px;">
 											<a id="re" class="btn btn-danger btn-flat">Current
@@ -164,7 +163,7 @@
 										</div>
 										<div class="box-body">
 
-											<div class="table-responsive">	
+											<div class="table-responsive">
 												<table class="table table-bordered" border="1">
 													<thead>
 														<tr>
@@ -179,7 +178,8 @@
 												</table>
 											</div>
 											<!--테이블 responsive 끝  -->
-										</div><!--relist 끝  -->
+										</div>
+										<!--relist 끝  -->
 
 
 										<div class="box-header">
@@ -201,7 +201,34 @@
 													</tbody>
 												</table>
 											</div>
-										</div><!--colleageu리스트 끝  -->
+										</div>
+										<!--colleageu리스트 끝  -->
+
+
+										<div class="box-header">
+											<h3 class="box-title">sparelist</h3>
+										</div>
+										<div class="box-body">
+											<div class="table-responsive">
+												<table class="table table-bordered" border="1">
+													<thead>
+														<tr>
+															<th>NO.</th>
+															<th>Name</th>
+															<th>Phone</th>
+															<th>Email</th>
+															<th>Position</th>
+														</tr>
+													</thead>
+													<tbody id="sparelist">
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<!--잉여인력 리스트 끝  -->
+
+
+
 
 										<!-- /.box-body -->
 										<div class="box-footer clearfix">
@@ -220,15 +247,17 @@
 					<!-- 미백효과 끝 -->
 				</div>
 				<!--칼럼12로 나누기 끝  -->
-	</div>
-	<!-- 메일박스 끝 -->
 
-	</section>
-	<!--세션끝  -->
 
-	<!-- /.content -->
-	</aside>
-	<!-- /.right-side -->
+
+
+
+			</section>
+			<!--세션끝  -->
+
+			<!-- /.content -->
+		</aside>
+		<!-- /.right-side -->
 	</div>
 	<!-- ./wrapper -->
 
@@ -244,13 +273,31 @@
 	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
 
+	<script>
+		/* mycarrer눌렀을때  */
+		$("#bnt_window")
+				.on(
+						"click",
+						"#ex",
+						function() {
+							$("#detailview").empty();
+							$("#h3").text("My Career");
+							var ex = "<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
+									+ "<select name='yeas'></select></span></div></div>"
+									+ "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
+									+ "<div class='box-body'><div class='table-responsive'>"
+									+ "<table class='table table-bordered' border='1'>"
+									+ "<thead><tr><th>Project명</th>"
+									+ "<th>관련 기술</th><th>Start day</th><th>End day</th>"
+									+ "</tr></thead><tbody id='exlist'></tbody></table></div></div>";
+
+							$(ex).appendTo($("#detailview"));
+						});
+
+		$("#re").click(function() {
+			$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
+		});
+	</script>
+
 </body>
 </html>
-<script>
-/* mycarrer눌렀을때  */
-$("#bnt_window").on("click","#ex",function(){
-	$("#detailview").empty();
-	$("#h3").text("My Career");
-});
-
-</script>
