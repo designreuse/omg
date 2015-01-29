@@ -19,7 +19,7 @@ public class DProcess {
 	private String phone;
 	private String email;
 	private String positionName;
-	
+	private String approval;
 	public String getProjectId() {
 		return projectId;
 	}
@@ -104,4 +104,11 @@ public class DProcess {
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
+	public String getApproval() {
+		return approval;
+	}
+	public void setApproval(String approval) {
+		this.approval = approval;
+	}
+	
 }

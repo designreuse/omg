@@ -1,6 +1,7 @@
 package com.omg.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,9 @@ public class DProDAOImpl implements DProDAO {
 	}
 
 	@Override
-	public int setTeam() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int setTeam(Map map) {
+		
+		return sqlSession.update("com.omg.dpro.setTeam", map);
 	}
 
 }

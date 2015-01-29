@@ -41,11 +41,11 @@ public class MProController {
 		return list;
 	}
 	@RequestMapping("/colist")
-	public @ResponseBody List<MProcess> colist(HttpSession session, Model model, String employeeId){
+	public @ResponseBody List<MProcess> colist(HttpSession session, Model model, String teamId){
 		
 		Employees emps = (Employees)session.getAttribute("user"); 
 		
-		List<MProcess> list = mproService.colist(emps.getEmployeeId());
+		List<MProcess> list = mproService.colist(emps.getTeamId());
 		
 		
 		return list;
@@ -57,6 +57,27 @@ public class MProController {
 		Employees emps = (Employees)session.getAttribute("user"); 
 		
 		List<MProcess> list = mproService.exlist(emps.getEmployeeId());
+		
+		
+		return list;
+	}
+	
+	@RequestMapping("/spare")
+	public @ResponseBody List<MProcess> sparelist(HttpSession session, Model model, String teamId){
+		
+		Employees emps = (Employees)session.getAttribute("user");
+		List<MProcess> list = mproService.sparelist(emps.getTeamId());
+		return list;
+				
+	}
+	
+	@RequestMapping("/put")
+	public @ResponseBody List<MProcess> putlist(HttpSession session, Model model, String employeeId){
+		
+		Employees emps = (Employees)session.getAttribute("user"); 
+		
+		List<MProcess> list = mproService.putlist(emps.getEmployeeId());
+		
 		
 		
 		return list;

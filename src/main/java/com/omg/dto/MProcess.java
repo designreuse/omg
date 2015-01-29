@@ -12,10 +12,14 @@ public class MProcess {
 	private String teamId;
 	private String departmentId;
 	private String employeeId;
-	private String name;
+	private String employeeName;
 	private String phone;
 	private String email;
 	private String positionName;
+	
+	
+	
+	
 	public String getProjectId() {
 		return projectId;
 	}
@@ -70,12 +74,7 @@ public class MProcess {
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public String getPhone() {
 		return phone;
 	}
@@ -93,6 +92,12 @@ public class MProcess {
 	}
 	public void setPositionName(String positionName) {
 		this.positionName = positionName;
+	}
+	public String getEmployeeName() {
+		return employeeName;
+	}
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
 	}
 	
 	

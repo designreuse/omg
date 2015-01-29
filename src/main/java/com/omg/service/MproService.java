@@ -20,8 +20,8 @@ public class MproService {
 		return list;
 	}
 	
-	public List<MProcess> colist(String employeeId) {
-		List<MProcess> list = dao.colist(employeeId);
+	public List<MProcess> colist(String teamId) {
+		List<MProcess> list = dao.colist(teamId);
 		return list;
 	}
 	
@@ -30,5 +30,13 @@ public class MproService {
 		return list;
 		
 	}
+	public List<MProcess> sparelist(String teamId) {
+		List<MProcess> list = dao.sparelist(teamId);
+		return list;
+	}
+	public List<MProcess> putlist(String employeeId) {
+		List<MProcess> list = dao.putlist(employeeId);
+		return list;
+		}
 	
 }
