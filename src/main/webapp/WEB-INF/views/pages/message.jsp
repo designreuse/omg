@@ -196,14 +196,8 @@
 							<div class="box-footer clearfix">
 								<div class="pull-right">
 									<a id="deleteMsg" class="btn btn-danger btn-sm">선택 삭제</a> <!-- 해야됨 -->
-									<small> 총 메시지 : <span id="page"></span>/<span id="totle"></span></small> <!-- 해야됨 -->
+									<small> 페이지 : <span id="page"></span>/<span id="totle"></span></small> <!-- 해야됨 -->
 									<span id="buttoncontroll">
-										<!-- <button id="nextasc" class="btn btn-xs btn-primary">
-											<i class="fa fa-caret-left"></i>
-										</button>
-										<button id="nextdesc" class="btn btn-xs btn-primary">
-											<i class="fa fa-caret-right"></i>
-										</button> -->
 									</span>
 								</div>
 							</div>
@@ -302,7 +296,6 @@
 		$(function() {			
 			startpage = 1;
 			endpage = 0;
-			total = 0;
 			$.ajax({				// 처음 메시지 가져오기
 				url: "Msglist",	// 변경
 				dataType: "json",
@@ -337,7 +330,7 @@
 						$("#totle").text(0);
 					}else{
 						$("#page").text(startpage);
-						$("#totle").text(text);
+						$("#totle").text(endpage);
 					}
 				}
 			});
@@ -451,7 +444,6 @@
 				$("#buttoncontroll").empty();
 				srhstartpage = 1;
 				srhendpage = 0;
-				srhtotal = 0;
 				$("#msglist").empty();
 				var name = $("#surechName").val();
 				$.ajax({

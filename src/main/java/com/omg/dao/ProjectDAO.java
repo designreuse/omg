@@ -20,4 +20,9 @@ public interface ProjectDAO {
 	// 인사회계
 	long sumProPrice(String year);
 	long sumBydeptProPrice(Map map);
+	
+	
+	// 경영
+	List<Projects> runSelectPro(int page);
+	int runSelectProTotle();
 }
