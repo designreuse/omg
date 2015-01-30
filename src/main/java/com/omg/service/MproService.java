@@ -34,8 +34,8 @@ public class MproService {
 		List<MProcess> list = dao.sparelist(teamId);
 		return list;
 	}
-	public List<MProcess> putlist(String employeeId) {
-		List<MProcess> list = dao.putlist(employeeId);
+	public List<MProcess> putlist(String teamId) {
+		List<MProcess> list = dao.putlist(teamId);
 		return list;
 		}
 	

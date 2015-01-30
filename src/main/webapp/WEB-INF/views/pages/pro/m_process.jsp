@@ -325,7 +325,7 @@ $("#re").click(function(){
 $("#bnt_window").on("click","#spare",function() {
 	$("#detailview").empty();
 	$("#h3").text("Spare List");
-	var spare =  "<div class='box-header'><h3 class='box-title'>투입될인원</h3></div><div class='box-body'>"
+	var spare =  "<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3></div><div class='box-body'>"
 	 			 +"<div class='table-responsive'><table class='table table-bordered' border='1'>"
 				 +"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
 				 +"</tr></thead><tbody id='putlist'>"
@@ -333,7 +333,7 @@ $("#bnt_window").on("click","#spare",function() {
 
 
 
-				 +"<div class='box-header'><h3 class='box-title'>sparelist</h3></div><div class='box-body'>"
+				 +"<div class='box-header'><h3 class='box-title'>잉여리스트</h3></div><div class='box-body'>"
 				 +"<div class='table-responsive'><table class='table table-bordered' border='1'>"
 				 +"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
 				 +"</tr></thead><tbody id='sparelist'>"

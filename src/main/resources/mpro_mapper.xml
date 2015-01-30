@@ -84,7 +84,7 @@ and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
 and sysdate <= start_date
-and e.employee_id= #{employeeId})
+and e.team_id=#{teamId})
 ]]>
 </select>
 
