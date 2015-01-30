@@ -22,5 +22,4 @@ public class RunService {
 		int ret = proDAO.runSelectProTotle();
 		return ret;
 	}
-	
 }

@@ -30,7 +30,7 @@
 	</select>
 	
 	<select id="selectPassword" resultMap="dto" parameterType="Employees">
-		select * from employees where employee_id = #{employeeId} and password = #{password}
+		select * from employees where employee_id = upper(#{employeeId}) and password = #{password}
 	</select>
 	<select id="passSeurch" resultMap="dto" parameterType="map">
 		select * from employees where employee_id = #{empId} and name = #{name} and email = #{email}
