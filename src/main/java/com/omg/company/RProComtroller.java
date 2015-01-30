@@ -283,6 +283,6 @@ public class RProComtroller {
 	// 경엉 (대현 & 윤지)
 	@RequestMapping("index_r")
 	public String RunProIndex(HttpSession session){
-		return "r_process";
+		return "pages/pro/r_process";
 	}
 }
