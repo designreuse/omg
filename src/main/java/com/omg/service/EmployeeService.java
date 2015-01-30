@@ -78,8 +78,26 @@ public class EmployeeService {
 		return list;
 	}
 	
-	public List<Teams> p_teamConSelect() {
-		List<Teams> list = teamdao.p_teamConSelect();
+	public int p_deptConInsert(Departments dept) {
+		int result = deptdao.p_deptConInsert(dept);
+		return result;
+	}
+	
+	public int p_deptConUpdate(Departments dept) {
+		int result = deptdao.p_deptConUpdate(dept);
+		return result;
+	}
+	public List<Teams> p_teamConSelect(String deptid) {
+		List<Teams> list = teamdao.p_teamConSelect(deptid);
 		return list;
+	}
+	
+	public int p_teamConInsert(Teams team) {
+		int result = teamdao.p_teamConInsert(team);
+		return result;
+	}
+	public int p_teamConUpdate(Teams team) {
+		int result = teamdao.p_teamConUpdate(team);
+		return result;
 	}
 }

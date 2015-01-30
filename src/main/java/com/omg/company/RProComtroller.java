@@ -283,12 +283,70 @@ public class RProComtroller {
 		List<Departments> list = empService.p_deptConSelect();
 		return list;
 	}
+	
+	//부서관리 부서 등록
+	@RequestMapping("p_deptConInsert")
+	public String p_deptConInsert(HttpSession session,
+		@RequestParam("deptId")String deptId,
+		@RequestParam("deptName")String deptName,
+		@RequestParam("deptManager")String deptManager){
+		
+		Departments dept = new Departments();
+		dept.setDepartmentId(deptId);
+		dept.setDepartmentName(deptName);
+		dept.setDepartmentManager(deptManager);
+		
+		empService.p_deptConInsert(dept);
+		return "redirect:index_p";
+	}
+	
+	//부서관리 부서 수정
+	@RequestMapping("p_deptConUpdate")
+	public String p_deptConUpdate(HttpSession session,
+		@RequestParam("deptId")String deptId,
+		@RequestParam("deptManager")String deptManager){
+		
+		Departments dept = new Departments();
+		dept.setDepartmentId(deptId);
+		dept.setDepartmentManager(deptManager);
+		empService.p_deptConUpdate(dept);
+		return "redirect:index_p";
+	}
 	//부서관리 팀 조회
 	@RequestMapping("p_teamConSelect")
-	public @ResponseBody List<Teams> p_teamConSelect(HttpSession session){
-		List<Teams> list = empService.p_teamConSelect();
+	public @ResponseBody List<Teams> p_teamConSelect(HttpSession session,
+			@RequestParam("deptid")String deptid){
+		List<Teams> list = empService.p_teamConSelect(deptid);
 		return list;
 	}	
+	//부서관리 팀 등록
+	@RequestMapping("p_teamConInsert")
+	public String p_teamConInsert(HttpSession session,
+			@RequestParam("teamId")String teamId,
+			@RequestParam("teamName")String teamName,
+			@RequestParam("teamManager")String teamManager,
+			@RequestParam("deptId")String deptId){
+		Teams team = new Teams();
+		team.setTeamId(teamId);
+		team.setTeamName(teamName);
+		team.setTeamManager(teamManager);
+		team.setDepartmentId(deptId);
+		empService.p_teamConInsert(team);
+		return "redirect:index_p";
+	}
+	
+	//부서관리 팀 수정
+	@RequestMapping("p_teamConUpdate")
+	public String p_teamConUpdate(HttpSession session,
+			@RequestParam("teamId")String teamId,
+			@RequestParam("teamManager")String teamManager){
+		Teams team = new Teams();
+		team.setTeamId(teamId);
+		team.setTeamManager(teamManager);
+		empService.p_teamConUpdate(team);
+		return "redirect:index_p";
+	}
+	
 	
 //////////////////////////////////////////////////////////////////////////////////////
 	// 경엉 (대현 & 윤지)
