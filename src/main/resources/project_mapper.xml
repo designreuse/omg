@@ -115,7 +115,7 @@
     </select>
     
     <!-- 부서별 년도 매출 조회 -->
-     <select id="sumBydeptProPrice" resultType="int" parameterType="map">
+     <select id="sumBydeptProPrice" resultType="long" parameterType="map">
     	select sum(project_price)
 		from projects
 		where to_char(start_date,'yyyy')= #{year}

@@ -250,8 +250,12 @@
 					+"<select id='years' name='years'>";
 			$(function(){
 				while(start<=year){
-					sales += "<option value="+start+">"+start+"</option>";
-					start++;
+					if(year== date.getFullYear()){
+						sales += "<option value="+year+" selected='selected'>"+year+"</option>";					
+					} else{
+						sales += "<option value="+year+">"+year+"</option>";
+					}
+					year--;
 				}
 			});
 					
@@ -259,33 +263,96 @@
 				+"<h3><div id='sales'></div></h3>"
 				+"<div class='table-responsive'><table class='table table-bordered' border='1'>"
 				+"<thead><tr align='center'><th>부서 이름</th><th>매 출 액</th></tr></thead>"
-				+"<tbody id='list'>";
+				+"<tbody>"
+				+"<tr><td>개 발 부</td><td><span id='dSale'></span></td></tr>"
+				+"<tr><td>유지보수부</td><td><span id='mSale'></span></td></tr>"
+				+"</tbody></table></div>";
 				
-			sales += "</tbody></table></div>";
 			$(sales).appendTo($("#detailview"));  
 			
+			years = $("select[name='years']").val(); 
+			$("#sales").empty();
+			$("#dSale").empty();
+			$("#mSale").empty();
 			
-			$(function(){
-				 
-				$('#years').change(function(){
-					years = $("select[name='years']").val();	
-					 
-					$("#sales").empty();
-					$.ajax({
-						url:"p_sumProPrice",
-						data:"year="+years,
-						dataType:"json",
-						success:function(json){
-							$("#sales").text(years+"년도 총 매출액: "+json);
-						},
-						error:function(){
-							$("#sales").text(years+"년도 총 매출액: 0");
-						}
-					});
-					
+			
+			$.ajax({
+				url:"p_sumProPrice",
+				data:"year="+years,
+				dataType:"json",
+				success:function(json){
+					$("#sales").text(years+"년도 총 매출액: "+json);
+				},
+				error:function(){
+					$("#sales").text(years+"년도 총 매출액: 0");
+				}
+			});
+			$.ajax({
+				url:"p_sumBydeptProPrice",
+				data:"year="+years +"&dept=D",
+				dataType:"json",
+				async: false,
+				success:function(json){
+					$("#dSale").text(json);
+				} ,
+				error:function(){
+					$("#dSale").text("-");
+				}
+			});		
+			$.ajax({
+				url:"p_sumBydeptProPrice",
+				data:"year="+years +"&dept=M",
+				dataType:"json",
+				async: false,
+				success:function(json){
+					$("#mSale").text(json);
+				} ,
+				error:function(){
+					$("#mSale").text("-");
+				}
+			});
+			
+			//select 선택 바뀔때 실행.
+			$('#years').change(function(){
+				years = $("select[name='years']").val();	
+				$("#sales").empty();
+				$.ajax({
+					url:"p_sumProPrice",
+					data:"year="+years,
+					dataType:"json",
+					success:function(json){
+						$("#sales").text(years+"년도 총 매출액: "+json);
+					},
+					error:function(){
+						$("#sales").text(years+"년도 총 매출액: 0");
+					}
 				});
-			}); 
-		
+				$.ajax({
+					url:"p_sumBydeptProPrice",
+					data:"year="+years +"&dept=D",
+					dataType:"json",
+					async: false,
+					success:function(json){
+						$("#dSale").text(json);
+					} ,
+					error:function(){
+						$("#dSale").text("-");
+					}
+				});		
+				$.ajax({
+					url:"p_sumBydeptProPrice",
+					data:"year="+years +"&dept=M",
+					dataType:"json",
+					async: false,
+					success:function(json){
+						$("#mSale").text(json);
+					} ,
+					error:function(){
+						$("#mSale").text("-");
+					}
+				});
+					
+			});
 		});
 		
 		
