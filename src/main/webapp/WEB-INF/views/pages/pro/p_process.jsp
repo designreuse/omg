@@ -609,7 +609,6 @@
 			sales	+= "</tbody></table></div>"
 					+"<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div>"
 					+ "<a  class='btn btn-primary btn-sm' id='tNew' >등록</a>"
-					+ "<a  class='btn btn-primary btn-sm' id='tDel' >삭제</a>"
 					+ "</div></div></div>"
 					+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
 					+ "<thead><tr align='center'><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
@@ -617,6 +616,7 @@
 					
 					$.ajax({
 						url:"p_teamConSelect",
+						
 						dataType:"json",
 						async: false,
 						success:function(json){
@@ -630,6 +630,7 @@
 			sales	+= "</tbody></table></div>";
 			$(sales).appendTo($("#detailview"));  
 		});
+		
 	});
 		
  

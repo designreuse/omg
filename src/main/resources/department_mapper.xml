@@ -34,4 +34,16 @@
 		from departments d, employees e, position p        
 		where d.department_id = e.department_id and e.position_id = p.position_id and d.department_manager = e.employee_id
 	</select>
+	
+	<!-- 인사.회계팀 부서관리에서 부서 등록 -->
+	<insert id="p_deptConInsert" parameterType="Departments">
+		insert into departments values(#{departmentId},#{departmentName},#{departmentManager})
+	</insert>
+	
+	<!-- 인사.회계팀 부서관리에서 부서 수정 (부장) -->
+	<update id="p_deptConUpdate" parameterType="Departments">
+		update departments set department_manager=#{departmentManager}  
+		where department_id=#{departmentId}
+	</update>
+
 </mapper>
