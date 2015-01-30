@@ -5,7 +5,30 @@ public class Teams {
 	private String teamName;
 	private String teamManager;
 	private String departmentId;
+	private String employeeName;
+	private String positionName;
+	private int count;
 	
+	
+	
+	public String getEmployeeName() {
+		return employeeName;
+	}
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+	public String getPositionName() {
+		return positionName;
+	}
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getTeamId() {
 		return teamId;
 	}

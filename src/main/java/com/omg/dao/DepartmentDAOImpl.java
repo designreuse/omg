@@ -31,4 +31,10 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return deptId;
 	}
 
+	@Override
+	public List<Departments> p_deptConSelect() {
+		List<Departments> list = sqlSession.selectList("com.omg.department.p_deptConSelect");
+		return list;
+	}
+
 }

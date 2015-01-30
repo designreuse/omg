@@ -5,6 +5,30 @@ public class Departments {
 	private String departmentName;
 	private String departmentManager;
 	
+	private String employeeName;
+	private String positionName;
+	private int count;
+	
+	
+	
+	public String getEmployeeName() {
+		return employeeName;
+	}
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+	public String getPositionName() {
+		return positionName;
+	}
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getDepartmentId() {
 		return departmentId;
 	}

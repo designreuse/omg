@@ -14,7 +14,10 @@ public class EmployeeService {
 	private EmployeeDAO empdao;
 	@Autowired
 	private ProjectDAO prodao;
-	
+	@Autowired
+	private DepartmentDAO deptdao;
+	@Autowired
+	private TeamDAO teamdao;
 	
 	public List<Employees> selectEmpName(){
 		List<Employees> list= empdao.selectEmp();
@@ -70,4 +73,13 @@ public class EmployeeService {
 		return price;
 	}
 	
+	public List<Departments> p_deptConSelect(){
+		List<Departments> list = deptdao.p_deptConSelect();
+		return list;
+	}
+	
+	public List<Teams> p_teamConSelect() {
+		List<Teams> list = teamdao.p_teamConSelect();
+		return list;
+	}
 }

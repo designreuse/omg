@@ -27,6 +27,18 @@
 	<script>
 	$(function(){
 	 
+		dstr="";
+		$.ajax({
+			url: "/company/managerck",
+			dataType: "text",
+			async: false,
+			success: function(txt) {
+				if(txt=='T'){
+					dstr="<a id='dcont' class='btn btn-warning btn-flat'>부서 관리</a>";
+				}
+				$(dstr).appendTo("#dCont");
+			}
+		});
 		$.ajax({
 			url: "p_selectEmp",
 			data : "dept=D", //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
@@ -157,20 +169,21 @@
 										<div style="margin-top: 15px;">
 											<a id="sale" class="btn btn-warning btn-flat">매출 관리</a>
 										</div>
-										
+										<div style="margin-top: 15px;" id="dCont">
+										</div>
 									</div>
 									
 									<div id="detailview" class="col-md-10 col-sm-8">
 										<div class="row pad">
-											<div class="input-group">
-												<span style="float: right !important; margin: 10px;">
+											<div class="input-group" style="float: right !important; margin: 10px;">
+												<div>
 													<button value="D" id="development"
 														class="btn btn-primary btn-flat">개발부</button>
 													<button value="M" id="manage"
-														class="btn btn-success btn-flat">유지보수부</button>
+															class="btn btn-success btn-flat">유지보수부</button>
 													<button value="R" id="run" 
-														class="btn btn-info btn-flat">경영부</button>
-												</span>
+															class="btn btn-info btn-flat">경영부</button>
+												</div>
 											</div>
 											<!-- </div> -->
 										</div>
@@ -549,8 +562,6 @@
 					});
 		});
 		
-		
-		
 		//선택된 직원 삭제하기
 		$("#bnt").on("click","#del_bnt",function(){
 		
@@ -568,6 +579,57 @@
 			}
 		});
 		
+		
+		
+		//부서관리 버튼 클릭시 
+		$("#bnt_window").on("click","#dcont",function(){
+			$("#detailview").empty();
+			$("#h3").text("부서 관리");
+			$("#bnt").empty();
+			
+		  var sales ="<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div>"
+					+ "<a  class='btn btn-primary btn-sm' id='dNew' >등록</a>"
+					+ "</div></div></div>"
+					+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+					+ "<thead><tr align='center'><th>ID</th><th>부서 이름</th><th>부 장(사번)</th><th>직 책</th><th>직원 수</th></tr></thead>"
+					+ "<tbody>";
+					$.ajax({
+						url: "p_deptConSelect",
+						dataType:"json",
+						async: false,
+						success:function(json){
+							$.each(json,function(index,item){
+								sales += "<tr><td>"+item.departmentId+"</td><td>"+item.departmentName+"</td>"
+								      +  "<td>"+item.employeeName+"("+item.departmentManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
+							});
+						}
+						
+					});
+					
+			sales	+= "</tbody></table></div>"
+					+"<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div>"
+					+ "<a  class='btn btn-primary btn-sm' id='tNew' >등록</a>"
+					+ "<a  class='btn btn-primary btn-sm' id='tDel' >삭제</a>"
+					+ "</div></div></div>"
+					+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+					+ "<thead><tr align='center'><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
+					+ "<tbody>";
+					
+					$.ajax({
+						url:"p_teamConSelect",
+						dataType:"json",
+						async: false,
+						success:function(json){
+							$.each(json,function(index,item){
+								sales += "<tr><td>"+item.teamId+"</td><td>"+item.teamName+"</td>"
+								      +  "<td>"+item.employeeName+"("+item.teamManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
+							});
+						}
+					});
+					
+			sales	+= "</tbody></table></div>";
+			$(sales).appendTo($("#detailview"));  
+		});
 	});
 		
  

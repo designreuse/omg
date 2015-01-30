@@ -25,4 +25,10 @@ public class TeamDAOImpl implements TeamDAO {
 		return list;
 	}
 
+	@Override
+	public List<Teams> p_teamConSelect() {
+		List<Teams> list = sqlSession.selectList("com.omg.team.p_teamConSelect");
+		return list;
+	}
+
 }
