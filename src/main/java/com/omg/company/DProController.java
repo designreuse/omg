@@ -83,13 +83,13 @@ public class DProController {
 
 	}
 
-	@RequestMapping(value = "/SCVList")
+	@RequestMapping(value = "/proing")
 	public @ResponseBody
-	List<DProcess> SCVList(HttpSession session) {
+	List<DProcess> proing(HttpSession session) {
 		// System.out.println("Zz");
 
-		List<DProcess> SCVList = dProService.SCVList();
-		return SCVList;
+		List<DProcess> proing = dProService.proing();
+		return proing;
 
 	}
 

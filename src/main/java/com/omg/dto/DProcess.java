@@ -20,6 +20,8 @@ public class DProcess {
 	private String email;
 	private String positionName;
 	private String approval;
+	private String approvalName;
+	
 	public String getProjectId() {
 		return projectId;
 	}
@@ -109,6 +111,12 @@ public class DProcess {
 	}
 	public void setApproval(String approval) {
 		this.approval = approval;
+	}
+	public String getApprovalName() {
+		return approvalName;
+	}
+	public void setApprovalName(String approvalName) {
+		this.approvalName = approvalName;
 	}
 	
 }
