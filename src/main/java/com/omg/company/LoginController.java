@@ -42,6 +42,8 @@ public class LoginController {
 			}else if(ck == 2){									// 부장
 				session.setAttribute("Manager", "dept");
 			}else if(ck == 3){									// 팀장
+				Teams teamMgr =logService.teamManagerCk(outputEmp.getEmployeeId());
+				session.setAttribute("teamMgr", teamMgr);			// 어느 팀에 있는지 정보
 				session.setAttribute("Manager", "team");
 			}else{
 				session.setAttribute("Manager", null);

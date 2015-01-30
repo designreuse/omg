@@ -69,7 +69,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		Projects pro = sqlSession.selectOne("com.omg.projects.salProjectByProId", proId);
 		return pro;
 	}
-	// sal 기술 확인하는 부분
+	
 	@Override
 	public List<String> salSelectTechs(String proId) {
 		List<String> techlist = sqlSession.selectList("com.omg.projects.proContTech", proId);
@@ -122,5 +122,26 @@ public class ProjectDAOImpl implements ProjectDAO {
 			 
 		 }
 			return price;
+	}
+
+	// 경영부
+	// 프로젝트 리스트 (경영부에서 확인해야 될)
+	@Override
+	public List<Projects> runSelectPro(int page) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int startPage = (page-1) * 10 + 1;
+		int endPage = startPage + (10 - 1);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		List<Projects> list = sqlSession.selectList("com.omg.projects.runProjects", map);
+		return list;
+	}
+
+	// 프로젝트 총 갯수 (경영부에서 확인해야될)
+	@Override
+	public int runSelectProTotle() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int totalCount = sqlSession.selectOne("com.omg.projects.runProjectTotle", map);
+		return totalCount;
 	}
 }

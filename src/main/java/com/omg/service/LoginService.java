@@ -47,4 +47,14 @@ public class LoginService  {
 		}
 		return 0;
 	}
+	
+	public Teams teamManagerCk(String userid){
+		List<Teams> teams = teamdao.loginManager();
+		for(Teams t : teams){
+			if(userid.equalsIgnoreCase(t.getTeamManager())){
+				return t;
+			}
+		}
+		return null;
+	}
 }
