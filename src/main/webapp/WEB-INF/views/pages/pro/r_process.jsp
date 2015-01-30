@@ -43,18 +43,29 @@
 			startpage = 1;
 			endpage = 0;
 			$.ajax({          			// 프로잭트 리스트 보여주기
-				url : "",
+				url : "runProList",
 				dataType : "json",
 				data : "page="+startpage,
 				async: false,
 				success : function(json) {
-					
+					$.each(json, function(index, item) { 
+						var td = "<td>"+item.projectName+"</td>"+
+								 "<td>"+item.deptName+"</td>"+
+								 "<td>"+item.startDate+"</td>"+
+								 "<td>"+item.endDate+"</td>"+
+								 "<td>"+item.projectPrice+"</td>"+
+								 "<td><select name='approval'><option value=''>-선택-</option>"+
+									 "<option value='승인'>승인</option><option value='불가'>불가</option>"+
+									 "<option value='stop'>대기</option></select>";
+						$("<tr>"+td+"</tr>").appendTo($("#list"));
+					});
 				}
 			});
 			
 			$.ajax({					// ProjectList 페이지 총페이지수 구하기
-				url: "" ,
+				url: "runProTotle" ,
 				dataType: "text",
+				async: false,
 				success : function(text) {
 					endpage = parseInt(((text-1) / 10) + 1);
 					$("#page").text(startpage);
@@ -79,11 +90,11 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>인사 &amp; 회계 부서 업무</h1>
+				<h1>경영 부서 업무</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i>Home</a></li>
-					<li class="active">인사 &amp; 회계 부서 업무</li>
+					<li class="active">경영 부서 업무</li>
 				</ol>
 			</section>
 
@@ -113,7 +124,7 @@
 													<table class="table table-bordered" border="1" >
 														<thead align="left">
 															<tr><th>프로젝트명</th><td>??</td></tr>
-															<tr><th>승인여부</th><td id="appCK"><select name="approval"><option value="">-선택-</option><option value="O">승인</option><option value="X">불가</option><option value="stop">대기</option></select></td></tr>
+															<tr><th>승인여부</th><td id="appCK"></td></tr>
 														</thead>
 													</table>
 													<div align="right">
@@ -197,10 +208,10 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
-<script>
+<!-- <script>
 	$(function() {
 		
 	});
-</script>
+</script> -->
 </body>
 </html>

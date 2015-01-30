@@ -21,6 +21,8 @@ public class RProComtroller {
 	private SalaryService salService;
 	@Autowired
 	private EmployeeService empService;
+	@Autowired
+	private RunService runService;
 	
 	// 대현 -> 영업
 	@RequestMapping("index_s")
@@ -353,5 +355,17 @@ public class RProComtroller {
 	@RequestMapping("index_r")
 	public String RunProIndex(HttpSession session){
 		return "pages/pro/r_process";
+	}
+	
+	@RequestMapping("runProList")
+	public @ResponseBody List<Projects> runProList(HttpSession session, @RequestParam("page") int page){
+		List<Projects> prolist =runService.runSelectPro(page);
+		return prolist;
+	}
+	
+	@RequestMapping("runProTotle")
+	public @ResponseBody String runProTotle(HttpSession session){
+		Integer r = runService.runSelectProTotle();
+		return r.toString();
 	}
 }
