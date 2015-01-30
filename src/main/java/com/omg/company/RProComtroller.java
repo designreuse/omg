@@ -24,7 +24,7 @@ public class RProComtroller {
 	
 	// 대현 -> 영업
 	@RequestMapping("index_s")
-	public String runProindex(HttpSession session){
+	public String SalaryProindex(HttpSession session){
 		return "pages/pro/s_process";
 	}
 	
@@ -281,5 +281,11 @@ public class RProComtroller {
 		return price;
 //		return 0;
 	}
-
+	
+//////////////////////////////////////////////////////////////////////////////////////
+	// 경엉 (대현 & 윤지)
+	@RequestMapping("index_r")
+	public String RunProIndex(HttpSession session){
+		return "pages/pro/r_process";
+	}
 }

@@ -56,7 +56,6 @@ public class SalaryService {
 	// 프로젝트 수정
 	public int salProjectUpdate(Projects pro) {
 		int ret = projectDAO.salProjectUpdate(pro);
-		System.out.println(ret);
 		return ret;
 	}
 	
