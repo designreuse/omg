@@ -26,6 +26,7 @@
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
 	$(function() {
+		/* 부장 경력 */
 		$("#ex").click(function() {
 			$.ajax({
 				url : "proList",
@@ -45,44 +46,48 @@
 				}
 			});
 		});
-		$("#SCV").click(function() {
+		/* 부장 scv */
+		$("#Proing").click(function() {
 
 			$.ajax({
-				url : "SCVList",
+				url : "proing", /* 부장페이지에서의 현재 진행중인 프로젝트 전체 */
 				dataType : "json",
 				success : function(json) {
-					$("#SCVList").empty();
+					$("#ProingList").empty();
 					var str = "";
 					$.each(json, function(index, item) {
 						str += "<tr>";
-						str += "<td>" + item.name + "</td>";
-						str += "<td>" + item.phone + "</td>";
-						str += "<td>" + item.email + "</td>";
-						str += "<td>" + item.positionName + "</td>";
+						str += "<td>" + item.projectId + "</td>";
+						str += "<td>" + item.projectName + "</td>";
+						str += "<td>" + item.startDate + "</td>";
+						str += "<td>" + item.endDate + "</td>";
 						str += "<td>" + item.teamName + "</td>";
 						str += "</tr>";
 					});
-					$("#SCVList").append(str);
+					$("#ProingList").append(str);
 				}
 			});
 		});
-
+		
 		$.ajax({
 			url : "dPro",
 			dataType : "json",
 			success : function(json) {
 				$("#dPro").empty();
 				var str = "";
+				
 				str += "<tr>";
 				str += "<td>" + json.projectName + "</td>";
 				str += "<td>" + json.techName + "</td>";
 				str += "<td>" + json.startDate + "</td>";
 				str += "<td>" + json.endDate + "</td>";
 				str += "</tr>";
+				
 				$("#dPro").append(str);
 			}
 		});
-
+	
+		 
 		$.ajax({
 			url : "ListColleague",
 			dataType : "json",
@@ -92,6 +97,7 @@
 				var str = "";
 				$.each(json, function(index, item) {
 					str += "<tr>";
+					str += "<td>" + (index + 1) + "</td>";
 					str += "<td>" + item.name + "</td>";
 					str += "<td>" + item.phone + "</td>";
 					str += "<td>" + item.email + "</td>";
@@ -100,19 +106,15 @@
 				});
 				$("#ListColleague").append(str);
 			}
+	
 		});
-
-		$
-				.ajax({
+		$.ajax({
 					url : "startPro",
 					dataType : "json",
 					success : function(json) {
 						$("#startPro").empty();
 						var str = "";
-						$
-								.each(
-										json,
-										function(index, item) {
+						$.each(json,function(index, item) {
 											str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>"
 											str += "<tr>";
 											str += "<td>" + item.projectName
@@ -123,19 +125,13 @@
 													+ "</td>";
 											str += "<td>" + item.endDate
 													+ "</td>";
-											$
-													.ajax({
+											$.ajax({
 														url : "selectTeam",
 														dataType : "json",
 														async : false,
 														success : function(json) {
 															str += "<td><select name='selectTeam'>";
-															$
-																	.each(
-																			json,
-																			function(
-																					index,
-																					item) {
+															$.each(json,function(index,item) {
 																				str += "<option value="+item.teamId+">"
 																						+ item.teamName
 																						+ "</option>";
@@ -187,14 +183,13 @@
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3">Start Projects</h3>
+												<h3 class="box-title" id="h3">시작되는 프로젝트</h3>
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="Start" class="btn btn-danger btn-flat">Start
-													project</a>
+												<a id="Start" class="btn btn-danger btn-flat">시작되는 프로젝트</a>
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="SCV" class="btn btn-warning btn-flat">SCV</a>
+												<a id="Proing" class="btn btn-warning btn-flat">진행중인 프로젝트</a>
 											</div>
 
 											<div style="margin-top: 15px;">
@@ -215,7 +210,7 @@
 												<!-- /.row -->
 												<div class="table-responsive">
 													<form action="setTeam">
-														<table id="gode" class="table table-hover">
+														<table class="table table-bordered" border="1">
 
 															<thead>
 																<tr>
@@ -271,6 +266,8 @@
 												+ "</tr></thead><tbody id='proList'></tbody></table></div></div>";
 										$(ex).appendTo($("#detailview"));
 									});
+					
+					
 
 					//current project눌럿을때
 					$("#Start").click(function() {
@@ -280,15 +277,15 @@
 					$("#bnt_window")
 							.on(
 									"click",
-									"#SCV",
+									"#Proing",
 									function() {
 
 										$("#detailview").empty();
-										$("#h3").text("SCV");
-										var spare = "<div class='box-header'><h3 class='box-title'>SCV</h3></div><div class='box-body'>"
+										$("#h3").text("진행중인 프로젝트");
+										var spare = "<div class='box-header'><h3 class='box-title'>개발부의 프로젝트</h3></div><div class='box-body'>"
 												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
-												+ "<thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Position</th><th>Team</th>"
-												+ "</tr></thead><tbody id='SCVList'>"
+												+ "<thead><tr><th>ProId</th><th>ProName</th><th>START_DATE</th><th>END_DATE</th><th>TEAM_ID</th>"
+												+ "</tr></thead><tbody id='ProingList'>"
 												+ "</tbody></table></div></div>";
 										$(spare).appendTo($("#detailview"));
 									});
@@ -312,9 +309,6 @@
 													project</a>
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="Coll" class="btn btn-warning btn-flat">Colleague</a>
-											</div>
-											<div style="margin-top: 15px;">
 												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
 											</div>
 										</div>
@@ -324,7 +318,7 @@
 											</div>
 											<div class="box-body">
 												<div class="table-responsive">
-													<table id="gode" class="table table-hover">
+													<table class="table table-bordered" border="1">
 
 														<thead>
 															<tr>
@@ -341,8 +335,27 @@
 													</table>
 												</div>
 											</div>
-
+											<div class="box-header">
+											<h3 class="box-title">Colleague</h3>
 										</div>
+										<div class="box-body">
+											<div class="table-responsive">
+												<table class="table table-bordered" border="1">
+													<thead>
+														<tr>
+															<th>NO.</th>
+															<th>Name</th>
+															<th>Phone</th>
+															<th>Email</th>
+															<th>Position</th>
+														</tr>
+													</thead>
+													<tbody id="ListColleague">
+													</tbody>
+												</table>
+											</div>
+										</div><!--colleageu리스트 끝  -->
+									
 										<!-- /.box-body -->
 										<div class="box-footer clearfix">
 											<div class="pull-right"></div>
@@ -353,15 +366,20 @@
 							</div>
 						</div>
 					</div>
+					</div>
 				</c:if>
 				<script>
+					$("#Current").click(function() {
+						$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
+					});
+
 					$("#bnt_window")
 							.on(
 									"click",
 									"#ex",
 									function() {
 										$("#detailview").empty();
-										$("#h3").text("Current project");
+										$("#h3").text("My Career");
 										var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
 												+ "<div class='box-body'><div class='table-responsive'>"
 												+ "<table class='table table-bordered' border='1'>"
@@ -370,93 +388,10 @@
 												+ "</tr></thead><tbody id='proList'></tbody></table></div></div>";
 										$(ex).appendTo($("#detailview"));
 									});
-
-					//current project눌럿을때
-					$("#Start").click(function() {
-						$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
-					});
-
-					$("#bnt_window")
-							.on(
-									"click",
-									"#SCV",
-									function() {
-
-										$("#detailview").empty();
-										$("#h3").text("SCV");
-										var spare = "<div class='box-header'><h3 class='box-title'>SCV</h3></div><div class='box-body'>"
-												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
-												+ "<thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Position</th><th>Team</th>"
-												+ "</tr></thead><tbody id='SCVList'>"
-												+ "</tbody></table></div></div>";
-										$(spare).appendTo($("#detailview"));
-									});
 				</script>
 			</section>
-
-
-
-
-
-
-
-
-			<!-- Main content -->
-			<section class="content">
-
-				<c:if test="${user.teamId!=null}">
-					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title">Colleague</h3>
-						</div>
-						<div class="box-body">
-
-
-							<!-- /.col (LEFT) -->
-
-
-							<!-- /.row -->
-							<div class="table-responsive">
-								<table id="gode" class="table table-hover">
-
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Phone</th>
-											<th>Email</th>
-											<th>Position</th>
-										</tr>
-									</thead>
-									<tbody id="ListColleague">
-									</tbody>
-								</table>
-							</div>
-
-
-							<!-- /.col (RIGHT) -->
-							<!-- /.row -->
-						</div>
-						<!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<div class="pull-right"></div>
-						</div>
-						<!-- box-footer -->
-					</div>
-				</c:if>
-			</section>
-
-
-			<!-- /.content -->
-		</aside>
-		<!-- /.right-side -->
-	</div>
-	<!-- ./wrapper -->
-
-
-
-
-
-
+			</aside>
+			</div>
 
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

@@ -101,7 +101,7 @@
 			success : function(text) {
 				endpage = parseInt(((text-1) / 15) + 1);
 				$("#page").text(startpage);
-				$("#total").text(text);
+				$("#total").text(endpage);
 				$("#nextdesc").removeClass("disabled");
 			}
 		});
@@ -149,7 +149,7 @@
 				success : function(text) {
 					endpage = parseInt(((text-1) / 15) + 1);
 					$("#page").text(startpage);
-					$("#total").text(text);
+					$("#total").text(endpage);
 					$("#nextdesc").removeClass("disabled");
 				}
 			});
@@ -183,12 +183,16 @@
 					url : "salProlist",
 					dataType : "json",
 					data : "page="+startpage+"&date="+date,
+					async: false,
 					success : function(json) {
 						if(json != ""){
 							$("#prolist").empty();
 							$.each(json, function(index, item) {
-								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
-									 "<td>"+item.deptName+"</a></td>"+
+								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>";
+									 if(permit == "T"){
+										 td += "<td>"+item.projectId+"</a></td>";
+									 }
+								td += "<td>"+item.deptName+"</a></td>"+
 									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 									 "<td>"+item.startDate+"</td>"+
 									 "<td>"+item.endDate+"</td>"+
@@ -232,12 +236,16 @@
 					url : "salProlist",
 					dataType : "json",
 					data : "page="+startpage+"&date="+date,
+					async: false,
 					success : function(json) {
 						if(json != ""){
 							$("#prolist").empty();
 							$.each(json, function(index, item) {
-								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
-									 "<td>"+item.deptName+"</td>"+
+								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>";
+									 if(permit == "T"){
+										 td += "<td>"+item.projectId+"</a></td>";
+									 }
+								td += "<td>"+item.deptName+"</a></td>"+
 									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 									 "<td>"+item.startDate+"</td>"+
 									 "<td>"+item.endDate+"</td>"+

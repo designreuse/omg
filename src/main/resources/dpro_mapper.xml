@@ -19,6 +19,7 @@
 <result property="email" column="EMAIL"/>
 <result property="positionName" column="POSITION_NAME"/>
 <result property="approval" column="APPROVAL"/>
+<result property="approvalName" column="APPROVAL_NAME"/>
 </resultMap>
 <select id="dpro" resultMap="dto" parameterType="String">
 <![CDATA[ select * from employees e, project_emp pe, projects pro, project_tech prote, techs tech
@@ -70,15 +71,11 @@ and pro.START_DATE>=sysdate
 and emp.EMPLOYEE_ID = #{employeeId} ]]>
 </select>
 
-<select id="SCV" resultMap="dto">
-select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, tm.TEAM_NAME from employees e, position p, teams tm
-where e.POSITION_ID = p.POSITION_ID
-and e.TEAM_ID= tm.TEAM_ID
-and e.DEPARTMENT_ID = 'D'
-and e.EMPLOYEE_ID not in (
-select e.EMPLOYEE_ID from employees e, project_emp pe
-where e.EMPLOYEE_ID = pe.EMPLOYEE_ID)
-
+<select id="proing" resultMap="dto">
+<![CDATA[ select * from projects pro, teams team
+where END_DATE >= sysdate
+and pro.TEAM_ID = team.TEAM_ID
+and pro.TEAM_ID like 'D%' ]]>
 </select>
 
 <select id="team" resultMap="dto">

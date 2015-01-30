@@ -11,8 +11,7 @@ public interface DProDAO {
 	List<DProcess> listProjects(String employeeId);
 	List<DProcess> listColleague(String employeeId);
 	List<DProcess> startProjects(String employeeId);
-	List<DProcess> SCVList();
 	List<DProcess> teams();
-	int count();
+	List<DProcess> proing();
 	int setTeam(Map map);
 }
