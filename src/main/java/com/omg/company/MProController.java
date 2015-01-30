@@ -72,11 +72,11 @@ public class MProController {
 	}
 	
 	@RequestMapping("/put")
-	public @ResponseBody List<MProcess> putlist(HttpSession session, Model model, String employeeId){
+	public @ResponseBody List<MProcess> putlist(HttpSession session, Model model, String teamId){
 		
 		Employees emps = (Employees)session.getAttribute("user"); 
 		
-		List<MProcess> list = mproService.putlist(emps.getEmployeeId());
+		List<MProcess> list = mproService.putlist(emps.getTeamId());
 		
 		
 		
