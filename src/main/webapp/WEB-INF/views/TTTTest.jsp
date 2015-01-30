@@ -10,7 +10,7 @@
         $(function() {
             $("#btnAddRow").on("click",function() {
                 // clone
-                $.trClone = $("#memberTable tr:last").clone().html();
+                $.trClone = $("#memberTable tr:last").clone().html();	
                 $.newTr = $("<tr>"+$.trClone+"</tr>");
  
                 // append
