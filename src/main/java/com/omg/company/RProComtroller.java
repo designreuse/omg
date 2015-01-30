@@ -270,13 +270,16 @@ public class RProComtroller {
 	public @ResponseBody long p_sumBydeptProPrice(HttpSession session,
 			@RequestParam("year")String year,
 			@RequestParam("dept")String dept){
-		
+//		System.out.println(year);
+//		System.out.println(dept);
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("year", year);
 		map.put("departmentId",	dept);
-		
+//		System.out.println(year+" dept :" +dept);
 		long price = empService.p_sumBydeptProPrice(map);
+		System.out.println("price="+price);
 		return price;
+//		return 0;
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////
