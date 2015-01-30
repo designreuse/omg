@@ -38,5 +38,9 @@ public class MproService {
 		List<MProcess> list = dao.putlist(teamId);
 		return list;
 		}
+	public List<MProcess> startpro(String teamId) {
+		List<MProcess> list = dao.startpro(teamId);
+		return list;
+	}
 	
 }

@@ -17,6 +17,7 @@
 <result property="phone" column="PHONE"/>
 <result property="email" column="EMAIL"/>
 <result property="positionName" column="POSITION_NAME"/>
+<result property="salary" column="salary"/>
 </resultMap>
 
 <!--현재 프로젝트 리스트  -->
@@ -27,7 +28,8 @@ and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
 and e.employee_id= #{employeeId}
-and sysdate >= start_date and sysdate <= end_date]]>
+and sysdate >= start_date and sysdate <= end_date
+and pro.approval = 'O']]>
 </select>
 
 <!--현재 프로젝트 동료리스트  -->
@@ -44,7 +46,9 @@ and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
 and sysdate >= start_date and sysdate <= end_date
-and e.employee_id= #{employeeId})
+and e.employee_id= #{employeeId}
+and pro.approval = 'O')
+
 ]]>
 </select>
 
@@ -56,27 +60,33 @@ and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
 and e.employee_id= #{employeeId}
-and sysdate >= end_date]]>
+and sysdate >= end_date
+and pro.approval = 'O']]>
 </select>
 
 
 <select id="sparelist" resultMap="dto">
-select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID 
+<!-- select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID 
 from employees e, position p
 where e.POSITION_ID = p.POSITION_ID
 and e.EMPLOYEE_ID not in (
 select e.EMPLOYEE_ID from employees e, project_emp pe
 where e.EMPLOYEE_ID = pe.EMPLOYEE_ID)
-and e.team_id = #{teamId}
+and e.team_id = #{teamId} -->
+select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID 
+from employees e, position p
+where e.POSITION_ID = p.POSITION_ID
+and e.team_id=#{teamId}
+order by e.position_id
 </select>
 
-
+<!--투입인원 찾기  -->
 <select id="putlist" resultMap="dto">
 <![CDATA[
 select * from project_emp pe, employees e, position po
 where pe.EMPLOYEE_ID=e.EMPLOYEE_ID
 and e.position_id=po.position_id
-and project_id=
+and project_id =
 (
 select pe.PROJECT_ID from employees e, project_emp pe, projects pro, project_tech prote, techs tech
 where pe.employee_id= e.employee_id
@@ -84,9 +94,28 @@ and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
 and sysdate <= start_date
-and e.team_id=#{teamId})
+and e.team_id=#{teamId}
+and pro.approval = 'O')
 ]]>
 </select>
+
+
+<!--시작될 프로젝트 알리기  -->
+<select id="startpro" resultMap="dto" parameterType="String">
+<![CDATA[ select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp, project_tech prote, techs tech
+where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
+and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
+and prote.project_id = pro.project_id
+and prote.tech_id = tech.tech_id
+and pro.approval = 'O'
+and pro.TEAM_ID = #{teamId}
+and pro.START_DATE>=sysdate
+]]>
+</select>
+
+
+
+
 
 
 </mapper>

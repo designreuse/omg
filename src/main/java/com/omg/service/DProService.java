@@ -35,17 +35,18 @@ public class DProService {
 		return startPro;
 	}
 
-	public List<DProcess> SCVList() {
-		System.out.println("zz");
-		List<DProcess> SCVList = dProDAO.SCVList();
-		return SCVList;
-		// return null;
-	}
+
 
 	public List<DProcess> teams() {
 
 		List<DProcess> teams = dProDAO.teams();
 		return teams;
+
+	}
+	public List<DProcess> proing() {
+
+		List<DProcess> proing = dProDAO.proing();
+		return proing;
 
 	}
 

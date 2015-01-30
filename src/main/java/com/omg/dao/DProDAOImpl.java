@@ -19,11 +19,6 @@ public class DProDAOImpl implements DProDAO {
 		return sqlSession.selectList("com.omg.dpro.listColleague", employeeId);
 	}
 
-	@Override
-	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public List<DProcess> listProjects(String employeeId) {
@@ -42,11 +37,6 @@ public class DProDAOImpl implements DProDAO {
 		return sqlSession.selectList("com.omg.dpro.startProjects", employeeId);
 	}
 	
-	@Override
-	public List<DProcess> SCVList() {
-		return sqlSession.selectList("com.omg.dpro.SCV");
-		
-	}
 
 	@Override
 	public List<DProcess> teams() {
@@ -58,6 +48,13 @@ public class DProDAOImpl implements DProDAO {
 	public int setTeam(Map map) {
 		
 		return sqlSession.update("com.omg.dpro.setTeam", map);
+	}
+
+
+	@Override
+	public List<DProcess> proing() {
+		return sqlSession.selectList("com.omg.dpro.proing");
+		
 	}
 
 }

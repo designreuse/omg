@@ -83,5 +83,21 @@ public class MProController {
 		return list;
 	}
 	
+	@RequestMapping("/start")
+	public @ResponseBody List<MProcess> startlist(HttpSession session, Model model, String teamId){
+		
+		Employees emps = (Employees)session.getAttribute("user"); 
+		
+		List<MProcess> list = mproService.startpro(emps.getTeamId());
+		
+		return list;
+	}
+	
+	
+	
+	
+/*	@RequestMapping("/setpeople")
+	public
+*/	
 	
 }
