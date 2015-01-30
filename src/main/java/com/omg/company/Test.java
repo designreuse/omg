@@ -1,7 +1,7 @@
 package com.omg.company;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class Test {
@@ -9,7 +9,7 @@ public class Test {
 	
 	@RequestMapping("/test")
 	public String testView(){
-		return "pages/notice";
+		return "TTTTest";
 	}
 	
 	@RequestMapping("/test2")

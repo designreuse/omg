@@ -24,7 +24,7 @@ public class RProComtroller {
 	
 	// 대현 -> 영업
 	@RequestMapping("index_s")
-	public String runProindex(HttpSession session){
+	public String SalaryProindex(HttpSession session){
 		return "pages/pro/s_process";
 	}
 	
@@ -270,13 +270,22 @@ public class RProComtroller {
 	public @ResponseBody long p_sumBydeptProPrice(HttpSession session,
 			@RequestParam("year")String year,
 			@RequestParam("dept")String dept){
-		
+//		System.out.println(year);
+//		System.out.println(dept);
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("year", year);
 		map.put("departmentId",	dept);
-		
+//		System.out.println(year+" dept :" +dept);
 		long price = empService.p_sumBydeptProPrice(map);
+		System.out.println("price="+price);
 		return price;
+//		return 0;
 	}
-
+	
+//////////////////////////////////////////////////////////////////////////////////////
+	// 경엉 (대현 & 윤지)
+	@RequestMapping("index_r")
+	public String RunProIndex(HttpSession session){
+		return "pages/pro/r_process";
+	}
 }

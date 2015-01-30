@@ -115,7 +115,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 
 	@Override
 	public long sumBydeptProPrice(Map map) {
-		 long price = sqlSession.selectOne("com.omg.projects.sumBydeptProPrice",map);
+		 long price =0;
+		 try{
+			 price = sqlSession.selectOne("com.omg.projects.sumBydeptProPrice",map);
+		 }catch(NullPointerException e){
+			 
+		 }
 			return price;
 	}
 }
