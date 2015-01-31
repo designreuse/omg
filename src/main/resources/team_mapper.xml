@@ -27,7 +27,7 @@
 		select t.team_id, t.team_name, e.name, t.team_manager,p.position_name, (select count(employee_id) from employees where team_id = e.team_id group by(team_id)) count
 		from teams t, employees e, position p        
 		where t.team_id = e.team_id and e.position_id = p.position_id and t.team_manager = e.employee_id
-		and department_id=#{departmentId}
+		and e.department_id=#{departmentId}
 	</select>
 	<!-- 인사.회계팀 부서관리에서 팀 등록 -->
 	<insert id="p_teamConInsert" parameterType="Teams">
