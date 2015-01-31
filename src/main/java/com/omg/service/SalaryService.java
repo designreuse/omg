@@ -67,7 +67,14 @@ public class SalaryService {
 	
 	// 선택된것 들 삭제 하기 -> 팀장의 권한
 	public int deletePro(String[] proids) {
-		int ret = projectDAO.deletePro(proids);
+		int protechdel = -1;
+		int ret = 0;
+		for(String s : proids){
+			protechdel += projectDAO.salProTechDelete(s);
+		}
+		if(protechdel != -1){
+			ret = projectDAO.deletePro(proids);
+		}
 		return ret;
 	}
 	

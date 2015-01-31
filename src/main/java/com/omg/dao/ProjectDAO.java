@@ -25,4 +25,5 @@ public interface ProjectDAO {
 	// 경영
 	List<Projects> runSelectPro(int page);
 	int runSelectProTotle();
+	int runProInApp(String proId, String app, String appName);
 }

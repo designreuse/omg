@@ -8,6 +8,8 @@
 		<result property="departmentId" column="department_id"/>
 		<result property="positionId" column="position_id"/>
 		<result property="employeeId" column="employee_id"/>
+		<result property="posName" column="position_name"/>
+		<result property="teamName" column="team_name"/>
 	</resultMap>
 	
 	<resultMap type="Employees" id="dto2">
@@ -22,9 +24,34 @@
 		<result property="minSalary" column="min_salary"/>
 	</resultMap>
 	
+	<select id="selectEmpinfoList" resultMap="dto" parameterType="map">
+		<![CDATA[ SELECT * FROM (
+	    	SELECT ROW_NUMBER() OVER(ORDER BY hiredate DESC) rnum, e.name, e.phone, e.address, e.email, hiredate, birth, e.employee_id, e.position_id, e.team_id, p.POSITION_NAME, t.team_name
+			FROM employees e, position p, teams t
+			WHERE e.POSITION_ID = p.POSITION_ID and e.team_id = t.team_id(+)]]>
+			<if test="dept != null">
+	    		AND	e.department_id = #{dept}
+	    	</if> 
+	    <![CDATA[)  
+	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        ORDER BY hiredate, employee_id DESC
+	    ]]> 
+	</select>
+	
+	<select id="EmpinfoTotal" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(employee_id), 0) 
+		FROM employees
+		<where>
+			<if test="dept != null">
+				department_id = #{dept}
+			</if>
+		</where>
+	</select>
+	
 	<select id="selectEmpList" resultMap="dto">
 		select * from employees
 	</select>
+	
 	<select id="selectEmpinfo" resultMap="dto" parameterType="String">
 		select * from employees where department_id = #{deptID}
 	</select>

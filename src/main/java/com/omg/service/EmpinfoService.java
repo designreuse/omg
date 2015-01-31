@@ -18,7 +18,17 @@ public class EmpinfoService {
 	
 	@Autowired
 	private TeamDAO teamDAO;
+	/// 수정
+	public List<Employees> empList(int page, String dept){
+		List<Employees> list = empDAO.empList(page, dept);
+		return list;
+	}
 	
+	public int empListTotal(String dept) {
+		int totalconut = empDAO.empListTotal(dept);
+		return totalconut;
+	}
+	/////////////////////////////
 	public List<Employees> selectEmpinfo(String dept) {
 		List<Employees> list = empDAO.selectEmpinfo(dept);
 		return list;

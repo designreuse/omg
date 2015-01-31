@@ -17,26 +17,26 @@
 		</div>
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu">
-			<li id="notice"><a href="/company/notice/index"> <i
+			<li><a href="/company/notice/index"> <i
 					class="fa fa-bullhorn"></i> <span>공지사항</span>
 			</a></li>
-			<li id="freeboard"><a href="/company/freeboard/index"> <i
+			<li><a href="/company/freeboard/index"> <i
 					class="fa  fa-twitch"></i> <span>자유게시판</span> <!-- <small
 					class="badge pull-right bg-green">new</small> -->
 			</a></li>
-			<li id="study"><a href="/company/studys/index"> <i
+			<li><a href="/company/studys/index"> <i
 					class="fa fa-laptop"></i> <span>스터디</span>
 			</a></li>
-			<li id="message"><a href="/company/message/index"> <i
+			<li><a href="/company/message/index"> <i
 					class="fa fa-envelope"></i> <span>메세지함</span>
 			</a></li>
-			<li id="pro"><a href="/company/process/index"> <i
+			<li><a href="/company/process/index"> <i
 					class="fa fa-th-list"></i> <span>업무</span>
 			</a></li><!-- 
 			<li id="cal"><a href="/company/calendar/index"> <i
 					class="fa fa-calendar"></i> <span>일정</span>
 			</a></li> -->
-			<li id="empinfo"><a href="/company/empinfo/index"> <i
+			<li><a href="/company/empinfo/index"> <i
 					class="fa  fa-users"></i> <span>연락처</span>
 			</a></li>
 		</ul>
