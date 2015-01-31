@@ -30,29 +30,31 @@ public class RProComtroller {
 		return "pages/pro/s_process";
 	}
 	
+	// 기술에 등록된 기술들 보여주기 (단. 아직 끝나지 안은 프로젝트에 관하여서)
 	@RequestMapping("techlist")
 	public @ResponseBody List<Techs> techList(HttpSession session){
 		List<Techs> list =salService.selectTechs();
 		return list;
 	}
 	
+	// 프로젝트가 목록 보여 주기 (모두 지금 것 했던 모든것)
 	@RequestMapping("salProlist")
 	public @ResponseBody List<Projects> salProList(HttpSession session, 
 		   @RequestParam("page") int page,
 		   @RequestParam("date") int date){
-		//System.out.println(date);
 		List<Projects> list = salService.selectProject(page,date);
 		return list;
 	}
 	
+	// 프로젝트가 총 몇개 있는지 (모두 지금것 진행한 모든것)
 	@RequestMapping("/salPrototle")
 	public @ResponseBody String salProTotle(HttpSession session,
 			@RequestParam("date") int date){
-		//System.out.println(date);
 		Integer total = salService.salProjectTotle(date);
 		return total.toString();
 	}
 	
+	// 프로젝트 자세히 보기
 	@RequestMapping("/salProDetail")
 	public String salProDetail(HttpSession session, @RequestParam("proNum") String proId, Model model){
 		Projects pro = salService.salProjectByProId(proId);
@@ -60,6 +62,7 @@ public class RProComtroller {
 		return "pages/pro/s_pro_det_up";
 	}
 	
+	// 프로젝트 등록하기
 	@RequestMapping(value="/insertpro", method=RequestMethod.POST)
 	public String insertpro(HttpSession session, 
 			@RequestParam("proid") String proId,
@@ -79,6 +82,7 @@ public class RProComtroller {
 		return "redirect:index_s";
 	}
 	
+	// 프로젝트 수정하는 부분
 	@RequestMapping(value="/salProUpdate", method=RequestMethod.POST)
 	public String salProUpdate(HttpSession session, 
 			@RequestParam("proId") String proId,
@@ -99,39 +103,44 @@ public class RProComtroller {
 		return "redirect:index_s";
 	}
 	
+	// 프로젝트 삭제 하는 부분(1개 혹은 여러게)
 	@RequestMapping("proDelete")
-	public String proDelete(HttpSession session, @RequestParam("proIds") String[] proids){
-		salService.deletePro(proids);
-		return "redirect:index_s";
+	public @ResponseBody String proDelete(HttpSession session, @RequestParam("proIds") String[] proids){
+		Integer ret = salService.deletePro(proids);
+		return ret.toString();
 	}
 	
+	// 프로젝트에 등록된 기술목록 보여주기
 	@RequestMapping("ProByTech")
 	public @ResponseBody List<String> ProByTech(HttpSession session, @RequestParam("proid") String proId){
 		List<String> techlist = salService.salSelectTechs(proId);
 		return techlist;
 	}
 	
+	// 프로젝트에 기술 입력
 	@RequestMapping("protechIn")
-	public String protechIn(HttpSession session,
+	public @ResponseBody String protechIn(HttpSession session,
 			@RequestParam("proid") String proId,
 			@RequestParam("techname") String techName){
-		salService.salProTechInsert(proId, techName);
-		return "redirect:index_s";
+		Integer ret = salService.salProTechInsert(proId, techName);
+		return ret.toString();
 	}
 	
+	// 프로젝트에 등록된 기술중 하나만 선택 삭제
 	@RequestMapping("protechByDel")
-	public String protechByDel(HttpSession session,
+	public @ResponseBody String protechByDel(HttpSession session,
 			@RequestParam("proid") String proId,
 			@RequestParam("techname") String techName){
-		salService.salProTechByDelete(proId, techName);
-		return "redirect:index_s";
+		Integer ret = salService.salProTechByDelete(proId, techName);
+		return ret.toString();
 	}
 	
+	// 프로젝트에 등록된 기술 모두삭제
 	@RequestMapping("protechAllDel")
-	public String protechAllDel(HttpSession session,
+	public @ResponseBody String protechAllDel(HttpSession session,
 			@RequestParam("proid") String proId){
-		salService.salProTechDelete(proId);
-		return "redirect:index_s";
+		Integer ret = salService.salProTechDelete(proId);
+		return ret.toString();
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////	
@@ -357,15 +366,35 @@ public class RProComtroller {
 		return "pages/pro/r_process";
 	}
 	
+	// 경영에서 프로젝트 목록 보기 (단. 아직 끝나지 안은 프로젝트에 관하여서)
 	@RequestMapping("runProList")
 	public @ResponseBody List<Projects> runProList(HttpSession session, @RequestParam("page") int page){
 		List<Projects> prolist =runService.runSelectPro(page);
 		return prolist;
 	}
 	
+	// 경영에서 프로젝트 총 갯수 구하기 (단. 아직 끝나지 안은 프로젝트에 관하여서)
 	@RequestMapping("runProTotle")
 	public @ResponseBody String runProTotle(HttpSession session){
 		Integer r = runService.runSelectProTotle();
 		return r.toString();
 	}
+	
+	// 프로 승인하거나 중지하거나 불가라고 하기 
+	@RequestMapping("appInsert")
+	public @ResponseBody String appInsert(HttpSession session,
+			@RequestParam("proid") String proId,
+			@RequestParam("app") String app){
+		Employees user = (Employees)session.getAttribute("user");
+		if(app.equals("승인")){
+			app = "O";
+		}else if(app.equals("불가")){
+			app = "X";
+		}else if(app.equals("STOP")){
+			app = "";
+		}
+		Integer ret = runService.runProInApp(proId, app, user.getName());
+		return ret.toString();
+	}
+	
 }

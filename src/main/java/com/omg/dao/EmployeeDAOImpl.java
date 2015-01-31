@@ -14,6 +14,30 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	private SqlSession sqlSession;
 	
 	@Override
+	public List<Employees> empList(int page, String dept) {
+		Map map = new HashMap();
+		int startPage = (page-1) * 10 + 1;
+		int endPage = startPage + (10 - 1);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		if(!(dept.equals("O"))){
+			map.put("dept", dept);
+		}
+		List<Employees> list = sqlSession.selectList("com.omg.employee.selectEmpinfoList", map);
+		return list;
+	}
+
+	@Override
+	public int empListTotal(String dept) {
+		Map<String, String> map = new HashMap<String, String>();
+		if(!(dept.equals("O"))){
+			map.put("dept", dept);
+		}
+		int totalCount = sqlSession.selectOne("com.omg.employee.EmpinfoTotal", map);
+		return totalCount;
+	}
+	
+	@Override
 	public List<Employees> selectEmp() {
 		List<Employees> list = sqlSession.selectList("com.omg.employee.selectEmpList");
 		return list;
@@ -120,5 +144,4 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		Employees emp = sqlSession.selectOne("com.omg.employee.selectlist",empid);
 		return emp;
 	}
-
 }
