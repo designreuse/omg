@@ -349,7 +349,9 @@
 		
 		
 		$("#startlist").on("click","#open",function(){
-			$("#detailview").empty();
+			var proId=$(this).attr("projectId");
+			
+ 			$("#detailview").empty();
 			$("#h3").text("새 프로젝트");
 			var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
 							+"<div class='box-body'><div class='table-responsive'>"
@@ -400,16 +402,17 @@
 									$("#startlist").append(str);
 								}
 							});
-
 							
 							$.ajax({
-								url : "put",
-								dataType : "json",
+								url :"put",
+								dataType :"json",
+								data:"projectId="+proId,  //"projectId"에는 컨트롤러에 들어갈이름 ajax에는 뒤에꺼 proId
 								success : function(json) {
 									$("#putlist").empty();
 									var str = "";
+									
 									$.each(json, function(index, item) {
-
+				
 										str += "<tr>";
 										str += "<td>" + (index + 1) + "</td>";
 										str += "<td>" + item.employeeName + "</td>";
@@ -423,14 +426,11 @@
 									$("#putlist").append(str);
 								}
 							});
-							
-							
-						
-						
 						//spare 리스트부분 ajax
 							$.ajax({
 								url : "spare",
 								dataType : "json",
+
 								success : function(json) {
 									$("#sparelist").empty();
 									var str = "";
@@ -442,23 +442,14 @@
 										str += "<td>" + item.phone + "</td>";
 										str += "<td>" + item.email + "</td>";
 										str += "<td>" + item.positionName + "</td>";
-										str += "<td>" +"<input type='submit'  value='결정'>"+"</td>";
+										str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>";
+										str += "<td>" +"<input type='submit' value='결정'>"+"</td>";
 										str += "</tr>";
-
 									});
-
 									$("#sparelist").append(str);
 								}
-
 						});
-
 		});
-		
-		
-		
-		
-
-
 		
 	</script>
 

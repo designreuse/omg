@@ -12,7 +12,7 @@
 <result property="techName" column="TECH_NAME"/>
 <result property="teamId" column="TEAM_ID"/>
 <result property="departmentId" column="DEPARTMENT_ID"/>
-<result property="employeeId" column="EMPLOYEE_ID"/>
+<result property="employeeId" column="employee_id"/>
 <result property="employeeName" column="NAME"/>
 <result property="phone" column="PHONE"/>
 <result property="email" column="EMAIL"/>
@@ -73,7 +73,7 @@ and e.EMPLOYEE_ID not in (
 select e.EMPLOYEE_ID from employees e, project_emp pe
 where e.EMPLOYEE_ID = pe.EMPLOYEE_ID)
 and e.team_id = #{teamId} -->
-select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID 
+select *
 from employees e, position p
 where e.POSITION_ID = p.POSITION_ID
 and e.team_id=#{teamId}
@@ -81,21 +81,12 @@ order by e.position_id
 </select>
 
 <!--투입인원 찾기  -->
-<select id="putlist" resultMap="dto">
+<select id="putlist" resultMap="dto" parameterType="String">
 <![CDATA[
-select * from project_emp pe, employees e, position po
-where pe.EMPLOYEE_ID=e.EMPLOYEE_ID
-and e.position_id=po.position_id
-and project_id =
-(
-select pe.PROJECT_ID from employees e, project_emp pe, projects pro, project_tech prote, techs tech
-where pe.employee_id= e.employee_id
-and pe.project_id = pro.project_id
-and prote.project_id = pro.project_id
-and prote.tech_id = tech.tech_id
-and sysdate <= start_date
-and e.team_id=#{teamId}
-and pro.approval = 'O')
+select *
+from projects p , project_emp pe, employees e,position pos
+where p.project_id = pe.project_id and pe.employee_id = e.employee_id and pos.position_id = e.position_id  
+and p.project_id = #{projectId}
 ]]>
 </select>
 
