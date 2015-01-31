@@ -125,9 +125,12 @@
     			selectDept("R");
     		});	
 	});
-
-	</script>
-
+	/* function clickTrEvent(trObj) {
+		h_id = trObj.id;
+        alert(h_id);
+    }  */
+	
+    </script>
 </head>
 <body class="skin-blue">
 	<!-- header logo: style can be found in header.less -->
@@ -249,6 +252,37 @@
 	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
 	<script>
+	h_id="D";
+	function clickTrEvent(trObj) {
+		h_id = trObj.id;
+       
+        $("#table_body").empty();
+		 
+		
+		  
+	  var sales = "<div class='table-responsive' id='table_body'><table class='table table-bordered' border='1'>"
+				+ "<thead><tr align='center'><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
+				+ "<tbody>";
+				
+				$.ajax({
+					url:"p_teamConSelect",
+					data:"deptid="+h_id,
+					dataType:"json",
+					async: false,
+					success:function(json){
+						$.each(json,function(index,item){
+							sales += "<tr><td>"+item.teamId+"</td><td>"+item.teamName+"</td>"
+							      +  "<td>"+item.employeeName+"("+item.teamManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
+						});
+					}
+				});
+				
+		sales	+= "</tbody></table></div>";
+		$(sales).appendTo($("#table_body"));  
+		
+       
+        
+    } 
 	$(function(){
 		 
 		//매출관리 버튼 눌렀을 경우.
@@ -579,15 +613,15 @@
 			}
 		});
 		
-		
-		
+
 		//부서관리 버튼 클릭시 
 		$("#bnt_window").on("click","#dcont",function(){
 			$("#detailview").empty();
 			$("#h3").text("부서 관리");
 			$("#bnt").empty();
 			
-		  var sales ="<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div>"
+			  
+		  var sales ="<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div id='dDiv'>"
 					+ "<a  class='btn btn-primary btn-sm' id='dNew' >등록</a>"
 					+ "</div></div></div>"
 					+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
@@ -599,24 +633,25 @@
 						async: false,
 						success:function(json){
 							$.each(json,function(index,item){
-								sales += "<tr><td>"+item.departmentId+"</td><td>"+item.departmentName+"</td>"
-								      +  "<td>"+item.employeeName+"("+item.departmentManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
+								
+								sales += "<tr id="+item.departmentId+" onclick='clickTrEvent(this)'><td>"+item.departmentId+"</td><td>"+item.departmentName+"</td>"
+							      +  "<td>"+item.employeeName+"("+item.departmentManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
 							});
 						}
 						
 					});
 					
 			sales	+= "</tbody></table></div>"
-					+"<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div>"
+					+"<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div id='tDiv'>"
 					+ "<a  class='btn btn-primary btn-sm' id='tNew' >등록</a>"
-					+ "<a  class='btn btn-primary btn-sm' id='tDel' >삭제</a>"
 					+ "</div></div></div>"
-					+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+					+ "<div class='table-responsive' id='table_body'><table class='table table-bordered' border='1'>"
 					+ "<thead><tr align='center'><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
 					+ "<tbody>";
 					
 					$.ajax({
 						url:"p_teamConSelect",
+						data:"deptid="+h_id,
 						dataType:"json",
 						async: false,
 						success:function(json){
@@ -629,6 +664,21 @@
 					
 			sales	+= "</tbody></table></div>";
 			$(sales).appendTo($("#detailview"));  
+			
+	 
+		 $("#dDiv").on("click","#dNew",function(){
+			 $("#detailview").empty();
+			 $("#h3").text("부서 등록");
+			 $("#bnt").empty();
+			 
+			 var str="";
+			 str += "<div class='table-responsive'><form action='p_deptConInsert'><table class='table table-bordered' border='1'>";
+			 str += "<tr>"+"<th>부서 ID</th>"+"<td><input type='text' name='deptId'></td></tr>";
+			 str += "<tr>"+"<th>부서 이름</th>"+"<td><input type='text' name='deptName'></td></tr>";
+			 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='deptManager'></td></tr>";
+			 str += "<input type='submit'  class='btn btn-primary btn-sm' value='등록'></table></form></div>";
+			 $(str).appendTo("#detailview");
+		 });
 		});
 	});
 		

@@ -5,6 +5,9 @@ import java.util.*;
 import com.omg.dto.*;
 
 public interface EmployeeDAO {
+	List<Employees> empList(int page, String dept);
+	int empListTotal(String dept);
+	
 	List<Employees> selectEmp();
 	List<Employees> selectEmpinfo(String dept);
 	Employees selectPass(Employees emp);

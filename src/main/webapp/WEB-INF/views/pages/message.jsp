@@ -331,6 +331,7 @@
 					}else{
 						$("#page").text(startpage);
 						$("#totle").text(endpage);
+						$("#nextdesc").removeClass("disabled");
 					}
 				}
 			});
@@ -479,8 +480,14 @@
 					data: "name="+name,
 					success : function(text) {
 						srhendpage = parseInt(((text-1) / 5) + 1);
-						$("#page").text(srhstartpage);
-						$("#totle").text(text);
+						if(text == 0){
+							$("#page").text(0);
+							$("#totle").text(0);
+						}else{
+							$("#page").text(startpage);
+							$("#totle").text(endpage);
+							$("#nextdesc2").removeClass("disabled");
+						}
 					}
 				});
 			});

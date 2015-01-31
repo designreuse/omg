@@ -34,10 +34,9 @@
 				permit = txt;
 			}
 		});
-		
+		listck = 0;
 		startpage = 1;
 		endpage = 0;
-		total = 0;
 		date = 0;				// 날짜 하는것..
 		$.ajax({          			// 프로잭트 기술 보여주기
 			url : "techlist",
@@ -89,7 +88,7 @@
 					});
 				}
 				var button ="<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-							"<button id='nextdesc' class='btn btn-xs btn-primary '><i class='fa fa-caret-right'></i></button>";
+							"<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
 				$("#buttoncontroll").append(button);
 			}
 		});
@@ -98,6 +97,7 @@
 			url: "salPrototle" ,
 			dataType: "text",
 			data : "date="+date,
+			async: false,
 			success : function(text) {
 				endpage = parseInt(((text-1) / 15) + 1);
 				$("#page").text(startpage);
@@ -106,18 +106,21 @@
 			}
 		});
 		
-		function ckdatelist(date2) {								// 버튼이 눌렸을경우
-			date = date2;
-			$.ajax({          								// 프로잭트 리스트 보여주기
+		function ckdatelist(startpage,date) {
+			$.ajax({          			// 프로잭트 리스트 보여주기
 				url : "salProlist",
 				dataType : "json",
 				data : "page="+startpage+"&date="+date,
+				async: false,
 				success : function(json) {
 					if(json != ""){
 						$("#prolist").empty();
 						$.each(json, function(index, item) {
-							td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>"+
-								 "<td>"+item.deptName+"</td>"+
+							td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>";
+								 if(permit == "T"){
+									 td += "<td>"+item.projectId+"</a></td>";
+								 }
+							td += "<td>"+item.deptName+"</a></td>"+
 								 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
 								 "<td>"+item.startDate+"</td>"+
 								 "<td>"+item.endDate+"</td>"+
@@ -146,81 +149,55 @@
 				url: "salPrototle" ,
 				dataType: "text",
 				data : "date="+date,
+				async: false,
 				success : function(text) {
 					endpage = parseInt(((text-1) / 15) + 1);
-					$("#page").text(startpage);
-					$("#total").text(endpage);
-					$("#nextdesc").removeClass("disabled");
+					if(text == 0){
+						$("#page").text(0);
+						$("#totle").text(0);
+					}else{
+						$("#page").text(startpage);
+						$("#totle").text(endpage);
+						$("#nextdesc").removeClass("disabled");
+					}
 				}
 			});
 		}
 		
 		// 전체 선택
 		$("#fulllist").click(function() {
-			ckdatelist(0);
+			listck = 0;
+			ckdatelist(1,0);
 		});
 		
 		// 승인대기
 		$("#proInglist").click(function() {
-			ckdatelist(1);
+			listck = 1;
+			ckdatelist(1,1);
 		});
 		
 		// 승인불가
 		$("#proNotlist").click(function() {
-			ckdatelist(2);
+			listck = 2;
+			ckdatelist(1,2);
 		});
 		
 		// 승인완료
 		$("#proEndlist").click(function() {
-			ckdatelist(3);
+			listck = 3;
+			ckdatelist(1,3);
 		});
 		
 		// < 버튼 눌림
 		$("#buttoncontroll").on("click","#nextasc",function() {
 			startpage--;
 			if(startpage >= 1){
-				$.ajax({          			// 프로잭트 리스트 보여주기
-					url : "salProlist",
-					dataType : "json",
-					data : "page="+startpage+"&date="+date,
-					async: false,
-					success : function(json) {
-						if(json != ""){
-							$("#prolist").empty();
-							$.each(json, function(index, item) {
-								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>";
-									 if(permit == "T"){
-										 td += "<td>"+item.projectId+"</a></td>";
-									 }
-								td += "<td>"+item.deptName+"</a></td>"+
-									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
-									 "<td>"+item.startDate+"</td>"+
-									 "<td>"+item.endDate+"</td>"+
-									 "<td>"+item.projectPrice+"</td>";
-									 if(item.approval == null){
-											td += "<td style='color:blue;'>승인대기</td>"+
-												  "<td style='color:blue;'>확인중</td>";
-									 }else if(item.approval == 'X'){
-										 td += "<td style='color:red;'>"+item.approval+"</td>"+
-										 	   "<td style='color:red;'>"+item.approvalName+"</td>";
-									 }else {
-										 td += "<td>"+item.approval+"</td>";
-										 if(item.approvalName == null){
-											 td +="<td style='color:blue;'>확인중</td>";
-										 }else{
-											 td +="<td>"+item.approvalName+"</td>"; 
-										 }
-									}
-								$("<tr>"+td+"</tr>").appendTo($("#prolist"));
-							});
-						}
-					}
-				});
+				ckdatelist(startpage,listck);
+				//
 				$("#page").text(startpage);
 				$("#nextdesc").removeClass("disabled");
 				if(startpage == 1){
 					$("#nextasc").addClass("disabled");
-					$("#nextdesc").removeClass("disabled");
 				}
 			}else{
 				startpage++;
@@ -232,54 +209,42 @@
 		$("#buttoncontroll").on("click","#nextdesc",function() {
 			startpage++;
 			if(startpage <= endpage){
-				$.ajax({          			// 프로잭트 리스트 보여주기
-					url : "salProlist",
-					dataType : "json",
-					data : "page="+startpage+"&date="+date,
-					async: false,
-					success : function(json) {
-						if(json != ""){
-							$("#prolist").empty();
-							$.each(json, function(index, item) {
-								td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>";
-									 if(permit == "T"){
-										 td += "<td>"+item.projectId+"</a></td>";
-									 }
-								td += "<td>"+item.deptName+"</a></td>"+
-									 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
-									 "<td>"+item.startDate+"</td>"+
-									 "<td>"+item.endDate+"</td>"+
-									 "<td>"+item.projectPrice+"</td>";
-									 if(item.approval == null){
-											td += "<td style='color:blue;'>승인대기</td>"+
-												  "<td style='color:blue;'>확인중</td>";
-									 }else if(item.approval == 'X'){
-										 td += "<td style='color:red;'>"+item.approval+"</td>"+
-										 	   "<td style='color:red;'>"+item.approvalName+"</td>";
-									 }else {
-										 td += "<td>"+item.approval+"</td>";
-										 if(item.approvalName == null){
-											 td +="<td style='color:blue;'>확인중</td>";
-										 }else{
-											 td +="<td>"+item.approvalName+"</td>"; 
-										 }
-									}
-								$("<tr>"+td+"</tr>").appendTo($("#prolist"));
-							});
-						}
-					}
-				});
+				ckdatelist(startpage,listck);
+				//
 				$("#page").text(startpage);
 				$("#nextasc").removeClass("disabled");
 				if(startpage == endpage){
 					$("#nextdesc").addClass("disabled");
-					$("#nextasc").removeClass("disabled");
 				}
 			}else{
 				startpage--;
 			}
 		});
-				
+		
+		
+		// 삭제하는 부분  -> 팀장
+		$("#deletepro").click(function() {
+			var cbox = [];
+			$("input[name=cbox]:checked").each(function() {
+				cbox.push($(this).val());
+			});
+			if(cbox.length == 0){
+				alert('선택해주세요');
+			}
+			if(cbox.length != 0){		// 삭제 로직
+				//$(this).attr("href", "proDelete?proIds="+cbox);
+				$.ajax({
+					url : "proDelete",
+					dataType : "text",
+					data : "proIds="+cbox,
+					async: false,
+					success: function(txt) {
+						alert(txt+" 개 프로젝트 삭제됨");
+						ckdatelist(startpage,listck);
+					}
+				});
+			}
+		});
 	});
 </script>
 </head>
@@ -329,7 +294,7 @@
 																<tr><th>부서ID</th><td><input type="text" name="deptid" /><br>(개발:D, 유지보수:M)</td></tr>
 															</tbody>
 														</table>
-														<div align="right">
+														<div>
 															<button type="submit" class='btn btn-default btn-sm'>입력</button><button type="reset" class='btn btn-default btn-sm'>리셋</button>
 														</div>
 													</form>
@@ -362,7 +327,7 @@
 																<tr><th colspan="2" style="text-align: center;color: red;"> 프로젝트를 선택해주세요! </th></tr>
 															</tbody>
 														</table>
-														<div id="insertProTechBtn" align="right">
+														<div id="insertProTechBtn">
 														</div>
 													</form>
 												</div>
@@ -480,24 +445,25 @@
 				}
 			});
 			
-			// 삭제하는 부분  -> 팀장
-			$("#deletepro").click(function() {
-				var cbox = [];
-				$("input[name=cbox]:checked").each(function() {
-					cbox.push($(this).val());
-				});
-				if(cbox.length == 0){
-					alert('선택해주세요');
-				}
-				if(cbox.length != 0){		// 삭제 로직
-					$(this).attr("href", "proDelete?proIds="+cbox);
-				}
-			});
+////////////////////////////////////////////////////////////////////////////////	
 			
 			// thch 보여주기 및 입력하기
 			$("#prolist").on("click", "#proInTech", function() {
-				var proid = $(this).attr("proid");
-				var techbtn = "";
+				proid = $(this).attr("proid");
+				techbtn = "";
+				proname = $(this).attr("proname");
+				app = $(this).attr("app");
+				techList();
+				if(app != 'O'){
+					techListView();
+				}else{
+					alert('승인된 프로젝트 입니다.');
+				}
+			});
+			
+			// 기술 목록 보여주는 함수
+			function techList() {
+				techbtn = "";
 				$.ajax({
 					url: "ProByTech",
 					dataType: "json",
@@ -510,35 +476,52 @@
 						
 					}
 				});
-				var proname = $(this).attr("proname");
-				var app = $(this).attr("app");
-				//alert(proid+"  "+proname+"  "+protech);
-				if(app != 'O'){
-					$("#techchange").removeAttr("disabled");
-					$("#insertProTech").empty();
-					$("#insertProTechBtn").empty();
-					var protechlist = "<tr><th colspan='2' style='background-color: #ccffaa;text-align: center;'> 기술 등록 </th></tr>"+
-									  "<tr><th>프로젝트</th><td>"+proname+"</td></tr>"+
-									  "<tr><th>기술 LIST</th><td><span id='techview'></span></td></tr>"+
-									  "<tr><th>기술 입력(ID)</th><td><input type='text' name='techname' readonly='readonly'/></td></tr>";
-					var protechbtn = "<input type='hidden' name='proid' value='"+proid+"'/><button type='submit' class='btn btn-default btn-sm'>입력</button><button id='techInRe' type='reset' class='btn btn-default btn-sm'>리셋</button><a id='techDel' type='reset' class='btn btn-default btn-sm'>삭제</a><a id='techAllDel' type='reset' class='btn btn-default btn-sm'>전체삭제</a>";
-					$("#insertProTech").append(protechlist);
-					$("#insertProTechBtn").append(protechbtn);
-					$("#techview").append(techbtn);
-				}else{
-					alert('승인된 프로젝트 입니다.');
-				}
-			});
+			}
+			// 기술 등록 화면 함수
+			function techListView() {
+				$("#techchange").removeAttr("disabled");
+				$("#insertProTech").empty();
+				$("#insertProTechBtn").empty();
+				var protechlist = "<tr><th colspan='2' style='background-color: #ccffaa;text-align: center;'> 기술 등록 </th></tr>"+
+								  "<tr><th>프로젝트</th><td>"+proname+"</td></tr>"+
+								  "<tr><th>기술 LIST</th><td><span id='techview'></span></td></tr>"+
+								  "<tr><th>기술 입력(ID)</th><td><input type='text' name='techname' readonly='readonly'/></td></tr>";
+				var protechbtn = "<a id='proInTechBtn' proid='"+proid+"' class='btn btn-default btn-sm'>입력</a><button id='techInRe' type='reset' class='btn btn-default btn-sm'>리셋</button><a id='techDel' type='reset' proid='"+proid+"' class='btn btn-default btn-sm'>삭제</a><a id='techAllDel' type='reset' proid='"+proid+"' class='btn btn-default btn-sm'>전체삭제</a>";
+				$("#insertProTech").append(protechlist);
+				$("#insertProTechBtn").append(protechbtn);
+				$("#techview").append(techbtn);
+			}
+		
 			// List에서 기술을 눌렸을경우
 			$("#insertProTech").on("click", "a[id=techbtn]", function() {
 				var txt = $(this).text();
 				$("input[name='techname']").attr("value",txt);
+				$("#techDel").attr("techname",txt);
 			});
 			
 			// 기술목록에서 선택시 기술 들록 input으로 등록하기
 			$("#techlist").on("change", "#techchange", function() {
 				var data = $(this).val();
 				$("input[name='techname']").attr("value",data);
+				$("#proInTechBtn").attr("techname", data);
+			});
+			
+			// 기술 입력
+			$("#insertProTechBtn").on("click", "#proInTechBtn", function() {
+				// alert('입력');
+				var proid = $(this).attr("proid");
+				var tech = $(this).attr("techname");
+				$.ajax({
+					url: "protechIn",
+					dataType : "text",
+					data : "proid="+proid+"&techname="+tech,
+					success: function(txt) {
+						if(txt != ""){
+							techList();
+							techListView();
+						}
+					}	
+				});
 			});
 			
 			// 리셋
@@ -548,18 +531,38 @@
 			
 			// 기술 삭제
 			$("#insertProTechBtn").on("click", "#techDel", function() {
-				var techName = $("input[name='techname']").val();			// 수정
-				var proId = $("input[type=hidden]").val();
+				var techName = $(this).attr("techname");
+				var proId = $(this).attr("proid");
 				if(techName != ""){
-					$(this).attr("href", "protechByDel?proid="+proId+"&techname="+techName);
+					$.ajax({
+						url : "protechByDel",
+						dataType : "text" ,
+						data : "proid="+proId+"&techname="+techName,
+						success:  function(txt) {
+							if(txt != ""){
+								techList();
+								techListView();
+							}
+						}
+					});
 				}
 			});
 			
 			// 해당 프로젝트 기술 다 삭제
 			$("#insertProTechBtn").on("click", "#techAllDel", function() {
-				var proId = $("input[type=hidden]").val();
+				var proId = $(this).attr("proid");
 				if(proId != ""){
-					$(this).attr("href", "protechAllDel?proid="+proId);
+					$.ajax({
+						url : "protechAllDel",
+						dataType : "text",
+						data : "proid="+proId,
+						success:  function(txt) {
+							if(txt != ""){
+								techList();
+								techListView();
+							}
+						}
+					});
 				}
 			});
 		});

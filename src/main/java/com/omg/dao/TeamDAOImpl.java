@@ -26,9 +26,21 @@ public class TeamDAOImpl implements TeamDAO {
 	}
 
 	@Override
-	public List<Teams> p_teamConSelect() {
-		List<Teams> list = sqlSession.selectList("com.omg.team.p_teamConSelect");
+	public List<Teams> p_teamConSelect(String deptid) {
+		List<Teams> list = sqlSession.selectList("com.omg.team.p_teamConSelect",deptid);
 		return list;
+	}
+
+	@Override
+	public int p_teamConInsert(Teams team) {
+		int result = sqlSession.insert("com.omg.team.p_teamConInsert",team);
+		return result;
+	}
+
+	@Override
+	public int p_teamConUpdate(Teams team) {
+		int result = sqlSession.update("com.omg.team.p_teamConUpdate",team);
+		return result;
 	}
 
 }

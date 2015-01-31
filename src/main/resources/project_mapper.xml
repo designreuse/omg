@@ -17,7 +17,7 @@
 	<insert id="proInsert" parameterType="Projects">
 		insert into 
 		projects(project_id,project_name,project_price,start_date,end_date,department_id) 
-		values(#{projectId},#{projectName},#{projectPrice},#{startDate},#{endDate},#{departmentId})
+		values(#{projectId},#{projectName},#{projectPrice},#{startDate},#{endDate},upper(#{departmentId}))
 	</insert>
 	
 	<update id="proUpdate" parameterType="Projects">
@@ -141,4 +141,7 @@
         FROM projects
     </select>
     
+    <update id="runProInApp" parameterType="map">
+    	update projects set approval = #{approval}, approval_name = #{approvalName} where project_id = #{projectId} 
+    </update>
 </mapper>

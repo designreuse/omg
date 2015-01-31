@@ -144,4 +144,14 @@ public class ProjectDAOImpl implements ProjectDAO {
 		int totalCount = sqlSession.selectOne("com.omg.projects.runProjectTotle", map);
 		return totalCount;
 	}
+
+	@Override
+	public int runProInApp(String proId, String app, String appName) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("projectId", proId);
+		map.put("approval", app);
+		map.put("approvalName", appName);
+		int ret = sqlSession.update("com.omg.projects.runProInApp", map);
+		return ret;
+	}
 }
