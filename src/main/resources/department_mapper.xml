@@ -8,6 +8,15 @@
 		<result property="departmentName" column="department_name"/>
 		<result property="departmentManager" column="department_manager"/>
 	</resultMap>
+	<resultMap type="Departments" id="dto2">
+		<result property="departmentId" column="department_id"/>
+		<result property="departmentName" column="department_name"/>
+		<result property="departmentManager" column="department_manager"/>
+		<result property="positionName" column="position_name"/>
+		<result property="employeeName" column="name"/>
+	</resultMap>
+	
+	
 	<select id="selectDept" resultMap="dto">
 		select * from departments
 	</select>
@@ -17,4 +26,24 @@
 	<select id="selectByDeptName" resultMap="dto" parameterType="String">
 		select * from departments where department_name = #{deptname}
 	</select>
+	
+	<!-- 인사.회계팀 부서관리에서 부서 조회  -->
+	<select id="p_deptConSelect" resultMap="dto2">
+		select d.department_id, d.department_name, e.name, d.department_manager,p.position_name,
+		       (select count(employee_id) from employees where department_id = e.department_id group by(department_id)) count
+		from departments d, employees e, position p        
+		where d.department_id = e.department_id and e.position_id = p.position_id and d.department_manager = e.employee_id
+	</select>
+	
+	<!-- 인사.회계팀 부서관리에서 부서 등록 -->
+	<insert id="p_deptConInsert" parameterType="Departments">
+		insert into departments values(#{departmentId},#{departmentName},#{departmentManager})
+	</insert>
+	
+	<!-- 인사.회계팀 부서관리에서 부서 수정 (부장) -->
+	<update id="p_deptConUpdate" parameterType="Departments">
+		update departments set department_manager=#{departmentManager}  
+		where department_id=#{departmentId}
+	</update>
+
 </mapper>

@@ -63,7 +63,7 @@ public class MProController {
 	}
 	
 	@RequestMapping("/spare")
-	public @ResponseBody List<MProcess> sparelist(HttpSession session, Model model, String teamId){
+	public @ResponseBody List<MProcess> sparelist(HttpSession session){
 		
 		Employees emps = (Employees)session.getAttribute("user");
 		List<MProcess> list = mproService.sparelist(emps.getTeamId());
@@ -71,17 +71,41 @@ public class MProController {
 				
 	}
 	
+	
+	@RequestMapping("/setpeople")
+	public @ResponseBody List<MProcess> setpeople(HttpSession session,
+			@RequestParam("proId") String projectId,
+			@RequestParam("empId") String empId){
+		
+		System.out.println(projectId+"        "+empId);
+		return null;
+	}
+	
+	
 	@RequestMapping("/put")
-	public @ResponseBody List<MProcess> putlist(HttpSession session, Model model, String teamId){
+	public @ResponseBody List<MProcess> putlist(HttpSession session, Model model,
+			@RequestParam("projectId") String projectId){
+		System.out.println(projectId);
+		List<MProcess> list = mproService.putlist(projectId);
+
+		return list;
+	}
+	
+	@RequestMapping("/start")
+	public @ResponseBody List<MProcess> startlist(HttpSession session){
 		
 		Employees emps = (Employees)session.getAttribute("user"); 
 		
-		List<MProcess> list = mproService.putlist(emps.getTeamId());
-		
-		
+		List<MProcess> list = mproService.startpro(emps.getTeamId());
 		
 		return list;
 	}
 	
+	
+	
+	
+/*	@RequestMapping("/setpeople")
+	public
+*/	
 	
 }

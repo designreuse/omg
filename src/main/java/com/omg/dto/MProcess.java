@@ -16,10 +16,16 @@ public class MProcess {
 	private String phone;
 	private String email;
 	private String positionName;
+	private int salary;
 	
 	
 	
-	
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
 	public String getProjectId() {
 		return projectId;
 	}

@@ -31,4 +31,22 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return deptId;
 	}
 
+	@Override
+	public List<Departments> p_deptConSelect() {
+		List<Departments> list = sqlSession.selectList("com.omg.department.p_deptConSelect");
+		return list;
+	}
+
+	@Override
+	public int p_deptConInsert(Departments dept) {
+		int result = sqlSession.insert("com.omg.department.p_deptConInsert",dept);
+		return result;
+	}
+
+	@Override
+	public int p_deptConUpdate(Departments dept) {
+		int result = sqlSession.update("com.omg.department.p_deptConUpdate",dept);
+		return result;
+	}
+
 }

@@ -20,7 +20,6 @@
 			<form action="salProUpdate" method="post">
 			<input type="hidden" value="${pro.projectId}" name="proId">
 			<table border="1" style="background-color: #ccffaa">
-				<
 				<tr><th style="color: #8888ff">프 로 젝 트 명 :</th><td><input id="proname" type="text" value="${pro.projectName}" name="proname" /></td></tr><!-- 팀장 -->
 				<tr><th style="color: #8888ff">금         액  :</th><td><input type="text" value="${pro.projectPrice}" name="price"/></td></tr>
 				<tr><th style="color: #8888ff">시작일(y-m-d):</th><td><input type="text" value="${pro.startDate}" name="start"/></td></tr>

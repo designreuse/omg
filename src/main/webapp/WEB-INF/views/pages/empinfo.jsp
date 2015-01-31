@@ -26,81 +26,118 @@
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
 	$(function() {
-		$("#develop").click(
-				function() {
-					$("#empTitle").empty();
-					$("#empTitle").text("『개발 부서 인원』");
-					$("#datalist").empty(); // 안에있는 내용 삭제
-					$.ajax({
-						url : "select", // select 경로로 보내기
-						dataType : "json", // json으로 받는다
-						data : "dept=D", // 값을 임으로 만들어서 넘김
-						success : function(json) {
-							$.each(json, function(index, item) { // foreach해줌 
-								var td = "<td>" + item.name + "</td>" + "<td>"
-										+ item.phone + "</td>" + "<td>"
-										+ item.address + "</td>" + "<td>"
-										+ item.email + "</td>" + "<td>"
-										+ item.posName + "</td>" + "<td>"
-										+ item.teamName + "</td>" + "<td>"
-										+ item.hiredate + "</td>" + "<td>"
-										+ item.birth + "</td>";
-								$("<tr>" + td + "</tr>").appendTo(
-										$("#datalist")); // 맏들
-							});
-						}
+		startpage = 1;
+		endpage = 0;
+		listck = 'O';
+		var button ="<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
+					"<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
+		$("#buttoncontroll").append(button);
+		empInFoList(startpage,listck);
+		function empInFoList(startpage,dept) {
+			$("#datalist").empty();
+			$.ajax({
+				url : "select", // select 경로로 보내기
+				dataType : "json", // json으로 받는다
+				data : "page="+startpage+"&dept="+dept, // 값을 임으로 만들어서 넘김
+				async: false,
+				success : function(json) {
+					$.each(json, function(index, item) { // foreach해줌 
+						var td = "<td>" + item.name + "</td>" + "<td>"
+								+ item.phone + "</td>" + "<td>"
+								+ item.address + "</td>" + "<td>"
+								+ item.email + "</td>" + "<td>"
+								+ item.posName + "</td>" + "<td>"
+								+ item.teamName + "</td>" + "<td>"
+								+ item.hiredate + "</td>" + "<td>"
+								+ item.birth + "</td>";
+						$("<tr>" + td + "</tr>").appendTo($("#datalist")); // 만듬
 					});
-				});
-		$("#maintenance").click(
-				function() {
-					$("#empTitle").empty();
-					$("#empTitle").text("『유지 보수 부서 인원』");
-					$("#datalist").empty();
-					$.ajax({
-						url : "select",
-						dataType : "json",
-						data : "dept=M",
-						success : function(json) {
-							$.each(json, function(index, item) {
-								var td = "<td>" + item.name + "</td>" + "<td>"
-										+ item.phone + "</td>" + "<td>"
-										+ item.address + "</td>" + "<td>"
-										+ item.email + "</td>" + "<td>"
-										+ item.posName + "</td>" + "<td>"
-										+ item.teamName + "</td>" + "<td>"
-										+ item.hiredate + "</td>" + "<td>"
-										+ item.birth + "</td>";
-								$("<tr>" + td + "</tr>").appendTo(
-										$("#datalist"));
-							});
-						}
-					});
-				});
-		$("#run").click(
-				function() {
-					$("#empTitle").empty();
-					$("#empTitle").text("『경영 부서 인원』");
-					$("#datalist").empty();
-					$.ajax({
-						url : "select",
-						dataType : "json",
-						data : "dept=R",
-						success : function(json) {
-							$.each(json, function(index, item) {
-								var td = "<td>" + item.name + "</td>" + "<td>"
-										+ item.phone + "</td>" + "<td>"
-										+ item.address + "</td>" + "<td>"
-										+ item.email + "</td>" + "<td>"
-										+ item.posName + "</td>" + "<td>"
-										+ item.teamName + "</td>" + "<td>"
-										+ item.hiredate + "</td>" + "<td>"
-										+ item.birth + "</td>";
-								$("<tr>" + td + "</tr>").appendTo(
-										$("#datalist"));
-							});
-						}
-					});
-				});
+				}
+			});
+			$.ajax({					// ProjectList 페이지 총페이지수 구하기
+				url: "total" ,
+				dataType: "text",
+				data : "dept="+dept,
+				async: false,
+				success : function(text) {
+					endpage = parseInt(((text-1) / 10) + 1);
+					$("#page").text(startpage);
+					$("#total").text(endpage);
+					$("#nextdesc").removeClass("disabled");
+				}
+			});
+		}
+		
+		$("#open").click(function() {
+			startpage = 1;
+			endpage = 0;
+			listck = 'O';
+			$("#empTitle").empty();
+			$("#empTitle").text("『인원조회』");
+			$("#datalist").empty();			
+			empInFoList(startpage,listck);
+		});
+		
+		$("#develop").click(function() {
+			startpage = 1;
+			endpage = 0;
+			listck = 'D';
+			$("#empTitle").empty();
+			$("#empTitle").text("『개발 부서 인원』");
+			$("#datalist").empty();			 // 안에있는 내용 삭제
+			empInFoList(startpage,listck);
+		});
+		
+		$("#maintenance").click(function() {
+			startpage = 1;
+			endpage = 0;
+			listck = 'M';
+			$("#empTitle").empty();
+			$("#empTitle").text("『유지 보수 부서 인원』");
+			$("#datalist").empty();
+			empInFoList(startpage,listck);
+		});
+		
+		$("#run").click(function() {
+			startpage = 1;
+			endpage = 0;
+			listck = 'R';
+			$("#empTitle").empty();
+			$("#empTitle").text("『경영 부서 인원』");
+			$("#datalist").empty();
+			empInFoList(startpage,listck);
+		});
+		
+		// < 버튼 눌림
+		$("#buttoncontroll").on("click","#nextasc",function() {
+			startpage--;
+			if(startpage >= 1){
+				empInFoList(startpage,listck);
+				$("#page").text(startpage);
+				$("#nextdesc").removeClass("disabled");
+				if(startpage == 1){
+					$("#nextasc").addClass("disabled");
+				}
+			}else{
+				startpage++;
+			}
+		});
+		
+		
+		// > 버튼 눌림	
+		$("#buttoncontroll").on("click","#nextdesc",function() {
+			startpage++;
+			if(startpage <= endpage){
+				empInFoList(startpage,listck);
+				$("#page").text(startpage);
+				$("#nextasc").removeClass("disabled");
+				if(startpage == endpage){
+					$("#nextdesc").addClass("disabled");
+				}
+			}else{
+				startpage--;
+			}
+		});
 	});
 </script>
 </head>
@@ -133,8 +170,8 @@
 							<div class="box-body">
 								<div class="row">
 									<h1 id="empTitle" style="float: left; font-weight: bold;">『인원조회』</h1>
-									<span style="float: right !important; margin: 10px;"> <span
-										style="color: blue;"><b>부서선택</b></span>
+									<span style="float: right !important; margin: 10px;">
+										<button id="open" class="btn btn-default btn-flat">전체</button>
 										<button id="develop" class="btn btn-primary btn-flat">개발</button>
 										<button id="maintenance" class="btn btn-success btn-flat">유지보수</button>
 										<button id="run" class="btn btn-info btn-flat">경영</button>
@@ -159,6 +196,13 @@
 													</tbody>
 												</table>
 											</div>
+										</div>
+									</div>
+									<div class="box-footer clearfix">
+										<div id="buttoncontroll" class="pull-right">
+											<span id="page"></span>/<span id="total"></span>
+											<span id="buttoncontroll">
+											</span>
 										</div>
 									</div>
 								</div>

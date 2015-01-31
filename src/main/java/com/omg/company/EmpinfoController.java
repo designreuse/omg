@@ -27,9 +27,18 @@ public class EmpinfoController {
 	}
 	
 	@RequestMapping("/select")
-	public @ResponseBody List<Employees> empselect(HttpSession session, @RequestParam("dept") String deptname){
-		List<Employees> temp =	service.selectEmpinfo(deptname);
+	public @ResponseBody List<Employees> empselect(HttpSession session, 
+			@RequestParam("page") int page, 
+			@RequestParam("dept") String dept){
+		List<Employees> temp =	service.empList(page, dept);
 		List<Employees> list = 	service.selectByName(temp);
 		return list;
+	}
+	
+	@RequestMapping("/total")
+	public @ResponseBody String emptotal(HttpSession session,
+			@RequestParam("dept") String dept){
+		Integer ret = service.empListTotal(dept);
+		return ret.toString();
 	}
 }
