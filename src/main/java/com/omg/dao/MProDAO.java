@@ -11,4 +11,5 @@ public interface MProDAO {
 	List<MProcess> sparelist(String teamId);
 	List<MProcess> putlist(String projectId);
 	List<MProcess> startpro(String teamId);
+	int setpeople(String proId,String empId);
 	}

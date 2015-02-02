@@ -73,12 +73,12 @@ public class MProController {
 	
 	
 	@RequestMapping("/setpeople")
-	public @ResponseBody List<MProcess> setpeople(HttpSession session,
-			@RequestParam("proId") String projectId,
+	public @ResponseBody int setpeople(HttpSession session,
+			@RequestParam("proId") String proId,
 			@RequestParam("empId") String empId){
 		
-		System.out.println(projectId+"        "+empId);
-		return null;
+		int set = mproService.setpeople(proId, empId);
+		return set;
 	}
 	
 	
@@ -101,11 +101,15 @@ public class MProController {
 		return list;
 	}
 	
-	
-	
-	
-/*	@RequestMapping("/setpeople")
-	public
-*/	
+	@RequestMapping("/delete")
+	public @ResponseBody int delete(HttpSession session,
+			@RequestParam("proId") String proId,
+			@RequestParam("empId") String empId){
+		
+		System.out.println(proId+"        " + empId);
+		
+		return 0;
+	}
+
 	
 }
