@@ -138,10 +138,11 @@
 	<!-- 글 개수 -->
     <select id="runProjectTotle" resultType="int">
         SELECT NVL(COUNT(start_date), 0) 
-        FROM projects
+        FROM projects 
+        where end_date >= sysdate
     </select>
     
     <update id="runProInApp" parameterType="map">
-    	update projects set approval = #{approval}, approval_name = #{approvalName} where project_id = #{projectId} 
+    	update projects set approval = #{approval}, approval_name = #{approvalName}	where project_id = #{projectId} 
     </update>
 </mapper>

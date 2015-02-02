@@ -63,29 +63,30 @@ public class MProController {
 	}
 	
 	@RequestMapping("/spare")
-	public @ResponseBody List<MProcess> sparelist(HttpSession session){
+	public @ResponseBody List<MProcess> sparelist(HttpSession session,@RequestParam("proId") String projectId){
 		
 		Employees emps = (Employees)session.getAttribute("user");
-		List<MProcess> list = mproService.sparelist(emps.getTeamId());
+		List<MProcess> list = mproService.sparelist(emps.getTeamId(),projectId);
 		return list;
 				
 	}
 	
 	
 	@RequestMapping("/setpeople")
-	public @ResponseBody List<MProcess> setpeople(HttpSession session,
-			@RequestParam("proId") String projectId,
+	public @ResponseBody int setpeople(HttpSession session,
+			@RequestParam("proId") String proId,
 			@RequestParam("empId") String empId){
 		
-		System.out.println(projectId+"        "+empId);
-		return null;
+		int set = mproService.setpeople(proId, empId);
+		
+		return set;
 	}
 	
 	
 	@RequestMapping("/put")
 	public @ResponseBody List<MProcess> putlist(HttpSession session, Model model,
 			@RequestParam("projectId") String projectId){
-		System.out.println(projectId);
+
 		List<MProcess> list = mproService.putlist(projectId);
 
 		return list;
@@ -101,11 +102,25 @@ public class MProController {
 		return list;
 	}
 	
+	@RequestMapping("/delete")
+	public @ResponseBody int delete(HttpSession session,
+			@RequestParam("proId") String proId,
+			@RequestParam("empId") String empId){
+		
+		
+		
+		int delete = mproService.delete(proId, empId);
+		return delete;
+	}
+
 	
-	
-	
-/*	@RequestMapping("/setpeople")
-	public
-*/	
+	@RequestMapping("/view")
+	public @ResponseBody List<MProcess> viewlist(HttpSession session,
+			@RequestParam("proId") String proId){
+		
+		System.out.println(proId);
+		List<MProcess> list = mproService.viewlist(proId);
+		return list;
+	}
 	
 }

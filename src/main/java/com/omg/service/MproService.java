@@ -30,8 +30,8 @@ public class MproService {
 		return list;
 		
 	}
-	public List<MProcess> sparelist(String teamId) {
-		List<MProcess> list = dao.sparelist(teamId);
+	public List<MProcess> sparelist(String teamId,String projectId) {
+		List<MProcess> list = dao.sparelist(teamId,projectId);
 		return list;
 	}
 	public List<MProcess> putlist(String projectId) {
@@ -40,6 +40,21 @@ public class MproService {
 		}
 	public List<MProcess> startpro(String teamId) {
 		List<MProcess> list = dao.startpro(teamId);
+		return list;
+	}
+	
+	public int setpeople(String proId, String empId) {
+		int set = dao.setpeople(proId, empId);
+		return set;
+	}
+	
+	public int delete(String proId, String empId) {
+		int delete =dao.delete(proId, empId);
+		return delete;
+	}
+	
+	public List<MProcess> viewlist(String proId) {
+		List<MProcess> list = dao.viewlist(proId);
 		return list;
 	}
 	

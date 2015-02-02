@@ -33,8 +33,14 @@ public class MProDAOImpl implements MProDAO {
 	}
 
 	@Override
-	public List<MProcess> sparelist(String teamId) {
-		List<MProcess> list = session.selectList("com.omg.mpro.sparelist",teamId);
+	public List<MProcess> sparelist(String teamId,String projectId) {
+		
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("teamId", teamId);
+		map.put("projectId", projectId);
+
+		List<MProcess> list = session.selectList("com.omg.mpro.sparelist",map);
+
 		return list;
 	}
 
@@ -53,7 +59,37 @@ public class MProDAOImpl implements MProDAO {
 		return list;
 	}
 
-	
+	@Override
+	public int setpeople(String proId, String empId) {
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("proId", proId);
+		map.put("empId", empId);
+
+		int set=session.insert("com.omg.mpro.setpeople",map);
+
+		return set;
+	}
+
+	@Override
+	public int delete(String proId, String empId) {
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("proId", proId);
+		map.put("empId", empId);
+		
+		int delete = session.delete("com.omg.mpro.delete",map);
+		return delete;
+	}
+
+	@Override
+	public List<MProcess> viewlist(String proId) {
+
+		List<MProcess> list = session.selectList("com.omg.mpro.view",proId);
+		return list;
+	}
+
+
 	
 	
 }

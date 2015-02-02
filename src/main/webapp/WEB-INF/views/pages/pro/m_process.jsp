@@ -357,7 +357,7 @@
 							+"<div class='box-body'><div class='table-responsive'>"
 							+"<table class='table table-bordered' border='1'><thead>"
 							+"<tr><th>프로젝트명</th><th>start date</th><th>end date</th>"
-							+"<th>salary</th></tr></thead><tbody id='startlist'>"
+							+"<th>salary</th></tr></thead><tbody id='viewlist'>"
 							+"</tbody></table></div></div>"
 		
 		
@@ -372,26 +372,26 @@
 
 							+"<div class='box-header'><h3 class='box-title'>잉여리스트</h3>"
 							+"</div><div class='box-body'><div class='table-responsive'>"
-							+"<form action='setpeople'><table class='table table-bordered' border='1'>"
+							+"<table class='table table-bordered' border='1'>"
 							+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
 							+"<th>Email</th><th>Position</th><th>추가</th></tr>"
 							+"</thead><tbody id='sparelist'></tbody></table>"
-							+"</form></div></div>";
-		
-							
-							
+							+"</div></div>";
+
 							$(st).appendTo($("#detailview"));
 							
+
 							$.ajax({
-								url : "start",
-								dataType : "json",
-								success : function(json) {
-									$("#startlist").empty();
+								url :"view",
+								data:"proId="+proId,
+								dataType:"json",
+								success :function(json) {
+									$("#viewlist").empty();
 									var str = "";
 									$.each(json, function(index, item) {
-
+								
 										str += "<tr>";
-										str += "<td>" +"<a id='open' projectId="+item.projectId+">"+ item.projectName + "</td>";
+										str += "<td>" + item.projectName + "</td>";
 										str += "<td>" + item.startDate + "</td>";
 										str += "<td>" + item.endDate + "</td>";
 										str += "<td>" + item.salary + "</td>";
@@ -399,9 +399,11 @@
 
 									});
 
-									$("#startlist").append(str);
+									$("#viewlist").append(str);
 								}
 							});
+
+							
 							
 							$.ajax({
 								url :"put",
@@ -419,6 +421,7 @@
 										str += "<td>" + item.phone + "</td>";
 										str += "<td>" + item.email + "</td>";
 										str += "<td>" + item.positionName + "</td>";
+										str += "<td>" +"<a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"제거"+"</a>"+"</td>";
 										str += "</tr>";
 
 									});
@@ -426,11 +429,13 @@
 									$("#putlist").append(str);
 								}
 							});
+							
 						//spare 리스트부분 ajax
 							$.ajax({
 								url : "spare",
+								data:"proId="+proId,
 								dataType : "json",
-
+								
 								success : function(json) {
 									$("#sparelist").empty();
 									var str = "";
@@ -442,14 +447,73 @@
 										str += "<td>" + item.phone + "</td>";
 										str += "<td>" + item.email + "</td>";
 										str += "<td>" + item.positionName + "</td>";
-										str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>";
-										str += "<td>" +"<input type='submit' value='결정'>"+"</td>";
+										/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
+										str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
 										str += "</tr>";
+										
 									});
 									$("#sparelist").append(str);
 								}
 						});
+						
+						//잉여리스트에서 추가 눌렀을때
+							$("#detailview").on("click","#setpeople",function(){
+								var empId = $(this).attr("empId");
+								var proId = $(this).attr("proId");
+				
+								$.ajax({
+									url:"setpeople",
+									data:"empId="+empId+"&proId="+proId,
+									dataType:"json",
+									async:false,
+									success : function(json) {
+										 
+										
+										
+										$("#setpeople").addClass("disabled");
+		
+									}
+									
+								});
+
+								
+							});
+							
+						
+						
+						
+						//프로젝트 투입인원리스트에서 제거 눌럿을때
+						$("#detailview").on("click","#delete",function(){
+
+							var empId = $(this).attr("empId");
+							var proId = $(this).attr("proId");
+							$.ajax({
+								url:"delete",
+								data:"empId="+empId+"&proId="+proId,
+								dataType:"json",
+								success:function(json){
+						
+								}
+								
+								
+								
+							});
+						});
+						
+							
 		});
+		
+		
+
+		$("#detailview").on("click","#setpeople",function(){
+			$(this).attr("href","index");				
+		});
+		
+		$("#detailview").on("click","#delete",function(){
+			$(this).attr("href","index");				
+		});
+		
+		
 		
 	</script>
 
