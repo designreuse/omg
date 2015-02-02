@@ -25,7 +25,55 @@
 	type="text/css" />
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
+/*진행중인 프로젝트와 동료리스트*/
+function procol(){
+	
+	$.ajax({
+		url : "dPro",
+		dataType : "json",
+		success : function(json) {
+			$("#dPro").empty();
+			var str = "";
+			
+			str += "<tr>";
+			str += "<td>" + json.projectName + "</td>";
+			str += "<td>" + json.techName + "</td>";
+			str += "<td>" + json.startDate + "</td>";
+			str += "<td>" + json.endDate + "</td>";
+			str += "</tr>";
+			
+			$("#dPro").append(str);
+		}
+	});
+
+	 
+	$.ajax({
+		url : "ListColleague",
+		dataType : "json",
+		async : false,
+		success : function(json) {
+			console.log();
+			$("#ListColleague").empty();
+			var str = "";
+			$.each(json, function(index, item) {
+				str += "<tr>";
+				str += "<td>" + (index + 1) + "</td>";
+				str += "<td>" + item.name + "</td>";
+				str += "<td>" + item.phone + "</td>";
+				str += "<td>" + item.email + "</td>";
+				str += "<td>" + item.positionName + "</td>";
+				str += "</tr>";
+			});
+			$("#ListColleague").append(str);
+		}
+
+	});
+}
 	$(function() {
+		$("#Current").click(function() {
+			procol();
+		});
+		
 		/* 부장 경력 */
 		$("#ex").click(function() {
 			$.ajax({
@@ -68,8 +116,9 @@
 				}
 			});
 		});
-		
-		$.ajax({
+
+		procol();
+		 /* $.ajax({
 			url : "dPro",
 			dataType : "json",
 			success : function(json) {
@@ -107,7 +156,8 @@
 				$("#ListColleague").append(str);
 			}
 	
-		});
+		}); */
+
 		$.ajax({
 					url : "startPro",
 					dataType : "json",
@@ -284,17 +334,15 @@
 										$("#h3").text("진행중인 프로젝트");
 										var spare = "<div class='box-header'><h3 class='box-title'>개발부의 프로젝트</h3></div><div class='box-body'>"
 												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
-												+ "<thead><tr><th>ProId</th><th>ProName</th><th>START_DATE</th><th>END_DATE</th><th>TEAM_ID</th>"
+												+ "<thead><tr><th>ProId</th><th>ProName</th><th>Start day</th><th>End day</th><th>TEAM_ID</th>"
 												+ "</tr></thead><tbody id='ProingList'>"
 												+ "</tbody></table></div></div>";
 										$(spare).appendTo($("#detailview"));
 									});
 				</script>
-			</section>
-
-
-			<section class="content">
-				<c:if test="${user.teamId!=null}">
+	
+			
+				<c:if test="${user.teamId!=null && teamMgr.teamManager!=user.employeeId}">
 					<div class="mailbox row">
 						<div class="col-xs-12">
 							<div class="box box-solid">
@@ -302,11 +350,11 @@
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3">Current project</h3>
+												<h3 class="box-title" id="h3">Current Project</h3>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="Current" class="btn btn-danger btn-flat">Current
-													project</a>
+													Project</a>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
@@ -389,6 +437,130 @@
 										$(ex).appendTo($("#detailview"));
 									});
 				</script>
+
+
+				<c:if test="${teamMgr.teamManager==user.employeeId && teamMgr.teamId=='D01'}">
+					<div class="mailbox row">
+						<div class="col-xs-12">
+							<div class="box box-solid">
+								<div class="box-body">
+									<div class="row">
+										<div class="col-md-2 col-sm-4" id="bnt_window">
+											<div class="box-header">
+												<h3 class="box-title" id="h3">New Project</h3>
+											</div>
+											<div style="margin-top: 15px;">
+												<a id="Start" class="btn btn-danger btn-flat">New Project</a>
+											</div>
+											<div style="margin-top: 15px;">
+												<a id="Current" class="btn btn-warning btn-flat">Current Project</a>
+											</div>
+
+											<div style="margin-top: 15px;">
+												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
+											</div>
+										</div>
+										<div id="detailview" class="col-md-10 col-sm-8">
+											<div class="box-header">
+												<h3 class="box-title">Start Project</h3>
+											</div>
+											<div class="box-body">
+
+
+
+
+												<!-- /.col (LEFT) -->
+
+												<!-- /.row -->
+												<div class="table-responsive">
+													<form action="setTeam">
+														<table class="table table-bordered" border="1">
+
+															<thead>
+																<tr>
+																	<th>Project명</th>
+																	<th>관련 기술</th>
+																	<th>Start day</th>
+																	<th>End day</th>
+																	<th>Team</th>
+																	<th>[결정]</th>
+																</tr>
+															</thead>
+															<tbody id="startPro">
+															</tbody>
+
+
+														</table>
+													</form>
+												</div>
+											</div>
+
+
+
+
+											<!-- /.col (RIGHT) -->
+											<!-- /.row -->
+
+											<!-- /.box-body -->
+											<div class="box-footer clearfix">
+												<div class="pull-right"></div>
+											</div>
+											<!-- box-footer -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</c:if>
+				<script>
+					$("#bnt_window")
+							.on(
+									"click",
+									"#ex",
+									function() {
+										$("#detailview").empty();
+										$("#h3").text("My Career");
+										var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
+												+ "<div class='box-body'><div class='table-responsive'>"
+												+ "<table class='table table-bordered' border='1'>"
+												+ "<thead><tr><th>Project명</th>"
+												+ "<th>관련 기술</th><th>Start day</th><th>End day</th>"
+												+ "</tr></thead><tbody id='proList'></tbody></table></div></div>";
+										$(ex).appendTo($("#detailview"));
+									});
+
+					
+
+					//current project눌럿을때
+					$("#Start").click(function() {
+						$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
+					});
+
+					$("#bnt_window")
+							.on(
+									"click",
+									"#Current",
+									function() {
+										
+										$("#detailview").empty();
+										$("#h3").text("진행중인 프로젝트");
+										var spare = "<div class='box-header'><h3 class='box-title'>현재 프로젝트</h3></div><div class='box-body'>"
+												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+												+ "<thead><tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
+												+ "</tr></thead><tbody id='dPro'>"
+												+ "</tbody></table></div></div>"
+												+ "<div class='box-header'><h3 class='box-title'>Colleague</h3></div><div class='box-body'>"
+												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+												+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
+												+ "</tr></thead><tbody id='ListColleague'>"
+												+ "</tbody></table></div></div>";
+										$(spare).appendTo($("#detailview"));
+										procol();
+									}); 
+	
+					</script>
 			</section>
 			</aside>
 			</div>

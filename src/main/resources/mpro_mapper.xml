@@ -51,7 +51,7 @@ and pro.approval = 'O')
 
 ]]>
 </select>
-
+<!--전에한 프로젝트리스트  -->
 <select id="exlist" resultMap="dto" parameterType="String">
 <![CDATA[ select * 
 from employees e, project_emp pe, projects pro, project_tech prote, techs tech
@@ -64,7 +64,7 @@ and sysdate >= end_date
 and pro.approval = 'O']]>
 </select>
 
-
+<!--잉여리스트  -->
 <select id="sparelist" resultMap="dto">
 <!-- select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID 
 from employees e, position p
@@ -72,12 +72,26 @@ where e.POSITION_ID = p.POSITION_ID
 and e.EMPLOYEE_ID not in (
 select e.EMPLOYEE_ID from employees e, project_emp pe
 where e.EMPLOYEE_ID = pe.EMPLOYEE_ID)
-and e.team_id = #{teamId} -->
+and e.team_id = #{teamId} 
 select *
 from employees e, position p
 where e.POSITION_ID = p.POSITION_ID
 and e.team_id=#{teamId}
-order by e.position_id
+order by e.position_id-->
+
+select *
+from employees e, position p
+where e.POSITION_ID = p.POSITION_ID
+and e.team_id=#{teamId}
+and not exists
+(
+select *
+from projects p , project_emp pe, employees emp,position pos
+where p.project_id = pe.project_id and pe.employee_id = emp.employee_id and pos.position_id = emp.position_id  
+and p.project_id =#{projectId}
+and emp.employee_id=e.employee_id
+)
+
 </select>
 
 <!--투입인원 찾기  -->
@@ -93,22 +107,45 @@ and p.project_id = #{projectId}
 
 <!--시작될 프로젝트 알리기  -->
 <select id="startpro" resultMap="dto" parameterType="String">
-<![CDATA[ select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp, project_tech prote, techs tech
+<![CDATA[ 
+select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp
 where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
 and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
-and prote.project_id = pro.project_id
-and prote.tech_id = tech.tech_id
 and pro.approval = 'O'
 and pro.TEAM_ID = #{teamId}
 and pro.START_DATE>=sysdate
 ]]>
 </select>
 
+
+
+<!--눌렀을때 view리스트 보여주기  -->
+<select id="view" resultMap="dto" parameterType = "String">
+<![CDATA[ 
+select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp
+where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
+and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
+and pro.approval = 'O'
+and pro.project_id = #{proId}
+and pro.START_DATE>=sysdate
+]]>
+</select>
+
+
+
+<!--인원 투입하기  -->
 <insert id="setpeople" parameterType="String">
 insert into project_emp
 values(#{proId},#{empId})
 </insert>
 
+
+<!--인원 삭제하기  -->
+<delete id="delete" parameterType="String">
+delete from project_emp
+where project_id=#{proId}
+and employee_id =#{empId}
+</delete>
 
 
 

@@ -357,7 +357,7 @@
 							+"<div class='box-body'><div class='table-responsive'>"
 							+"<table class='table table-bordered' border='1'><thead>"
 							+"<tr><th>프로젝트명</th><th>start date</th><th>end date</th>"
-							+"<th>salary</th></tr></thead><tbody id='startlist'>"
+							+"<th>salary</th></tr></thead><tbody id='viewlist'>"
 							+"</tbody></table></div></div>"
 		
 		
@@ -377,21 +377,21 @@
 							+"<th>Email</th><th>Position</th><th>추가</th></tr>"
 							+"</thead><tbody id='sparelist'></tbody></table>"
 							+"</div></div>";
-		
-							
-							
+
 							$(st).appendTo($("#detailview"));
 							
+
 							$.ajax({
-								url : "start",
-								dataType : "json",
-								success : function(json) {
-									$("#startlist").empty();
+								url :"view",
+								data:"proId="+proId,
+								dataType:"json",
+								success :function(json) {
+									$("#viewlist").empty();
 									var str = "";
 									$.each(json, function(index, item) {
-
+								
 										str += "<tr>";
-										str += "<td>" +"<a id='open' projectId="+item.projectId+">"+ item.projectName + "</td>";
+										str += "<td>" + item.projectName + "</td>";
 										str += "<td>" + item.startDate + "</td>";
 										str += "<td>" + item.endDate + "</td>";
 										str += "<td>" + item.salary + "</td>";
@@ -399,9 +399,11 @@
 
 									});
 
-									$("#startlist").append(str);
+									$("#viewlist").append(str);
 								}
 							});
+
+							
 							
 							$.ajax({
 								url :"put",
@@ -431,8 +433,9 @@
 						//spare 리스트부분 ajax
 							$.ajax({
 								url : "spare",
+								data:"proId="+proId,
 								dataType : "json",
-
+								
 								success : function(json) {
 									$("#sparelist").empty();
 									var str = "";
@@ -457,17 +460,28 @@
 							$("#detailview").on("click","#setpeople",function(){
 								var empId = $(this).attr("empId");
 								var proId = $(this).attr("proId");
+				
 								$.ajax({
 									url:"setpeople",
 									data:"empId="+empId+"&proId="+proId,
 									dataType:"json",
+									async:false,
 									success : function(json) {
+										 
 										
+										
+										$("#setpeople").addClass("disabled");
+		
 									}
 									
 								});
+
+								
 							});
 							
+						
+						
+						
 						//프로젝트 투입인원리스트에서 제거 눌럿을때
 						$("#detailview").on("click","#delete",function(){
 
@@ -478,7 +492,7 @@
 								data:"empId="+empId+"&proId="+proId,
 								dataType:"json",
 								success:function(json){
-									
+						
 								}
 								
 								
@@ -488,6 +502,18 @@
 						
 							
 		});
+		
+		
+
+		$("#detailview").on("click","#setpeople",function(){
+			$(this).attr("href","index");				
+		});
+		
+		$("#detailview").on("click","#delete",function(){
+			$(this).attr("href","index");				
+		});
+		
+		
 		
 	</script>
 
