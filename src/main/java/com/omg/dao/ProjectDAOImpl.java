@@ -132,8 +132,6 @@ public class ProjectDAOImpl implements ProjectDAO {
 		int endPage = startPage + (10 - 1);
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
-		System.out.println(page);
-		System.out.println(startPage+" : "+endPage);
 		List<Projects> list = sqlSession.selectList("com.omg.projects.runProjects", map);
 		return list;
 	}
