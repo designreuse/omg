@@ -73,14 +73,23 @@
 	</update>
 	
 	<!-- 인사.회계팀 일반사용자 부서별 직원정보 조회 -->
-	<select id="p_selectEmp" parameterType="String" resultMap="dto2">
-		select e.employee_id, e.name, d.department_name, t.team_name, p.position_name, e.salary, e.hiredate, e.phone, e.address, e.commition
+	<select id="p_selectEmp" parameterType="map" resultMap="dto2">
+		<![CDATA[ SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY hiredate DESC) rnum, e.employee_id, e.name, d.department_name, t.team_name, p.position_name, e.salary, e.hiredate, e.phone, e.address, e.commition
 		from employees e, departments d, teams t, position p
 		where e.department_id = d.department_id
 		and  e.team_id = t.team_id(+)
-		and  e.position_id = p.position_id
+		and  e.position_id = p.position_id]]>
+		<if test="departmentId != null">
 		and  e.department_id = #{departmentId}
+		</if>
+		<![CDATA[)  
+	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
+	        ORDER BY hiredate, employee_id DESC
+	    ]]> 
 	</select>
+	
+	    	
+	    
 	
 	<!-- 인사.회계팀 일반사용자 직원정보 수정 -->
 	<update id= "p_updateEmp" parameterType="Employees">
@@ -98,5 +107,12 @@
 		insert into employees (employee_id, name, phone, address, salary, manager, position_id, department_id, team_id, hiredate, password, gender)
 		values(#{employeeId},#{name},#{phone},#{address},#{salary},#{manager},#{positionId},#{departmentId},#{teamId},#{hiredate},#{password},#{gender})
 	</insert>
+	
+		
+	<!-- 인사.회계팀 부서관리에서 팀장이 된 직원의 팀 업데이트-->
+	<update id="p_teamConEmpUpdate" parameterType="Employees">
+		update employees set team_id=#{teamId}
+		where employee_id=#{employeeId}
+	</update>
 	
 </mapper>
