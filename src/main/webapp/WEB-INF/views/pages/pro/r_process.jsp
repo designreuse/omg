@@ -91,24 +91,46 @@
 			}
 		});
 		
-		// test
+		// 직원 조회 버튼 눌림
 		$("#emp").click(function() {
 			startpage = 1;
 			endpage = 0;
 			alert('직원');
 		});
 		
+		// 매출 조회 버튼 눌림
 		$("#sale").click(function() {
 			startpage = 1;
 			endpage = 0;
 			alert('매출');
 		});
 		
+		// 프로젝트 버튼 눌림
 		$("#pro").click(function() {
-			$("#buttoncontroll").empty();
+			$("#buttoncontroll").empty();	// 버튼 화면 없에기
+			// 승인 버튼 틀 만들어주기
+			var runProApp = "<div align='center'><h5 class='box-title' id='h3'><b>프로젝트 승인</b></h5></div>"+
+							"<div class='table-responsive' id='apptable'>"+
+							"<table class='table table-bordered' border='1' >"+
+							"<thead align='left'>"+
+							"<tr><th>프로젝트명</th><td><b id='appname'>-</b></td></tr>"+
+							"<tr><th>승인여부</th><td id='appCK'>-</td></tr>"+
+							"</thead></table><div align='right'>"+
+							"<a id='appInBtn' class='btn btn-default btn-sm'>입력</a></div></div>";
+			$("#runProcessAppView").append(runProApp);
+			
+			// 프로젝트 리스트 보여주기
+			var proProcess = "<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'>"+
+							 "</div></div><div class='table-responsive'><table class='table table-bordered' border='1'>"+
+							 "<thead><tr align='center'>"+
+							 "<th>프로잭트명</th><th>부 서</th><th>시 작 일</th><th>종 료 일</th><th>가 격</th><th>승 인</th><th>승 인 여 부</th>"+
+							 "</tr></thead><tbody id='list'></tbody></table></div>";
+			$("#detailview").append(proProcess);
+			
 			startpage = 1;
 			endpage = 0;
 			prolist(startpage);			// list 함수 부르기
+			// 페이징만들어주기
 			var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
 			 			 "<button id='nextdesc' class='btn btn-xs btn-primary'><i class='fa fa-caret-right'></i></button>";
 			$(button).appendTo($("#buttoncontroll"));
@@ -124,7 +146,9 @@
 				}
 			});
 		});
-		$("#appInBtn").click(function() {
+		
+		// 프로젝트 (승인,불가,대기) 입력하는 것
+		$("#runProcessAppView").on("click", "#appInBtn",function() {
 			var proid = $(this).attr("proid");
 			var app = $(this).attr("app");
 			$.ajax({
@@ -133,7 +157,7 @@
 				data: "proid="+proid+"&app="+app,
 				success: function(txt) {
 					if(txt != ""){
-						alert(txt+" 승인상태가 변경되었습니다.");
+						alert("승인상태가 변경되었습니다.");
 					}else{
 						alert("변경이 안됬습니다.");
 					}
@@ -184,47 +208,13 @@
 											<a id="pro" class="btn btn-success btn-flat">프로젝트</a>
 										</div>
 										
-										<div style="bottom: 0px;" >
-											<div align="center"><h5 class="box-title" id="h3"><b>프로젝트 승인</b></h5></div>
-											<div class="table-responsive" id="apptable">
-												<table class="table table-bordered" border="1" >
-													<thead align="left">
-														<tr><th>프로젝트명</th><td><b id="appname">-</b></td></tr>
-														<tr><th>승인여부</th><td id="appCK">-</td></tr>
-													</thead>
-												</table>
-												<div align="right">
-													<a id="appInBtn" class="btn btn-default btn-sm">입력</a>
-												</div>
-											</div>
+										<!-- 프로젝트 승인 하는 것을 보여주는 화면-->
+										<div style="bottom: 0px;" id='runProcessAppView'>
 										</div>
 									</div>
 									
+									<!-- 버튼을 누르고 나오는 자세한 화면들 -->
 									<div id="detailview" class="col-md-10 col-sm-8">
-										<div class="row pad">
-											<div class="input-group" style="float: right !important; margin: 10px;">
-											</div>
-											<!-- </div> -->
-										</div>
-										<!-- /.row -->
-										<div class="table-responsive">
-											<table class="table table-bordered" border="1">
-												<thead>
-													<tr align="center">
-														<th>프로잭트명</th>
-														<th>부 서</th>
-														<th>시 작 일</th>
-														<th>종 료 일</th>
-														<th>가 격</th>
-														<th>승 인</th>
-														<th>승 인 여 부</th>
-													</tr>
-												</thead>
-												<tbody id="list">
-												</tbody>
-											</table>
-										</div>
-										<!-- /.table-responsive -->
 									</div>
 									<!-- /.col (RIGHT) -->
 								</div>
@@ -265,7 +255,7 @@
 		type="text/javascript"></script>
 <script>
 	$(function() {
-		$("#list").on("change", "#approval", function() {
+		$("#detailview").on("change", "#approval", function() {
 			var proid = $(this).attr("proid");
 			var proname = $(this).attr("proname");
 			var approval = $(this).val();
