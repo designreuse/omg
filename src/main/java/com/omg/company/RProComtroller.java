@@ -408,6 +408,7 @@ public class RProComtroller {
 			app = "X";
 		}else if(app.equals("STOP")){
 			app = "";
+			user.setName("");
 		}
 		Integer ret = runService.runProInApp(proId, app, user.getName());
 		return ret.toString();
