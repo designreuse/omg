@@ -24,42 +24,43 @@
 	type="text/css" />
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
+function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 받아서 쓰기
+	$("#list").empty();
+	$.ajax({          			
+		url : "runProList",
+		dataType : "json",
+		data : "page="+page,
+		async: false,
+		success : function(json) {
+			alert(json);
+			$.each(json, function(index, item) { 
+				var td = "<td>"+item.projectName+"</td>"+
+						 "<td>"+item.deptName+"</td>"+
+						 "<td>"+item.startDate+"</td>"+
+						 "<td>"+item.endDate+"</td>"+
+						 "<td>"+item.projectPrice+"</td>";
+						 if(item.approval == 'O'){
+							td +="<td>"+item.approval+"</td>";
+						 }else if(item.approval == 'X'){
+							td +="<td style='color:red;'>"+item.approval+"</td>";
+						 }else{
+							td +="<td style='color:blue;'>승인대기</td>";
+						 }
+					td +="<td><select id='approval' name='approval' proid='"+item.projectId+"' proname='"+item.projectName+"'>"+
+						 "<option value=''>-선택-</option>"+
+						 "<option value='승인'>승인</option><option value='불가'>불가</option>"+
+						 "<option value='STOP'>대기</option></select>";
+				$("<tr>"+td+"</tr>").appendTo($("#list"));
+			});
+		}
+	});
+}
 	$(function() {
 		startpage = 1;
 		endpage = 0;
-		function prolist(startpage) {		// 프로잭트 리스트 보여주기 페이지 값 받아서 쓰기
-			$("#list").empty();
-			$.ajax({          			
-				url : "runProList",
-				dataType : "json",
-				data : "page="+startpage,
-				async: false,
-				success : function(json) {
-					$.each(json, function(index, item) { 
-						var td = "<td>"+item.projectName+"</td>"+
-								 "<td>"+item.deptName+"</td>"+
-								 "<td>"+item.startDate+"</td>"+
-								 "<td>"+item.endDate+"</td>"+
-								 "<td>"+item.projectPrice+"</td>";
-								 if(item.approval == 'O'){
-									td +="<td>"+item.approval+"</td>";
-								 }else if(item.approval == 'X'){
-									td +="<td style='color:red;'>"+item.approval+"</td>";
-								 }else{
-									td +="<td style='color:blue;'>승인대기</td>";
-								 }
-							td +="<td><select id='approval' name='approval' proid='"+item.projectId+"' proname='"+item.projectName+"'>"+
-								 "<option value=''>-선택-</option>"+
-								 "<option value='승인'>승인</option><option value='불가'>불가</option>"+
-								 "<option value='STOP'>대기</option></select>";
-						$("<tr>"+td+"</tr>").appendTo($("#list"));
-					});
-				}
-			});
-		}
 		
 		// < 버튼 눌림
-		$("#buttoncontroll").on("click","#nextasc",function() {
+		$("#btn").on("click","#nextasc",function() {
 			startpage--;
 			if(startpage >= 1){
 				prolist(startpage);				// list 함수 부르기 화면 변경
@@ -76,7 +77,7 @@
 		
 		
 		// > 버튼 눌림	
-		$("#buttoncontroll").on("click","#nextdesc",function() {
+		$("#btn").on("click","#nextdesc",function() {
 			startpage++;
 			if(startpage <= endpage){
 				prolist(startpage);				// list 함수 부르기 화면 변경
@@ -107,9 +108,13 @@
 		
 		// 프로젝트 버튼 눌림
 		$("#pro").click(function() {
+			var pageview = "<small> 페이지 : <span id='page'></span>/<span id='total'></span></small><span id='buttoncontroll'></span>";
 			var h3 = "<b>프로젝트 화면</b>";
+			$("#btn").empty();
+			$("#runProcessAppView").empty();
+			$("#detailview").empty();
 			$("#h3").html(h3);
-			$("#buttoncontroll").empty();	// 버튼 화면 없에기
+			$("#btn").append(pageview);
 			// 승인 버튼 틀 만들어주기
 			var runProApp = "<div align='center'><h5 class='box-title' id='h3'><b>프로젝트 승인</b></h5></div>"+
 							"<div class='table-responsive' id='apptable'>"+
@@ -136,6 +141,7 @@
 			var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
 			 			 "<button id='nextdesc' class='btn btn-xs btn-primary'><i class='fa fa-caret-right'></i></button>";
 			$(button).appendTo($("#buttoncontroll"));
+			
 			$.ajax({					// ProjectList 페이지 총페이지수 구하기
 				url: "runProTotle" ,
 				dataType: "text",
@@ -224,8 +230,7 @@
 							</div>
 							<!-- /.box-body -->
 							<div class="box-footer clearfix" >
-								<div class="pull-right" id="bnt">
-									<small> 페이지 : <span id="page"></span>/<span id="total"></span></small> <!-- 해야됨 -->
+								<div class="pull-right" id="btn">
 									<span id="buttoncontroll">
 									</span>
 								</div>
