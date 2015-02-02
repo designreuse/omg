@@ -190,13 +190,16 @@
 				async: false,
 				success : function(text) {
 					endpage = parseInt(((text-1) / 10) + 1);
-					if(text < 10){
+					if(text > 10){
 						$("#page").text(startpage);
 						$("#total").text(endpage);
+						$("#nextasc").addClass("disabled");
 						$("#nextdesc").removeClass("disabled");
 					}else{
 						$("#page").text(1);
 						$("#total").text(1);
+						$("#nextasc").addClass("disabled");
+						$("#nextdesc").addClass("disabled");
 					}
 				}
 			});

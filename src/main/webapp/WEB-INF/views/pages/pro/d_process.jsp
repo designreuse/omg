@@ -439,7 +439,7 @@ function procol(){
 				</script>
 
 
-				<c:if test="${teamMgr.teamManager==user.employeeId && teamMgr.teamId=='D01'}">
+				<c:if test="${teamMgr.teamManager==user.employeeId && (teamMgr.teamId=='D01' || teamMgr.teamId=='D02' || teamMgr.teamId=='D03' || teamMgr.teamId=='D04')}">
 					<div class="mailbox row">
 						<div class="col-xs-12">
 							<div class="box box-solid">
