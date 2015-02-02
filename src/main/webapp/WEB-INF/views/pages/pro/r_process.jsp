@@ -107,6 +107,8 @@
 		
 		// 프로젝트 버튼 눌림
 		$("#pro").click(function() {
+			var h3 = "<b>프로젝트 화면</b>";
+			$("#h3").html(h3);
 			$("#buttoncontroll").empty();	// 버튼 화면 없에기
 			// 승인 버튼 틀 만들어주기
 			var runProApp = "<div align='center'><h5 class='box-title' id='h3'><b>프로젝트 승인</b></h5></div>"+
