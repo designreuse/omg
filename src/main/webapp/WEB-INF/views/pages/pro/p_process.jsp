@@ -61,7 +61,7 @@
 		});
 		
 		var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-	 	"<button id='nextdesc' class='btn btn-xs btn-primary'><i class='fa fa-caret-right'></i></button>";
+	 				 "<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
 		$(button).appendTo($("#pageController"));
 
 		SelectEmpByDept(startpage,dept);
@@ -156,46 +156,6 @@
 			$("#list").empty();
 			SelectEmpByDept(startpage,$(this).val());
 		});
-
-	
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////////
-		/*부서별로 리스트뿌리기  */
-	/* 	function selectDept(dept) {
-			 
-    			$.ajax({
-    				url: "p_selectEmp",
-					data : "dept=" + dept+"&page="+startpage ,
-    				dataType: "json",
-    				success: function(json){
-    					$("#list").empty();
-    					var str = "";
-    					$.each(json, function(index, item) {
-    						 
-    						str += "<tr>";
-    						str += "<td class='small-col'><input name='cbox' value='"+item.employeeId+"' type='checkbox' /></td>";
-    						str += "<td>" +item.employeeId+ "</td>";
-    						str += "<td>" +"<a id='update' empid="+item.employeeId+">"+item.name+"</a>"+"</td>";
-    						str += "<td>" +item.deptName + "</td>";
-    						if(item.teamName==null){
-    							str += "<td>부장</td>";
-    						}
-    						else{
-    							str += "<td>" +item.teamName+"</td>";	
-    						}
-    						str += "<td>" +item.posName+"</td>";
-    						str += "<td>" +item.salary+"</td>";
-    						str += "<td>" +item.commition+"</td>";
-    						str += "<td>" +item.hiredate + "</td>";
-    						str += "<td>" +item.phone+"</td>";
-    						str += "<td>" +item.address+"</td>";
-    						str += "</tr>"; 
-    					});
-    					$("#list").append(str);
-    				}
-    			});
-    	} */
-		
 	});
 	
     </script>
