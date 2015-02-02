@@ -43,4 +43,9 @@ public class MproService {
 		return list;
 	}
 	
+	public int setpeople(String proId, String empId) {
+		int set = dao.setpeople(proId, empId);
+		return set;
+	}
+	
 }

@@ -104,7 +104,10 @@ and pro.START_DATE>=sysdate
 ]]>
 </select>
 
-
+<insert id="setpeople" parameterType="String">
+insert into project_emp
+values(#{proId},#{empId})
+</insert>
 
 
 
