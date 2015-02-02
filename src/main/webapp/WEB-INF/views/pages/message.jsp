@@ -617,9 +617,6 @@
 							$(this).toggleClass("fa-star-o");
 						}
 					});
-
-			//Initialize WYSIHTML5 - text editor
-			//$("#email_message").wysihtml5();
 		});
 	</script>
 </body>
