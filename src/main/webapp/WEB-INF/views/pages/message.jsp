@@ -314,7 +314,7 @@
 							
 						});
 						var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-									 "<button id='nextdesc' class='btn btn-xs btn-primary'><i class='fa fa-caret-right'></i></button>";
+									 "<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
 						$(button).appendTo($("#buttoncontroll"));
 					}
 				}
