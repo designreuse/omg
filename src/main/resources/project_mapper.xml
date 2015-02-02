@@ -142,15 +142,6 @@
     </select>
     
     <update id="runProInApp" parameterType="map">
-    	update projects set approval = #{approval}, 
-    	<choose>
-    		<when test="approval == ''">
-    			approval_name = null;
-    		</when>
-    		<when test="approval != ''">
-        		approval_name = #{approvalName}
-    		</when>
-    	</choose>
-    	where project_id = #{projectId} 
+    	update projects set approval = #{approval}, approval_name = #{approvalName}	where project_id = #{projectId} 
     </update>
 </mapper>
