@@ -53,7 +53,20 @@ public class MProDAOImpl implements MProDAO {
 		return list;
 	}
 
-	
+	@Override
+	public int setpeople(String proId, String empId) {
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("proId", proId);
+		map.put("empId", empId);
+
+		int set=session.insert("com.omg.mpro.setpeople",map);
+		System.out.println(map.get(empId));
+		System.out.println(map.get(proId));
+		return set;
+	}
+
+
 	
 	
 }

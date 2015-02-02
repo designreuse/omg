@@ -100,4 +100,8 @@ public class EmployeeService {
 		int result = teamdao.p_teamConUpdate(team);
 		return result;
 	}
+	public int p_teamConEmpUpdate(Employees emp){
+		int result = empdao.p_teamConEmpUpdate(emp);
+		return result;
+	}
 }

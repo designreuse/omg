@@ -42,31 +42,27 @@
 			}
 		});
 		
-		/////////////////////////////////    제대로 동작하는지 확인해야 되는 부분      ////////////////////////////////////////////
 		//부서별 버튼 생성
 		$.ajax({
 			url:"p_deptConSelect",
 			dataType:"json",
+			async: false,
 			success: function(json){
 				$("#deptBnt").empty();
+				var str="";
 				$.each(json,function(index,item){
-					var str="";
 					str += "<button value="+item.departmentId+" id="+item.departmetId+"	class='btn btn-primary btn-flat'>"+item.departmentName+"</button>";
-					
 				});
 				$(str).appendTo("#deptBnt");
 			}
-			
-		
-			
 		});
-       /////////////////////////////////   =================================  ////////////////////////////////////////////
+
+
 		$.ajax({			
 			url: "p_selectEmp",
 			data : "dept=D"/* +"&page="+startpage */, //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
 			dataType: "json",
 			success: function(json){
-				 
 				$("#list").empty();
 				var str = "";
 				$.each(json, function(index, item) { 
@@ -225,39 +221,14 @@
     						str += "<td>" +item.phone+"</td>";
     						str += "<td>" +item.address+"</td>";
     						str += "</tr>"; 
-    						
     					});
     					$("#list").append(str);
     				}
     			});
     		}
-	//////////////    TEST    ////////////////////////////////////
-		$("#M").click(function(){
-			selectDept("M");
+		$("#deptBnt").on("click","button",function(){
+			selectDept($(this).val());
 		});
-		$("#D").click(function(){
-			selectDept("D");
-		});
-		
-		$("#R").click(function(){
-			selectDept("R");
-		});	
-		$("#T").click(function(){
-			selectDept("T");
-		});	
-		
-//////////////TEST  END  ////////////////////////////////////
-		
-    		$("#manage").click(function(){
-    			selectDept("M");
-    		});
-    		$("#development").click(function(){
-    			selectDept("D");
-    		});
-    		
-    		$("#run").click(function(){
-    			selectDept("R");
-    		});	
 	});
 	
     </script>
@@ -310,12 +281,7 @@
 										<div class="row pad">
 											<div class="input-group" style="float: right !important; margin: 10px;">
 												<div id='deptBnt'>
-													<!-- <button value="D" id="development"
-														class="btn btn-primary btn-flat">개발부</button>
-													<button value="M" id="manage"
-															class="btn btn-success btn-flat">유지보수부</button>
-													<button value="R" id="run" 
-															class="btn btn-info btn-flat">경영부</button> -->
+													<!-- 동적으로 버튼 생성하는 부분 -->
 												</div>
 											</div>
 											<!-- </div> -->
@@ -392,7 +358,7 @@
 		
 		  
 	  var sales = "<div class='table-responsive' id='table_body'><table class='table table-bordered' border='1'>"
-				+ "<thead><tr align='center'><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
+				+ "<thead><tr align='center'><th></th><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
 				+ "<tbody>";
 				
 				$.ajax({
@@ -402,7 +368,7 @@
 					async: false,
 					success:function(json){
 						$.each(json,function(index,item){
-							sales += "<tr><td>"+item.teamId+"</td><td>"+item.teamName+"</td>"
+							sales += "<tr><td class='small-col'><input name='Tcbox' value='"+item.teamId+"' type='checkbox' /></td><td>"+item.teamId+"</td><td>"+item.teamName+"</td>"
 							      +  "<td>"+item.employeeName+"("+item.teamManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
 						});
 					}
@@ -411,7 +377,6 @@
 		$(sales).appendTo($("#table_body"));  
     } 
 	$(function(){
-		 
 		//매출관리 버튼 눌렀을 경우.
 		$("#bnt_window").on("click","#sale",function(){
 			date = new Date();
@@ -772,7 +737,7 @@
 					
 			sales	+= "</tbody></table></div>"
 					+"<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div id='tDiv'>"
-					+ "<a  class='btn btn-primary btn-sm' id='tNew' >등록</a>"
+					+ "<a  class='btn btn-primary btn-sm' id='tNew' >등록</a><a class='btn btn-primary btn-sm' id='tMo' >수정</a>"
 					+ "</div></div></div>"
 					+ "<div class='table-responsive' id='table_body'><table class='table table-bordered' border='1'>"
 					+ "<thead><tr align='center'><th></th><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
@@ -827,7 +792,7 @@
 				 $("#detailview").empty();
 				var str="";
 				 str += "<div class='table-responsive'><form action='p_deptConUpdate'><table class='table table-bordered' border='1'>";
-				 str += "<tr>"+"<th>부서 ID</th>"+"<td><input type='hidden' name='deptId' value='cbox'>"+cbox+"</td></tr>";
+				 str += "<tr>"+"<th>부서 ID</th>"+"<td><input type='hidden' name='deptId' value="+cbox+">"+cbox+"</td></tr>";
 				 str += "<tr>"+"<th>부서 이름</th>"+"<td></td></tr>";
 				 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='deptManager'></td></tr>";
 				 str += "<input type='submit'  class='btn btn-primary btn-sm' value='수정'>";
@@ -885,7 +850,7 @@
 				 $("#detailview").empty();
 				var str="";
 				 str += "<div class='table-responsive'><form action='p_teamConUpdate'><table class='table table-bordered' border='1'>";
-				 str += "<tr>"+"<th>팀 ID</th>"+"<td><input type='hidden' name='teamId' value='cbox'>"+cbox+"</td></tr>";
+				 str += "<tr>"+"<th>팀 ID</th>"+"<td><input type='hidden' name='teamId' value="+cbox+">"+cbox+"</td></tr>";
 				 str += "<tr>"+"<th>팀 이름</th>"+"<td></td></tr>";
 				 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='teamManager'></td></tr>";
 				 str += "<input type='submit'  class='btn btn-primary btn-sm' value='수정'>";
