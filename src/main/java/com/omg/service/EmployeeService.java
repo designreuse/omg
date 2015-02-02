@@ -23,8 +23,8 @@ public class EmployeeService {
 		List<Employees> list= empdao.selectEmp();
 		return list;
 	}
-	public List<Employees> p_selectEmp(String dept) {
-		List<Employees> list = empdao.p_selectEmp(dept);
+	public List<Employees> p_selectEmp(String dept,int page) {
+		List<Employees> list = empdao.p_selectEmp(dept,page);
 		return list;
 	}
 	public Employees p_Emp(String id){
