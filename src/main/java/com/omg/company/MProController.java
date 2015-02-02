@@ -63,10 +63,10 @@ public class MProController {
 	}
 	
 	@RequestMapping("/spare")
-	public @ResponseBody List<MProcess> sparelist(HttpSession session){
+	public @ResponseBody List<MProcess> sparelist(HttpSession session,@RequestParam("proId") String projectId){
 		
 		Employees emps = (Employees)session.getAttribute("user");
-		List<MProcess> list = mproService.sparelist(emps.getTeamId());
+		List<MProcess> list = mproService.sparelist(emps.getTeamId(),projectId);
 		return list;
 				
 	}
@@ -78,6 +78,7 @@ public class MProController {
 			@RequestParam("empId") String empId){
 		
 		int set = mproService.setpeople(proId, empId);
+		
 		return set;
 	}
 	
@@ -85,7 +86,7 @@ public class MProController {
 	@RequestMapping("/put")
 	public @ResponseBody List<MProcess> putlist(HttpSession session, Model model,
 			@RequestParam("projectId") String projectId){
-		System.out.println(projectId);
+
 		List<MProcess> list = mproService.putlist(projectId);
 
 		return list;
@@ -106,10 +107,20 @@ public class MProController {
 			@RequestParam("proId") String proId,
 			@RequestParam("empId") String empId){
 		
-		System.out.println(proId+"        " + empId);
 		
-		return 0;
+		
+		int delete = mproService.delete(proId, empId);
+		return delete;
 	}
 
+	
+	@RequestMapping("/view")
+	public @ResponseBody List<MProcess> viewlist(HttpSession session,
+			@RequestParam("proId") String proId){
+		
+		System.out.println(proId);
+		List<MProcess> list = mproService.viewlist(proId);
+		return list;
+	}
 	
 }
