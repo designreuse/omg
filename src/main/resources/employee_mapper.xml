@@ -99,4 +99,11 @@
 		values(#{employeeId},#{name},#{phone},#{address},#{salary},#{manager},#{positionId},#{departmentId},#{teamId},#{hiredate},#{password},#{gender})
 	</insert>
 	
+		
+	<!-- 인사.회계팀 부서관리에서 팀장이 된 직원의 팀 업데이트-->
+	<update id="p_teamConEmpUpdate" parameterType="Employees">
+		update employees set team_id=#{teamId}
+		where employee_id=#{employeeId}
+	</update>
+	
 </mapper>

@@ -29,11 +29,12 @@
 	
 	<!-- 인사.회계팀 부서관리에서 부서 조회  -->
 	<select id="p_deptConSelect" resultMap="dto2">
-		select d.department_id, d.department_name, e.name, d.department_manager,p.position_name,
+		select d.department_id, d.department_name, e.name, d.department_manager,(select position_name from position where position_id = e.position_id) position_name,
 		       (select count(employee_id) from employees where department_id = e.department_id group by(department_id)) count
-		from departments d, employees e, position p        
-		where d.department_id = e.department_id and e.position_id = p.position_id and d.department_manager = e.employee_id
-	</select>
+		from departments d, employees e        
+		where  d.department_manager = e.employee_id(+) 
+		order by d.department_name
+			</select>
 	
 	<!-- 인사.회계팀 부서관리에서 부서 등록 -->
 	<insert id="p_deptConInsert" parameterType="Departments">

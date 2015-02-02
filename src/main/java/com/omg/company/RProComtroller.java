@@ -316,7 +316,6 @@ public class RProComtroller {
 	public String p_deptConUpdate(HttpSession session,
 		@RequestParam("deptId")String deptId,
 		@RequestParam("deptManager")String deptManager){
-		
 		Departments dept = new Departments();
 		dept.setDepartmentId(deptId);
 		dept.setDepartmentManager(deptManager);
@@ -354,6 +353,12 @@ public class RProComtroller {
 		Teams team = new Teams();
 		team.setTeamId(teamId);
 		team.setTeamManager(teamManager);
+		
+		Employees emp = new Employees();
+		emp.setEmployeeId(teamManager);
+		emp.setTeamId(teamId);
+		
+		empService.p_teamConEmpUpdate(emp);
 		empService.p_teamConUpdate(team);
 		return "redirect:index_p";
 	}

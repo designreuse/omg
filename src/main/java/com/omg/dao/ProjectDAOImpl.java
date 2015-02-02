@@ -103,7 +103,6 @@ public class ProjectDAOImpl implements ProjectDAO {
 	// 인사&회계 회사 매출 조회
 	@Override
 	public long sumProPrice(String year) {
-		System.out.println(year);
 		long price = 0;
 		try{
 			price = sqlSession.selectOne("com.omg.projects.sumProPrice",year);

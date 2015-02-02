@@ -68,8 +68,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public Employees selectlist(String empId) {
-		System.out.println(empId);
-
 		Employees emp = sqlSession.selectOne("com.omg.employee.selectlist",empId);
 		
 		return emp;
@@ -143,5 +141,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public Employees p_empSelect(String empid) {
 		Employees emp = sqlSession.selectOne("com.omg.employee.selectlist",empid);
 		return emp;
+	}
+
+	@Override
+	public int p_teamConEmpUpdate(Employees emp) {
+		int result = sqlSession.update("com.omg.employee.p_teamConEmpUpdate",emp);
+		return result;
 	}
 }
