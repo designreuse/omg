@@ -57,10 +57,10 @@
 			}
 		});
 
-
+		//첫 화면.
 		$.ajax({			
 			url: "p_selectEmp",
-			data : "dept=D"/* +"&page="+startpage */, //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
+			data : "dept=D" +"&page="+startpage , //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
 			dataType: "json",
 			success: function(json){
 				$("#list").empty();
@@ -97,10 +97,11 @@
 		});
 		
 		///////////////////////     직원관리 페이지   	/////////////////////////////////////////////////////
-		/* $.ajax({					// 페이지 총페이지수 구하기
+		 $.ajax({					// 페이지 총페이지수 구하기
 			url: "total" ,
 			dataType: "text",
 			success : function(text) {
+				alert(text);
 				endpage = parseInt(((text-1) / 10) + 1);
 				$("#page").text(startpage);
 				$("#total").text(text);
@@ -109,29 +110,37 @@
 		
 		
 
-		// < 버튼 눌림
+		 // < 버튼 눌림
 		$("#pageController").on("click","#nextasc",function() {
 			startpage--;
 			if(startpage >= 1){
 				$.ajax({
-					url: "studylist",
+					url: "p_selectEmp",
 					dataType: "json",
-					data :  "page="+startpage,
+					data : "dept=" + dept+ "&page="+startpage,
 					success : function(json) {
 						if(json != ""){
-							$("#studylist").empty();
+							$("#list").empty();
 							$.each(json, function(index, item) {
-								var td = "<td><a href='stuList?Num2="+item.studyNum+"'>"+item.studyNum+"</a></td>"+
-									"<td><a href='update?num="+item.studyNum+"' id='sName' user='${user.employeeId}' cre='"+item.writer+"'>"+item.studyName+"</a></td>"+
-									"<td>"+item.techName+"</td>"+
-									"<td>"+item.name+"</td>"+
-									"<td>"+item.memberCnt+"</td>"+
-									"<td>"+item.studyday+"</td>"+
-									"<td>"+item.startDate+"</td>"+
-									"<td>"+item.joincnt+"</td>"+
-									"<td><a class='btn btn-danger' id='join' stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
-									"<td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a><span id='deltext' style='color: red;'></span></td>";
-								$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
+								str += "<tr>";
+								str += "<td class='small-col'><input name='cbox' value='"+item.employeeId+"' type='checkbox' /></td>";
+								str += "<td>" + item.employeeId + "</td>";
+								str += "<td>" +"<a  id='update' empid="+item.employeeId+">" +item.name+"</a>"+"</td>";
+								str += "<td>" +item.deptName + "</td>";
+								if(item.teamName==null){
+									str += "<td>부장</td>";
+								}
+								else{
+									str += "<td>" +item.teamName+"</td>";	
+								}
+								str += "<td>" +item.posName+"</td>";
+								str += "<td>" +item.salary+"</td>";
+								str += "<td>" +item.commition+"</td>";
+								str += "<td>" +item.hiredate + "</td>";
+								str += "<td>" +item.phone+"</td>";
+								str += "<td>" +item.address+"</td>";
+								str += "</tr>"; 	
+								$(str).appendTo($("#list")); 
 							});
 						}
 					}
@@ -153,25 +162,33 @@
 			startpage++;
 			if(startpage <= endpage){
 				$.ajax({
-					url: "studylist",
+					url: "p_selectEmp",
 					dataType: "json",
-					data :  "page="+startpage,
+					data : "dept=" + dept+ "&page="+startpage,
 					success : function(json) {
 						if(json != ""){
 							var data = json;
-							$("#studylist").empty();
+							$("#list").empty();
 							$.each(json, function(index, item) {
-								var td = "<td><a href='stuList?Num2="+item.studyNum+"'>"+item.studyNum+"</a></td>"+
-									"<td><a href='update?num="+item.studyNum+"' id='sName' user='${user.employeeId}' cre='"+item.writer+"'>"+item.studyName+"</a></td>"+
-									"<td>"+item.techName+"</td>"+
-									"<td>"+item.name+"</td>"+
-									"<td>"+item.memberCnt+"</td>"+
-									"<td>"+item.studyday+"</td>"+
-									"<td>"+item.startDate+"</td>"+
-									"<td>"+item.joincnt+"</td>"+
-									"<td><a class='btn btn-danger' id='join' stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
-									"<td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a><span id='deltext' style='color: red;'></span></td>";
-								$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
+								str += "<tr>";
+								str += "<td class='small-col'><input name='cbox' value='"+item.employeeId+"' type='checkbox' /></td>";
+								str += "<td>" + item.employeeId + "</td>";
+								str += "<td>" +"<a  id='update' empid="+item.employeeId+">" +item.name+"</a>"+"</td>";
+								str += "<td>" +item.deptName + "</td>";
+								if(item.teamName==null){
+									str += "<td>부장</td>";
+								}
+								else{
+									str += "<td>" +item.teamName+"</td>";	
+								}
+								str += "<td>" +item.posName+"</td>";
+								str += "<td>" +item.salary+"</td>";
+								str += "<td>" +item.commition+"</td>";
+								str += "<td>" +item.hiredate + "</td>";
+								str += "<td>" +item.phone+"</td>";
+								str += "<td>" +item.address+"</td>";
+								str += "</tr>"; 	
+								$(str).appendTo($("#list")); 
 							});
 							
 						}
@@ -187,16 +204,15 @@
 				startpage--;
 			}
 		});
-		 */
-		
+	
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////
 		/*부서별로 리스트뿌리기  */
 		function selectDept(dept) {
-			
+			 
     			$.ajax({
     				url: "p_selectEmp",
-					data : "dept=" + dept,
+					data : "dept=" + dept+"&page="+startpage ,
     				dataType: "json",
     				success: function(json){
     					$("#list").empty();
@@ -225,7 +241,7 @@
     					$("#list").append(str);
     				}
     			});
-    		}
+    	}
 		$("#deptBnt").on("click","button",function(){
 			selectDept($(this).val());
 		});

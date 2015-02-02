@@ -23,6 +23,8 @@ public class RProComtroller {
 	private EmployeeService empService;
 	@Autowired
 	private RunService runService;
+	@Autowired
+	private EmpinfoService service;
 	
 	// 대현 -> 영업
 	@RequestMapping("index_s")
@@ -153,11 +155,20 @@ public class RProComtroller {
 	//직원 목록 조회 
 	@RequestMapping("/p_selectEmp")
 	public @ResponseBody List<Employees> selectEmpP(HttpSession session,
-			@RequestParam("dept")String deptId){
+			@RequestParam("dept")String deptId,
+			@RequestParam("page")int page){
 	 
-		List<Employees> list = empService.p_selectEmp(deptId);
+		List<Employees> list = empService.p_selectEmp(deptId,page);
 		
 		return list;
+	}
+	
+	//부서별 직원 수 조회
+	@RequestMapping("/total")
+	public @ResponseBody String emptotal(HttpSession session,
+			@RequestParam("dept") String dept){
+		Integer ret = service.empListTotal(dept);
+		return ret.toString();
 	}
 	
 	//직원정보 수정 위한 정보 불러오기
