@@ -304,6 +304,38 @@
 		$(sales).appendTo($("#table_body"));  
     } 
 	$(function(){
+		/* function GetCommaValue(n) {
+		     
+		    var strNumber = String(n).split(',');      //문자열 상태일때 소수점 추출
+		     
+		    n = parseFloat(strNumber);
+		 
+		    if (strNumber.length > 1) {
+		        return n.toLocaleString().slice(0, -3) + "," + strNumber[1];
+		    }
+		    else {
+		        return n.toLocaleString().slice(0, -3);
+		    }
+		}
+		 */
+		function GetCommaValue(num) {     // 숫자에 콤마 삽입  
+	        var len, point, str;  
+	  
+	        num = num + "";  
+	        point = num.length % 3  ;
+	        len = num.length;  
+	  
+	        str = num.substring(0, point);  
+	        while (point < len) {  
+	            if (str != "") str += ",";  
+	            str += num.substring(point, point + 3);  
+	            point += 3;  
+	        }  
+	        return str; 
+	        
+	      }
+	  
+		
 		//매출관리 버튼 눌렀을 경우.
 		$("#bnt_window").on("click","#sale",function(){
 			date = new Date();
@@ -342,12 +374,14 @@
 			$("#mSale").empty();
 			
 			
+			
+			
 			$.ajax({
 				url:"p_sumProPrice",
 				data:"year="+years,
 				dataType:"json",
 				success:function(json){
-					$("#sales").text(years+"년도 총 매출액: "+json);
+					$("#sales").text(years+"년도 총 매출액: "+GetCommaValue(json));
 				},
 				error:function(){
 					$("#sales").text(years+"년도 총 매출액: 0");
@@ -359,7 +393,7 @@
 				dataType:"json",
 				async: false,
 				success:function(json){
-					$("#dSale").text(json);
+					$("#dSale").text(GetCommaValue(json));
 				} ,
 				error:function(){
 					$("#dSale").text("-");
@@ -371,7 +405,7 @@
 				dataType:"json",
 				async: false,
 				success:function(json){
-					$("#mSale").text(json);
+					$("#mSale").text(GetCommaValue(json));
 				} ,
 				error:function(){
 					$("#mSale").text("-");
@@ -387,7 +421,7 @@
 					data:"year="+years,
 					dataType:"json",
 					success:function(json){
-						$("#sales").text(years+"년도 총 매출액: "+json);
+						$("#sales").text(years+"년도 총 매출액: "+GetCommaValue(json));
 					},
 					error:function(){
 						$("#sales").text(years+"년도 총 매출액: 0");
@@ -399,7 +433,7 @@
 					dataType:"json",
 					async: false,
 					success:function(json){
-						$("#dSale").text(json);
+						$("#dSale").text(GetCommaValue(json));
 					} ,
 					error:function(){
 						$("#dSale").text("-");
@@ -411,7 +445,7 @@
 					dataType:"json",
 					async: false,
 					success:function(json){
-						$("#mSale").text(json);
+						$("#mSale").text(GetCommaValue(json));
 					} ,
 					error:function(){
 						$("#mSale").text("-");
