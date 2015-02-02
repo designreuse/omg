@@ -29,8 +29,8 @@
 						str += "<td>" +item.writerName+"</td>";
 						str += "<td>" +item.count+"</td>";
 						str += "</tr>"; 
-						button = "<button id='nextasc' class='btn btn-xs btn-primary disabled' dept='"+item.checked+"' check='"+item.checked+"'><i class='fa fa-caret-left'></i></button>"+
-		 				 "<button id='nextdesc' class='btn btn-xs btn-primary' dept='"+item.checked+"' check='"+item.checked+"' ><i class='fa fa-caret-right'></i></button>";
+						button = "<button id='nextasc' class='btn btn-sm btn-default disabled' dept='"+item.checked+"' check='"+item.checked+"'><-</i></button>"+
+		 				 		 "<button id='nextdesc' class='btn btn-sm btn-default' dept='"+item.checked+"' check='"+item.checked+"' >-></i></button>";
 					});
 					
 					$("#list").append(str);
