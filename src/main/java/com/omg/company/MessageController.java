@@ -53,8 +53,8 @@ public class MessageController {
 		return list;
 	}
 	
-	@RequestMapping("/totle")
-	public @ResponseBody String msgTotle(HttpSession session){
+	@RequestMapping("/total")
+	public @ResponseBody String msgtotal(HttpSession session){
 		Employees user = (Employees)session.getAttribute("user");
 		String userId = user.getEmployeeId();
 		Integer totalCount = MService.totalCount(userId);
@@ -78,8 +78,8 @@ public class MessageController {
 		return list;
 	}
 	
-	@RequestMapping("/surechMsgtotle")
-	public @ResponseBody String surechmsgTotle(HttpSession session, @RequestParam("name") String name){
+	@RequestMapping("/surechMsgtotal")
+	public @ResponseBody String surechmsgtotal(HttpSession session, @RequestParam("name") String name){
 		Employees user = (Employees)session.getAttribute("user");
 		Messages msg = new Messages();
 		msg.setReceiveId(user.getEmployeeId());
