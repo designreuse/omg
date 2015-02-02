@@ -26,7 +26,9 @@
 	<script src="/company/resources/js/jquery-1.11.2.js"></script>
 	<script>
 	$(function(){
-	 
+		startpage = 1;
+		endpage = 0;
+		total = 0;
 		dstr="";
 		$.ajax({
 			url: "/company/managerck",
@@ -39,9 +41,29 @@
 				$(dstr).appendTo("#dCont");
 			}
 		});
+		
+		/////////////////////////////////    제대로 동작하는지 확인해야 되는 부분      ////////////////////////////////////////////
+		//부서별 버튼 생성
 		$.ajax({
+			url:"p_deptConSelect",
+			dataType:"json",
+			success: function(json){
+				$("#deptBnt").empty();
+				$.each(json,function(index,item){
+					var str="";
+					str += "<button value="+item.departmentId+" id="+item.departmetId+"	class='btn btn-primary btn-flat'>"+item.departmentName+"</button>";
+					
+				});
+				$(str).appendTo("#deptBnt");
+			}
+			
+		
+			
+		});
+       /////////////////////////////////   =================================  ////////////////////////////////////////////
+		$.ajax({			
 			url: "p_selectEmp",
-			data : "dept=D", //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
+			data : "dept=D"/* +"&page="+startpage */, //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
 			dataType: "json",
 			success: function(json){
 				 
@@ -68,6 +90,9 @@
 					str += "</tr>"; 	
 				});
 				$("#list").append(str);
+				var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
+			 	"<button id='nextdesc' class='btn btn-xs btn-primary'><i class='fa fa-caret-right'></i></button>";
+				$(button).appendTo($("#pageController"));
 			},
 			error: function(){
 				alert("error");
@@ -75,8 +100,101 @@
 			
 		});
 		
+		///////////////////////     직원관리 페이지   	/////////////////////////////////////////////////////
+		/* $.ajax({					// 페이지 총페이지수 구하기
+			url: "total" ,
+			dataType: "text",
+			success : function(text) {
+				endpage = parseInt(((text-1) / 10) + 1);
+				$("#page").text(startpage);
+				$("#total").text(text);
+			}
+		});
 		
 		
+
+		// < 버튼 눌림
+		$("#pageController").on("click","#nextasc",function() {
+			startpage--;
+			if(startpage >= 1){
+				$.ajax({
+					url: "studylist",
+					dataType: "json",
+					data :  "page="+startpage,
+					success : function(json) {
+						if(json != ""){
+							$("#studylist").empty();
+							$.each(json, function(index, item) {
+								var td = "<td><a href='stuList?Num2="+item.studyNum+"'>"+item.studyNum+"</a></td>"+
+									"<td><a href='update?num="+item.studyNum+"' id='sName' user='${user.employeeId}' cre='"+item.writer+"'>"+item.studyName+"</a></td>"+
+									"<td>"+item.techName+"</td>"+
+									"<td>"+item.name+"</td>"+
+									"<td>"+item.memberCnt+"</td>"+
+									"<td>"+item.studyday+"</td>"+
+									"<td>"+item.startDate+"</td>"+
+									"<td>"+item.joincnt+"</td>"+
+									"<td><a class='btn btn-danger' id='join' stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
+									"<td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a><span id='deltext' style='color: red;'></span></td>";
+								$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
+							});
+						}
+					}
+				});
+				$("#nextdesc").removeClass("disabled");
+				$("#page").text(startpage);
+				if(startpage == 1){
+					$("#nextasc").addClass("disabled");
+					$("#nextdesc").removeClass("disabled");
+				}
+			}else{
+				startpage++;
+			}
+		});
+		
+		
+		// > 버튼 눌림	
+		$("#pageController").on("click","#nextdesc",function() {
+			startpage++;
+			if(startpage <= endpage){
+				$.ajax({
+					url: "studylist",
+					dataType: "json",
+					data :  "page="+startpage,
+					success : function(json) {
+						if(json != ""){
+							var data = json;
+							$("#studylist").empty();
+							$.each(json, function(index, item) {
+								var td = "<td><a href='stuList?Num2="+item.studyNum+"'>"+item.studyNum+"</a></td>"+
+									"<td><a href='update?num="+item.studyNum+"' id='sName' user='${user.employeeId}' cre='"+item.writer+"'>"+item.studyName+"</a></td>"+
+									"<td>"+item.techName+"</td>"+
+									"<td>"+item.name+"</td>"+
+									"<td>"+item.memberCnt+"</td>"+
+									"<td>"+item.studyday+"</td>"+
+									"<td>"+item.startDate+"</td>"+
+									"<td>"+item.joincnt+"</td>"+
+									"<td><a class='btn btn-danger' id='join' stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
+									"<td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a><span id='deltext' style='color: red;'></span></td>";
+								$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
+							});
+							
+						}
+					}
+				});
+				$("#nextasc").removeClass("disabled");
+				$("#page").text(startpage);
+				if(startpage == endpage){
+					$("#nextdesc").addClass("disabled");
+					$("#nextasc").removeClass("disabled");
+				}
+			}else{
+				startpage--;
+			}
+		});
+		 */
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////
 		/*부서별로 리스트뿌리기  */
 		function selectDept(dept) {
 			
@@ -113,7 +231,23 @@
     				}
     			});
     		}
-
+	//////////////    TEST    ////////////////////////////////////
+		$("#M").click(function(){
+			selectDept("M");
+		});
+		$("#D").click(function(){
+			selectDept("D");
+		});
+		
+		$("#R").click(function(){
+			selectDept("R");
+		});	
+		$("#T").click(function(){
+			selectDept("T");
+		});	
+		
+//////////////TEST  END  ////////////////////////////////////
+		
     		$("#manage").click(function(){
     			selectDept("M");
     		});
@@ -125,10 +259,6 @@
     			selectDept("R");
     		});	
 	});
-	/* function clickTrEvent(trObj) {
-		h_id = trObj.id;
-        alert(h_id);
-    }  */
 	
     </script>
 </head>
@@ -179,13 +309,13 @@
 									<div id="detailview" class="col-md-10 col-sm-8">
 										<div class="row pad">
 											<div class="input-group" style="float: right !important; margin: 10px;">
-												<div>
-													<button value="D" id="development"
+												<div id='deptBnt'>
+													<!-- <button value="D" id="development"
 														class="btn btn-primary btn-flat">개발부</button>
 													<button value="M" id="manage"
 															class="btn btn-success btn-flat">유지보수부</button>
 													<button value="R" id="run" 
-															class="btn btn-info btn-flat">경영부</button>
+															class="btn btn-info btn-flat">경영부</button> -->
 												</div>
 											</div>
 											<!-- </div> -->
@@ -214,6 +344,7 @@
 											</table>
 										</div>
 										<!-- /.table-responsive -->
+										<span id = pageController style="float: right;">	</span>
 									</div>
 									<!-- /.col (RIGHT) -->
 								</div>
@@ -252,7 +383,7 @@
 	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
 	<script>
-	h_id="D";
+	h_id="";
 	function clickTrEvent(trObj) {
 		h_id = trObj.id;
        
@@ -276,12 +407,8 @@
 						});
 					}
 				});
-				
 		sales	+= "</tbody></table></div>";
 		$(sales).appendTo($("#table_body"));  
-		
-       
-        
     } 
 	$(function(){
 		 
@@ -622,10 +749,10 @@
 			
 			  
 		  var sales ="<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'><div id='dDiv'>"
-					+ "<a  class='btn btn-primary btn-sm' id='dNew' >등록</a>"
+					+ "<a  class='btn btn-primary btn-sm' id='dNew' >등록</a><a class='btn btn-primary btn-sm' id='dMo' >수정</a>"
 					+ "</div></div></div>"
 					+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
-					+ "<thead><tr align='center'><th>ID</th><th>부서 이름</th><th>부 장(사번)</th><th>직 책</th><th>직원 수</th></tr></thead>"
+					+ "<thead><tr align='center'><th></th><th>ID</th><th>부서 이름</th><th>부 장(사번)</th><th>직 책</th><th>직원 수</th></tr></thead>"
 					+ "<tbody>";
 					$.ajax({
 						url: "p_deptConSelect",
@@ -634,7 +761,9 @@
 						success:function(json){
 							$.each(json,function(index,item){
 								
-								sales += "<tr id="+item.departmentId+" onclick='clickTrEvent(this)'><td>"+item.departmentId+"</td><td>"+item.departmentName+"</td>"
+								sales += "<tr id="+item.departmentId+" onclick='clickTrEvent(this)'>"
+								  +"<td class='small-col'><input name='Dcbox' value='"+item.departmentId+"' type='checkbox' /></td>"	
+								  +"<td>"+item.departmentId+"</td><td>"+item.departmentName+"</td>"
 							      +  "<td>"+item.employeeName+"("+item.departmentManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
 							});
 						}
@@ -646,7 +775,7 @@
 					+ "<a  class='btn btn-primary btn-sm' id='tNew' >등록</a>"
 					+ "</div></div></div>"
 					+ "<div class='table-responsive' id='table_body'><table class='table table-bordered' border='1'>"
-					+ "<thead><tr align='center'><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
+					+ "<thead><tr align='center'><th></th><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
 					+ "<tbody>";
 					
 					$.ajax({
@@ -656,7 +785,7 @@
 						async: false,
 						success:function(json){
 							$.each(json,function(index,item){
-								sales += "<tr><td>"+item.teamId+"</td><td>"+item.teamName+"</td>"
+								sales += "<tr><td class='small-col'><input name='Tcbox' value='"+item.teamId+"' type='checkbox' /></td><td>"+item.teamId+"</td><td>"+item.teamName+"</td>"
 								      +  "<td>"+item.employeeName+"("+item.teamManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
 							});
 						}
@@ -676,13 +805,108 @@
 			 str += "<tr>"+"<th>부서 ID</th>"+"<td><input type='text' name='deptId'></td></tr>";
 			 str += "<tr>"+"<th>부서 이름</th>"+"<td><input type='text' name='deptName'></td></tr>";
 			 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='deptManager'></td></tr>";
-			 str += "<input type='submit'  class='btn btn-primary btn-sm' value='등록'></table></form></div>";
+			 str += "<input type='submit'  class='btn btn-primary btn-sm' value='등록'>";
+			 str += "<a  class='btn btn-primary btn-sm' id='dcancel' >취소</a> </table></form></div>";
 			 $(str).appendTo("#detailview");
 		 });
+	
+		$("#detailview").on("click","#dcancel",function(){
+			$(this).attr("href","index_p");				
 		});
+		
+
+		//선택된 부서 수정하기
+		$("#detailview").on("click","#dMo",function(){
+		
+			var cbox = [];
+			$("input[name=Dcbox]:checked").each(function() {
+				cbox.push($(this).val());
+			});
+			
+			if(cbox.length == 1){
+				 $("#detailview").empty();
+				var str="";
+				 str += "<div class='table-responsive'><form action='p_deptConUpdate'><table class='table table-bordered' border='1'>";
+				 str += "<tr>"+"<th>부서 ID</th>"+"<td><input type='hidden' name='deptId' value='cbox'>"+cbox+"</td></tr>";
+				 str += "<tr>"+"<th>부서 이름</th>"+"<td></td></tr>";
+				 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='deptManager'></td></tr>";
+				 str += "<input type='submit'  class='btn btn-primary btn-sm' value='수정'>";
+				 str += "<a  class='btn btn-primary btn-sm' id='dcancel' >취소</a> </table></form></div>";
+				 $(str).appendTo("#detailview");
+				 
+			} else if(cbox.length == 0){
+				alert("선택된 부서가 없습니다.");
+			} else{
+				alert("하나만 선택하세요.");
+			}
+			
+			
+			
+		});
+		 
+		 $("#tDiv").on("click","#tNew",function(){
+			 $("#detailview").empty();
+			 $("#h3").text("팀 등록");
+			 $("#bnt").empty();
+			 
+			 var str="";
+			 str += "<div class='table-responsive'><form action='p_teamConInsert'><table class='table table-bordered' border='1'>";
+			 str += "<tr>"+"<th>부서</th>";
+			 $.ajax({
+					url: "p_deptSelect",
+					dataType:"json",
+					async: false,
+					success:function(json){
+						str += "<td><select name='deptId'>";
+						$.each(json,function(index,item){
+							str += "<option value="+item.departmentId+">"+item.departmentName+"</option>";
+						});
+						str += "</select></td></tr>";
+					}
+				}); 
+			 str += "<tr>"+"<th>팀 ID</th>"+"<td><input type='text' name='teamId'></td></tr>";
+			 str += "<tr>"+"<th>팀 이름</th>"+"<td><input type='text' name='teamName'></td></tr>";
+			 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='teamManager'></td></tr>";
+			 str += "<input type='submit'  class='btn btn-primary btn-sm' value='등록'>";
+			 str += "<a  class='btn btn-primary btn-sm' id='tcancel' >취소</a> </table></form></div>";
+			 $(str).appendTo("#detailview");
+		 });
+		 
+
+		//선택된 팀 수정하기
+		$("#detailview").on("click","#tMo",function(){
+		
+			var cbox = [];
+			$("input[name=Tcbox]:checked").each(function() {
+				cbox.push($(this).val());
+			});
+				
+			if(cbox.length == 1){
+				 $("#detailview").empty();
+				var str="";
+				 str += "<div class='table-responsive'><form action='p_teamConUpdate'><table class='table table-bordered' border='1'>";
+				 str += "<tr>"+"<th>팀 ID</th>"+"<td><input type='hidden' name='teamId' value='cbox'>"+cbox+"</td></tr>";
+				 str += "<tr>"+"<th>팀 이름</th>"+"<td></td></tr>";
+				 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='teamManager'></td></tr>";
+				 str += "<input type='submit'  class='btn btn-primary btn-sm' value='수정'>";
+				 str += "<a  class='btn btn-primary btn-sm' id='tcancel' >취소</a> </table></form></div>";
+				 $(str).appendTo("#detailview");
+					 
+			} else if(cbox.length == 0){
+				alert("선택된 팀이 없습니다.");
+			} else{
+				alert("하나만 선택하세요.");
+			}
+		});
+		 
+		$("#detailview").on("click","#tcancel",function(){
+			$(this).attr("href","index_p");				
+		});
+			
 	});
+});
 		
  
-	</script>
+</script>
 </body>
 </html>
