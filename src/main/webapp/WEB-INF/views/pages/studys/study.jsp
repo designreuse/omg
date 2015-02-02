@@ -47,7 +47,7 @@
 							"<td>"+item.studyday+"</td>"+
 							"<td>"+item.startDate+"</td>"+
 							"<td>"+item.joincnt+"</td>"+
-							"<td><a class='btn btn-danger' id='join' stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
+							"<td><a  id='join' class='btn btn-danger'  stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
 							"<td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a><span id='deltext' style='color: red;'></span></td>";
 						$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
 					});
@@ -59,14 +59,15 @@
 				} 
 			}
 		});
-		
-/* 		$.ajax({
+		/* 
+ 		$.ajax({
 			url:"supplylistNum",
 			dataType: "json",
 			async: false,
 			success : function(json){
-				alert("정지");
+			//	alert("정지");
 				$("#join").on("click",function(){
+					//alert("버튼");
 					$.each(json, function(index, item) {
 						$(data).each(function() {
 							var stunum = $(this).attr("stuNum");
@@ -78,8 +79,8 @@
 					});
 				});
 			}
-		});
- */		
+		});  */
+ 		
 		$.ajax({					// 페이지 총페이지수 구하기
 			url: "total" ,
 			dataType: "text",
@@ -194,8 +195,11 @@
 					$(this).next("#jointext").text("신청완료됨.");
 				}
 			}
+			
+			
 			$(this).attr("href", "index");
 		});
+		
 		
 		$("#studylist").on("click", "#del",  function() {
 			var creId = $(this).attr("cre2");
