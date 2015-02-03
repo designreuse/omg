@@ -196,7 +196,7 @@
 							<div class="box-footer clearfix">
 								<div class="pull-right">
 									<a id="deleteMsg" class="btn btn-danger btn-sm">선택 삭제</a> <!-- 해야됨 -->
-									<small> 페이지 : <span id="page"></span>/<span id="totle"></span></small> <!-- 해야됨 -->
+									<small> 페이지 : <span id="page"></span>/<span id="total"></span></small> <!-- 해야됨 -->
 									<span id="buttoncontroll">
 									</span>
 								</div>
@@ -314,24 +314,27 @@
 							
 						});
 						var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-									 "<button id='nextdesc' class='btn btn-xs btn-primary'><i class='fa fa-caret-right'></i></button>";
+									 "<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
 						$(button).appendTo($("#buttoncontroll"));
 					}
 				}
 			});
 			
 			$.ajax({					// 페이지 총페이지수 구하기
-				url: "totle" ,
+				url: "total" ,
 				dataType: "text",
 				success : function(text) {
 					endpage = parseInt(((text-1) / 5) + 1);
-					if(text == 0){
-						$("#page").text(0);
-						$("#totle").text(0);
-					}else{
+					if(text > 10){
 						$("#page").text(startpage);
-						$("#totle").text(endpage);
+						$("#total").text(endpage);
+						$("#nextasc").addClass("disabled");
 						$("#nextdesc").removeClass("disabled");
+					}else{
+						$("#page").text(1);
+						$("#total").text(1);
+						$("#nextasc").addClass("disabled");
+						$("#nextdesc").addClass("disabled");
 					}
 				}
 			});
@@ -430,12 +433,21 @@
 				});
 				$("#page").text(startpage);
 				$.ajax({					// 페이지 총페이지수 구하기
-					url: "totle" ,
+					url: "total" ,
 					dataType: "text",
 					success : function(text) {
 						endpage = parseInt(((text-1) / 5) + 1);
-						$("#page").text(startpage);
-						$("#totle").text(text);
+						if(text > 10){
+							$("#page").text(startpage);
+							$("#total").text(endpage);
+							$("#nextasc").addClass("disabled");
+							$("#nextdesc").removeClass("disabled");
+						}else{
+							$("#page").text(1);
+							$("#total").text(1);
+							$("#nextasc").addClass("disabled");
+							$("#nextdesc").addClass("disabled");
+						}
 					}
 				});
 			});
@@ -451,6 +463,7 @@
 					url: "surechMsg",
 					dataType: "json",
 					data: "name="+name+"&page="+srhstartpage,
+					async: false,
 					success: function(json) {
 						if(json != ""){
 							$.each(json, function(index, item) {
@@ -475,18 +488,22 @@
 					}
 				});
 				$.ajax({					// 검색 페이지 총페이지수 구하기
-					url: "surechMsgtotle" ,
+					url: "surechMsgtotal" ,
 					dataType: "text",
 					data: "name="+name,
+					async: false,
 					success : function(text) {
 						srhendpage = parseInt(((text-1) / 5) + 1);
-						if(text == 0){
-							$("#page").text(0);
-							$("#totle").text(0);
-						}else{
-							$("#page").text(startpage);
-							$("#totle").text(endpage);
+						if(text > 10){
+							$("#page").text(srhstartpage);
+							$("#total").text(srhendpage);
+							$("#nextasc2").addClass("disabled");
 							$("#nextdesc2").removeClass("disabled");
+						}else{
+							$("#page").text(1);
+							$("#total").text(1);
+							$("#nextasc2").addClass("disabled");
+							$("#nextdesc2").addClass("disabled");
 						}
 					}
 				});
@@ -600,9 +617,6 @@
 							$(this).toggleClass("fa-star-o");
 						}
 					});
-
-			//Initialize WYSIHTML5 - text editor
-			//$("#email_message").wysihtml5();
 		});
 	</script>
 </body>
