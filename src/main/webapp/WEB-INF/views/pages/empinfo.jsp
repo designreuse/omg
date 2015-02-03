@@ -44,13 +44,20 @@
 					$.each(json, function(index, item) { // foreach해줌 
 						var td = "<td>" + item.name + "</td>" + "<td>"
 								+ item.phone + "</td>" + "<td>"
-								+ item.address + "</td>" + "<td>"
-								
-								+ item.email + "</td>" + "<td>"
-								+ item.posName + "</td>" + "<td>"
+								+ item.address + "</td>" + "<td>";
+								if(item.email == null){
+									td +=  "-</td>" + "<td>";
+								}else{
+									td += item.email + "</td>" + "<td>";
+								}
+							td += item.posName + "</td>" + "<td>"
 								+ item.teamName + "</td>" + "<td>"
-								+ item.hiredate + "</td>" + "<td>"
-								+ item.birth + "</td>";
+								+ item.hiredate + "</td>" + "<td>";
+								if(item.birth == null){
+									td += "-</td>";
+								}else{
+									td += item.birth + "</td>";
+								}
 						$("<tr>" + td + "</tr>").appendTo($("#datalist")); // 만듬
 					});
 				}
@@ -124,6 +131,7 @@
 				empInFoList(startpage,listck);
 				$("#page").text(startpage);
 				$("#nextdesc").removeClass("disabled");
+				$("#nextasc").removeClass("disabled");
 				if(startpage == 1){
 					$("#nextasc").addClass("disabled");
 				}
@@ -140,6 +148,7 @@
 				empInFoList(startpage,listck);
 				$("#page").text(startpage);
 				$("#nextasc").removeClass("disabled");
+				$("#nextdesc").removeClass("disabled");
 				if(startpage == endpage){
 					$("#nextdesc").addClass("disabled");
 				}
