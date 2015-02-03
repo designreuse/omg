@@ -30,8 +30,9 @@
             <aside class="right-side">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
+                    <h1><i class="fa fa-th-list"></i> <B>
                                 부서 확인 불가
+                                </B>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/company/notice/index"><i class="fa fa-dashboard"></i> Home</a></li>

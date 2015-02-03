@@ -316,7 +316,7 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>경영 부서 업무</h1>
+				<h1><i class="fa fa-th-list"></i> <b>경영 부서 업무</b></h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i>Home</a></li>
