@@ -24,89 +24,163 @@
 	type="text/css" />
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
-	// 인원 찾는 화면 첫화면
-/* 	function SelectEmpByDept(startpage,dept){
-		$.ajax({			
-			url: "p_selectEmp",
-			data : "dept="+dept +"&page="+startpage , //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
-			dataType: "json",
-			success: function(json){
-				$("#list").empty();
-				var str = "";
-				$.each(json, function(index, item) { 
-					str += "<tr>";
-					str += "<td class='small-col'><input name='cbox' value='"+item.employeeId+"' type='checkbox' /></td>";
-					str += "<td>" + item.employeeId + "</td>";
-					str += "<td>" +"<a  id='update' empid="+item.employeeId+">" +item.name+"</a>"+"</td>";
-					str += "<td>" +item.deptName + "</td>";
-					if(item.teamName==null){
-						str += "<td>부장</td>";
-					}
-					else{
-						str += "<td>" +item.teamName+"</td>";	
-					}
-					str += "<td>" +item.posName+"</td>";
-					str += "<td>" +item.salary+"</td>";
-					str += "<td>" +item.commition+"</td>";
-					str += "<td>" +item.hiredate + "</td>";
-					str += "<td>" +item.phone+"</td>";
-					str += "<td>" +item.address+"</td>";
-					str += "</tr>"; 	
-				});
-				$("#list").append(str);	
-			},
-			error: function(){
-				alert("error");
-			}
-		});
-				
-		$.ajax({					// 페이지 총페이지수 구하기
-			url: "total" ,
-			dataType: "text",
-			data: "dept="+dept,
-			async: false,
-			success : function(text) {
-				endpage = parseInt(((text-1) / 10) + 1);
-				$("#page").text(startpage);
-				$("#total").text(text);
-			}
-		});
-	} */
-	
-	function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 받아서 쓰기
-		$("#list").empty();
-		$.ajax({          			
-			url : "runProList",
-			dataType : "json",
-			data : "page="+page,
-			async: false,
-			success : function(json) {
-				$.each(json, function(index, item) { 
-					var td = "<td>"+item.projectName+"</td>"+
-							 "<td>"+item.deptName+"</td>"+
-							 "<td>"+item.startDate+"</td>"+
-							 "<td>"+item.endDate+"</td>"+
-							 "<td>"+item.projectPrice+"</td>";
-							 if(item.approval == 'O'){
-								td +="<td>"+item.approval+"</td>";
-							 }else if(item.approval == 'X'){
-								td +="<td style='color:red;'>"+item.approval+"</td>";
-							 }else{
-								td +="<td style='color:blue;'>승인대기</td>";
-							 }
-						td +="<td><select id='approval' name='approval' proid='"+item.projectId+"' proname='"+item.projectName+"'>"+
-							 "<option value=''>-선택-</option>"+
-							 "<option value='승인'>승인</option><option value='불가'>불가</option>"+
-							 "<option value='STOP'>대기</option></select>";
-					$("<tr>"+td+"</tr>").appendTo($("#list"));
-				});
-			}
-		});
-	}
+function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 받아서 쓰기
+	$("#list").empty();
+	$.ajax({          			
+		url : "runProList",
+		dataType : "json",
+		data : "page="+page,
+		async: false,
+		success : function(json) {
+			$.each(json, function(index, item) { 
+				var td = "<td>"+item.projectName+"</td>"+
+						 "<td>"+item.deptName+"</td>"+
+						 "<td>"+item.startDate+"</td>"+
+						 "<td>"+item.endDate+"</td>"+
+						 "<td>"+item.projectPrice+"</td>";
+						 if(item.approval == 'O'){
+							td +="<td>"+item.approval+"</td>";
+						 }else if(item.approval == 'X'){
+							td +="<td style='color:red;'>"+item.approval+"</td>";
+						 }else{
+							td +="<td style='color:blue;'>승인대기</td>";
+						 }
+					td +="<td><select id='approval' name='approval' proid='"+item.projectId+"' proname='"+item.projectName+"'>"+
+						 "<option value=''>-선택-</option>"+
+						 "<option value='승인'>승인</option><option value='불가'>불가</option>"+
+						 "<option value='STOP'>대기</option></select>";
+				$("<tr>"+td+"</tr>").appendTo($("#list"));
+			});
+		}
+	});
+}
 	
 	$(function() {
-	//	var pageview = "<small> 페이지 : <span id='page'></span>/<span id='total'></span></small><span id='buttoncontroll'></span>";
-	//	$("#btn").append(pageview);
+		function salFun() {
+			date = new Date();
+			year = date.getFullYear();	//현재 년도
+			start = 1995;
+			$("#detailview").empty();
+			$("#h3").html("<b>매출 관리</b>");
+			$("#runProcessAppView").empty();
+			$("#btn").empty();
+			var sales="<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
+					+"<select id='years' name='years'>";
+			$(function(){
+				while(start<=year){
+					if(year== date.getFullYear()){
+					sales += "<option value="+year+" selected='selected'>"+year+"</option>";					
+					} else{
+						sales += "<option value="+year+">"+year+"</option>";
+					}
+					year--;
+				}
+			});
+				
+			sales +="</select></span></div></div>"
+				+"<h3><div id='sales'></div></h3>"
+				+"<div class='table-responsive'><table class='table table-bordered' border='1'>"
+				+"<thead><tr align='center'><th>부서 이름</th><th>매 출 액</th></tr></thead>"
+				+"<tbody>"
+				+"<tr><td>개 발 부</td><td><span id='dSale'></span></td></tr>"
+				+"<tr><td>유지보수부</td><td><span id='mSale'></span></td></tr>"
+				+"</tbody></table></div>";
+				
+			$(sales).appendTo($("#detailview"));  
+
+			years = $("select[name='years']").val(); 
+			$("#sales").empty();
+			$("#dSale").empty();
+			$("#mSale").empty();
+			
+			
+			$.ajax({
+				url:"p_sumProPrice",
+				data:"year="+years,
+				dataType:"json",
+				async: false,
+				success:function(json){
+					$("#sales").text(years+"년도 총 매출액: "+json);
+				},
+				error:function(){
+					$("#sales").text(years+"년도 총 매출액: 0");
+				}
+			});
+			$.ajax({
+				url:"p_sumBydeptProPrice",
+				data:"year="+years +"&dept=D",
+				dataType:"json",
+				async: false,
+				success:function(json){
+				$("#dSale").text(json);
+				} ,
+				error:function(){
+					$("#dSale").text("-");
+				}
+			});		
+			$.ajax({
+				url:"p_sumBydeptProPrice",
+				data:"year="+years +"&dept=M",
+				dataType:"json",
+				async: false,
+				success:function(json){
+					$("#mSale").text(json);
+				} ,
+				error:function(){
+					$("#mSale").text("-");
+				}
+			});
+			
+			//select 선택 바뀔때 실행.
+			$('#years').change(function(){
+				years = $("select[name='years']").val();	
+				$("#sales").empty();
+				$.ajax({
+					url:"p_sumProPrice",
+					data:"year="+years,
+					dataType:"json",
+					async: false,
+					success:function(json){
+						$("#sales").text(years+"년도 총 매출액: "+json);
+					},
+					error:function(){
+						$("#sales").text(years+"년도 총 매출액: 0");
+					}
+				});
+				$.ajax({
+					url:"p_sumBydeptProPrice",
+					data:"year="+years +"&dept=D",
+					dataType:"json",
+					async: false,
+					success:function(json){
+						$("#dSale").text(json);
+					} ,
+					error:function(){
+						$("#dSale").text("-");
+					}
+				});		
+				$.ajax({
+					url:"p_sumBydeptProPrice",
+					data:"year="+years +"&dept=M",
+					dataType:"json",
+					async: false,
+					success:function(json){
+						$("#mSale").text(json);
+					} ,
+					error:function(){
+						$("#mSale").text("-");
+					}
+				});				
+			});
+		}
+		
+		salFun();
+		
+		//매출관리 버튼 눌렀을 경우.
+		$("#bnt_window").on("click","#sale",function(){
+			salFun();
+		});
+		
 		startpage = 1;
 		endpage = 0;	
 		// < 버튼 눌림
@@ -127,12 +201,12 @@
 		
 		// > 버튼 눌림	
 		$("#btn").on("click","#nextdesc",function() {
-			startpage++;
-			if(startpage <= endpage){
-				prolist(startpage);				// list 함수 부르기 화면 변경
-				$("#nextasc").removeClass("disabled");
-				$("#page").text(startpage);
-				if(startpage == endpage){
+		startpage++;
+		if(startpage <= endpage){
+			prolist(startpage);				// list 함수 부르기 화면 변경
+			$("#nextasc").removeClass("disabled");
+			$("#page").text(startpage);
+			if(startpage == endpage){
 					$("#nextdesc").addClass("disabled");
 					$("#nextasc").removeClass("disabled");
 				}
@@ -256,10 +330,7 @@
 								<div class="row" >
 									<div class="col-md-2 col-sm-4" id="bnt_window" >
 										<div class="box-header">
-											<h3 class="box-title" id="h3"><b>직원 관리</b></h3>
-										</div>
-										<div style="margin: 10px;">
-											<a id="emp" class="btn btn-danger btn-flat">직원조회</a>
+											<h3 class="box-title" id="h3"><b>매출 조회</b></h3>
 										</div><div style="margin: 10px;">
 											<a id="sale" class="btn btn-warning btn-flat">매출조회</a>
 										</div><div style="margin: 10px;">
@@ -321,157 +392,8 @@
 				$("#appCK").text('-');
 			}
 		});
-		
-		h_id="";
-		function clickTrEvent(trObj) {
-			h_id = trObj.id;
-	       
-	        $("#table_body").empty();
-		  	var sales = "<div class='table-responsive' id='table_body'><table class='table table-bordered' border='1'>"
-					+ "<thead><tr align='center'><th></th><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
-					+ "<tbody>";
-					
-					$.ajax({
-						url:"p_teamConSelect",
-						data:"deptid="+h_id,
-						dataType:"json",
-						async: false,
-						success:function(json){
-							$.each(json,function(index,item){
-								sales += "<tr><td class='small-col'><input name='Tcbox' value='"+item.teamId+"' type='checkbox' /></td><td>"+item.teamId+"</td><td>"+item.teamName+"</td>"
-								      +  "<td>"+item.employeeName+"("+item.teamManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
-							});
-						}
-					});
-			sales	+= "</tbody></table></div>";
-			$(sales).appendTo($("#table_body"));  
-	    } 
-		
-		$(function(){
-			//매출관리 버튼 눌렀을 경우.
-			$("#bnt_window").on("click","#sale",function(){
-				date = new Date();
-				year = date.getFullYear();	//현재 년도
-				start = 1995;
-				$("#detailview").empty();
-				$("#h3").html("<b>매출 관리</b>");
-				$("#runProcessAppView").empty();
-				$("#btn").empty();
-				var sales="<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
-						+"<select id='years' name='years'>";
-				$(function(){
-					while(start<=year){
-						if(year== date.getFullYear()){
-							sales += "<option value="+year+" selected='selected'>"+year+"</option>";					
-						} else{
-							sales += "<option value="+year+">"+year+"</option>";
-						}
-						year--;
-					}
-				});
-						
-				sales +="</select></span></div></div>"
-					+"<h3><div id='sales'></div></h3>"
-					+"<div class='table-responsive'><table class='table table-bordered' border='1'>"
-					+"<thead><tr align='center'><th>부서 이름</th><th>매 출 액</th></tr></thead>"
-					+"<tbody>"
-					+"<tr><td>개 발 부</td><td><span id='dSale'></span></td></tr>"
-					+"<tr><td>유지보수부</td><td><span id='mSale'></span></td></tr>"
-					+"</tbody></table></div>";
-					
-				$(sales).appendTo($("#detailview"));  
-				
-				years = $("select[name='years']").val(); 
-				$("#sales").empty();
-				$("#dSale").empty();
-				$("#mSale").empty();
-				
-				
-				$.ajax({
-					url:"p_sumProPrice",
-					data:"year="+years,
-					dataType:"json",
-					success:function(json){
-						$("#sales").text(years+"년도 총 매출액: "+json);
-					},
-					error:function(){
-						$("#sales").text(years+"년도 총 매출액: 0");
-					}
-				});
-				$.ajax({
-					url:"p_sumBydeptProPrice",
-					data:"year="+years +"&dept=D",
-					dataType:"json",
-					async: false,
-					success:function(json){
-						$("#dSale").text(json);
-					} ,
-					error:function(){
-						$("#dSale").text("-");
-					}
-				});		
-				$.ajax({
-					url:"p_sumBydeptProPrice",
-					data:"year="+years +"&dept=M",
-					dataType:"json",
-					async: false,
-					success:function(json){
-						$("#mSale").text(json);
-					} ,
-					error:function(){
-						$("#mSale").text("-");
-					}
-				});
-				
-				//select 선택 바뀔때 실행.
-				$('#years').change(function(){
-					years = $("select[name='years']").val();	
-					$("#sales").empty();
-					$.ajax({
-						url:"p_sumProPrice",
-						data:"year="+years,
-						dataType:"json",
-						success:function(json){
-							$("#sales").text(years+"년도 총 매출액: "+json);
-						},
-						error:function(){
-							$("#sales").text(years+"년도 총 매출액: 0");
-						}
-					});
-					$.ajax({
-						url:"p_sumBydeptProPrice",
-						data:"year="+years +"&dept=D",
-						dataType:"json",
-						async: false,
-						success:function(json){
-							$("#dSale").text(json);
-						} ,
-						error:function(){
-							$("#dSale").text("-");
-						}
-					});		
-					$.ajax({
-						url:"p_sumBydeptProPrice",
-						data:"year="+years +"&dept=M",
-						dataType:"json",
-						async: false,
-						success:function(json){
-							$("#mSale").text(json);
-						} ,
-						error:function(){
-							$("#mSale").text("-");
-						}
-					});
-						
-				});
-			});
-			
-			// 직원버튼
-			$("#emp").click(function(){
-				$(this).attr("href","index_r");
-			}); 	
-		});
 	});
 </script> 
+	
 </body>
 </html>
