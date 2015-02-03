@@ -38,7 +38,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>§Study 목록§</h1>
+				<h1> <i class="fa fa-laptop"></i>Study 목록</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">신청 스터디</li>
@@ -74,10 +74,9 @@
 									</tr>
 								</c:forEach>
 							</table>
-								<input type="button" id="back" onclick="location.href='index'" value="뒤로가기">
-								</form>
-						
-							
+						</div>
+						<div class="box-footer clearfix">
+							<input type="button" class="btn btn-default" id="back" onclick="location.href='index'" value="뒤로가기">
 						</div>
 					</div>
 				</div>
