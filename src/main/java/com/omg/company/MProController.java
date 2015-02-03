@@ -123,4 +123,45 @@ public class MProController {
 		return list;
 	}
 	
+	
+	@RequestMapping(value = "/proing")
+	public @ResponseBody
+	List<MProcess> proing(HttpSession session) {
+
+
+		List<MProcess> list = mproService.proing();
+		return list;
+	}
+	
+	
+
+
+	@RequestMapping(value = "/selectTeam")
+	public @ResponseBody
+	List<MProcess> teams(HttpSession session) {
+
+		List<MProcess> teams = mproService.teams();
+		return teams;
+
+	}
+	
+	@RequestMapping(value = "/setTeam")
+	public String setTeam(HttpSession session,
+			@RequestParam("selectTeam") String teamId,
+			@RequestParam("projectId") String projectId) {
+		System.out.println(teamId+"       " +projectId);
+		mproService.setTeam(projectId, teamId);
+		
+		return "redirect:index";
+	}
+	
+	@RequestMapping(value = "/startPro")
+	public @ResponseBody
+	List<MProcess> startProjects(HttpSession session) {
+		Employees emps = (Employees) session.getAttribute("user");
+		List<MProcess> startPro = mproService.startProjects(emps.getEmployeeId());
+		return startPro;
+
+	}
+	
 }

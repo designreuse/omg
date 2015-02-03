@@ -14,4 +14,8 @@ public interface MProDAO {
 	int setpeople(String proId,String empId);
 	int delete(String proId, String empId);
 	List<MProcess> viewlist(String proId);
+	List<MProcess> proing();
+	List<MProcess> teams();
+	int setTeam(String projectId,String teamId);
+	List<MProcess> startProjects(String employeeId);
 	}

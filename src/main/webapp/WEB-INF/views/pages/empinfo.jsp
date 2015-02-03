@@ -44,12 +44,20 @@
 					$.each(json, function(index, item) { // foreach해줌 
 						var td = "<td>" + item.name + "</td>" + "<td>"
 								+ item.phone + "</td>" + "<td>"
-								+ item.address + "</td>" + "<td>"
-								+ item.email + "</td>" + "<td>"
-								+ item.posName + "</td>" + "<td>"
+								+ item.address + "</td>" + "<td>";
+								if(item.email == null){
+									td +=  "-</td>" + "<td>";
+								}else{
+									td += item.email + "</td>" + "<td>";
+								}
+							td += item.posName + "</td>" + "<td>"
 								+ item.teamName + "</td>" + "<td>"
-								+ item.hiredate + "</td>" + "<td>"
-								+ item.birth + "</td>";
+								+ item.hiredate + "</td>" + "<td>";
+								if(item.birth == null){
+									td += "-</td>";
+								}else{
+									td += item.birth + "</td>";
+								}
 						$("<tr>" + td + "</tr>").appendTo($("#datalist")); // 만듬
 					});
 				}
@@ -81,7 +89,7 @@
 			endpage = 0;
 			listck = 'O';
 			$("#empTitle").empty();
-			$("#empTitle").text("『인원조회』");
+			$("#empTitle").text("인원조회");
 			$("#datalist").empty();			
 			empInFoList(startpage,listck);
 		});
@@ -91,7 +99,7 @@
 			endpage = 0;
 			listck = 'D';
 			$("#empTitle").empty();
-			$("#empTitle").text("『개발 부서 인원』");
+			$("#empTitle").text("개발 부서 인원");
 			$("#datalist").empty();			 // 안에있는 내용 삭제
 			empInFoList(startpage,listck);
 		});
@@ -101,7 +109,7 @@
 			endpage = 0;
 			listck = 'M';
 			$("#empTitle").empty();
-			$("#empTitle").text("『유지 보수 부서 인원』");
+			$("#empTitle").text("유지 보수 부서 인원");
 			$("#datalist").empty();
 			empInFoList(startpage,listck);
 		});
@@ -123,6 +131,7 @@
 				empInFoList(startpage,listck);
 				$("#page").text(startpage);
 				$("#nextdesc").removeClass("disabled");
+				$("#nextasc").removeClass("disabled");
 				if(startpage == 1){
 					$("#nextasc").addClass("disabled");
 				}
@@ -139,6 +148,7 @@
 				empInFoList(startpage,listck);
 				$("#page").text(startpage);
 				$("#nextasc").removeClass("disabled");
+				$("#nextdesc").removeClass("disabled");
 				if(startpage == endpage){
 					$("#nextdesc").addClass("disabled");
 				}
@@ -162,11 +172,11 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>OMG 가족들♥</h1>
+				<h1><i class="fa  fa-users"></i>직원조회</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">직원정보</li>
+					<li class="active">직원조회</li>
 				</ol>
 			</section>
 
@@ -177,7 +187,9 @@
 						<div class="box box-solid">
 							<div class="box-body">
 								<div class="row">
-									<h1 id="empTitle" style="float: left; font-weight: bold;">『인원조회』</h1>
+									<div style="margin: 20px;">
+										<h1 id="empTitle" style="float: left; font-weight: bold;">인원조회</h1>
+									</div>
 									<span style="float: right !important; margin: 10px;">
 										<button id="open" class="btn btn-default btn-flat">전체</button>
 										<button id="develop" class="btn btn-primary btn-flat">개발</button>
@@ -206,14 +218,14 @@
 											</div>
 										</div>
 									</div>
-									<div class="box-footer clearfix">
-										<div id="buttoncontroll" class="pull-right">
-											<span id="page"></span>/<span id="total"></span>
-											<span id="buttoncontroll">
-											</span>
-										</div>
-									</div>
 								</div>
+							</div>
+							<div class="box-footer clearfix">
+								<div id="buttoncontroll" class="pull-right">
+									<span id="page"></span>/<span id="total"></span>
+									<span id="buttoncontroll">
+									</span>
+								</div>		
 							</div>
 						</div>
 					</div>
@@ -235,6 +247,5 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
-
 </body>
 </html>

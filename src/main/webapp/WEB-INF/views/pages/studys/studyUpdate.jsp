@@ -36,7 +36,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>§Study 수정§</h1>
+				<h1> <i class="fa fa-laptop"></i>Study 수정</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice"><i class="fa fa-dashboard"></i>
 							Home</a></li>
@@ -68,12 +68,22 @@
 									</tr>
 									<tr>
 										<th>Study day</th> 
-										<td><input type="text" name="studyday" id="studyday" /></td>
+										<td> 
+										 	<select name="studyday">
+											    <option value="월요일" selected="selected">월요일</option>
+											    <option value="화요일">화요일</option>
+											    <option value="수요일">수요일</option>
+											    <option value="목요일">목요일</option>
+											    <option value="금요일">금요일</option> 
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<td colspan="2">
-										<input type="submit" id="add" value="등록">
-										<input type="button" id="cancel" onclick="location.href='index'" value="취소"></td>
+										<input type="submit" class="btn btn-default" id="add" value="등록">
+										<input type="button" 
+										
+										class="btn btn-default" id="cancel" onclick="location.href='index'" value="취소"></td>
 									</tr>
 								</table>
 							</form>

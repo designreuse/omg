@@ -100,7 +100,7 @@ public class RProComtroller {
 		protemp.setProjectPrice(price);
 		protemp.setStartDate(start);
 		protemp.setEndDate(end);
-		protemp.setDepartmentId(deptId);;
+		protemp.setDepartmentId(deptId);
 		salService.salProjectUpdate(protemp);
 		return "redirect:index_s";
 	}
@@ -397,7 +397,7 @@ public class RProComtroller {
 	}
 	
 	// 프로 승인하거나 중지하거나 불가라고 하기 
-	@RequestMapping("appInsert")
+	@RequestMapping(value="appInsert", method=RequestMethod.POST)
 	public @ResponseBody String appInsert(HttpSession session,
 			@RequestParam("proid") String proId,
 			@RequestParam("app") String app){

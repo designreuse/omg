@@ -112,7 +112,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>메시지함</h1>
+				<h1><i class="fa fa-envelope"></i> 메시지함</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i class="fa fa-dashboard"></i>Home</a></li>
 					<li class="active">메시지함</li>
@@ -314,7 +314,7 @@
 							
 						});
 						var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-									 "<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
+									 "<button id='nextdesc' class='btn btn-xs btn-primary '><i class='fa fa-caret-right'></i></button>";
 						$(button).appendTo($("#buttoncontroll"));
 					}
 				}
@@ -323,9 +323,10 @@
 			$.ajax({					// 페이지 총페이지수 구하기
 				url: "total" ,
 				dataType: "text",
+				async: false,
 				success : function(text) {
 					endpage = parseInt(((text-1) / 5) + 1);
-					if(text > 10){
+					if(text > 5){
 						$("#page").text(startpage);
 						$("#total").text(endpage);
 						$("#nextasc").addClass("disabled");
@@ -427,7 +428,7 @@
 							});
 						}
 						var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-						 			 "<button id='nextdesc' class='btn btn-xs btn-primary'><i class='fa fa-caret-right'></i></button>";
+						 			 "<button id='nextdesc' class='btn btn-xs btn-primary '><i class='fa fa-caret-right'></i></button>";
 						$(button).appendTo($("#buttoncontroll"));
 					}
 				});
@@ -435,9 +436,10 @@
 				$.ajax({					// 페이지 총페이지수 구하기
 					url: "total" ,
 					dataType: "text",
+					async: false,
 					success : function(text) {
 						endpage = parseInt(((text-1) / 5) + 1);
-						if(text > 10){
+						if(text > 5){
 							$("#page").text(startpage);
 							$("#total").text(endpage);
 							$("#nextasc").addClass("disabled");
@@ -464,6 +466,7 @@
 					dataType: "json",
 					data: "name="+name+"&page="+srhstartpage,
 					async: false,
+					type: "post",
 					success: function(json) {
 						if(json != ""){
 							$.each(json, function(index, item) {
@@ -494,7 +497,7 @@
 					async: false,
 					success : function(text) {
 						srhendpage = parseInt(((text-1) / 5) + 1);
-						if(text > 10){
+						if(text > 5){
 							$("#page").text(srhstartpage);
 							$("#total").text(srhendpage);
 							$("#nextasc2").addClass("disabled");
@@ -518,6 +521,7 @@
 						url: "surechMsg",
 						dataType: "json",
 						data :  "name="+name+"&page="+srhstartpage,
+						type: "post",
 						success : function(json) {
 							if(json != ""){
 								$("#msglist").empty();
@@ -551,6 +555,7 @@
 						url: "surechMsg",
 						dataType: "json",
 						data :  "name="+name+"&page="+srhstartpage,
+						type: "post",
 						success : function(json) {
 							if(json != ""){
 								$("#msglist").empty();

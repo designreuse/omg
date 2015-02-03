@@ -29,11 +29,25 @@
 		startpage = 1;
 		endpage = 0;
 		total = 0;
+		study = [];
+		ck = 0;
+		$.ajax({
+			url:"supplylistNum",
+			dataType: "json",
+			async: false,
+			success : function(json){
+					$.each(json, function(index, items) {
+					   study.push(items);
+					   
+					});
+			}
+		});
+		
 		$.ajax({				// 처음 메시지 가져오기
 			url: "studylist",	// 변경
 			dataType: "json",
 			data:  "page="+startpage,
-			//async: false,
+			async: false,
 			success : function(json) {
 				 if(json != ""){
 					data = json;
@@ -47,8 +61,21 @@
 							"<td>"+item.studyday+"</td>"+
 							"<td>"+item.startDate+"</td>"+
 							"<td>"+item.joincnt+"</td>"+
-							"<td><a  id='join' class='btn btn-danger'  stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
-							"<td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a><span id='deltext' style='color: red;'></span></td>";
+							"<td>";
+							for(var i=0; i<study.length;i++){
+								if(study[i]== item.studyNum){
+									ck = 1; break;
+								}
+								else{
+									ck = 0;
+								}
+							} 
+							if(ck==1){
+								td += "<a  id='join' class='btn btn-danger' disabled stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a>";
+							} else {
+								td += "<a  id='join' class='btn btn-danger'stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a>";
+							}
+							td += "</td><td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a></td>";
 						$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
 					});
 					
@@ -59,27 +86,7 @@
 				} 
 			}
 		});
-		/* 
- 		$.ajax({
-			url:"supplylistNum",
-			dataType: "json",
-			async: false,
-			success : function(json){
-			//	alert("정지");
-				$("#join").on("click",function(){
-					//alert("버튼");
-					$.each(json, function(index, item) {
-						$(data).each(function() {
-							var stunum = $(this).attr("stuNum");
-							alert("stunum:"+stunum+"item"+item);
-							if(stunum==item){
-								$(this).addClass("disabled");
-							}
-						});
-					});
-				});
-			}
-		});  */
+	 
  		
 		$.ajax({					// 페이지 총페이지수 구하기
 			url: "total" ,
@@ -111,8 +118,21 @@
 									"<td>"+item.studyday+"</td>"+
 									"<td>"+item.startDate+"</td>"+
 									"<td>"+item.joincnt+"</td>"+
-									"<td><a class='btn btn-danger' id='join' stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
-									"<td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a><span id='deltext' style='color: red;'></span></td>";
+									"<td>";
+									for(var i=0; i<study.length;i++){
+										if(study[i]== item.studyNum){
+											ck = 1; break;
+										}
+										else{
+											ck = 0;
+										}
+									} 
+									if(ck==1){
+										td += "<a  id='join' class='btn btn-danger' disabled stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a>";
+									} else {
+										td += "<a  id='join' class='btn btn-danger'stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a>";
+									}
+								td +="</td><td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a></td>";
 								$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
 							});
 						}
@@ -151,8 +171,21 @@
 									"<td>"+item.studyday+"</td>"+
 									"<td>"+item.startDate+"</td>"+
 									"<td>"+item.joincnt+"</td>"+
-									"<td><a class='btn btn-danger' id='join' stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a><span id='jointext' style='color: red;'></span></td>"+
-									"<td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a><span id='deltext' style='color: red;'></span></td>";
+									"<td>";
+									for(var i=0; i<study.length;i++){
+										if(study[i]== item.studyNum){
+											ck = 1; break;
+										}
+										else{
+											ck = 0;
+										}
+									} 
+									if(ck==1){
+										td += "<a  id='join' class='btn btn-danger' disabled stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a>";
+									} else {
+										td += "<a  id='join' class='btn btn-danger'stuNum='"+item.studyNum+"' user1='${user.employeeId}' cre1='"+item.writer+"' mcnt='"+item.memberCnt+"' cnt='"+item.joincnt+"'>신청</a>";
+									}
+								td +="</td><td><a href='del?writer="+item.writer+"&studyN="+item.studyNum+"' class='btn btn-info' id='del' user2='${user.employeeId}' cre2='"+item.writer+"'>삭제</a></td>";
 								$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
 							});
 							
@@ -192,7 +225,6 @@
 						success : function(txt){
 						}
 					});
-					$(this).next("#jointext").text("신청완료됨.");
 				}
 			}
 			
@@ -207,7 +239,7 @@
 			var txt = "삭제 권한이 없음";
 			 
 			if(creId != userId){
-				$(this).next("#deltext").text(txt);
+				alert(txt);
 			}
 		});
 		
@@ -236,7 +268,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>§Study 목록§</h1>
+				<h1> <i class="fa fa-laptop"></i>Study 목록</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">스터디</li>
@@ -245,13 +277,14 @@
 
 			<!-- Main content -->
 			<section class="content">
+			<div class="mailbox row">
 				<div class="col-xs-12">
 					<div class="box" >
 						<div class="box-header">
 										<h3 class="box-title">Study list</h3>
 						</div>
 						<div class="box-body table responsive no-padding">
-							<span id = pageController style="float: right;">	</span>
+							
 							<table id="gode" class="table table-hover">
 								<thead>
 									<tr>
@@ -272,12 +305,13 @@
 								</tbody>
 							</table>
 								
-					 
+					 	
 						</div>
 						<div class="box-footer clearfix">
+							<span id = pageController style="float: right;">	</span>
 								<div class="pull-left">
-									<input type="button" id="add" onclick="location.href='studySupply'" value="new">
-									<input type="button" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">
+									<input type="button" class="btn btn-default" id="add" onclick="location.href='studySupply'" value="new">
+									<input type="button"class="btn btn-default" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">
 								</div>
 						</div>
 					</div>
@@ -289,7 +323,7 @@
 		<!-- /.right-side -->
 	</div>
 	<!-- ./wrapper -->
-
+</div>
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script

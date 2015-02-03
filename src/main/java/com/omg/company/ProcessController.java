@@ -13,7 +13,6 @@ public class ProcessController {
 	@RequestMapping("index")
 	public String index(HttpSession session){
 		Employees emp = (Employees)session.getAttribute("user");
-		String manager = (String)session.getAttribute("Manager");
 		if(emp == null){							// 로그인 여부
 			return "redirect:../login";
 		}else if(emp.getDepartmentId().equalsIgnoreCase("M")){ // 유지보수

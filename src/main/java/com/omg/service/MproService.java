@@ -58,4 +58,24 @@ public class MproService {
 		return list;
 	}
 	
+	public List<MProcess> proing() {
+		List<MProcess> list = dao.proing();
+		return list;
+	}
+	
+	public List<MProcess> teams() {
+		List<MProcess> list = dao.teams();
+		return list;
+	}
+	
+	public int setTeam(String projectId, String teamId) {
+		
+		int setteam = dao.setTeam(projectId, teamId);
+		return setteam;
+		
+	}
+	public List<MProcess> startProjects(String employeeId) {
+		List<MProcess> list =dao.startProjects(employeeId);
+		return list;
+	}
 }

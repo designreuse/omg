@@ -18,6 +18,7 @@
 <result property="email" column="EMAIL"/>
 <result property="positionName" column="POSITION_NAME"/>
 <result property="salary" column="salary"/>
+<result property="teamName" column="team_name"/>
 </resultMap>
 
 <!--현재 프로젝트 리스트  -->
@@ -147,6 +148,42 @@ where project_id=#{proId}
 and employee_id =#{empId}
 </delete>
 
+
+<!--부장이 프로젝트 진행중인거 머잇나 보는 리스트  -->
+<select id="proing" resultMap="dto">
+<![CDATA[ select * from projects pro, teams t
+where END_DATE >= sysdate
+and pro.TEAM_ID = t.TEAM_ID
+and pro.TEAM_ID like 'M%' ]]>
+</select>
+
+
+
+
+<select id="team" resultMap="dto">
+select * from teams
+where team_id like 'M%'
+</select>
+
+<update id="setTeam" parameterType="String">
+update projects
+set TEAM_ID = #{teamId}
+where PROJECT_ID = #{projectId}
+</update>
+
+
+<!--부장용 스타트 프로젝트  -->
+<select id="startProjects" resultMap="dto" parameterType="String">
+<![CDATA[ select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp, project_tech prote, techs tech
+where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
+and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
+and prote.project_id = pro.project_id
+and prote.tech_id = tech.tech_id
+and pro.approval = 'O'
+and pro.TEAM_ID is null
+and pro.START_DATE>=sysdate
+and emp.EMPLOYEE_ID = #{employeeId} ]]>
+</select>
 
 
 </mapper>

@@ -66,16 +66,16 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 			$("#btn").empty();
 			var sales="<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
 					+"<select id='years' name='years'>";
-			$(function(){
-				while(start<=year){
-					if(year== date.getFullYear()){
-					sales += "<option value="+year+" selected='selected'>"+year+"</option>";					
-					} else{
-						sales += "<option value="+year+">"+year+"</option>";
-					}
-					year--;
+			
+			while(start<=year){
+				if(year== date.getFullYear()){
+				sales += "<option value="+year+" selected='selected'>"+year+"</option>";					
+				} else{
+					sales += "<option value="+year+">"+year+"</option>";
 				}
-			});
+				year--;
+			}
+			
 				
 			sales +="</select></span></div></div>"
 				+"<h3><div id='sales'></div></h3>"
@@ -93,7 +93,6 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 			$("#dSale").empty();
 			$("#mSale").empty();
 			
-			
 			$.ajax({
 				url:"p_sumProPrice",
 				data:"year="+years,
@@ -106,6 +105,7 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 					$("#sales").text(years+"년도 총 매출액: 0");
 				}
 			});
+			
 			$.ajax({
 				url:"p_sumBydeptProPrice",
 				data:"year="+years +"&dept=D",
@@ -117,7 +117,8 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 				error:function(){
 					$("#dSale").text("-");
 				}
-			});		
+			});	
+			
 			$.ajax({
 				url:"p_sumBydeptProPrice",
 				data:"year="+years +"&dept=M",
@@ -287,6 +288,8 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 				url: "appInsert",
 				dataType: "text",
 				data: "proid="+proid+"&app="+app,
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				type: "post",
 				success: function(txt) {
 					if(txt != ""){
 						alert("승인상태가 변경되었습니다.");
@@ -313,7 +316,7 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>경영 부서 업무</h1>
+				<h1><i class="fa fa-th-list"></i> <b>경영 부서 업무</b></h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i>Home</a></li>

@@ -112,8 +112,17 @@
 					async: false,
 					success : function(text) {
 						endpage = parseInt(((text-1) / 10) + 1);
-						$("#page").text(startpage);
-						$("#total").text(text);
+						if(text > 10){
+							$("#page").text(startpage);
+							$("#total").text(endpage);
+							$("#nextasc").addClass("disabled");
+							$("#nextdesc").removeClass("disabled");
+						}else{
+							$("#page").text(1);
+							$("#total").text(1);
+							$("#nextasc").addClass("disabled");
+							$("#nextdesc").addClass("disabled");
+						}
 					}
 				});
 			
@@ -173,11 +182,11 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>인사 & 회계 부서 업무</h1>
+				<h1><i class="fa fa-th-list"></i><b>인사 &amp; 회계 부서 업무</b></h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i>Home</a></li>
-					<li class="active">인사 & 회계 부서 업무</li>
+					<li class="active">인사 &amp; 회계 부서 업무</li>
 				</ol>
 			</section>
 
@@ -550,7 +559,7 @@
 					str += "<div class='table-responsive'><form action='p_insert' method='POST'><table class='table table-bordered' border='1'>";
 					str += "<tr>"+"<th>사 번</th>"+"<td><input type='text' name='id'id='id'><span id='empId'></span></td></tr>";
 					str += "<tr>"+"<th>이 름</th>"+"<td><input type='text'name='name'></td></tr>";
-					str += "<tr>"+"<th>입사일(yyyy-mm-dd)</th>"+"<td><input type='text' name='hiredate'></td></tr>";
+					str += "<tr>"+"<th>입사일</th>"+"<td><input type='date' name='hiredate'></td></tr>";
 					str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='manager'></td></tr>";
 					str += "<tr>"+"<th>부 서</th>";
 					$.ajax({

@@ -67,7 +67,7 @@ public class MessageController {
 		return msg;
 	}
 	
-	@RequestMapping("/surechMsg")
+	@RequestMapping(value="/surechMsg", method=RequestMethod.POST)
 	public @ResponseBody List<Messages> surech(HttpSession session, @RequestParam("name") String name, @RequestParam("page") int page){
 		Employees user = (Employees)session.getAttribute("user");
 		Messages msg = new Messages();
