@@ -45,6 +45,7 @@
 						var td = "<td>" + item.name + "</td>" + "<td>"
 								+ item.phone + "</td>" + "<td>"
 								+ item.address + "</td>" + "<td>"
+								
 								+ item.email + "</td>" + "<td>"
 								+ item.posName + "</td>" + "<td>"
 								+ item.teamName + "</td>" + "<td>"
@@ -166,7 +167,7 @@
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">직원정보</li>
+					<li class="active">직원조회</li>
 				</ol>
 			</section>
 

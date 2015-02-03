@@ -100,7 +100,7 @@ public class RProComtroller {
 		protemp.setProjectPrice(price);
 		protemp.setStartDate(start);
 		protemp.setEndDate(end);
-		protemp.setDepartmentId(deptId);;
+		protemp.setDepartmentId(deptId);
 		salService.salProjectUpdate(protemp);
 		return "redirect:index_s";
 	}
