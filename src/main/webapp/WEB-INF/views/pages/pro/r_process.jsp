@@ -288,6 +288,8 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 				url: "appInsert",
 				dataType: "text",
 				data: "proid="+proid+"&app="+app,
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				type: "post",
 				success: function(txt) {
 					if(txt != ""){
 						alert("승인상태가 변경되었습니다.");

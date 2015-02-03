@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,7 +8,8 @@
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
 	$(function() {
-		$("#subbtn").click(function() {
+		$("#subbtn").click(function() {			
+			window.opener.location.reload();
 			window.close();
 		});
 	});
@@ -22,8 +23,8 @@
 			<table border="1" style="background-color: #ccffaa">
 				<tr><th style="color: #8888ff">프 로 젝 트 명 :</th><td><input id="proname" type="text" value="${pro.projectName}" name="proname" /></td></tr><!-- 팀장 -->
 				<tr><th style="color: #8888ff">금         액  :</th><td><input type="text" value="${pro.projectPrice}" name="price"/></td></tr>
-				<tr><th style="color: #8888ff">시작일(y-m-d):</th><td><input type="text" value="${pro.startDate}" name="start"/></td></tr>
-				<tr><th style="color: #8888ff">종료일(y-m-d):</th><td><input type="text" value="${pro.endDate}" name="end"/></td></tr>
+				<tr><th style="color: #8888ff">시작일(y-m-d):</th><td><input type="date" value="${pro.startDate}" name="start"/></td></tr>
+				<tr><th style="color: #8888ff">종료일(y-m-d):</th><td><input type="date" value="${pro.endDate}" name="end"/></td></tr>
 				<tr><th style="color: #8888ff">부          서 :</th><td><input id="dept" type="text" value="${pro.departmentId}" name="dept"/><br>(개발:D, 유지보수:M)</td></tr><!-- 팀장 -->
 				<tr><th style="color: #8888ff">맡    은    팀 :</th><td>${pro.teamName}</td></tr>
 				<tr><th style="color: #8888ff">승  인  여  부 :</th><td>${pro.approval}</td></tr>
