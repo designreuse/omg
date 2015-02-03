@@ -347,7 +347,7 @@
 						$(re).appendTo($("#detailview"));
 		});
 		
-		
+
 		$("#startlist").on("click","#open",function(){
 			var proId=$(this).attr("projectId");
 			

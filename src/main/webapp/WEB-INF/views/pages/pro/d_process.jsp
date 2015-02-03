@@ -118,45 +118,6 @@ function procol(){
 		});
 
 		procol();
-		 /* $.ajax({
-			url : "dPro",
-			dataType : "json",
-			success : function(json) {
-				$("#dPro").empty();
-				var str = "";
-				
-				str += "<tr>";
-				str += "<td>" + json.projectName + "</td>";
-				str += "<td>" + json.techName + "</td>";
-				str += "<td>" + json.startDate + "</td>";
-				str += "<td>" + json.endDate + "</td>";
-				str += "</tr>";
-				
-				$("#dPro").append(str);
-			}
-		});
-	
-		 
-		$.ajax({
-			url : "ListColleague",
-			dataType : "json",
-			async : false,
-			success : function(json) {
-				$("#ListColleague").empty();
-				var str = "";
-				$.each(json, function(index, item) {
-					str += "<tr>";
-					str += "<td>" + (index + 1) + "</td>";
-					str += "<td>" + item.name + "</td>";
-					str += "<td>" + item.phone + "</td>";
-					str += "<td>" + item.email + "</td>";
-					str += "<td>" + item.positionName + "</td>";
-					str += "</tr>";
-				});
-				$("#ListColleague").append(str);
-			}
-	
-		}); */
 
 		$.ajax({
 					url : "startPro",
@@ -450,7 +411,7 @@ function procol(){
 												<h3 class="box-title" id="h3">New Project</h3>
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="Start" class="btn btn-danger btn-flat">New Project</a>
+												<a id="NewP" class="btn btn-danger btn-flat">New Project</a>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="Current" class="btn btn-warning btn-flat">Current Project</a>
@@ -462,7 +423,7 @@ function procol(){
 										</div>
 										<div id="detailview" class="col-md-10 col-sm-8">
 											<div class="box-header">
-												<h3 class="box-title">Start Project</h3>
+												<h3 class="box-title">New Project</h3>
 											</div>
 											<div class="box-body">
 
