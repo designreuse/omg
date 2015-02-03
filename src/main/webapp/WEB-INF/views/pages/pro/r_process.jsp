@@ -98,6 +98,7 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 				url:"p_sumProPrice",
 				data:"year="+years,
 				dataType:"json",
+				async: false,
 				success:function(json){
 					$("#sales").text(years+"년도 총 매출액: "+json);
 				},
@@ -138,6 +139,7 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 					url:"p_sumProPrice",
 					data:"year="+years,
 					dataType:"json",
+					async: false,
 					success:function(json){
 						$("#sales").text(years+"년도 총 매출액: "+json);
 					},
@@ -173,6 +175,12 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 		}
 		
 		salFun();
+		
+		//매출관리 버튼 눌렀을 경우.
+		$("#bnt_window").on("click","#sale",function(){
+			salFun();
+		});
+		
 		startpage = 1;
 		endpage = 0;	
 		// < 버튼 눌림
@@ -384,40 +392,8 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 				$("#appCK").text('-');
 			}
 		});
-		
-		h_id="";
-		function clickTrEvent(trObj) {
-			h_id = trObj.id;
-	       
-	        $("#table_body").empty();
-		  	var sales = "<div class='table-responsive' id='table_body'><table class='table table-bordered' border='1'>"
-					+ "<thead><tr align='center'><th></th><th>ID</th><th>팀 이름</th><th>팀 장(사번)</th><th>직 책</th><th>팀원 수</th></tr></thead>"
-					+ "<tbody>";
-					
-					$.ajax({
-						url:"p_teamConSelect",
-						data:"deptid="+h_id,
-						dataType:"json",
-						async: false,
-						success:function(json){
-							$.each(json,function(index,item){
-								sales += "<tr><td class='small-col'><input name='Tcbox' value='"+item.teamId+"' type='checkbox' /></td><td>"+item.teamId+"</td><td>"+item.teamName+"</td>"
-								      +  "<td>"+item.employeeName+"("+item.teamManager+")</td><td>"+item.positionName+"</td><td>"+item.count+"</td></tr>";
-							});
-						}
-					});
-			sales	+= "</tbody></table></div>";
-			$(sales).appendTo($("#table_body"));  
-	    } 
-		
-		
-		//매출관리 버튼 눌렀을 경우.
-		$("#bnt_window").on("click","#sale",function(){
-			salFun();
-		});
-		
 	});
-	</script> 
+</script> 
 	
 </body>
 </html>
