@@ -268,7 +268,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>§Study 목록§</h1>
+				<h1> <i class="fa fa-laptop"></i>Study 목록</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">스터디</li>
@@ -277,6 +277,7 @@
 
 			<!-- Main content -->
 			<section class="content">
+			<div class="mailbox row">
 				<div class="col-xs-12">
 					<div class="box" >
 						<div class="box-header">
@@ -309,8 +310,8 @@
 						<div class="box-footer clearfix">
 							<span id = pageController style="float: right;">	</span>
 								<div class="pull-left">
-									<input type="button" id="add" onclick="location.href='studySupply'" value="new">
-									<input type="button" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">
+									<input type="button" class="btn btn-default" id="add" onclick="location.href='studySupply'" value="new">
+									<input type="button"class="btn btn-default" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">
 								</div>
 						</div>
 					</div>
@@ -322,7 +323,7 @@
 		<!-- /.right-side -->
 	</div>
 	<!-- ./wrapper -->
-
+</div>
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script

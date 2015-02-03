@@ -36,7 +36,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>§Study 개설§</h1>
+				<h1> <i class="fa fa-laptop"></i>Study 개설</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice"><i class="fa fa-dashboard"></i>
 							Home</a></li>
@@ -96,8 +96,8 @@
 									
 									<tr>
 										<td colspan="2">
-										<input type="submit" id="add" value="등록">
-										<input type="button" id="cancel" onclick="location.href='index'" value="취소"></td>
+										<input type="submit" class="btn btn-default" id="add" value="등록">
+										<input type="button" class="btn btn-default" id="cancel" onclick="location.href='index'" value="취소"></td>
 										 
 									</tr>
 								</table>

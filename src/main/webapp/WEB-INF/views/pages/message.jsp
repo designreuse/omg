@@ -112,7 +112,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>메시지함</h1>
+				<h1><i class="fa fa-envelope"></i> 메시지함</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i class="fa fa-dashboard"></i>Home</a></li>
 					<li class="active">메시지함</li>
