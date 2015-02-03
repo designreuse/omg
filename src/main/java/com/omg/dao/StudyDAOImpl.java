@@ -23,8 +23,7 @@ public class StudyDAOImpl implements StudyDAO {
 		int endPage = startPage + (10 - 1);
 		pageInfo.put("startPage", startPage);
 		pageInfo.put("endPage", endPage);
-		System.out.println(startPage);
-		System.out.println(endPage);
+		
 		List<Studys> list = sqlSession.selectList("com.omg.study.listStudy",pageInfo);
 		return list;
 	}
@@ -37,9 +36,7 @@ public class StudyDAOImpl implements StudyDAO {
 	//스터디 새로 만들때 실행되는 부분. < new 스터디 등록 >
 	@Override
 	public int Study_Register(Studys dto) {
-		System.out.println("DAO"+dto.getStartDate());
 		int result = sqlSession.insert("com.omg.study.insertStudy",dto);
-	 
 		return result;
 	}
 
@@ -73,7 +70,6 @@ public class StudyDAOImpl implements StudyDAO {
 	//내가 신청한 스터디 목록 조회할때 실행되는 부분. < 신청한 스터디 목록 조회 >
 	@Override
 	public List<Studys> JoinStudy_Select(String id) {
-		 
 		List<Studys> list = sqlSession.selectList("com.omg.study.myStudy",id);
 		return list;
 	}
@@ -117,7 +113,6 @@ public class StudyDAOImpl implements StudyDAO {
 	@Override
 	public Studys infoStudy(Map dto) {
 		Studys study = sqlSession.selectOne("com.omg.study.infostudy",dto);
-		
 		return study;
 	}
 
