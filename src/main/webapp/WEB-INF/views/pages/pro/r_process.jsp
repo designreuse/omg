@@ -56,6 +56,22 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 }
 	
 	$(function() {
+		function GetCommaValue(num) {     // 숫자에 콤마 삽입  
+	        var len, point, str;  
+	  
+	        num = num + "";  
+	        point = num.length % 3  ;
+	        len = num.length;  
+	  
+	        str = num.substring(0, point);  
+	        while (point < len) {  
+	            if (str != "") str += ",";  
+	            str += num.substring(point, point + 3);  
+	            point += 3;  
+	        }  
+	        return str; 
+	        
+	      }
 		function salFun() {
 			date = new Date();
 			year = date.getFullYear();	//현재 년도
@@ -97,35 +113,32 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 				url:"p_sumProPrice",
 				data:"year="+years,
 				dataType:"json",
-				async: false,
 				success:function(json){
-					$("#sales").text(years+"년도 총 매출액: "+json);
+					$("#sales").text(years+"년도 총 매출액: "+GetCommaValue(json));
 				},
 				error:function(){
 					$("#sales").text(years+"년도 총 매출액: 0");
 				}
 			});
-			
 			$.ajax({
 				url:"p_sumBydeptProPrice",
 				data:"year="+years +"&dept=D",
 				dataType:"json",
 				async: false,
 				success:function(json){
-				$("#dSale").text(json);
+					$("#dSale").text(GetCommaValue(json));
 				} ,
 				error:function(){
 					$("#dSale").text("-");
 				}
-			});	
-			
+			});		
 			$.ajax({
 				url:"p_sumBydeptProPrice",
 				data:"year="+years +"&dept=M",
 				dataType:"json",
 				async: false,
 				success:function(json){
-					$("#mSale").text(json);
+					$("#mSale").text(GetCommaValue(json));
 				} ,
 				error:function(){
 					$("#mSale").text("-");
@@ -140,9 +153,8 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 					url:"p_sumProPrice",
 					data:"year="+years,
 					dataType:"json",
-					async: false,
 					success:function(json){
-						$("#sales").text(years+"년도 총 매출액: "+json);
+						$("#sales").text(years+"년도 총 매출액: "+GetCommaValue(json));
 					},
 					error:function(){
 						$("#sales").text(years+"년도 총 매출액: 0");
@@ -154,7 +166,7 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 					dataType:"json",
 					async: false,
 					success:function(json){
-						$("#dSale").text(json);
+						$("#dSale").text(GetCommaValue(json));
 					} ,
 					error:function(){
 						$("#dSale").text("-");
@@ -166,12 +178,13 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 					dataType:"json",
 					async: false,
 					success:function(json){
-						$("#mSale").text(json);
+						$("#mSale").text(GetCommaValue(json));
 					} ,
 					error:function(){
 						$("#mSale").text("-");
 					}
-				});				
+				});
+					
 			});
 		}
 		
