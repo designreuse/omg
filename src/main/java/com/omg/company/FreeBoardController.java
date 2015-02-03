@@ -71,14 +71,7 @@ public class FreeBoardController {
 
 	@RequestMapping(value = "/freedetail", method = RequestMethod.GET)
 	public String detail(HttpSession session,
-			@RequestParam("freeboardNum") int freeboardNum, Model model/*
-																		 * , @
-																		 * PathVariable
-																		 * (
-																		 * "page"
-																		 * ) int
-																		 * page
-																		 */) {
+			@RequestParam("freeboardNum") int freeboardNum, Model model) {
 		List<Comments> commentsList = commentsService
 				.commentsList(freeboardNum);
 		List<Comments> comments = commentsService.selectEmpName(commentsList);
@@ -108,7 +101,7 @@ public class FreeBoardController {
 
 	@RequestMapping(value = "/freeupdate", method = RequestMethod.POST)
 	public String update(HttpSession session, FreeBoard Board) {
-		System.out.println(Board.getFreeboardNum());
+		//System.out.println(Board.getFreeboardNum());
 		freeBoardService.update(Board);
 		return "redirect:index/1";
 
