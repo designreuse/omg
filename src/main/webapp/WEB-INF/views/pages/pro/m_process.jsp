@@ -79,6 +79,9 @@
 		});
 		});
 		
+		
+		
+		
 		//과거에 했엇던 프로젝트리스트
 		$("#ex").click(function() {
 			$.ajax({
@@ -112,8 +115,6 @@
 
 
 			//첫화면 프로젝트 이름이랑 잉여리스트랑 인원투입나오게하기
-			
-				
 			$.ajax({
 				url : "start",
 				dataType : "json",
@@ -135,9 +136,76 @@
 				}
 			});
 
-	
 			
+			
+			/*프로젝트 받은거 다보여주기  */
+			$("#Proing").click(function() {
 
+				$.ajax({
+					url : "proing", /* 부장페이지에서의 현재 진행중인 프로젝트 전체 */
+					dataType : "json",
+					success : function(json) {
+						$("#ProingList").empty();
+						var str = "";
+						$.each(json, function(index, item) {
+							str += "<tr>";
+							str += "<td>" + item.projectId + "</td>";
+							str += "<td>" + item.projectName + "</td>";
+							str += "<td>" + item.startDate + "</td>";
+							str += "<td>" + item.endDate + "</td>";
+							str += "<td>" + item.teamName + "</td>";
+							str += "</tr>";
+						});
+						$("#ProingList").append(str);
+					}
+				});
+			});
+			
+			
+			/*부장 일하는거 아작스  */
+			$.ajax({
+				url : "startPro",
+				dataType : "json",
+				success : function(json) {
+					$("#startPro").empty();
+					var str = "";
+					$.each(json,function(index, item) {
+										str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>";
+										str += "<tr>";
+										str += "<td>" + item.projectName
+												+ "</td>";
+										str += "<td>" + item.techName
+												+ "</td>";
+										str += "<td>" + item.startDate
+												+ "</td>";
+										str += "<td>" + item.endDate
+												+ "</td>";
+										$.ajax({
+													url : "selectTeam",
+													dataType : "json",
+													async : false,
+													success : function(json) {
+														str += "<td><select name='selectTeam'>";
+														$.each(json,function(index,item) {
+																			str += "<option value="+item.teamId+">"
+																					+ item.teamName
+																					+ "</option>";
+																		});
+														str += "</select></td>";
+													}
+												});
+										str += "<td>"
+												+ "<input type='submit'  value='결정'>"
+												+ "</td>";
+										str += "</tr>";
+									});
+					$("#startPro").append(str);
+				}
+			});
+
+			$("#starting").click(function() {
+				$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
+			});
 	});
 </script>
 </head>
@@ -165,6 +233,91 @@
 			<!-- Main content -->
 			<section class="content">
 				<!-- 세션1개로 통합하기 -->
+				
+				<!--부장 페이지일때  -->
+					<c:if test="${user.teamId==null}">
+					<div class="mailbox row">
+						<div class="col-xs-12">
+							<div class="box box-solid">
+								<div class="box-body">
+									<div class="row">
+										<div class="col-md-2 col-sm-4" id="bnt_window">
+											<div class="box-header">
+												<h3 class="box-title" id="h3">시작되는 프로젝트</h3>
+											</div>
+											<div style="margin-top: 15px;">
+												<a id="starting" class="btn btn-danger btn-flat">시작되는 프로젝트</a>
+											</div>
+											<div style="margin-top: 15px;">
+												<a id="Proing" class="btn btn-warning btn-flat">진행중인 프로젝트</a>
+											</div>
+
+											<div style="margin-top: 15px;">
+												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
+											</div>
+										</div>
+										<div id="detailview" class="col-md-10 col-sm-8">
+											<div class="box-header">
+												<h3 class="box-title">Start Project</h3>
+											</div>
+											<div class="box-body">
+												<!-- /.col (LEFT) -->
+												<!-- /.row -->
+												<div class="table-responsive">
+													<form action="setTeam">
+														<table class="table table-bordered" border="1">
+
+															<thead>
+																<tr>
+																	<th>Project명</th>
+																	<th>관련 기술</th>
+																	<th>Start day</th>
+																	<th>End day</th>
+																	<th>Team</th>
+																	<th>[결정]</th>
+																</tr>
+															</thead>
+															<tbody id="startPro">
+															</tbody>
+
+
+														</table>
+													</form>
+												</div>
+											</div>
+											<div class="box-footer clearfix">
+												<div class="pull-right"></div>
+											</div>
+											<!-- box-footer -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</c:if>
+				<script>
+				$("#bnt_window")
+				.on(
+						"click",
+						"#Proing",
+						function() {
+
+							$("#detailview").empty();
+							$("#h3").text("진행중인 프로젝트");
+							var spare = "<div class='box-header'><h3 class='box-title'>유지보수부의 프로젝트</h3></div><div class='box-body'>"
+									+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+									+ "<thead><tr><th>ProId</th><th>ProName</th><th>Start day</th><th>End day</th><th>TEAM_ID</th>"
+									+ "</tr></thead><tbody id='ProingList'>"
+									+ "</tbody></table></div></div>";
+							$(spare).appendTo($("#detailview"));
+						});
+				</script>
+				
+				
+				<!--팀장페이지일때  -->
+			<c:if test="${teamMgr.teamManager==user.employeeId && (teamMgr.teamId=='M01' || teamMgr.teamId=='M02')}">
 				<div class="mailbox row">
 					<div class="col-xs-12">
 						<div class="box box-solid">
@@ -180,14 +333,14 @@
 										<div style="margin-top: 15px;">
 											<a id="spare" class="btn btn-danger btn-flat">스페어리스트</a>
 										</div>
+									
+
+										<div style="margin-top: 15px;">
+											<a id="re" class="btn btn-primary btn-flat">Current	Project</a>
+										</div>
 										<div style="margin-top: 15px;">
 											<a id="ex" class="btn btn-warning btn-flat">My Career</a>
 										</div>
-
-										<div style="margin-top: 15px;">
-											<a id="re" class="btn btn-primary btn-flat">current list</a>
-										</div>
-
 									</div>
 
 
@@ -212,55 +365,6 @@
 												</table>
 											</div>
 										</div>
-							<!-- 		
-									
-										<div class='box-header'>
-											<h3 class='box-title'>프로젝트에투입될인원</h3>
-										</div>
-										<div class='box-body'>
-											<div class="table-responsive">
-												<table class="table table-bordered" border="1">
-													<thead>
-														<tr>
-															<th>NO.</th>
-															<th>Name</th>
-															<th>Phone</th>
-															<th>Email</th>
-															<th>Position</th>
-															<th>제거</th>
-														</tr>
-													</thead>
-													<tbody id="putlist">
-													</tbody>
-												</table>
-											</div>
-										</div>
-
-
-
-										<div class="box-header">
-											<h3 class="box-title">잉여리스트</h3>
-										</div>
-										<div class="box-body">
-											<div class="table-responsive">
-											<form action="setpeople">
-												<table class="table table-bordered" border="1">
-													<thead>
-														<tr>
-															<th>NO.</th>
-															<th>Name</th>
-															<th>Phone</th>
-															<th>Email</th>
-															<th>Position</th>
-															<th>추가</th>
-														</tr>
-													</thead>
-													<tbody id="sparelist">
-													</tbody>
-												</table>
-												</form>
-											</div>
-										</div> -->
 									
 										<!-- /.box-body -->
 										<div class="box-footer clearfix">
@@ -279,6 +383,134 @@
 					<!-- 미백효과 끝 -->
 				</div>
 				<!--칼럼12로 나누기 끝  -->
+				</c:if>
+
+
+				<!--일반 페이지  -->
+				<c:if test="${user.teamId!=null && teamMgr.teamManager!=user.employeeId}">
+					<div class="mailbox row">
+						<div class="col-xs-12">
+							<div class="box box-solid">
+								<div class="box-body">
+									<div class="row">
+										<div class="col-md-2 col-sm-4" id="bnt_window">
+											<div class="box-header">
+												<h3 class="box-title" id="h3">Current Project</h3>
+											</div>
+											<div style="margin-top: 15px;">
+												<a id="re" class="btn btn-danger btn-flat">Current
+													Project</a>
+											</div>
+											<div style="margin-top: 15px;">
+												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
+											</div>
+										</div>
+										<div id="detailview" class="col-md-10 col-sm-8">
+											<div class="box-header">
+												<h3 class="box-title">Current project</h3>
+											</div>
+											<div class="box-body">
+												<div class="table-responsive">
+													<table class="table table-bordered" border="1">
+
+														<thead>
+															<tr>
+																<th>Project명</th>
+																<th>관련 기술</th>
+																<th>Start day</th>
+																<th>End day</th>
+															</tr>
+														</thead>
+														<tbody id="relist">
+														</tbody>
+
+
+													</table>
+												</div>
+											</div>
+											<div class="box-header">
+											<h3 class="box-title">Colleague</h3>
+										</div>
+										<div class="box-body">
+											<div class="table-responsive">
+												<table class="table table-bordered" border="1">
+													<thead>
+														<tr>
+															<th>NO.</th>
+															<th>Name</th>
+															<th>Phone</th>
+															<th>Email</th>
+															<th>Position</th>
+														</tr>
+													</thead>
+													<tbody id="colist">
+													</tbody>
+												</table>
+											</div>
+										</div><!--colleageu리스트 끝  -->
+									
+										<!-- /.box-body -->
+										<div class="box-footer clearfix">
+											<div class="pull-right"></div>
+										</div>
+										<!-- box-footer -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+				</c:if>
+			<script>
+			
+			$.ajax({
+				url : "colist",
+				dataType : "json",
+				success : function(json) {
+					$("#colist").empty();
+					var str = "";
+					$.each(json, function(index, item) {
+
+						str += "<tr>";
+						str += "<td>" + (index + 1) + "</td>";
+						str += "<td>" + item.employeeName + "</td>";
+						str += "<td>" + item.phone + "</td>";
+						str += "<td>" + item.email + "</td>";
+						str += "<td>" + item.positionName + "</td>";
+						str += "</tr>";
+
+					});
+
+					$("#colist").append(str);
+				}
+			});
+
+			//현재 투입중인 프로젝트리스트
+			$.ajax({
+
+				url : "relist",
+				dataType : "json",
+				success : function(json) {
+					$("#relist").empty();
+					var sta = "";
+					$.each(json, function(index, item) {
+
+						sta += "<tr>";
+						sta += "<td>" + item.projectName + "</td>";
+						sta += "<td>" + item.techName + "</td>";
+						sta += "<td>" + item.startDate + "</td>";
+						sta += "<td>" + item.endDate + "<td>";
+						sta += "</tr>";
+
+					});
+					$("#relist").append(sta);
+				},
+				error : function() {
+					alert("relist 애러다");
+				}
+
+			});
+			</script>
 
 
 			</section>

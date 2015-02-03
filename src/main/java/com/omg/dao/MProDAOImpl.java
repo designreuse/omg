@@ -54,8 +54,10 @@ public class MProDAOImpl implements MProDAO {
 
 	@Override
 	public List<MProcess> startpro(String teamId) {
+		if(teamId == null){
+			teamId = "";
+		}
 		List<MProcess> list =session.selectList("com.omg.mpro.startpro",teamId);
-
 		return list;
 	}
 
@@ -87,6 +89,38 @@ public class MProDAOImpl implements MProDAO {
 
 		List<MProcess> list = session.selectList("com.omg.mpro.view",proId);
 		return list;
+	}
+
+	@Override
+	public List<MProcess> proing() {
+		List<MProcess> list = session.selectList("com.omg.mpro.proing");
+		return list;
+	}
+
+	@Override
+	public List<MProcess> teams() {
+		List<MProcess> list=session.selectList("com.omg.mpro.team");
+		return list;
+	}
+
+
+
+	@Override
+	public List<MProcess> startProjects(String employeeId) {
+		List<MProcess> list = session.selectList("com.omg.mpro.startProjects",employeeId);
+		return list;
+	}
+
+	@Override
+	public int setTeam(String projectId, String teamId) {
+	
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("projectId",projectId);
+		map.put("teamId", teamId);
+		
+		int setteam = session.update("com.omg.mpro.setTeam");
+		
+		return setteam;
 	}
 
 

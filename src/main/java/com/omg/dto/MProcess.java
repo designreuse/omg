@@ -17,7 +17,7 @@ public class MProcess {
 	private String email;
 	private String positionName;
 	private int salary;
-	
+	private String teamName;
 	
 	
 	public int getSalary() {
@@ -104,6 +104,12 @@ public class MProcess {
 	}
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
+	}
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 	
 	
