@@ -21,6 +21,8 @@ public class DProcess {
 	private String positionName;
 	private String approval;
 	private String approvalName;
+	private int salary;
+	
 	
 	public String getProjectId() {
 		return projectId;
@@ -117,6 +119,12 @@ public class DProcess {
 	}
 	public void setApprovalName(String approvalName) {
 		this.approvalName = approvalName;
+	}
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
 	}
 	
 }

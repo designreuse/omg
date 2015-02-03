@@ -14,4 +14,10 @@ public interface DProDAO {
 	List<DProcess> teams();
 	List<DProcess> proing();
 	int setTeam(Map map);
+	List<DProcess> sparelist(String teamId,String projectId);
+	List<DProcess> putlist(String projectId);
+	List<DProcess> startpro(String teamId);
+	int setpeople(String proId,String empId);
+	int delete(String proId, String empId);
+	List<DProcess> viewlist(String proId);
 }

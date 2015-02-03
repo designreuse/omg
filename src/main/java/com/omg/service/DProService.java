@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.omg.dao.DProDAO;
 import com.omg.dto.DProcess;
 
+
 @Service
 public class DProService {
 
@@ -55,5 +56,33 @@ public class DProService {
 		
 		return dProDAO.setTeam(map);
 
+	}
+	
+	public List<DProcess> sparelist(String teamId, String projectId) {
+		List<DProcess> list = dProDAO.sparelist(teamId, projectId);
+		return list;
+	}
+	public List<DProcess> putlist(String projectId) {
+		List<DProcess> list = dProDAO.putlist(projectId);
+		return list;
+		}
+	public List<DProcess> startpro(String teamId) {
+		List<DProcess> list = dProDAO.startpro(teamId);
+		return list;
+	}
+	
+	public int setpeople(String proId, String empId) {
+		int set = dProDAO.setpeople(proId, empId);
+		return set;
+	}
+	
+	public int delete(String proId, String empId) {
+		int delete =dProDAO.delete(proId, empId);
+		return delete;
+	}
+	
+	public List<DProcess> viewlist(String proId) {
+		List<DProcess> list = dProDAO.viewlist(proId);
+		return list;
 	}
 }

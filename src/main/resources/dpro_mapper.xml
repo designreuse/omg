@@ -20,6 +20,7 @@
 <result property="positionName" column="POSITION_NAME"/>
 <result property="approval" column="APPROVAL"/>
 <result property="approvalName" column="APPROVAL_NAME"/>
+<result property="salary" column="salary"/>
 </resultMap>
 <select id="dpro" resultMap="dto" parameterType="String">
 <![CDATA[ select * from employees e, project_emp pe, projects pro, project_tech prote, techs tech
@@ -74,6 +75,7 @@ and emp.EMPLOYEE_ID = #{employeeId} ]]>
 <select id="proing" resultMap="dto">
 <![CDATA[ select * from projects pro, teams team
 where END_DATE >= sysdate
+and START_DATE <= sysdate
 and pro.TEAM_ID = team.TEAM_ID
 and pro.TEAM_ID like 'D%' ]]>
 </select>
@@ -88,4 +90,68 @@ update projects
 set TEAM_ID = #{teamId}
 where PROJECT_ID = #{projectId}
 </update>
+
+<select id="spareList" resultMap="dto">
+select * from employees e, position p
+where e.POSITION_ID = p.POSITION_ID
+and e.team_id = #{teamId}
+and not exists(
+select * from projects p , project_emp pe, employees emp, position pos
+where p.project_id = pe.project_id and pe.employee_id = emp.employee_id and pos.position_id = emp.position_id  
+and p.project_id = #{projectId}
+and emp.employee_id = e.employee_id
+)
+</select>
+
+<select id="putList" resultMap="dto" parameterType="String">
+<![CDATA[
+select *
+from projects p , project_emp pe, employees e,position pos
+where p.project_id = pe.project_id and pe.employee_id = e.employee_id and pos.position_id = e.position_id
+and p.project_id = #{projectId}
+]]>
+</select>
+
+<select id="startpro" resultMap="dto" parameterType="String">
+<![CDATA[ 
+select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp, PROJECT_TECH prote, TECHS tech
+where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
+and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
+and prote.PROJECT_ID = pro.PROJECT_ID
+and prote.TECH_ID = tech.TECH_ID
+and pro.approval = 'O'
+and pro.TEAM_ID = #{teamId}
+and pro.START_DATE>=sysdate
+]]>
+</select>
+
+<select id="view" resultMap="dto" parameterType = "String">
+<![CDATA[ 
+select * from DEPARTMENTS dept, PROJECTS pro, EMPLOYEES emp, PROJECT_TECH prote, TECHS tech
+where emp.EMPLOYEE_ID = dept.DEPARTMENT_MANAGER
+and pro.DEPARTMENT_ID = dept.DEPARTMENT_ID
+and prote.PROJECT_ID = pro.PROJECT_ID
+and prote.TECH_ID = tech.TECH_ID
+and pro.approval = 'O'
+and pro.project_id = #{proId}
+and pro.START_DATE>=sysdate
+]]>
+</select>
+
+
+
+
+<insert id="setpeople" parameterType="String">
+insert into project_emp
+values(#{proId}, #{empId})
+</insert>
+
+
+
+<delete id="delete" parameterType="String">
+delete from project_emp
+where project_id=#{proId}
+and employee_id =#{empId}
+</delete>
+
 </mapper>

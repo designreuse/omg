@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -104,7 +105,7 @@ public class DProController {
 
 	@RequestMapping(value = "/setTeam")
 	public String setTeam(HttpSession session,
-			@RequestParam("selectTeam") String teamId,
+			@RequestParam("teamId") String teamId,
 			@RequestParam("projectId") String projectId) {
 
 		Map map= new HashMap() ;
@@ -117,5 +118,65 @@ public class DProController {
 
 		return "redirect:index";
 
+	}
+	
+	@RequestMapping("/spare")
+	public @ResponseBody List<DProcess> sparelist(HttpSession session,@RequestParam("proId") String projectId){
+		
+		Employees emps = (Employees)session.getAttribute("user");
+		List<DProcess> list = dProService.sparelist(emps.getTeamId(), projectId);
+		return list;
+				
+	}
+	
+	@RequestMapping("/setpeople")
+	public @ResponseBody int setpeople(HttpSession session,
+			@RequestParam("proId") String proId,
+			@RequestParam("empId") String empId){
+		
+		int set = dProService.setpeople(proId, empId);
+		
+		return set;
+	}
+	
+	
+	@RequestMapping("/put")
+	public @ResponseBody List<DProcess> putlist(HttpSession session, Model model,
+			@RequestParam("projectId") String projectId){
+
+		List<DProcess> list = dProService.putlist(projectId);
+
+		return list;
+	}
+	
+	@RequestMapping("/start")
+	public @ResponseBody List<DProcess> startlist(HttpSession session){
+		
+		Employees emps = (Employees)session.getAttribute("user"); 
+		
+		List<DProcess> list = dProService.startpro(emps.getTeamId());
+		
+		return list;
+	}
+	
+	@RequestMapping("/delete")
+	public @ResponseBody int delete(HttpSession session,
+			@RequestParam("proId") String proId,
+			@RequestParam("empId") String empId){
+		
+		
+		
+		int delete = dProService.delete(proId, empId);
+		return delete;
+	}
+
+	
+	@RequestMapping("/view")
+	public @ResponseBody List<DProcess> viewlist(HttpSession session,
+			@RequestParam("proId") String proId){
+		
+		System.out.println(proId);
+		List<DProcess> list = dProService.viewlist(proId);
+		return list;
 	}
 }
