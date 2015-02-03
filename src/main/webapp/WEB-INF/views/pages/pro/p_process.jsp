@@ -550,7 +550,7 @@
 					str += "<div class='table-responsive'><form action='p_insert' method='POST'><table class='table table-bordered' border='1'>";
 					str += "<tr>"+"<th>사 번</th>"+"<td><input type='text' name='id'id='id'><span id='empId'></span></td></tr>";
 					str += "<tr>"+"<th>이 름</th>"+"<td><input type='text'name='name'></td></tr>";
-					str += "<tr>"+"<th>입사일(yyyy-mm-dd)</th>"+"<td><input type='text' name='hiredate'></td></tr>";
+					str += "<tr>"+"<th>입사일</th>"+"<td><input type='date' name='hiredate'></td></tr>";
 					str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='manager'></td></tr>";
 					str += "<tr>"+"<th>부 서</th>";
 					$.ajax({

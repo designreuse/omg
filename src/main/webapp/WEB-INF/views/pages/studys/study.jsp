@@ -283,7 +283,7 @@
 										<h3 class="box-title">Study list</h3>
 						</div>
 						<div class="box-body table responsive no-padding">
-							<span id = pageController style="float: right;">	</span>
+							
 							<table id="gode" class="table table-hover">
 								<thead>
 									<tr>
@@ -304,9 +304,10 @@
 								</tbody>
 							</table>
 								
-					 
+					 	
 						</div>
 						<div class="box-footer clearfix">
+							<span id = pageController style="float: right;">	</span>
 								<div class="pull-left">
 									<input type="button" id="add" onclick="location.href='studySupply'" value="new">
 									<input type="button" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">

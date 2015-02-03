@@ -68,7 +68,15 @@
 									</tr>
 									<tr>
 										<th>Study day</th> 
-										<td><input type="text" name="studyday" id="studyday" /></td>
+										<td> 
+										 	<select name="studyday">
+											    <option value="월요일" selected="selected">월요일</option>
+											    <option value="화요일">화요일</option>
+											    <option value="수요일">수요일</option>
+											    <option value="목요일">목요일</option>
+											    <option value="금요일">금요일</option> 
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<td colspan="2">

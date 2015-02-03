@@ -91,7 +91,7 @@
 									
 									<tr>
 										<th>Start Date</th>
-										<td><input type="text" name="startDate" id="startDate" /></td>
+										<td><input type="date" name="startDate" id="startDate" /></td>
 									</tr>
 									
 									<tr>
