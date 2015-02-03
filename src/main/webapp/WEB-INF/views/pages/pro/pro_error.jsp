@@ -42,9 +42,9 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="error-page">
-                        <h2 class="headline text-info"> 404</h2>
+                        <h2 class="headline text-info">???</h2>
                         <div class="error-content">
-                            <h3><i class="fa fa-warning text-yellow"></i> 이런! 페이지가 없습니다.</h3>
+                            <h3><i class="fa fa-warning text-yellow"></i>부서가 확인이 안되었습니다</h3>
                             <p>
                                           현재 본인의 부서를 확인할수 업습니다. 인사과에 연락해 주세요
                                           처음으로 가실려면 <a href='/company/notice/index'>이곳을 누르시면 처음으로 돌아가기</a> 감사합니다.
