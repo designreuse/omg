@@ -304,20 +304,7 @@
 		$(sales).appendTo($("#table_body"));  
     } 
 	$(function(){
-		/* function GetCommaValue(n) {
-		     
-		    var strNumber = String(n).split(',');      //문자열 상태일때 소수점 추출
-		     
-		    n = parseFloat(strNumber);
-		 
-		    if (strNumber.length > 1) {
-		        return n.toLocaleString().slice(0, -3) + "," + strNumber[1];
-		    }
-		    else {
-		        return n.toLocaleString().slice(0, -3);
-		    }
-		}
-		 */
+		
 		function GetCommaValue(num) {     // 숫자에 콤마 삽입  
 	        var len, point, str;  
 	  
