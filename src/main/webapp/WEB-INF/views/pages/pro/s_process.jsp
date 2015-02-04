@@ -425,7 +425,7 @@
 				        window._childwin.focus();
 				}else{								// 새창이 띄워져 있지 않을때
 					var popUrl = "salProDetail?proNum="+cbox;		
-					var popOption = "width=390, height=330, resizable=no, scrollbars=no, status=no, dependent=no;";    //팝업창 옵션(optoin)
+					var popOption = "width=390, height=330, resizable=no, scrollbars=no, status=no, dependent=no, location=no;";    //팝업창 옵션(optoin)
 						window.open(popUrl,"프로젝트 수정 패이지",popOption);
 				}
 			}

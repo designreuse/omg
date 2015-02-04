@@ -83,10 +83,10 @@
 				<input type="hidden" name='department_id'	value="${user.departmentId}">
 				공지<input type="radio" name='checked' value='O'>
 				<c:if test="${user.departmentId == 'M'}">
-					개발<input type="radio" name='checked' value='M' checked>
+					유지보수<input type="radio" name='checked' value='M' checked>
 				</c:if>
 				<c:if test="${user.departmentId == 'D'}">
-					유지보수<input type="radio" name='checked' value='D' checked>
+					개발<input type="radio" name='checked' value='D' checked>
 				</c:if>
 				<c:if test="${user.departmentId == 'R'}">
 					인사<input id="personnaldept" type="radio" name='checked' value='P'>
