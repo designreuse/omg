@@ -33,14 +33,12 @@ function procol(){
 		success : function(json) {
 			$("#dPro").empty();
 			var str = "";
-			
 			str += "<tr>";
 			str += "<td>" + json.projectName + "</td>";
 			str += "<td>" + json.techName + "</td>";
 			str += "<td>" + json.startDate + "</td>";
 			str += "<td>" + json.endDate + "</td>";
 			str += "</tr>";
-			
 			$("#dPro").append(str);
 		}
 	});
