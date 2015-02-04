@@ -388,8 +388,6 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 <script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- AdminLTE App -->
 <script src="/company/resources/js/AdminLTE/app.js"	type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-<script src="/company/resources/js/AdminLTE/demo.js" type="text/javascript"></script>
 <script>
 	$(function() {
 		$("#detailview").on("change", "#approval", function() {

@@ -418,9 +418,6 @@
 	<!-- AdminLTE App -->
 	<script src="/company/resources/js/AdminLTE/app.js"
 		type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/company/resources/js/AdminLTE/demo.js"
-		type="text/javascript"></script>
 	<script>
 		$(function() { 						// -> 해야됨~~~~~~~!!!!!!
 			function updateProOpen(cbox){

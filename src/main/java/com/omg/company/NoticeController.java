@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import com.omg.dto.*;
 import com.omg.service.*;
 
-
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
-	
-	
 	@Autowired
 	private NoticeService noticeService;
 	
@@ -34,13 +31,6 @@ public class NoticeController {
 			return "redirect:../login";
 		}
 		return "pages/notices/notice";
-	}
-	
-	
-	
-	private Model addAttribute(String string, int page) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	//글쓰기 겟
@@ -79,8 +69,6 @@ public class NoticeController {
 		return "redirect:index";
 	}
 	
-	
-	
 	//상세보기
 	@RequestMapping(value="/noticeDetail")
 	public String noticeDetail(HttpSession session,@RequestParam("notice_num") int notice_num, Model model) {
@@ -114,7 +102,6 @@ public class NoticeController {
 		return "pages/notices/updateNotice";
 	}
 	
-	
 	//업데이트 노티스의 post
 	@RequestMapping(value="/updateNotice",method=RequestMethod.POST)
 	public String updatePost(HttpSession session,Notice notice){
@@ -124,7 +111,6 @@ public class NoticeController {
 		return "redirect:index";
 	}
 
-	
 	//List
 	@RequestMapping(value="/openlist/{page}")
 	public @ResponseBody List<Notice> develop(HttpSession session, @PathVariable("page") int page) {
@@ -133,8 +119,6 @@ public class NoticeController {
 		
 		return notices; 
 	}
-	
-	
 	
 	//checked가 여러개일때 list로 보내기
 	@RequestMapping(value="/deptlist/{page}")
@@ -151,6 +135,7 @@ public class NoticeController {
 		return notices; 
 	}
 	
+	// 총 갯수 구하기
 	@RequestMapping(value="/total")
 	public @ResponseBody String totalcount(HttpSession session, 
 											  Model model,
@@ -160,8 +145,7 @@ public class NoticeController {
 		return total.toString();
 	}
 	
-	
-	
+	// 부서 확인하는 함수
 	@RequestMapping("/checkDept")
 	public @ResponseBody String checkDept(HttpSession session){
 		Employees emp = (Employees)session.getAttribute("user");
@@ -171,8 +155,23 @@ public class NoticeController {
 			return "M";
 		}else if(emp.getDepartmentId().equalsIgnoreCase("D")){
 			return "D";
-		}else{
-			return null;
 		}
+		return null;
+	}
+	
+	// 경영 부서 화인해서 라디오 체크하게 하기
+	@RequestMapping("checkRunTeam")
+	public @ResponseBody String checkRunTeam(HttpSession sesssion){
+		Employees user = (Employees)sesssion.getAttribute("user");
+		if(user.getDepartmentId().equalsIgnoreCase("R")){
+			if(user.getTeamId() == null || user.getTeamId().equalsIgnoreCase("R01")){
+				return "R";
+			}else if(user.getTeamId().equalsIgnoreCase("P01")){
+				return "P";
+			}else if(user.getTeamId().equalsIgnoreCase("S01")){
+				return "S";
+			}
+		}
+		return null;
 	}
 }

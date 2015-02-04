@@ -313,17 +313,17 @@
 									<input type="button" class="btn btn-default" id="add" onclick="location.href='studySupply'" value="new">
 									<input type="button"class="btn btn-default" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">
 								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-
 			</section>
 			<!-- /.content -->
 		</aside>
 		<!-- /.right-side -->
 	</div>
 	<!-- ./wrapper -->
-</div>
+
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script
@@ -331,9 +331,6 @@
 		type="text/javascript"></script>
 	<!-- AdminLTE App -->
 	<script src="/company/resources/js/AdminLTE/app.js"
-		type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
 </body>
 </html>
