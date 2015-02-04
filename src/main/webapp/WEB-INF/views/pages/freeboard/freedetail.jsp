@@ -59,13 +59,13 @@
 									<br>
 									<c:if test="${user.employeeId==freedetail.writer}">
 										<a
-											href="/company/freeboard/freeupdate?freeboardNum=${freedetail.freeboardNum}"><input
+											href="/company/freeboard/freeupdate?freeboardNum=${freedetail.freeboardNum}"><input class='btn btn-default'
 											type="button" value="수정" name="수정"></a>
 										<a
-											href="/company/freeboard/freedelete?freeboardNum=${freedetail.freeboardNum}"><input
+											href="/company/freeboard/freedelete?freeboardNum=${freedetail.freeboardNum}"><input class='btn btn-default'
 											type="button" value="삭제" name="삭제"></a>
 									</c:if>
-									<a href="/company/freeboard/index/1"><input type="button"
+									<a href="/company/freeboard/index/1"><input type="button" class='btn btn-default'
 										value="list로" name="list로"></a> <br> <br>
 									<div class="box-body">
 										<table class="table table-bordered">

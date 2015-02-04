@@ -78,8 +78,8 @@
 					<h2>『 내용 』</h2>
 					<textArea name="content" rows="30" cols="120">
 			</textArea>
-					<br> <br> <input type="submit" value="완성"> <a
-						href="index"><input type="button" value="list로"></a>
+					<br> <br> <input type="submit" class='btn btn-default' value="완성"> <a
+						href="index" class='btn btn-default'>list로</a>
 				</div>
 			</form>
 
