@@ -161,8 +161,9 @@
 				});
 			});
 			
-			
+			cpview();
 			/*부장 일하는거 아작스  */
+			function cpview() {
 			$.ajax({
 				url : "startPro",
 				dataType : "json",
@@ -185,7 +186,7 @@
 													dataType : "json",
 													async : false,
 													success : function(json) {
-														str += "<td><select name='selectTeam'>";
+														str += "<td><select id='selectTeam' name='selectTeam'>";
 														$.each(json,function(index,item) {
 																			str += "<option value="+item.teamId+">"
 																					+ item.teamName
@@ -195,9 +196,9 @@
 													}
 												});
 										str += "<td>"
-												+ "<input type='submit'  value='결정'>"
-												+ "</td>";
-										str += "</tr>";
+											+ "<a id='setTeam' class='btn btn-default btn-sm' proId='"+item.projectId+"'>"+"결정"+"</a>"
+											+ "</td>";
+									str += "</tr>";
 									});
 					$("#startPro").append(str);
 				}
@@ -206,7 +207,26 @@
 			$("#starting").click(function() {
 				$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
 			});
+			};
+	
+			/*setteam 버튼 눌럿을때  */
+			$("#detailview").on("click","#setTeam",function(){
+				var projectId = $(this).attr("proId");
+				var teamId =$(this).parent().parent().find("#selectTeam").val();
+				
+				$.ajax({
+					url:"setTeam",
+					data:"projectId="+projectId+"&teamId="+teamId,
+					dataType:"txt",
+					async:false,
+					success : function(txt) {
+					}
+				});
+				cpview();
+			});	
+	
 	});
+	
 </script>
 </head>
 <body class="skin-blue">
@@ -266,7 +286,7 @@
 												<!-- /.col (LEFT) -->
 												<!-- /.row -->
 												<div class="table-responsive">
-													<form action="setTeam">
+												
 														<table class="table table-bordered" border="1">
 
 															<thead>
@@ -284,7 +304,7 @@
 
 
 														</table>
-													</form>
+								
 												</div>
 											</div>
 											<div class="box-footer clearfix">

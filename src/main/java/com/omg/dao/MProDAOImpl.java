@@ -118,7 +118,7 @@ public class MProDAOImpl implements MProDAO {
 		map.put("projectId",projectId);
 		map.put("teamId", teamId);
 		
-		int setteam = session.update("com.omg.mpro.setTeam");
+		int setteam = session.update("com.omg.mpro.setTeam",map);
 		
 		return setteam;
 	}
