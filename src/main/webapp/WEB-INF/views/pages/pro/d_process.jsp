@@ -645,11 +645,7 @@ function procol(){
 												dataType:"json",
 												async:false,
 												success : function(json) {
-													 
 													
-													
-													$("#setpeople").addClass("disabled");
-					
 												}
 												
 											});
@@ -670,7 +666,7 @@ function procol(){
 											data:"empId="+empId+"&proId="+proId,
 											dataType:"json",
 											success:function(json){
-									
+										
 											}
 											
 											
@@ -683,13 +679,13 @@ function procol(){
 					
 					
 
-					$("#detailview").on("click","#setpeople",function(){
-						$(this).attr("href","index");				
-					});
+				/* 	$("#detailview").on("click","#setpeople",function(){
+						$(this).attr("href","view");				
+					}); */
 					
-					$("#detailview").on("click","#delete",function(){
+					/* $("#detailview").on("click","#delete",function(){
 						$(this).attr("href","index");				
-					});
+					}); */
 					</script>
 			</section>
 			</aside>
