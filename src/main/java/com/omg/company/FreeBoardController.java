@@ -101,7 +101,6 @@ public class FreeBoardController {
 
 	@RequestMapping(value = "/freeupdate", method = RequestMethod.POST)
 	public String update(HttpSession session, FreeBoard Board) {
-		//System.out.println(Board.getFreeboardNum());
 		freeBoardService.update(Board);
 		return "redirect:index/1";
 

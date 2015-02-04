@@ -29,14 +29,10 @@ public class FreeBoardService {
 	public List<FreeBoard> listBoard(int page) {
 		List<FreeBoard> list = freeBoardDAO.listBoard(page);
 		
-		System.out.println(list.size());
-		
 		return list;
 	}
 	public List<FreeBoard> selectListBoard(int page, String title) {
 		List<FreeBoard> list = freeBoardDAO.selectList(page, title);
-		
-		System.out.println(list.size());
 		
 		return list;
 	}
@@ -67,7 +63,6 @@ public class FreeBoardService {
 	}
 	public int count(int freeboardNum){
 		int count = freeBoardDAO.count(freeboardNum);
-		System.out.println(count);
 		return count;
 	}
 
