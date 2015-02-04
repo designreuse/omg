@@ -105,38 +105,31 @@
 								<div align="center">
 									<form action="../selectListBoard/1">
 										<input type="text" placeholder="제목입력" name="title"
-											style="text-align: center"><input type="submit"
-											value="검색"></a>
+											style="text-align: center"><input type="submit" class="btn btn-primary btn-sm"
+											value="검색">
 									</form>
-									<a href="/company/freeboard/freewrite"><input type="button"
+									<a href="/company/freeboard/freewrite"><input type="button" class="btn btn-primary btn-sm"
 										value="글쓰기" style="float: right;"></a>
 								</div>
 							</div>
-							<div colspan="5" align="center"><jsp:include
+							<div align="center"><jsp:include
 									page="/WEB-INF/views/paging/freeboardpaging.jsp" /></div>
 						</div>
-
+						
 						<!-- /.box -->
 					</div>
 				</div>
 
 			</section>
 			<!-- /.content -->
+		</aside>
+		<!-- /.right-side -->
+	</div>
+	<!-- ./wrapper -->
 
-			<!-- /.right-side -->
-
-			<!-- ./wrapper -->
-
-			<script
-				src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-			<script
-				src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
-				type="text/javascript"></script>
-			<!-- AdminLTE App -->
-			<script src="/company/resources/js/AdminLTE/app.js"
-				type="text/javascript"></script>
-			<!-- AdminLTE for demo purposes -->
-			<script src="/company/resources/js/AdminLTE/demo.js"
-				type="text/javascript"></script>
+	<script	src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+	<!-- AdminLTE App -->
+	<script src="/company/resources/js/AdminLTE/app.js" type="text/javascript"></script>
 </body>
 </html>

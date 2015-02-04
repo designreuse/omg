@@ -60,8 +60,8 @@
 			}
 		});
 		
-		var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-	 				 "<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
+		var button = "<button id='nextasc' class='btn btn-sm btn-default disabled'><-</i></button>"+
+	 				 "<button id='nextdesc' class='btn btn-sm btn-default disabled'>-></i></button>";
 		$(button).appendTo($("#pageController"));
 
 		SelectEmpByDept(startpage,dept);
@@ -280,9 +280,6 @@
 		type="text/javascript"></script>
 	<!-- AdminLTE App -->
 	<script src="/company/resources/js/AdminLTE/app.js"
-		type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
 	<script>
 	h_id="";

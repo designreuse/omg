@@ -22,8 +22,29 @@
 <!-- Theme style -->
 <link href="/company/resources/css/AdminLTE.css" rel="stylesheet"
 	type="text/css" />
-	
-
+<script src="/company/resources/js/jquery-1.11.2.js"></script>
+<script>
+	$(function() {
+		$.ajax({
+			url: "checkRunTeam",
+			dataType: "text",
+			success : function(txt) {
+				if(txt != ""){
+					if(txt == 'R'){
+						$("#rundept").attr("checked","checked");
+					}else if( txt == 'S'){
+						$("#salarydept").attr("checked","checked");
+					}else if( txt == 'P'){
+						$("#personnaldept").attr("checked","checked");
+					}
+				}
+			},
+			error: function() {
+				alert('에러 발생');
+			}
+		});
+	});
+</script>
 </head>
 <body class="skin-blue">
 	<!-- header logo: style can be found in header.less -->
@@ -60,35 +81,33 @@
 
 			<div>
 				<input type="hidden" name='department_id'	value="${user.departmentId}">
-				O<input type="radio" name='checked' value='O'>
-				R<input type="radio" name='checked' value='R'>
-				M<input type="radio" name='checked' value='M'>
-				P<input type="radio" name='checked' value='P'>
-				D<input type="radio" name='checked' value='D'>
-				S<input type="radio" name='checked' value='S'>
+				공지<input type="radio" name='checked' value='O'>
+				<c:if test="${user.departmentId == 'M'}">
+					개발<input type="radio" name='checked' value='M' checked>
+				</c:if>
+				<c:if test="${user.departmentId == 'D'}">
+					유지보수<input type="radio" name='checked' value='D' checked>
+				</c:if>
+				<c:if test="${user.departmentId == 'R'}">
+					인사<input id="personnaldept" type="radio" name='checked' value='P'>
+					영업<input id="salarydept" type="radio" name='checked' value='S'>
+					경영<input id="rundept" type="radio" name='checked' value='R'>
+				</c:if>
 				<input type="hidden" value="${user.employeeId} " name=writers>
 				<!--user.employeeid를 받아와서 수정못하게함  -->
 
 				<h2>내용</h2>
 				<textArea name="content" rows="10" cols="100">
         		 </textArea>
-				<br> <input type="submit" value="완성">
+				<br> <input type="submit" class='btn btn-default' value="완성">
 			</div>
 		</form>
 
 	</aside>
 	</div>
 		
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script
-		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
-		type="text/javascript"></script>
-	<!-- AdminLTE App -->
-	<script src="/company/resources/js/AdminLTE/app.js"
-		type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/company/resources/js/AdminLTE/demo.js"
+	<script	src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
 		type="text/javascript"></script>
 </body>
 </html>

@@ -60,13 +60,13 @@
  				<input type="hidden" name=notice_num value="${update.notice_num}">
 				디파트아이디<input type="hidden" name=department_id value="${user.departmentId}"> 
 				체크드<input type="text"	name=checked>
-				작성자<input type="hidden" value="${user.employeeId} " name=writers>
+				작성자<input type="hidden" value="${user.employeeId}" name=writers>
 				<!--user.employeeid를 받아와서 수정못하게함  -->
 
 				<h2>내용</h2>
-				<textArea name="content" rows="50" cols="160"  ">${update.content}
+				<textArea name="content" rows="50" cols="160">${update.content}
         		 </textArea>
-				<br> <input type="submit" value="완성">
+				<br> <input type="submit" class='btn btn-default' value="완성">
 			</div>
 		</form>
 
@@ -80,9 +80,6 @@
 		type="text/javascript"></script>
 	<!-- AdminLTE App -->
 	<script src="/company/resources/js/AdminLTE/app.js"
-		type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
 </body>
 </html>

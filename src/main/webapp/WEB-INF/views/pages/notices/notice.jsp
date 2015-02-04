@@ -50,19 +50,23 @@
 				url : "checkDept",
 				dataType: "text",
 				success : function(txt) {
-					if(txt == "M"){
+					if(txt == "M"){						// 유지보수
 						$("#manage").removeClass("disabled");
 						$("#open").removeClass("disabled");
-					}else if(txt == "R"){
+						$("#run").parent().empty();
+						$("#development").parent().empty();
+					}else if(txt == "R"){				// 경영
 						$("#open").removeClass("disabled");
 						$("#run").removeClass("disabled");
 						$("#salary").removeClass("disabled");
 						$("#person").removeClass("disabled");
-					}else if(txt == "D"){
+						$("#manage").parent().empty();
+						$("#development").parent().empty();
+					}else if(txt == "D"){				// 개발
 						$("#development").removeClass("disabled");
 						$("#open").removeClass("disabled");
-					}else{
-						$("#open").removeClass("disabled");
+						$("#manage").parent().empty();
+						$("#run").parent().empty();
 					}
 				}
 			});
@@ -101,11 +105,11 @@
     						str += "<td>" +item.count+"</td>";
     						str += "</tr>"; 
     						if(checked == 'O'){
-    							button = "<button id='nextasc' class='btn btn-xs btn-primary disabled' dept='"+item.checked+"' check='"+item.checked+"'><i class='fa fa-caret-left'></i></button>"+
-			 				 			"<button id='nextdesc' class='btn btn-xs btn-primary' dept='"+item.checked+"' check='"+item.checked+"' ><i class='fa fa-caret-right'></i></button>";
+    							button = "<button id='nextasc' class='btn btn-sm btn-default disabled' dept='"+item.checked+"' check='"+item.checked+"'><-</i></button>"+
+			 				 			"<button id='nextdesc' class='btn btn-sm btn-default' dept='"+item.checked+"' check='"+item.checked+"' >-></i></button>";
     						}else{
-    							button = "<button id='nextasc2' class='btn btn-xs btn-primary disabled' dept='"+item.departmentId+"' check='"+item.checked+"'><i class='fa fa-caret-left'></i></button>"+
- 				 					 "<button id='nextdesc2' class='btn btn-xs btn-primary' dept='"+item.departmentId+"' check='"+item.checked+"' ><i class='fa fa-caret-right'></i></button>";
+    							button = "<button id='nextasc2' class='btn btn-sm btn-default disabled' dept='"+item.departmentId+"' check='"+item.checked+"'><-</i></button>"+
+ 				 					 "<button id='nextdesc2' class='btn btn-sm btn-default' dept='"+item.departmentId+"' check='"+item.checked+"' >-></i></button>";
     						}
     					});
     					$("#list").append(str);
@@ -373,7 +377,6 @@
 					<li class="active">공지사항</li>
 				</ol>
 			</section>
-			<asd></asd>
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
@@ -383,12 +386,17 @@
 								<h3 class="box-title">게시글</h3>
 								<span style="float: right !important; margin: 10px;">
 									<button value="O" id="open" class="btn btn-default btn-flat disabled" user="${user.departmentId}">공지사항</button>
-									<button value="D" id="development" class="btn btn-primary btn-flat disabled" user="${user.departmentId}">개발</button></a>
-									<button value="M" id="manage"class="btn btn-success btn-flat disabled" user="${user.departmentId}">유지보수</button>
-									<button value="R" id="run" class="btn btn-info btn-flat disabled" user="${user.departmentId}">경영</button>
-									<button value="P" id="person" class="btn btn-danger btn-flat disabled" user="${user.departmentId}">인사회계</button>
-									<button value="S" id="salary" class="btn btn-warning btn-flat disabled" user="${user.departmentId}">영업</button>
-												
+									<span>
+										<button value="D" id="development" class="btn btn-primary btn-flat disabled" user="${user.departmentId}">개발</button></a>
+									</span>
+									<span>
+										<button value="M" id="manage"class="btn btn-success btn-flat disabled" user="${user.departmentId}">유지보수</button>
+									</span>
+									<span>
+										<button value="R" id="run" class="btn btn-info btn-flat disabled" user="${user.departmentId}">경영</button>
+										<button value="P" id="person" class="btn btn-danger btn-flat disabled" user="${user.departmentId}">인사회계</button>
+										<button value="S" id="salary" class="btn btn-warning btn-flat disabled" user="${user.departmentId}">영업</button>
+									</span>
 								</span>
 							</div>
 							<!-- /.box-header -->
@@ -400,55 +408,41 @@
 										<th style="width: 13%">등록일</th>
 										<th style="width: 7%">작성자</th>
 										<th style="width: 5%">조회수</th>
-
 									</tr>
 									<tbody id="list"><!--tbody는 ajax에서 쓸때 어디부분했는지를 알기위해  -->
 									</tbody>
 								</table>
 
 								<div class="row">
-										<div class="col-xs-6">
-											<a href="write"><button class="btn btn-default">글쓰기</button></a>
+									<div class="col-xs-6">
+										<a href="write" class="btn btn-primary btn-sm">글쓰기</a>
+									</div>
+									<div class="col-xs-6">
+										<div class="pagination no-margin">
+											<span id = pageController style="float: right;"></span>
 										</div>
-										<div class="col-xs-6">
-											<div class="pagination no-margin">
-												<span id = pageController style="float: right;"></span>
-											</div>
-
-										</div>
+									</div>
 								</div>
+								<!-- /.box-body -->
+							</div>
+							<!-- /.box -->
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- /.content -->
+		</aside>
+		<!-- /.right-side -->
+	</div>
+	<!-- ./wrapper -->
 
-									<!-- /.box-body -->
-
-									</div>
-									<!-- /.box -->
-									</div>
-									</div>
-									</section>
-									<!-- /.content -->
-									</aside>
-									<!-- /.right-side -->
-									</div>
-									<!-- ./wrapper -->
-
-									<script
-										src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-									<script
-										src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
-										type="text/javascript"></script>
-									<!-- AdminLTE App -->
-									<script src="/company/resources/js/AdminLTE/app.js"
-										type="text/javascript"></script>
-									<!-- AdminLTE for demo purposes -->
-									<script src="/company/resources/js/AdminLTE/demo.js"
-										type="text/javascript"></script>
-									<!-- Bootstrap WYSIHTML5 -->
-									<script
-										src="/company/resources/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"
-										type="text/javascript"></script>
-									<!-- iCheck -->
-									<script
-										src="/company/resources/js/plugins/iCheck/icheck.min.js"
-										type="text/javascript"></script>
+	<script	src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"	type="text/javascript"></script>
+	<!-- AdminLTE App -->
+	<script src="/company/resources/js/AdminLTE/app.js"	type="text/javascript"></script>
+	<!-- Bootstrap WYSIHTML5 -->
+	<script	src="/company/resources/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"	type="text/javascript"></script>
+	<!-- iCheck -->
+	<script	src="/company/resources/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
 </body>
 </html>

@@ -50,10 +50,10 @@
 	<h2>내용:</h2>	
 	<div>${detail.content }</div>
 	<c:if test="${user.employeeId==detail.writer }">
-	<a href="updateNotice?title=${detail.title }&notice_num=${detail.notice_num}&content=${detail.content}" ><button>수정</button></a>
-	<a href="deleteNotice?notice_num=${detail.notice_num}"><button>삭제</button></a>
+	<a href="updateNotice?title=${detail.title }&notice_num=${detail.notice_num}&content=${detail.content}" class='btn btn-default'>수정</a>
+	<a href="deleteNotice?notice_num=${detail.notice_num}" class='btn btn-default'>삭제</a>
 	</c:if>
-	<a href="index"><button>공지사항으로</button></a>
+	<a href="index" class='btn btn-default'>공지사항으로</a>
 	</aside>
 	</div>
 	
@@ -64,9 +64,6 @@
 		type="text/javascript"></script>
 	<!-- AdminLTE App -->
 	<script src="/company/resources/js/AdminLTE/app.js"
-		type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/company/resources/js/AdminLTE/demo.js"
 		type="text/javascript"></script>
 </body>
 </html>
