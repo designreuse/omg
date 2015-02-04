@@ -79,8 +79,8 @@
 						$("<tr align='center'>"+td+"</tr>").appendTo($("#studylist")); 
 					});
 					
-					var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-					 	"<button id='nextdesc' class='btn btn-xs btn-primary'><i class='fa fa-caret-right'></i></button>";
+					var button = "<button id='nextasc' class='btn btn-sm btn-default disabled'><-</i></button>"+
+					 	"<button id='nextdesc' class='btn btn-sm btn-default'>-></i></button>";
 						$(button).appendTo($("#pageController"));
 
 				} 

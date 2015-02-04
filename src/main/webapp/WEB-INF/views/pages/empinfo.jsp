@@ -29,8 +29,8 @@
 		startpage = 1;
 		endpage = 0;
 		listck = 'O';
-		var button ="<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-					"<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
+		var button ="<button id='nextasc' class='btn btn-sm btn-default disabled'><-</i></button>"+
+					"<button id='nextdesc' class='btn btn-sm btn-default disabled'>-></i></button>";
 		$("#buttoncontroll").append(button);
 		empInFoList(startpage,listck);
 		function empInFoList(startpage,dept) {
