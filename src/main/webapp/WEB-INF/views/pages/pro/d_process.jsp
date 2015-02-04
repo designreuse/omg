@@ -27,7 +27,6 @@
 <script>
 /*진행중인 프로젝트와 동료리스트*/
 function procol(){
-	
 	$.ajax({
 		url : "dPro",
 		dataType : "json",
