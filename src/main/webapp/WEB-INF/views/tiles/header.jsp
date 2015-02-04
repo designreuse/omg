@@ -27,9 +27,13 @@
 		});
 	});
 	function popupOpen(){
-		var popUrl = "/company/my/index";	//팝업창에 출력될 페이지 URL
-		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-			window.open(popUrl,"",popOption);
+		if( window._childwin ){			  // 새창이 띄워져 있을때
+	        window._childwin.focus();
+		}else{					
+			var popUrl = "/company/my/index";	//팝업창에 출력될 페이지 URL
+			var popOption = "width=400, height=400, resizable=no, scrollbars=no, status=no, dependent=no, location=no;";    //팝업창 옵션(optoin)
+				window.open(popUrl,"",popOption);
+		}
 	}
 </script>
 <header class="header">
@@ -48,8 +52,7 @@
 		<div class="navbar-right">
 			<ul class="	nav navbar-nav">
 				<!-- Messages: style can be found in dropdown.less-->
-				<li class="dropdown messages-menu"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"> <i
+				<li class="dropdown messages-menu"><a class="dropdown-toggle" data-toggle="dropdown"> <i
 						class="fa fa-envelope"></i> <span class="label label-success"><span id='cnt'></span></span>
 				</a>
 					<ul class="dropdown-menu">
@@ -74,17 +77,18 @@
 						class="glyphicon glyphicon-user"></i> <span>
 							${user.name}[${permit}(${user.employeeId})] <i class="caret"></i>
 					</span>
-				</a>
+					</a>
 					<ul class="dropdown-menu">
-						<!-- User image -->
+					<!-- User image -->
 						<li class="user-header bg-light-blue"><img
 							src="${image}" class="img-circle"
 							alt="User Image" />
 							<p>
 								<small>(권한) ${permit}</small>
 								${user.name} <small>사원번호. ${user.employeeId}  </small>
-							</p></li>
-						<!-- Menu Footer-->
+							</p>
+						</li>
+					<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
 								<a href="javascript:popupOpen();" class="btn btn-default btn-flat">내정보
@@ -95,7 +99,8 @@
 									아웃</a>
 							</div>
 						</li>
-					</ul></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</nav>
