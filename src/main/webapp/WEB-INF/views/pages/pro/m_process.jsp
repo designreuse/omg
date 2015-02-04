@@ -263,7 +263,7 @@
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3">시작되는 프로젝트</h3>
+												<h3 class="box-title" id="h3"><b>시작되는 프로젝트</b></h3>
 							
 							
 											</div>
@@ -327,7 +327,7 @@
 						function() {
 
 							$("#detailview").empty();
-							$("#h3").text("진행중인 프로젝트");
+							$("#h3").html("<b>진행중인 프로젝트</b>");
 							var spare = "<div class='box-header'><h3 class='box-title'>유지보수부의 프로젝트</h3></div><div class='box-body'>"
 									+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
 									+ "<thead><tr><th>ProId</th><th>ProName</th><th>Start day</th><th>End day</th><th>TEAM_ID</th>"
@@ -350,7 +350,7 @@
 										<!--세션나눠주기  -->
 										<div class="box-header">
 											<!--박스 머리말  -->
-											<h3 class="box-title" id="h3">스페어리스트</h3>
+											<h3 class="box-title" id="h3"><b>스페어리스트</b></h3>
 										</div>
 										<div style="margin-top: 15px;">
 											<a id="spare" class="btn btn-danger btn-flat">스페어리스트</a>
@@ -417,7 +417,7 @@
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3">Current Project</h3>
+												<h3 class="box-title" id="h3"><b>Current Project</b></h3>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="re" class="btn btn-danger btn-flat">Current
@@ -561,7 +561,7 @@
 						"#ex",
 						function() {
 							$("#detailview").empty();
-							$("#h3").text("My Career");
+							$("#h3").html("<b>My Career</b>");
 							var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
 									+ "<div class='box-body'><div class='table-responsive'>"
 									+ "<table class='table table-bordered' border='1'>"
@@ -580,7 +580,7 @@
 		//인원추가버튼 눌럿을때
 		$("#bnt_window").on("click", "#re", function() {
 			$("#detailview").empty();
-			$("#h3").text("current list");
+			$("#h3").html("<b>current list</b>");
 			var re =	"<div class='box-header'><h3 class='box-title'>Current Project</h3></div>"
 						+"<div class='box-body'><div class='table-responsive'>"
 						+"<table class='table table-bordered' border='1'><thead>"
@@ -602,7 +602,7 @@
 			var proId=$(this).attr("projectId");
 			
  			$("#detailview").empty();
-			$("#h3").text("새 프로젝트");
+			$("#h3").html("<b>새 프로젝트</b>");
 			
 			var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
 							+"<div class='box-body'><div class='table-responsive'>"
@@ -729,7 +729,7 @@
 		});
 		
 		$("#detailview").empty();
-		$("#h3").text("새 프로젝트");
+		$("#h3").html("<b>새 프로젝트</b>");
 		var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
 						+"<div class='box-body'><div class='table-responsive'>"
 						+"<table class='table table-bordered' border='1'><thead>"
@@ -857,7 +857,7 @@
 
 		
 		$("#detailview").empty();
-		$("#h3").text("새 프로젝트");
+		$("#h3").html("<b>새 프로젝트</b>");
 		var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
 						+"<div class='box-body'><div class='table-responsive'>"
 						+"<table class='table table-bordered' border='1'><thead>"

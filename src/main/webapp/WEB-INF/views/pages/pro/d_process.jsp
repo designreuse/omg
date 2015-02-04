@@ -233,7 +233,7 @@ function procol(){
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3">시작되는 프로젝트</h3>
+												<h3 class="box-title" id="h3"><b>시작되는 프로젝트</b></h3>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="Start" class="btn btn-danger btn-flat">시작되는 프로젝트</a>
@@ -298,7 +298,7 @@ function procol(){
 									"#ex",
 									function() {
 										$("#detailview").empty();
-										$("#h3").text("My Career");
+										$("#h3").html("<b>My Career</b>");
 										var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
 												+ "<div class='box-body'><div class='table-responsive'>"
 												+ "<table class='table table-bordered' border='1'>"
@@ -322,7 +322,7 @@ function procol(){
 									function() {
 
 										$("#detailview").empty();
-										$("#h3").text("진행중인 프로젝트");
+										$("#h3").html("<b>진행중인 프로젝트</b>");
 										var spare = "<div class='box-header'><h3 class='box-title'>개발부의 프로젝트</h3></div><div class='box-body'>"
 												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
 												+ "<thead><tr><th>ProId</th><th>ProName</th><th>Start day</th><th>End day</th><th>TEAM_ID</th>"
@@ -342,7 +342,7 @@ function procol(){
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3">Current Project</h3>
+												<h3 class="box-title" id="h3"><b>Current Project</b></h3>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="Current" class="btn btn-danger btn-flat">Current
@@ -424,7 +424,7 @@ function procol(){
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3">New Project</h3>
+												<h3 class="box-title" id="h3"><b>New Project</b></h3>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="NewP" class="btn btn-danger btn-flat">New Project</a>
@@ -495,7 +495,7 @@ function procol(){
 									"#ex",
 									function() {
 										$("#detailview").empty();
-										$("#h3").text("My Career");
+										$("#h3").html("<b>My Career</b>");
 										var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
 												+ "<div class='box-body'><div class='table-responsive'>"
 												+ "<table class='table table-bordered' border='1'>"
@@ -516,7 +516,7 @@ function procol(){
 									function() {
 										
 										$("#detailview").empty();
-										$("#h3").text("진행중인 프로젝트");
+										$("#h3").html("<b>진행중인 프로젝트</b>");
 										var spare = "<div class='box-header'><h3 class='box-title'>현재 프로젝트</h3></div><div class='box-body'>"
 												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
 												+ "<thead><tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
@@ -536,7 +536,7 @@ function procol(){
 						var proId=$(this).attr("projectId");
 						
 			 			$("#detailview").empty();
-						$("#h3").text("새 프로젝트");
+						$("#h3").html("<b>새 프로젝트</b>");
 						var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
 										+"<div class='box-body'><div class='table-responsive'>"
 										+"<table class='table table-bordered' border='1'><thead>"
@@ -657,7 +657,7 @@ function procol(){
 											});
 
 											$("#detailview").empty();
-											$("#h3").text("새 프로젝트");
+											$("#h3").html("<b>새 프로젝트</b>");
 											var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
 															+"<div class='box-body'><div class='table-responsive'>"
 															+"<table class='table table-bordered' border='1'><thead>"
@@ -781,7 +781,7 @@ function procol(){
 											
 										});
 										$("#detailview").empty();
-										$("#h3").text("새 프로젝트");
+										$("#h3").html("<b>새 프로젝트</b>");
 										var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
 														+"<div class='box-body'><div class='table-responsive'>"
 														+"<table class='table table-bordered' border='1'><thead>"
@@ -886,15 +886,6 @@ function procol(){
 								});	
 							});
 						});
-					
-
-				/* 	$("#detailview").on("click","#setpeople",function(){
-						$(this).attr("href","view");				
-					}); */
-					
-					/* $("#detailview").on("click","#delete",function(){
-						$(this).attr("href","index");				
-					}); */
 					</script>
 			</section>
 		</aside>
