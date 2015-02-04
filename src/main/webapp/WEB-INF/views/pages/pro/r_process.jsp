@@ -268,8 +268,8 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 			endpage = 0;
 			prolist(startpage);			// list 함수 부르기
 			// 페이징만들어주기
-			var button = "<button id='nextasc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-left'></i></button>"+
-			 			 "<button id='nextdesc' class='btn btn-xs btn-primary disabled'><i class='fa fa-caret-right'></i></button>";
+			var button = "<button id='nextasc' class='btn btn-sm btn-default disabled'><-</i></button>"+
+			 			 "<button id='nextdesc' class='btn btn-sm btn-default disabled'>-></i></button>";
 			$(button).appendTo($("#buttoncontroll"));
 			
 			$.ajax({					// ProjectList 페이지 총페이지수 구하기
@@ -388,8 +388,6 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 <script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- AdminLTE App -->
 <script src="/company/resources/js/AdminLTE/app.js"	type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-<script src="/company/resources/js/AdminLTE/demo.js" type="text/javascript"></script>
 <script>
 	$(function() {
 		$("#detailview").on("change", "#approval", function() {
