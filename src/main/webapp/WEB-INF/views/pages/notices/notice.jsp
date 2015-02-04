@@ -415,7 +415,7 @@
 
 								<div class="row">
 									<div class="col-xs-6">
-										<a href="write" class="btn btn-default">글쓰기</a>
+										<a href="write" class="btn btn-primary btn-sm">글쓰기</a>
 									</div>
 									<div class="col-xs-6">
 										<div class="pagination no-margin">

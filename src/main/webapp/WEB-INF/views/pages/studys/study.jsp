@@ -310,8 +310,8 @@
 						<div class="box-footer clearfix">
 							<span id = pageController style="float: right;">	</span>
 								<div class="pull-left">
-									<input type="button" class="btn btn-default" id="add" onclick="location.href='studySupply'" value="new">
-									<input type="button"class="btn btn-default" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">
+									<input type="button" class="btn btn-warning" id="add" onclick="location.href='studySupply'" value="new">
+									<input type="button"class="btn btn-warning" id="show" onclick="location.href='studyJoinlist'" value="신청한 스터디">
 								</div>
 							</div>
 						</div>
