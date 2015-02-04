@@ -147,7 +147,7 @@ public class MProController {
 	
 	@RequestMapping(value = "/setTeam")
 	public String setTeam(HttpSession session,
-			@RequestParam("selectTeam") String teamId,
+			@RequestParam("teamId") String teamId,
 			@RequestParam("projectId") String projectId) {
 		System.out.println(teamId+"       " +projectId);
 		mproService.setTeam(projectId, teamId);
