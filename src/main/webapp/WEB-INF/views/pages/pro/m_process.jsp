@@ -244,6 +244,8 @@
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
 												<h3 class="box-title" id="h3">시작되는 프로젝트</h3>
+							
+							
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="starting" class="btn btn-danger btn-flat">시작되는 프로젝트</a>
