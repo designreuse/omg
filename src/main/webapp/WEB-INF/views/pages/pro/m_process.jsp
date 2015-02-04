@@ -242,7 +242,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>유지보수 부서 업무</h1>
+				<h1><i class="fa fa-th-list"></i>유지보수 부서 업무</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i>Home</a></li>
@@ -552,10 +552,6 @@
 	<!-- AdminLTE App -->
 	<script src="/company/resources/js/AdminLTE/app.js"
 		type="text/javascript"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/company/resources/js/AdminLTE/demo.js"
-		type="text/javascript"></script>
-
 	<script>
 		/* mycarrer눌렀을때  */
 		//bnt_window가 부모입장이다 이안에있는 id가 ex인것을 눌렀을때 발동
