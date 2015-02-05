@@ -113,7 +113,7 @@
 									<a href="/company/freeboard/freewrite"><input type="button" class="btn btn-primary btn-sm"
 										value="글쓰기" style="float: right;"></a>
 								</div>
-								<jsp:include page="/WEB-INF/views/paging/freeboardpaging.jsp" /></div>
+								<jsp:include page="/WEB-INF/views/paging/paging.jsp" /></div>
 							</div>						
 						<!-- /.box -->
 					</div>
