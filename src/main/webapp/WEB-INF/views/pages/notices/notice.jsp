@@ -18,7 +18,6 @@
 				data : "dept=O&checked=O", //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
 				dataType: "json",
 				success: function(json){
-					console.log(json);
 					$("#list").empty();//class="list" 의 자리에 넣는데 처음에 빈것으로 넣는다는뜻
 					var str = ""; // str 선언해줌
 					$.each(json, function(index, item) { //index는 무엇인지?
@@ -39,7 +38,6 @@
 				},
 				
 				error: function(){
-					
 					console.log("애러임더");
 				}
 			});
@@ -92,7 +90,6 @@
 					data : "dept=" + dept+"&checked="+checked, //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
     				dataType: "json",
     				success: function(json){
-    					console.log(json);
     					$("#list").empty();
     					var str = "";
     					$.each(json, function(index, item) {
@@ -168,7 +165,6 @@
     					data : "dept=" + dept+"&checked="+checked, //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
         				dataType: "json",
         				success: function(json){
-        					console.log(json);
         					$("#list").empty();
         					var str = "";
         					$.each(json, function(index, item) {
@@ -208,7 +204,6 @@
     					data : "dept=" + dept+"&checked="+checked, //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
         				dataType: "json",
         				success: function(json){
-        					console.log(json);
         					$("#list").empty();
         					var str = "";
         					$.each(json, function(index, item) {
@@ -248,7 +243,6 @@
     					data : "dept=" + dept+"&checked="+checked, //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
         				dataType: "json",
         				success: function(json){
-        					console.log(json);
         					$("#list").empty();
         					var str = "";
         					$.each(json, function(index, item) {
@@ -288,7 +282,6 @@
     					data : "dept=" + dept+"&checked="+checked, //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
         				dataType: "json",
         				success: function(json){
-        					console.log(json);
         					$("#list").empty();
         					var str = "";
         					$.each(json, function(index, item) {
