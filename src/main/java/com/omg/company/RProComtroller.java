@@ -430,4 +430,21 @@ public class RProComtroller {
 		return ret.toString();
 	}
 	
+	
+	
+	
+	//jem하는대
+	@RequestMapping(value="jem")
+	public @ResponseBody int jem(HttpSession session,
+			@RequestParam("techId") String techId,
+			@RequestParam("techName") String techName){
+		
+		return runService.jem(techId, techName);
+		
+		 
+	}
+	
+	
+	
+	
 }

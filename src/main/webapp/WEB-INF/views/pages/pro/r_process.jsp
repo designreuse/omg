@@ -268,7 +268,7 @@
 							"<tr><th>기술 id</th><td><input type='text' id='techId'></td></tr>"+
 							"<tr><th>기술 명</th><td><input type='text' id='techName'></td></tr>"+
 							"</thead></table><div align='right'>"+
-							"<a id='techInBtn' class='btn btn-default btn-sm'>입력</a></div></div>";
+							"<a id='techInBtn' class='btn btn-default btn-sm' >입력</a></div></div>";
 			
 			$("#runTechInView").append(runInTech);
 			
@@ -332,8 +332,31 @@
 		
 		
 		$("#runTechInView").on("click", "#techInBtn", function() {
-			alert('입력하게 해주세여');
+			var techId = $("#techId").val();//input으로 따로만든 값을 가져올때는 val을쓴다 attr는 속성으로 준것을 가져옴
+			var techName = $("#techName").val();
+			 check = -1;
+			$.ajax({
+				url:"jem",
+				data:"techId="+techId+"&techName="+techName,
+				dataType:"json",
+				success:function(json){
+				if(json=="1"){
+					check = 1;
+				}else{
+					check = -1;
+				}
+				}
+				
+				
+			});
+			if(check=1){
+
+				salFun();
+			}else{
+				alert("다시");
+			}
 		});
+		
 	});
 </script>
 </head>

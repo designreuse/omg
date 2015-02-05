@@ -39,4 +39,8 @@ public class RunService {
 		List<Techs> list = techDAO.selectTechs();
 		return list;
 	}
+	
+	public int jem(String techId, String techName) {
+		return techDAO.jem(techId, techName);
+	}
 }
