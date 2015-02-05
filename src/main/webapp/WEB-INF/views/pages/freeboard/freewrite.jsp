@@ -83,7 +83,7 @@
 										<input type="submit" class='btn btn-default' value="완성">
 										<a href="index" class='btn btn-default'>list로</a>
 						</div>
-						<div></div>
+						
 					</div>
 				</form>
 			</section>
