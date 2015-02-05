@@ -77,8 +77,11 @@ public class NoticeController {
 		
 		if(num!=null){
 			noticeService.countNotice(notice_num);
-			model.addAttribute("detail",num); 
+			 model.addAttribute("detail",num); 
+	
 		}
+		
+		
 		return "pages/notices/noticeDetail";
 	}
 

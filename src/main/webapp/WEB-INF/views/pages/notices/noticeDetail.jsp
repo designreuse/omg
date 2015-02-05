@@ -22,7 +22,7 @@
 <!-- Theme style -->
 <link href="/company/resources/css/AdminLTE.css" rel="stylesheet"
 	type="text/css" />
-	
+
 
 </head>
 <body class="skin-blue">
@@ -33,30 +33,68 @@
 		<!-- Left side column. contains the logo and sidebar -->
 		<!-- 목록 눌럿을때 보이는 부분 -->
 		<jsp:include page="/WEB-INF/views/tiles/sidebar.jsp"></jsp:include>
-	
-	<aside class="right-side">
-		<!-- Content Header (Page header) -->
-		<section class="content-header">
-			<h1><i class="fa fa-bullhorn"></i>공지게시판</h1>
-			<ol class="breadcrumb">
-				<li><a href="/company/notice/index"><i class="fa fa-dashboard"></i>
-						Home</a></li>
-				<li class="active">공지사항</li>
-			</ol>
-		</section>
-	<h2>제목</h2>
-	<div>${detail.title }</div>
-	<br><br><br><br><br>
-	<h2>내용:</h2>	
-	<div>${detail.content }</div>
-	<c:if test="${user.employeeId==detail.writer }">
-	<a href="updateNotice?title=${detail.title }&notice_num=${detail.notice_num}&content=${detail.content}" class='btn btn-default'>수정</a>
-	<a href="deleteNotice?notice_num=${detail.notice_num}" class='btn btn-default'>삭제</a>
-	</c:if>
-	<a href="index" class='btn btn-default'>공지사항으로</a>
-	</aside>
+
+		<aside class="right-side">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					<i class="fa fa-bullhorn"></i>공지게시판
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="/company/notice/index"><i
+							class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">공지사항</li>
+				</ol>
+			</section>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-8">
+						<div class="box" style="font-weight: bold">
+
+							<div class="box-body">
+								<table class="table table-bordered">
+									<tr>
+										<td style="width: 15%; background-color: #efefef;">제목</td>
+										<th style="width: 35%">${detail.title}</th>
+										<td style="width: 15%; background-color: #efefef;">등록일</td>
+										<th style="width: 35%">${detail.credate}</th>
+									</tr>
+									<tr>
+										<td style="width: 15%; background-color: #efefef;">작성자</td>
+										<th style="width: 35%">${detail.writerName}</th>
+										<td style="width: 15%; background-color: #efefef;">조회수</td>
+										<th style="width: 35%">${detail.count}</th>
+									</tr>
+								</table>
+
+
+								<br> <br> <br>
+								<div>${detail.content }<br> <br> <br> <br>
+								</div>
+
+
+
+
+
+
+								<div class="box-footer clearfix"></div>
+								<c:if test="${user.employeeId==detail.writer }">
+									<a
+										href="updateNotice?title=${detail.title }&notice_num=${detail.notice_num}&content=${detail.content}"
+										class='btn btn-default'>수정</a>
+									<a href="deleteNotice?notice_num=${detail.notice_num}"
+										class='btn btn-default'>삭제</a>
+								</c:if>
+								<a href="index" class='btn btn-default'>공지사항으로</a><br> <br>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</section>
+		</aside>
 	</div>
-	
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script

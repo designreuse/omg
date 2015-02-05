@@ -15,7 +15,7 @@
 		<result property="title" column="title" />
 		<result property="checked" column="checked" />
 		<result property="writer" column="writer" />
-		<result property="writerName" column="writerName" />
+		<result property="writerName" column="name" />
 		<result property="content" column="content" />
 		<result property="count" column="count" />
 	</resultMap>
