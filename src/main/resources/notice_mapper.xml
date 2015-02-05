@@ -32,7 +32,10 @@
 
 
 	<select id="detailNotice" resultMap="dto2" parameterType="int">
-		select * from notices where notice_num=#{notice_num}
+		select notice_num, title, content, WRITER, e.NAME NAME, CREDATE, n.COUNT 
+		from notices n ,employees e 
+		where n.writer = e.employee_id 
+		and notice_num=#{notice_num}
 
 	</select>
 

@@ -26,20 +26,20 @@
 <script>
 	$(function() {
 		$.ajax({
-			url: "checkRunTeam",
-			dataType: "text",
+			url : "checkRunTeam",
+			dataType : "text",
 			success : function(txt) {
-				if(txt != ""){
-					if(txt == 'R'){
-						$("#rundept").attr("checked","checked");
-					}else if( txt == 'S'){
-						$("#salarydept").attr("checked","checked");
-					}else if( txt == 'P'){
-						$("#personnaldept").attr("checked","checked");
+				if (txt != "") {
+					if (txt == 'R') {
+						$("#rundept").attr("checked", "checked");
+					} else if (txt == 'S') {
+						$("#salarydept").attr("checked", "checked");
+					} else if (txt == 'P') {
+						$("#personnaldept").attr("checked", "checked");
 					}
 				}
 			},
-			error: function() {
+			error : function() {
 				alert('에러 발생');
 			}
 		});
@@ -54,61 +54,76 @@
 		<!-- Left side column. contains the logo and sidebar -->
 		<!-- 목록 눌럿을때 보이는 부분 -->
 		<jsp:include page="/WEB-INF/views/tiles/sidebar.jsp"></jsp:include>
-	
-	<aside class="right-side">
-		<!-- Content Header (Page header) -->
-		<section class="content-header">
-			<h1><i class="fa fa-bullhorn"></i>공지게시판</h1>
-			<ol class="breadcrumb">
-				<li><a href="/company/notice/index"><i class="fa fa-dashboard"></i>
-						Home</a></li>
-				<li class="active">공지사항</li>
-			</ol>
-		</section>
-		<!--폼시작  -->
-		<form action="/company/notice/write" method="POST">	
-			<div id="nboard" style="width: 773px; text-align: left;">
-				<h1 style="font-style: oblique; font-weight: bold;">공지사항</h1>
-			</div>
 
-			<div align="left">
-				<label class="item" style="font-weight: bold;"> 제목:<input
-					type="text" name="title" style="width: 800px"
-					placeholder="제목을 입력하시오">
-				</label>
-			</div>
+		<aside class="right-side">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					<i class="fa fa-bullhorn"></i>공지게시판
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="/company/notice/index"><i
+							class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">공지사항</li>
+				</ol>
+			</section>
+			<!--폼시작  -->
+
+			<section class="content">
+				<form action="/company/notice/write" method="POST">
+
+					<br>
+					<div class="col-xs-8">
+						<div align="left">
+
+							<table class="table table-bordered">
+								<tr>
+									<td style="width: 10%; background-color: #efefef;">제목</td>
+									<th style="width: 60%;"><label class="item"
+										style="font-weight: bold;"><input size="90"
+											name="title" placeholder="제목을 입력하시오."> </label></th>
+									<td style="width: 10%; background-color: #efefef;">작성자</td>
+									<th style="width: 20%;">${user.name}</th>
+								</tr>
+							</table>
 
 
-			<div>
-				<input type="hidden" name='department_id'	value="${user.departmentId}">
-				<b>게시 위치 선택 </b>
-				공지<input type="radio" name='checked' value='O'>
-				<c:if test="${user.departmentId == 'M'}">
+							<div>
+								<input type="hidden" name='department_id'
+									value="${user.departmentId}"> <b>게시 위치 선택 </b> 공지<input
+									type="radio" name='checked' value='O'>
+								<c:if test="${user.departmentId == 'M'}">
 					유지보수<input type="radio" name='checked' value='M' checked>
-				</c:if>
-				<c:if test="${user.departmentId == 'D'}">
+								</c:if>
+								<c:if test="${user.departmentId == 'D'}">
 					개발<input type="radio" name='checked' value='D' checked>
-				</c:if>
-				<c:if test="${user.departmentId == 'R'}">
+								</c:if>
+								<c:if test="${user.departmentId == 'R'}">
 					인사<input id="personnaldept" type="radio" name='checked' value='P'>
 					영업<input id="salarydept" type="radio" name='checked' value='S'>
 					경영<input id="rundept" type="radio" name='checked' value='R'>
-				</c:if>
-				<input type="hidden" value="${user.employeeId} " name=writers>
-				<!--user.employeeid를 받아와서 수정못하게함  -->
+								</c:if>
+								<input type="hidden" value="${user.employeeId} " name=writers>
+								<!--user.employeeid를 받아와서 수정못하게함  -->
 
-				<h2>내용</h2>
-				<textArea name="content" rows="10" cols="100">
-        		 </textArea>
-				<br> <input type="submit" class='btn btn-default' value="완성">
-			</div>
-		</form>
+								<textArea name="content" rows="30" cols="177"
+									placeholder="내용을 입력하시오."></textArea>
+								<br> <br> <br> <input type="submit"
+									class='btn btn-default' value="완성"> <a href="index"
+									class='btn btn-default'>list로</a>
+							</div>
+						</div>
+					</div>
+				</form>
 
-	</aside>
+			</section>
+		</aside>
 	</div>
-		
-	<script	src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
+
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script
+		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
 		type="text/javascript"></script>
 </body>
 </html>
