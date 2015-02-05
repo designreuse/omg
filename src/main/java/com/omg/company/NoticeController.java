@@ -98,7 +98,7 @@ public class NoticeController {
 	public String updateGet(HttpSession session,@RequestParam("notice_num") int notice_num, Model model){
 		Notice num=noticeService.detailNotice(notice_num);
 		model.addAttribute("update",num);
-
+		
 		return "pages/notices/updateNotice";
 	}
 	

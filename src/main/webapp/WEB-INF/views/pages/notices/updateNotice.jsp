@@ -22,8 +22,6 @@
 <!-- Theme style -->
 <link href="/company/resources/css/AdminLTE.css" rel="stylesheet"
 	type="text/css" />
-	
-
 </head>
 <body class="skin-blue">
 	<!-- header logo: style can be found in header.less -->
@@ -52,15 +50,37 @@
 			<div align="left">
 				<label class="item" style="font-weight: bold;"> 제목:<input
 					type="text" name="title" style="width: 800px"
-					value="${update.title }">
+					value="${update.title}">
 				</label>
 			</div>
 
 			<div>
  				<input type="hidden" name=notice_num value="${update.notice_num}">
-				디파트아이디<input type="hidden" name=department_id value="${user.departmentId}"> 
-				체크드<input type="text"	name=checked>
-				작성자<input type="hidden" value="${user.employeeId}" name=writers>
+				<input type="hidden" name=department_id value="${user.departmentId}"> 
+				<b>게시 위치 선택 </b>
+				공지<input type="radio" name='checked' value='O'>
+				<c:if test="${user.departmentId == 'M'}">
+					유지보수<input type="radio" name='checked' value='M' checked>
+				</c:if>
+				<c:if test="${user.departmentId == 'D'}">
+					개발<input type="radio" name='checked' value='D' checked>
+				</c:if>
+				<c:if test="${user.departmentId == 'R'}">
+					<c:if test="${update.checked == 'P'}">
+						인사<input id="personnaldept" type="radio" name='checked' value='P' checked>
+						영업<input id="salarydept" type="radio" name='checked' value='S'>
+						경영<input id="rundept" type="radio" name='checked' value='R'>
+					</c:if><c:if test="${update.checked == 'S'}">
+						인사<input id="personnaldept" type="radio" name='checked' value='P'>
+						영업<input id="salarydept" type="radio" name='checked' value='S' checked>
+						경영<input id="rundept" type="radio" name='checked' value='R'>
+					</c:if><c:if test="${update.checked == 'R'}">
+						인사<input id="personnaldept" type="radio" name='checked' value='P'>
+						영업<input id="salarydept" type="radio" name='checked' value='S'>
+						경영<input id="rundept" type="radio" name='checked' value='R' checked>
+					</c:if>
+				</c:if>
+				<input type="hidden" value="${user.employeeId}" name=writers>
 				<!--user.employeeid를 받아와서 수정못하게함  -->
 
 				<h2>내용</h2>
@@ -77,9 +97,6 @@
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script
 		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
-		type="text/javascript"></script>
-	<!-- AdminLTE App -->
-	<script src="/company/resources/js/AdminLTE/app.js"
 		type="text/javascript"></script>
 </body>
 </html>
