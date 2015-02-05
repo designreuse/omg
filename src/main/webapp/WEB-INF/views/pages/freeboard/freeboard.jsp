@@ -70,6 +70,13 @@
 						<div class="box">
 							<div class="box-header">
 								<h3 class="box-title">게시글</h3>
+								<div style="margin: 10px; float: right;">
+									<form action="../selectListBoard/1" >
+										<input type="text" placeholder="제목입력" name="title"
+											style="text-align: center"><input type="submit" class="btn btn-primary btn-sm"
+											value="검색">
+									</form>
+								</div>
 							</div>
 							<!-- /.box-header -->
 							<div class="box-body">
@@ -101,21 +108,13 @@
 
 
 							<!-- /.box-body -->
-							<div class="box-footer clearfix">
-								<div align="center">
-									<form action="../selectListBoard/1">
-										<input type="text" placeholder="제목입력" name="title"
-											style="text-align: center"><input type="submit" class="btn btn-primary btn-sm"
-											value="검색">
-									</form>
+							<div class="box-footer clearfix"  align="center">
+								<div>
 									<a href="/company/freeboard/freewrite"><input type="button" class="btn btn-primary btn-sm"
 										value="글쓰기" style="float: right;"></a>
 								</div>
-							</div>
-							<div align="center"><jsp:include
-									page="/WEB-INF/views/paging/freeboardpaging.jsp" /></div>
-						</div>
-						
+								<jsp:include page="/WEB-INF/views/paging/freeboardpaging.jsp" /></div>
+							</div>						
 						<!-- /.box -->
 					</div>
 				</div>
