@@ -41,12 +41,16 @@
 	</div>
 	<!-- /.col -->
 
-	<br> <br>
+	<br><br>
+	<a href ="techlist?employeeId=${user.employeeId}">
+	<button class="btn btn-default"; style="font-size:12pt">보유기술</button>
+	</a>
 	<div align="left" class="col-xs-12">
-		<a href="update?employeeId=${user.employeeId}"><button
-				class="btn btn-default"
-				style="font-family: 'Jeju Gothic', serif; font-size: 12pt">수정</button></a>
+		<a href="update?employeeId=${user.employeeId}">
+		<button	class="btn btn-default"	style="font-family: 'Jeju Gothic', serif; font-size: 12pt">수정</button>
+		</a>
 	</div>
+
 
 	<!-- /.content -->
 

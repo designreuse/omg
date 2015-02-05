@@ -1,5 +1,7 @@
 package com.omg.company;
 
+import java.util.*;
+
 import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
@@ -22,7 +24,7 @@ public class MyinfoController {
 	
 	@RequestMapping("/index")
 	public String index(HttpSession session){
-		return "pages/myinfo";
+		return "pages/information/myinfo";
 	}
 	
 	@RequestMapping(value="/update",method=RequestMethod.GET)
@@ -32,7 +34,7 @@ public class MyinfoController {
 		Employees emp = myinfoService.selectlist(empId);
 		model.addAttribute("update", emp);
 	
-		return "pages/updateinfo";
+		return "pages/information/updateinfo";
 	}
 	
 	
@@ -44,6 +46,16 @@ public class MyinfoController {
 		Employees outputEmp = logService.selectPass(user);
 		session.setAttribute("user", outputEmp);// 세션에 로그인 한사람 정보 저장
 		return "redirect:index";	
+	}
 	
+	
+	@RequestMapping(value="/techlist")
+	public String techlist(HttpSession session,@RequestParam("employeeId") String empId,Model model){
+
+		
+		List<Employees> emp = myinfoService.techlist(empId);
+		model.addAttribute("techlist", emp);
+		
+		return "pages/information/techlist";
 	}
 }

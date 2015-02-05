@@ -155,4 +155,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		int result = sqlSession.update("com.omg.employee.p_teamConEmpUpdate",emp);
 		return result;
 	}
+
+	@Override
+	public List<Employees> techlist(String empId) {
+		List<Employees> list = sqlSession.selectList("com.omg.employee.techlist",empId);
+		return list;
+	}
 }

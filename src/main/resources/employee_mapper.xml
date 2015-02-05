@@ -10,6 +10,7 @@
 		<result property="employeeId" column="employee_id"/>
 		<result property="posName" column="position_name"/>
 		<result property="teamName" column="team_name"/>
+		<result property="techName" column="tech_name"/>
 	</resultMap>
 	
 	<resultMap type="Employees" id="dto2">
@@ -24,6 +25,7 @@
 		<result property="minSalary" column="min_salary"/>
 	</resultMap>
 	
+
 	<select id="selectEmpinfoList" resultMap="dto" parameterType="map">
 		<![CDATA[ SELECT * FROM (
 	    	SELECT ROW_NUMBER() OVER(ORDER BY hiredate DESC) rnum, e.name, e.phone, e.address, e.email, hiredate, birth, e.employee_id, e.position_id, e.team_id, p.POSITION_NAME, t.team_name
@@ -71,6 +73,16 @@
 	update employees set password=#{password},phone=#{phone},address=#{address},email=#{email}
 	where employee_id=#{employeeId}
 	</update>
+	
+	<select id="techlist" resultMap="dto" parameterType="String">
+	select t.tech_name
+	from employees e ,emp_tech et, techs t
+	where e.employee_id = et.employee_id
+	and t.tech_id = et.tech_id
+	and e.employee_id = #{empId}
+	</select>
+	
+	
 	
 	<!-- 인사.회계팀 일반사용자 부서별 직원정보 조회 -->
 	<select id="p_selectEmp" parameterType="map" resultMap="dto2">

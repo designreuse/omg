@@ -118,7 +118,7 @@ public class MProController {
 	public @ResponseBody List<MProcess> viewlist(HttpSession session,
 			@RequestParam("proId") String proId){
 		
-		System.out.println(proId);
+		
 		List<MProcess> list = mproService.viewlist(proId);
 		return list;
 	}
