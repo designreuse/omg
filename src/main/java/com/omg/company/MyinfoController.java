@@ -49,13 +49,27 @@ public class MyinfoController {
 	}
 	
 	
-	@RequestMapping(value="/techlist")
-	public String techlist(HttpSession session,@RequestParam("employeeId") String empId,Model model){
-
-		
+	@RequestMapping(value="/myTechDetail")
+	public String myTechDetail(HttpSession session,@RequestParam("employeeId") String empId,Model model){
 		List<Employees> emp = myinfoService.techlist(empId);
 		model.addAttribute("techlist", emp);
 		
 		return "pages/information/techlist";
+	}
+	
+	// 기술에 등록된 기술들 중에서 내가 같고 있지 않은 기술 보여주기
+	@RequestMapping("techlist")
+	public @ResponseBody List<String> techList(HttpSession session){
+		Employees user = (Employees)session.getAttribute("user");
+		List<String> list = myinfoService.selectTechs(user.getEmployeeId());
+		return list;
+	}
+	
+	@RequestMapping("myInTech")
+	public @ResponseBody String myInTech(HttpSession session, 
+			@RequestParam("myid") String myId,
+			@RequestParam("techName") String techName){
+		Integer i =myinfoService.insertMyTech(myId, techName);
+		return i.toString();
 	}
 }

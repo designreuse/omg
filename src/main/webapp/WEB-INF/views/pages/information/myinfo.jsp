@@ -23,38 +23,28 @@
 <link href="/company/resources/css/AdminLTE.css" rel="stylesheet"
 	type="text/css" />
 </head>
-
+<body>
 <!--몸통부분  -->
 <div class="row invoice-info">
 	<div class="col-md-10">
-		<h3>내 정보</h3></div>
-		<br>
-		<div class="col-md-2" style="background-color: #f0f7fd; border-left: 10px solid #eee; border-color: #d0e3f0; font-family: 'Jeju Gothic', serif; font-size: 14pt">
-			이름:${user.name}<br style="line-height: 150%;" />
-			사번:${user.employeeId}<br	style="line-height: 150%;" /> 
-			비밀번호:${user.password}<br style="line-height: 150%;" /> 
-			직책:${user.positionId}<br	style="line-height: 150%;" />
-			전화번호:${user.phone}<br	style="line-height: 150%;" /> 
-			주소:${user.address}<br style="line-height: 150%;" /> 
-			이메일:${user.email}<br	style="line-height: 150%;" /> 
-			생일:${user.birth}<br style="line-height: 150%;" />
+		<h3>내 정보</h3>
 	</div>
-	<!-- /.col -->
-
+	<br>
+	<div class="col-md-2" style="background-color: #f0f7fd; border-left: 10px solid #eee; border-color: #d0e3f0; font-family: 'Jeju Gothic', serif; font-size: 14pt">
+		이름:${user.name}<br style="line-height: 150%;" />
+		사번:${user.employeeId}<br	style="line-height: 150%;" /> 
+		비밀번호:${user.password}<br style="line-height: 150%;" /> 
+		직책:${user.positionId}<br	style="line-height: 150%;" />
+		전화번호:${user.phone}<br	style="line-height: 150%;" /> 
+		주소:${user.address}<br style="line-height: 150%;" /> 
+		이메일:${user.email}<br	style="line-height: 150%;" /> 
+		생일:${user.birth}<br style="line-height: 150%;" />
+	</div>
 	<br><br>
-	<a href ="techlist?employeeId=${user.employeeId}">
-	<button class="btn btn-default"; style="font-size:12pt">보유기술</button>
-	</a>
-	<div align="left" class="col-xs-12">
-		<a href="update?employeeId=${user.employeeId}">
-		<button	class="btn btn-default"	style="font-family: 'Jeju Gothic', serif; font-size: 12pt">수정</button>
-		</a>
+	<div class="col-xs-12" align="center">
+		<a href="update?employeeId=${user.employeeId}" class="btn btn-default" style="font-family: 'Jeju Gothic', serif; font-size: 12pt">수정</a>
+		<a href="myTechDetail?employeeId=${user.employeeId}" class="btn btn-default" style="font-family: 'Jeju Gothic', serif; font-size: 12pt">보유기술</a>
 	</div>
-
-
-	<!-- /.content -->
-
-	<!-- /.right-side -->
 </div>
 <!-- ./wrapper -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
