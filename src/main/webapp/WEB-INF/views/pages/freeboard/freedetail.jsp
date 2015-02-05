@@ -37,69 +37,94 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1><i class="fa  fa-twitch"></i>자유게시판</h1>
+				<h1>
+					<i class="fa  fa-twitch"></i>자유게시판
+				</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">자유게시판</li>
 				</ol>
 			</section>
-			<form action="commentswrite" method="post">
-				<section class="content">
+			<section class="content">
+				<form action="commentswrite" method="post">
 					<div class="row">
-						<div class="col-xs-12">
+						<div class="col-xs-8">
 							<div class="box" style="font-weight: bold">
-							<div class="box-header">
-									<span style="font-size: 50px">${freedetail.title}</span> <span>|</span>
-									<span>『 ${freedetail.writer}/${freedetail.writerName} 』</span>
-								</div>
-								<br> <br> <br>
-								<div>${freedetail.content}</div>
-								<div>
-									<br>
+
+								<div class="box-body">
+									<table class="table table-bordered">
+										<tr>
+											<td style="width: 15%; background-color: #efefef;">제목</td>
+											<th style="width: 35%">${freedetail.title}</th>
+											<td style="width: 15%; background-color: #efefef;">등록일</td>
+											<th style="width: 35%">${freedetail.credate}</th>
+										</tr>
+										<tr>
+											<td style="width: 15%; background-color: #efefef;">작성자</td>
+											<th style="width: 35%">${freedetail.writerName}</th>
+											<td style="width: 15%; background-color: #efefef;">조회수</td>
+											<th style="width: 35%">${freedetail.count}</th>
+										</tr>
+									</table>
+
+
+									<br> <br> <br>
+									<div>${freedetail.content}<br><br><br><br></div>
+									<br> <br> <br>
+									<div class="box-footer clearfix"></div>
 									<c:if test="${user.employeeId==freedetail.writer}">
 										<a
-											href="/company/freeboard/freeupdate?freeboardNum=${freedetail.freeboardNum}"><input class='btn btn-default'
-											type="button" value="수정" name="수정"></a>
+											href="/company/freeboard/freeupdate?freeboardNum=${freedetail.freeboardNum}"><input
+											class='btn btn-default' type="button" value="수정" name="수정"></a>
 										<a
-											href="/company/freeboard/freedelete?freeboardNum=${freedetail.freeboardNum}"><input class='btn btn-default'
-											type="button" value="삭제" name="삭제"></a>
+											href="/company/freeboard/freedelete?freeboardNum=${freedetail.freeboardNum}"><input
+											class='btn btn-default' type="button" value="삭제" name="삭제"></a>
 									</c:if>
-									<a href="/company/freeboard/index/1"><input type="button" class='btn btn-default'
-										value="list로" name="list로"></a> <br> <br>
-									<div class="box-body">
-										<table class="table table-bordered">
-											<c:forEach var="comments" items="${commentslist}"
-												varStatus="i">
-												<tr>
-													<td style="width: 2%">${i.count}</td>
-													<td style="width: 8%">${comments.commentsWriterName}</td>
-													<td style="width: 87%">${comments.commentsContent}</td>
-													<td><c:if
-															test="${user.employeeId==comments.commentsWriter}">
-															<a
-																href="/company/freeboard/commentsdelete?commentsNum=${comments.commentsNum}&freeboardNum=${comments.freeboardNum}"
-																title='${comments.freeboardNum}' class="btn btn-primary">삭제</a>
-														</c:if></td>
-												</tr>
-											</c:forEach>
-										</table>
-			</form>
-	</div>
+									<a href="/company/freeboard/index/1"><input type="button"
+										class='btn btn-default' value="list로" name="list로"></a> <br>
+									<br>
 
-	<h4>【 무플방지 위원회 】</h4>
-	<input type="hidden" name="freeboardNum"
-		value="${freedetail.freeboardNum}">
-	<div class="input-group">
-		<span class="input-group-addon"> ${user.name} <span
-			class="glyphicon glyphicon-user"></span></span><input type="text"
-			placeholder="댓글을 입력하세요" class="form-control" name="commentsContent"
-			style="width: 40%">
-		<button type="submit" class="btn btn-primary">입력</button>
+									<table class="table table-bordered">
+										<c:forEach var="comments" items="${commentslist}"
+											varStatus="i">
+											<tr>
+												<td style="width: 3%">${i.count}</td>
+												<td style="width: 10%">${comments.commentsWriterName}</td>
+												<td style="width: 87%">${comments.commentsContent}</td>
+												<td><c:if
+														test="${user.employeeId==comments.commentsWriter}">
+														<a
+															href="/company/freeboard/commentsdelete?commentsNum=${comments.commentsNum}&freeboardNum=${comments.freeboardNum}"
+															title='${comments.freeboardNum}' class="btn btn-primary">삭제</a>
+													</c:if></td>
+											</tr>
+
+										</c:forEach>
+
+									</table>
+									<br>
+									
+									
+				</form>
+
+				<h4>【 무플방지 위원회 】</h4>
+				<input type="hidden" name="freeboardNum"
+					value="${freedetail.freeboardNum}">
+				<div class="input-group">
+					<span class="input-group-addon"> ${user.name} <span
+						class="glyphicon glyphicon-user"></span></span><input type="text"
+						placeholder="댓글을 입력하세요" class="form-control"
+						name="commentsContent" style="width: 40%">
+					<button type="submit" class="btn btn-primary">입력</button>
+				</div>
+	</div>
 	</div>
 	</div>
 	</section>
 	</aside>
+
+
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script

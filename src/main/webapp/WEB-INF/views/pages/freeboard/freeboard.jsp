@@ -10,9 +10,7 @@
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
-<meta
-	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-	name='viewport'>
+
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
@@ -55,7 +53,9 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1><i class="fa  fa-twitch"></i>자유게시판</h1>
+				<h1>
+					<i class="fa  fa-twitch"></i>자유게시판
+				</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i> Home</a></li>
@@ -71,10 +71,10 @@
 							<div class="box-header">
 								<h3 class="box-title">게시글</h3>
 								<div style="margin: 10px; float: right;">
-									<form action="../selectListBoard/1" >
+									<form action="../selectListBoard/1">
 										<input type="text" placeholder="제목입력" name="title"
-											style="text-align: center"><input type="submit" class="btn btn-primary btn-sm"
-											value="검색">
+											style="text-align: center"><input type="submit"
+											class="btn btn-primary btn-sm" value="검색">
 									</form>
 								</div>
 							</div>
@@ -108,17 +108,19 @@
 
 
 							<!-- /.box-body -->
-							<div class="box-footer clearfix"  align="center">
-								<div>
-									<a href="/company/freeboard/freewrite"><input type="button" class="btn btn-primary btn-sm"
-										value="글쓰기" style="float: right;"></a>
+							<div class="box-footer clearfix">
+								<div class="col-xs-6">
+									<a href="/company/freeboard/freewrite"><input type="button"
+										class="btn btn-primary btn-sm" value="글쓰기"
+										style="float: left;"></a>
+										<span style="float: right;"><jsp:include
+											page="/WEB-INF/views/paging/paging.jsp" /></span>
 								</div>
-								<jsp:include page="/WEB-INF/views/paging/paging.jsp" /></div>
-							</div>						
-						<!-- /.box -->
+							</div>
+						</div>
 					</div>
+					<!-- /.box -->
 				</div>
-
 			</section>
 			<!-- /.content -->
 		</aside>
@@ -126,9 +128,13 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<script	src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script
+		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
+		type="text/javascript"></script>
 	<!-- AdminLTE App -->
-	<script src="/company/resources/js/AdminLTE/app.js" type="text/javascript"></script>
+	<script src="/company/resources/js/AdminLTE/app.js"
+		type="text/javascript"></script>
 </body>
 </html>

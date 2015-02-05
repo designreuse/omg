@@ -10,9 +10,7 @@
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
-<meta
-	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-	name='viewport'>
+
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
@@ -55,44 +53,55 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1><i class="fa  fa-twitch"></i>자유게시판</h1>
+				<h1>
+					<i class="fa  fa-twitch"></i>자유게시판
+				</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">자유게시판</li>
 				</ol>
 			</section>
-			<form action="/company/freeboard/freewrite" method="post">
-				<div id="nboard" style="width: 773px; text-align: left;">
-					<h1 style="font-style: oblique; font-weight: bold;">Free Board</h1>
+			<section class="content">
+				<form action="/company/freeboard/freewrite" method="post">
+
 					<br>
-				</div>
-
-				<div align="left">
-					<label class="item" style="font-weight: bold;">제목: <input
-						style="width: 500px;" type="text" name="title"
-						placeholder="제목을 입력하시오">
-					</label>
-				</div>
-				<div>
-					<h2>『 내용 』</h2>
-					<textArea name="content" rows="30" cols="120">
+					<div class="col-xs-8">
+						<div align="left">
+							
+							<table class="table table-bordered">
+								<tr>
+									<td style="width: 10%; background-color: #efefef;">제목</td>
+									<th style="width: 60%;"><label class="item"
+										style="font-weight: bold;"><input size="90" name="title"
+											placeholder="제목을 입력하시오">
+									</label></th>
+									<td style="width: 10%; background-color: #efefef;">작성자</td>
+									<th style="width: 20%;">${user.employeeId}</th>
+								</tr>
+							</table>
+						</div>
+						<div>
+							<h2>『 내용 』</h2>
+							<textArea name="content" rows="30" cols="120">
 			</textArea>
-					<br> <br> <input type="submit" class='btn btn-default' value="완성"> <a
-						href="index" class='btn btn-default'>list로</a>
-				</div>
-			</form>
-
-		</aside>
-		<script
-			src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script
-			src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
-			type="text/javascript"></script>
-		<!-- AdminLTE App -->
-		<script src="/company/resources/js/AdminLTE/app.js"
-			type="text/javascript"></script>
-
+							<br> <br> <input type="submit" class='btn btn-default'
+								value="완성"> <a href="index" class='btn btn-default'>list로</a>
+						</div>
+					</div>
+				</form>
+			</section>
 	</div>
+	</aside>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script
+		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
+		type="text/javascript"></script>
+	<!-- AdminLTE App -->
+	<script src="/company/resources/js/AdminLTE/app.js"
+		type="text/javascript"></script>
+
+
 </body>
 </html>
