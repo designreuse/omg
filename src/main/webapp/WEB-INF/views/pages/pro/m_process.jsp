@@ -127,7 +127,7 @@
 						str += "<td>" +"<a id='open' projectId="+item.projectId+">"+ item.projectName + "</td>";
 						str += "<td>" + item.startDate + "</td>";
 						str += "<td>" + item.endDate + "</td>";
-						str += "<td>" + item.salary + "</td>";
+						str += "<td>" + item.price + "</td>";
 						str += "</tr>";
 
 					});
@@ -263,15 +263,15 @@
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3"><b>시작되는 프로젝트</b></h3>
+												<h3 class="box-title" id="h3"><b>Booked Project</b></h3>
 							
 							
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="starting" class="btn btn-danger btn-flat">시작되는 프로젝트</a>
+												<a id="starting" class="btn btn-danger btn-flat">Booked Project</a>
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="Proing" class="btn btn-warning btn-flat">진행중인 프로젝트</a>
+												<a id="Proing" class="btn btn-warning btn-flat">Progressing Project</a>
 											</div>
 
 											<div style="margin-top: 15px;">
@@ -327,7 +327,7 @@
 						function() {
 
 							$("#detailview").empty();
-							$("#h3").html("<b>진행중인 프로젝트</b>");
+							$("#h3").html("<b>Progressing Project</b>");
 							var spare = "<div class='box-header'><h3 class='box-title'>유지보수부의 프로젝트</h3></div><div class='box-body'>"
 									+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
 									+ "<thead><tr><th>ProId</th><th>ProName</th><th>Start day</th><th>End day</th><th>TEAM_ID</th>"
@@ -350,10 +350,10 @@
 										<!--세션나눠주기  -->
 										<div class="box-header">
 											<!--박스 머리말  -->
-											<h3 class="box-title" id="h3"><b>스페어리스트</b></h3>
+											<h3 class="box-title" id="h3"><b>New Project</b></h3>
 										</div>
 										<div style="margin-top: 15px;">
-											<a id="spare" class="btn btn-danger btn-flat">스페어리스트</a>
+											<a id="spare" class="btn btn-danger btn-flat">New Project</a>
 										</div>
 									
 
@@ -369,7 +369,7 @@
 									<div id="detailview" class="col-md-10 col-sm-8">
 									
 										<div class='box-header'>
-											<h3 class='box-title'>새 프로젝트</h3>
+											<h3 class='box-title'>New Project</h3>
 										</div>
 										<div class='box-body'>
 											<div class="table-responsive">
@@ -379,7 +379,7 @@
 															<th>프로젝트명</th>
 															<th>start date</th>
 															<th>end date</th>
-															<th>salary</th>
+															<th>price</th>
 														</tr>
 													</thead>
 													<tbody id="startlist">
@@ -602,13 +602,13 @@
 			var proId=$(this).attr("projectId");
 			
  			$("#detailview").empty();
-			$("#h3").html("<b>새 프로젝트</b>");
+			$("#h3").html("<b>New Project</b>");
 			
-			var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
+			var st = 		"<div class='box-header'><h3 class='box-title'>New Project</h3></div>"
 							+"<div class='box-body'><div class='table-responsive'>"
 							+"<table class='table table-bordered' border='1'><thead>"
 							+"<tr><th>프로젝트명</th><th>start date</th><th>end date</th>"
-							+"<th>salary</th></tr></thead><tbody id='viewlist'>"
+							+"<th>price</th></tr></thead><tbody id='viewlist'>"
 							+"</tbody></table></div></div>"
 		
 		
@@ -645,7 +645,7 @@
 										str += "<td>" + item.projectName + "</td>";
 										str += "<td>" + item.startDate + "</td>";
 										str += "<td>" + item.endDate + "</td>";
-										str += "<td>" + item.salary + "</td>";
+										str += "<td>" + item.price + "</td>";
 										str += "</tr>";
 
 									});
@@ -734,7 +734,7 @@
 						+"<div class='box-body'><div class='table-responsive'>"
 						+"<table class='table table-bordered' border='1'><thead>"
 						+"<tr><th>프로젝트명</th><th>start date</th><th>end date</th>"
-						+"<th>salary</th></tr></thead><tbody id='viewlist'>"
+						+"<th>price</th></tr></thead><tbody id='viewlist'>"
 						+"</tbody></table></div></div>"
 	
 	
@@ -771,7 +771,7 @@
 									str += "<td>" + item.projectName + "</td>";
 									str += "<td>" + item.startDate + "</td>";
 									str += "<td>" + item.endDate + "</td>";
-									str += "<td>" + item.salary + "</td>";
+									str += "<td>" + item.price + "</td>";
 									str += "</tr>";
 
 								});
@@ -862,7 +862,7 @@
 						+"<div class='box-body'><div class='table-responsive'>"
 						+"<table class='table table-bordered' border='1'><thead>"
 						+"<tr><th>프로젝트명</th><th>start date</th><th>end date</th>"
-						+"<th>salary</th></tr></thead><tbody id='viewlist'>"
+						+"<th>price</th></tr></thead><tbody id='viewlist'>"
 						+"</tbody></table></div></div>"
 	
 	
@@ -899,7 +899,7 @@
 									str += "<td>" + item.projectName + "</td>";
 									str += "<td>" + item.startDate + "</td>";
 									str += "<td>" + item.endDate + "</td>";
-									str += "<td>" + item.salary + "</td>";
+									str += "<td>" + item.price + "</td>";
 									str += "</tr>";
 
 								});

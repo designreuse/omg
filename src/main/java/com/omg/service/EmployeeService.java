@@ -104,4 +104,12 @@ public class EmployeeService {
 		int result = empdao.p_teamConEmpUpdate(emp);
 		return result;
 	}
+	public Teams p_NameById(String teamId) {
+		Teams result = teamdao.p_NameById(teamId);
+		return result;
+	}
+	public Departments p_deptNameById(String id) {
+		Departments result = deptdao.p_deptNameById(id);
+		return result;
+	}
 }

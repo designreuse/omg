@@ -49,4 +49,10 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return result;
 	}
 
+	@Override
+	public Departments p_deptNameById(String id) {
+		Departments result = sqlSession.selectOne("com.omg.department.p_deptNameById",id);
+		return result;
+	}
+
 }

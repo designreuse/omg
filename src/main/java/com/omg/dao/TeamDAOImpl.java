@@ -43,4 +43,10 @@ public class TeamDAOImpl implements TeamDAO {
 		return result;
 	}
 
+	@Override
+	public Teams p_NameById(String teamId) {
+		Teams result = sqlSession.selectOne("com.omg.team.p_NameById",teamId);
+		return result;
+	}
+
 }

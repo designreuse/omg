@@ -81,6 +81,7 @@
 
 			<div>
 				<input type="hidden" name='department_id'	value="${user.departmentId}">
+				<b>게시 위치 선택 </b>
 				공지<input type="radio" name='checked' value='O'>
 				<c:if test="${user.departmentId == 'M'}">
 					유지보수<input type="radio" name='checked' value='M' checked>
