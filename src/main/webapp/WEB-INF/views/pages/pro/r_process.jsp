@@ -329,6 +329,11 @@
 				}
 			}); 
 		});
+		
+		
+		$("#runTechInView").on("click", "#techInBtn", function() {
+			alert('입력하게 해주세여');
+		});
 	});
 </script>
 </head>
