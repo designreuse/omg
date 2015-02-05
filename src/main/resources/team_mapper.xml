@@ -15,7 +15,7 @@
 		<result property="teamManager" column="team_manager"/>
 		<result property="positionName" column="position_name"/>
 		<result property="employeeName" column="name"/>
-	</resultMap>
+	</resultMap> 
 
 	
 	<select id="selectTeam" resultMap="dto">
@@ -24,7 +24,8 @@
 	
 	<!-- 인사.회계팀 부서관리 팀 조회 -->
 	<select id="p_teamConSelect" resultMap="dto2" parameterType="String">
-		select t.TEAM_ID, t.TEAM_NAME, t.team_manager, e.name, (select position_name from position where position_id = e.position_id) position_name
+		select t.TEAM_ID, t.TEAM_NAME, t.team_manager, e.name, (select position_name from position where position_id = e.position_id) position_name,
+		(select count(employee_id) from employees where team_id = e.team_id group by(team_id)) count
 		from teams t, employees e
 		where t.team_manager = e.employee_id(+) and  t.department_id =#{deptId}
 	</select>
@@ -39,4 +40,7 @@
 		where team_id=#{teamId}
 	</update>
 
+	<select id="p_NameById" parameterType="String" resultMap="dto">
+		select * from teams where team_id=#{teamId}
+	</select>
 </mapper>

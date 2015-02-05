@@ -12,4 +12,5 @@ public interface DepartmentDAO {
 	List<Departments> p_deptConSelect();
 	int p_deptConInsert(Departments dept);
 	int p_deptConUpdate(Departments dept);
+	Departments p_deptNameById(String id);
 }

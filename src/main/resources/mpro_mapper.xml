@@ -19,6 +19,7 @@
 <result property="positionName" column="POSITION_NAME"/>
 <result property="salary" column="salary"/>
 <result property="teamName" column="team_name"/>
+<result property="price" column="project_price"/>
 </resultMap>
 
 <!--현재 프로젝트 리스트  -->
@@ -153,11 +154,10 @@ and employee_id =#{empId}
 <select id="proing" resultMap="dto">
 <![CDATA[ select * from projects pro, teams t
 where END_DATE >= sysdate
+and START_DATE <= sysdate
 and pro.TEAM_ID = t.TEAM_ID
 and pro.TEAM_ID like 'M%' ]]>
 </select>
-
-
 
 
 <select id="team" resultMap="dto">

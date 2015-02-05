@@ -10,6 +10,7 @@
 		<result property="writer" column="WRITER" />
 		<result property="writerName" column="Name"/>
 		<result property="credate" column="CREDATE" />
+		<result property="count" column="COUNT" />
 	</resultMap>
 	<resultMap type="Comments" id="dto2">
 		<result property="commentsNum" column="COMMENTS_NUM" />
@@ -40,7 +41,7 @@
 	</select>
 
 	<select id="detailBoard" resultMap="dto">
-		select FREEBOARD_NUM, Title, CONTENT, WRITER, e.NAME NAME, CREDATE
+		select FREEBOARD_NUM, Title, CONTENT, WRITER, e.NAME NAME, CREDATE, f.COUNT
 		from FREEBOARD f, EMPLOYEES e
 		where e.EMPLOYEE_ID = f.WRITER
 		and FREEBOARD_NUM = #{freeboardNum}
