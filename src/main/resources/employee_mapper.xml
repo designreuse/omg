@@ -75,14 +75,28 @@
 	</update>
 	
 	<select id="techlist" resultMap="dto" parameterType="String">
-	select t.tech_name
-	from employees e ,emp_tech et, techs t
-	where e.employee_id = et.employee_id
-	and t.tech_id = et.tech_id
-	and e.employee_id = #{empId}
+		select t.tech_name
+		from employees e ,emp_tech et, techs t
+		where e.employee_id = et.employee_id
+		and t.tech_id = et.tech_id
+		and e.employee_id = #{empId}
 	</select>
 	
+	<select id="myNotTechList" resultType="String" parameterType="String">
+		select tech_name
+		from techs
+		where tech_id not in (
+			select et.tech_id
+			from employees e ,emp_tech et
+			where e.employee_id = et.employee_id
+			and e.employee_id = #{empId}
+		)
+	</select>
 	
+	<insert id="myInsertTech" parameterType="map">
+		insert into emp_tech(employee_id,tech_id)
+		values(#{myId},#{techId})
+	</insert>
 	
 	<!-- 인사.회계팀 일반사용자 부서별 직원정보 조회 -->
 	<select id="p_selectEmp" parameterType="map" resultMap="dto2">

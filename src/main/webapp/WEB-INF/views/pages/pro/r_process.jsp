@@ -24,16 +24,16 @@
 	type="text/css" />
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
-function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 받아서 쓰기
-	$("#list").empty();
-	$.ajax({          			
-		url : "runProList",
-		dataType : "json",
-		data : "page="+page,
-		async: false,
-		success : function(json) {
-			$.each(json, function(index, item) { 
-				var td = "<td>"+item.projectName+"</td>"+
+	function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 받아서 쓰기
+		$("#list").empty();
+		$.ajax({          			
+			url : "runProList",
+			dataType : "json",
+			data : "page="+page,
+			async: false,
+			success : function(json) {
+				$.each(json, function(index, item) { 
+					var td = "<td>"+item.projectName+"</td>"+
 						 "<td>"+item.deptName+"</td>"+
 						 "<td>"+item.startDate+"</td>"+
 						 "<td>"+item.endDate+"</td>"+
@@ -49,11 +49,11 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 						 "<option value=''>-선택-</option>"+
 						 "<option value='승인'>승인</option><option value='불가'>불가</option>"+
 						 "<option value='STOP'>대기</option></select>";
-				$("<tr>"+td+"</tr>").appendTo($("#list"));
-			});
-		}
-	});
-}
+					$("<tr>"+td+"</tr>").appendTo($("#list"));
+				});
+			}
+		});
+	}
 	
 	$(function() {
 		function GetCommaValue(num) {     // 숫자에 콤마 삽입  
@@ -242,9 +242,11 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 			var h3 = "<b>프로젝트 화면</b>";
 			$("#btn").empty();
 			$("#runProcessAppView").empty();
+			$("#runTechInView").empty();
 			$("#detailview").empty();
 			$("#h3").html(h3);
 			$("#btn").append(pageview);
+			$("#alltechlist").removeClass("disabled");
 			// 승인 버튼 틀 만들어주기
 			var runProApp = "<div align='center'><h5 class='box-title' id='h3'><b>프로젝트 승인</b></h5></div>"+
 							"<div class='table-responsive' id='apptable'>"+
@@ -255,6 +257,18 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 							"</thead></table><div align='right'>"+
 							"<a id='appInBtn' class='btn btn-default btn-sm'>입력</a></div></div>";
 			$("#runProcessAppView").append(runProApp);
+			
+			// 회사 기술 등록 부분
+			var runInTech = "<div align='center'><h5 class='box-title' id='h3'><b>회사 기술 등록</b></h5></div>"+
+							"<div class='table-responsive' id='apptable'>"+
+							"<table class='table table-bordered' border='1' >"+
+							"<thead align='left'>"+
+							"<tr><th>기술 id</th><td><input type='text' id='techId'></td></tr>"+
+							"<tr><th>기술 명</th><td><input type='text' id='techName'></td></tr>"+
+							"</thead></table><div align='right'>"+
+							"<a id='techInBtn' class='btn btn-default btn-sm'>입력</a></div></div>";
+			
+			$("#runTechInView").append(runInTech);
 			
 			// 프로젝트 리스트 보여주기
 			var proProcess = "<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'>"+
@@ -356,6 +370,22 @@ function prolist(page) {		// 프로잭트 리스트 보여주기 페이지 값 �
 										<!-- 프로젝트 승인 하는 것을 보여주는 화면-->
 										<div style="bottom: 0px;" id='runProcessAppView'>
 										</div>
+										
+										<!-- 기술 등록하는 화면 -->
+										<div style="bottom: 0px;" id='runTechInView'>
+										</div>
+										
+										<!-- 현제 회사 기술 목록화면 -->
+										<div class="btn-group ">
+     										<a id="alltechlist"  class="btn btn-default dropdown-toggle disabled" data-toggle="dropdown" aria-expanded="true">
+        										화사 전체 기술<span class="caret"></span>
+      										</a>
+      						    			<ul class="dropdown-menu">
+      						    				<c:forEach var="item" items="${AllTechList}">
+        											<li><a>(${item.techId})<b>${item.techName}</b></a></li>
+    											</c:forEach>
+       										</ul>
+    									</div>
 									</div>
 									
 									<!-- 버튼을 누르고 나오는 자세한 화면들 -->

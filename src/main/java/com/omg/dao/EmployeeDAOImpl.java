@@ -161,4 +161,19 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		List<Employees> list = sqlSession.selectList("com.omg.employee.techlist",empId);
 		return list;
 	}
+
+	@Override
+	public List<String> myNotTechList(String empId) {
+		List<String> list = sqlSession.selectList("com.omg.employee.myNotTechList",empId);
+		return list;
+	}
+
+	@Override
+	public int myInsertTech(String myId, String techId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("myId", myId);
+		map.put("techId", techId);
+		int ret =sqlSession.insert("com.omg.employee.myInsertTech", map);
+		return ret;
+	}
 }

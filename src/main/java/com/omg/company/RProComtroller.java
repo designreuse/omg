@@ -26,6 +26,7 @@ public class RProComtroller {
 	@Autowired
 	private EmpinfoService service;
 	
+	
 	// 대현 -> 영업
 	@RequestMapping("index_s")
 	public String SalaryProindex(HttpSession session){
@@ -391,7 +392,9 @@ public class RProComtroller {
 //////////////////////////////////////////////////////////////////////////////////////
 	// 경엉 (대현 & 윤지)
 	@RequestMapping("index_r")
-	public String RunProIndex(HttpSession session){
+	public String RunProIndex(HttpSession session, Model model){
+		List<Techs> techs = runService.selectTechs();
+		model.addAttribute("AllTechList", techs);
 		return "pages/pro/r_process";
 	}
 	

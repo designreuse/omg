@@ -18,6 +18,9 @@ public class EmpinfoService {
 	
 	@Autowired
 	private TeamDAO teamDAO;
+	
+	@Autowired
+	private TechDAO techDAO;
 	/// 수정
 	public List<Employees> empList(int page, String dept){
 		List<Employees> list = empDAO.empList(page, dept);
@@ -49,6 +52,25 @@ public class EmpinfoService {
 	public List<Employees> techlist(String empId) {
 		return empDAO.techlist(empId);
 		
+	}
+	
+	// 기술 조회 하기
+	public List<String> selectTechs(String empId){
+		List<String> list= empDAO.myNotTechList(empId);
+		return list;
+	}
+	
+	// 내 기술 등록하기
+	public int insertMyTech(String myId, String techName){
+		String techId = "";
+		List<Techs> techs = techDAO.selectTechs();
+		for(Techs t : techs){
+			if(t.getTechName().equalsIgnoreCase(techName)){
+				techId = t.getTechId();
+			}
+		}
+		int ret =empDAO.myInsertTech(myId, techId);
+		return ret;
 	}
 	
 	

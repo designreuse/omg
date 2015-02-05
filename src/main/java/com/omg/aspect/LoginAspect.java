@@ -7,8 +7,8 @@ import org.aspectj.lang.annotation.*;
 
 @Aspect
 public class LoginAspect {
-	// within(com.omg.company.EmpinfoController)||within(com.omg.company.MessageController)||within(com.omg.company.NoticeController)|| ||within(com.omg.company.StudyController)
-	@Around("within(com.omg.company.FreeBoardController)||within(com.omg.company.MyinfoController)||within(com.omg.company.CalendarController)||within(com.omg.company.ProcessController)")
+	// within(com.omg.company.EmpinfoController)||within(com.omg.company.MessageController)||within(com.omg.company.NoticeController)|| ||within(com.omg.company.StudyController) ||within(com.omg.company.MyinfoController)
+	@Around("within(com.omg.company.FreeBoardController)||within(com.omg.company.CalendarController)||within(com.omg.company.ProcessController)")
 	public String isLogin(ProceedingJoinPoint joinPoint) {
 		Object[] args = joinPoint.getArgs();
 		String url = null;

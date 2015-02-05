@@ -13,6 +13,9 @@ public class RunService {
 	@Autowired
 	private ProjectDAO proDAO;
 	
+	@Autowired
+	private TechDAO techDAO;
+	
 	// 경영의 프로젝트 리스트 가져옴 끝나지 않는것
 	public List<Projects> runSelectPro(int page) {
 		List<Projects> list = proDAO.runSelectPro(page);
@@ -29,5 +32,11 @@ public class RunService {
 	public int runProInApp(String proId, String app, String appName) {
 		int ret = proDAO.runProInApp(proId, app, appName);
 		return ret;
+	}
+	
+	// 회사 전체의 기술 목록 보여주기
+	public List<Techs> selectTechs(){
+		List<Techs> list = techDAO.selectTechs();
+		return list;
 	}
 }
