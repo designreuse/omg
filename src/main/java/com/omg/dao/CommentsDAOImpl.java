@@ -34,7 +34,7 @@ public class CommentsDAOImpl implements CommentsDAO{
 		pageInfo.put("endPage", endPage);*/
 		
 		List<Comments> list = sqlSession.selectList("com.omg.freeboard.listComments"/*, pageInfo*/, freeboardNum);
-		System.out.println("d " + list.size());
+		/*System.out.println("d " + list.size());*/
 		return list;
 	}
 
