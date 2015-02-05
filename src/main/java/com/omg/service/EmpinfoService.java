@@ -46,6 +46,11 @@ public class EmpinfoService {
 		return update;
 	}
 	
+	public List<Employees> techlist(String empId) {
+		return empDAO.techlist(empId);
+		
+	}
+	
 	
 	public List<Employees> selectByName(List<Employees> emps){
 		List<Position> pos = posDAO.selectposition();
@@ -70,4 +75,8 @@ public class EmpinfoService {
 		}
 		return list;
 	}
+	
+	
+	
+
 }

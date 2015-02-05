@@ -14,6 +14,7 @@ public interface EmployeeDAO {
 	Employees password(String empId, String name, String email);
 	Employees selectlist(String empId);
 	int updateinfo(Employees emp);
+	List<Employees> techlist(String empId);
 	
 	List<Employees> p_selectEmp(String dept,int page);
 	Employees p_Emp(String id);

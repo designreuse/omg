@@ -20,7 +20,7 @@ public class Employees {
 	private String employeeId;
 	private String gender;
 	private String projectId; 
-	
+	private String techName;
 	private String posName;
 	private String teamName;
 	private String deptName;
@@ -30,6 +30,12 @@ public class Employees {
 	
 	
 	
+	public String getTechName() {
+		return techName;
+	}
+	public void setTechName(String techName) {
+		this.techName = techName;
+	}
 	public int getMaxSalary() {
 		return maxSalary;
 	}
