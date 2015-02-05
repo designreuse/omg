@@ -31,7 +31,6 @@ public class FreeBoardDAOImpl implements FreeBoardDAO {
 		pageInfo.put("startPage", startPage);
 		pageInfo.put("endPage", endPage);
 		List<FreeBoard> list = sqlSession.selectList("com.omg.freeboard.FreeBoard", pageInfo);
-		System.out.println("d " + list.size());
 		return list;
 	}
 	
@@ -43,9 +42,7 @@ public class FreeBoardDAOImpl implements FreeBoardDAO {
 		pageInfo.put("startPage", startPage);
 		pageInfo.put("endPage", endPage);
 		pageInfo.put("title", title);
-		System.out.println(title);
 		List<FreeBoard> list = sqlSession.selectList("com.omg.freeboard.selectListBoard", pageInfo);
-		System.out.println("d " + list.size());
 		return list;
 	}
 
