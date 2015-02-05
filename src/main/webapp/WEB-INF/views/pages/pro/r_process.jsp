@@ -79,6 +79,8 @@
 			$("#detailview").empty();
 			$("#h3").html("<b>매출 관리</b>");
 			$("#runProcessAppView").empty();
+			$("#runTechInView").empty();
+			$("#alltechlist").addClass("disabled");
 			$("#btn").empty();
 			var sales="<div class='row pad'><div class='input-group'><span style='float: right !important; margin: 10px;'>"
 					+"<select id='years' name='years'>";
