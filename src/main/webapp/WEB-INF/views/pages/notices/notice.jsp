@@ -412,8 +412,8 @@
 									<tbody id="list"><!--tbody는 ajax에서 쓸때 어디부분했는지를 알기위해  -->
 									</tbody>
 								</table>
-
-								<div class="row">
+								<!-- /.box-body -->
+								<div class="box-footer clearfix">
 									<div class="col-xs-6">
 										<a href="write" class="btn btn-primary btn-sm">글쓰기</a>
 									</div>
@@ -423,7 +423,6 @@
 										</div>
 									</div>
 								</div>
-								<!-- /.box-body -->
 							</div>
 							<!-- /.box -->
 						</div>
