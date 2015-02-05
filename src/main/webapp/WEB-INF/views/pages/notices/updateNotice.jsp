@@ -84,7 +84,7 @@
 				<!--user.employeeid를 받아와서 수정못하게함  -->
 
 				<h2>내용</h2>
-				<textArea name="content" rows="50" cols="160">${update.content}
+				<textArea name="content" rows="10" cols="100">${update.content}
         		 </textArea>
 				<br> <input type="submit" class='btn btn-default' value="완성">
 			</div>

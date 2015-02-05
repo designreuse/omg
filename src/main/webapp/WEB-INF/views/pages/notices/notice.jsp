@@ -376,11 +376,11 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-header">
-								<h3 class="box-title">게시글</h3>
+								<h3 class="box-title">공지사항</h3>
 								<span style="float: right !important; margin: 10px;">
 									<button value="O" id="open" class="btn btn-default btn-flat disabled" user="${user.departmentId}">공지사항</button>
 									<span>
-										<button value="D" id="development" class="btn btn-primary btn-flat disabled" user="${user.departmentId}">개발</button></a>
+										<button value="D" id="development" class="btn btn-primary btn-flat disabled" user="${user.departmentId}">개발</button>
 									</span>
 									<span>
 										<button value="M" id="manage"class="btn btn-success btn-flat disabled" user="${user.departmentId}">유지보수</button>
