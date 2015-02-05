@@ -68,26 +68,22 @@
 					<br>
 					<div class="col-xs-8">
 						<div align="left">
-							
+
 							<table class="table table-bordered">
 								<tr>
 									<td style="width: 10%; background-color: #efefef;">제목</td>
 									<th style="width: 60%;"><label class="item"
-										style="font-weight: bold;"><input size="90" name="title"
-											placeholder="제목을 입력하시오">
-									</label></th>
+										style="font-weight: bold;"><input size="90"
+											name="title" placeholder="제목을 입력하시오."> </label></th>
 									<td style="width: 10%; background-color: #efefef;">작성자</td>
-									<th style="width: 20%;">${user.employeeId}</th>
-								</tr>
+									<th style="width: 20%;">${user.name}</th>
+								</tr>	
 							</table>
+							<textArea name="content" rows="30" cols="177" placeholder="내용을 입력하시오."></textArea> <br> <br>
+										<input type="submit" class='btn btn-default' value="완성">
+										<a href="index" class='btn btn-default'>list로</a>
 						</div>
-						<div>
-							<h2>『 내용 』</h2>
-							<textArea name="content" rows="30" cols="120">
-			</textArea>
-							<br> <br> <input type="submit" class='btn btn-default'
-								value="완성"> <a href="index" class='btn btn-default'>list로</a>
-						</div>
+						<div></div>
 					</div>
 				</form>
 			</section>

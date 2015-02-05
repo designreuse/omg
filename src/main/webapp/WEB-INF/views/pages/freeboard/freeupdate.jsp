@@ -56,36 +56,40 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1><i class="fa  fa-twitch"></i>자유게시판</h1>
+				<h1>
+					<i class="fa  fa-twitch"></i>자유게시판
+				</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/notice/index"><i
 							class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">자유게시판</li>
 				</ol>
-			</section>	
-
-	<form action="freeupdate" method="post">
-		<input type="hidden" name="freeboardNum" value="${freeupdate.freeboardNum}"/>
-		<div id="nboard" style="width: 773px; text-align: left;">
-			<h1 style="font-style: oblique; font-weight: bold;">Free Board</h1>
-			<br>
-		</div>
-
-		<div align="left">
-			<label class="item" style="font-weight: bold;">제목: <input
-				style="width: 500px;" type="text" name="title" value="${freeupdate.title}">
-			</label>
-		</div>
-		<div>
-			<h2>『 내용 』</h2>
-			<textArea name="content" rows="50" cols="160">${freeupdate.content}
-			</textArea>
-			<br> <br> <input type="submit" class='btn btn-default' value="완성">
-			<a href="index"><input type="button" class='btn btn-default' value="list로"></a>
-		</div>
-	</form>
-
-	</aside>
+			</section>
+			<section class="content">
+				<form action="freeupdate" method="post">
+					<input type="hidden" name="freeboardNum"
+						value="${freeupdate.freeboardNum}" />
+					<div class="col-xs-8">
+						<div align="left">
+							<table class="table table-bordered">
+								<tr>
+									<td style="width: 10%; background-color: #efefef;">제목</td>
+									<th style="width: 60%;"><label class="item"
+										style="font-weight: bold;"><input size="90"
+											name="title" value="${freeupdate.title}"> </label></th>
+									<td style="width: 10%; background-color: #efefef;">작성자</td>
+									<th style="width: 20%;">${user.name}</th>
+								</tr>
+							</table>
+							<textArea name="content" rows="30" cols="177">${freeupdate.content}</textArea>
+						<br> <br> <input type="submit" class='btn btn-default'
+							value="완성"> <a href="index"><input type="button"
+							class='btn btn-default' value="list로"></a>
+						</div>
+					</div>
+				</form>
+			</section>
+		</aside>
 	</div>
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -95,6 +99,6 @@
 	<!-- AdminLTE App -->
 	<script src="/company/resources/js/AdminLTE/app.js"
 		type="text/javascript"></script>
-							
+
 </body>
 </html>
