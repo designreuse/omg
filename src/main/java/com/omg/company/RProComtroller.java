@@ -323,7 +323,7 @@ public class RProComtroller {
 	}
 	
 	//부서관리 부서 수정
-	@RequestMapping("p_deptConUpdate")
+	@RequestMapping("/p_deptConUpdate")
 	public String p_deptConUpdate(HttpSession session,
 		@RequestParam("deptId")String deptId,
 		@RequestParam("deptManager")String deptManager){
@@ -332,6 +332,13 @@ public class RProComtroller {
 		dept.setDepartmentManager(deptManager);
 		empService.p_deptConUpdate(dept);
 		return "redirect:index_p";
+	}
+	//부서 Id랑 일치하는 부서 이름 select
+	@RequestMapping("p_deptNameById")
+	public @ResponseBody  Departments p_deptNameById(HttpSession session,
+			@RequestParam("deptId")String deptId){
+		Departments deptName = empService.p_deptNameById(deptId);
+		return deptName;
 	}
 	//부서관리 팀 조회
 	@RequestMapping("p_teamConSelect")
@@ -374,7 +381,13 @@ public class RProComtroller {
 		return "redirect:index_p";
 	}
 	
-	
+	//팀 Id랑 일치하는 팀 이름 select
+	@RequestMapping("p_NameById")
+	public @ResponseBody Teams  p_NameById(HttpSession session,
+		@RequestParam("teamId")String teamId){
+		Teams teamName = empService.p_NameById(teamId);
+		return teamName;
+	}
 //////////////////////////////////////////////////////////////////////////////////////
 	// 경엉 (대현 & 윤지)
 	@RequestMapping("index_r")

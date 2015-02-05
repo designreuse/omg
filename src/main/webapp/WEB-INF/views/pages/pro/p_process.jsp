@@ -747,8 +747,22 @@
 				var str="";
 				 str += "<div class='table-responsive'><form action='p_deptConUpdate'><table class='table table-bordered' border='1'>";
 				 str += "<tr>"+"<th>부서 ID</th>"+"<td><input type='hidden' name='deptId' value="+cbox+">"+cbox+"</td></tr>";
-				 str += "<tr>"+"<th>부서 이름</th>"+"<td></td></tr>";
-				 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='deptManager'></td></tr>";
+				 str += "<tr>"+"<th>부서 이름</th>";
+
+				 $.ajax({
+					url:"p_deptNameById",
+					dataType:"json",
+					data: "deptId="+cbox,
+					async: false,
+					success:function(json){
+						str += "<td>"+json.departmentName+"</td>";
+					},
+					error:function(){
+						alert("오류");
+					}
+				 });
+				  
+				 str += "</tr><tr>"+"<th>Manager</th>"+"<td><input type='text' name='deptManager'></td></tr>";
 				 str += "<input type='submit'  class='btn btn-primary btn-sm' value='수정'>";
 				 str += "<a  class='btn btn-primary btn-sm' id='dcancel' >취소</a> </table></form></div>";
 				 $(str).appendTo("#detailview");
@@ -805,8 +819,23 @@
 				var str="";
 				 str += "<div class='table-responsive'><form action='p_teamConUpdate'><table class='table table-bordered' border='1'>";
 				 str += "<tr>"+"<th>팀 ID</th>"+"<td><input type='hidden' name='teamId' value="+cbox+">"+cbox+"</td></tr>";
-				 str += "<tr>"+"<th>팀 이름</th>"+"<td></td></tr>";
-				 str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='teamManager'></td></tr>";
+				 str += "<tr>"+"<th>팀 이름</th>";
+
+				 $.ajax({
+					url:"p_NameById",
+					async: false,
+					dataType:"json",
+					data: "teamId="+cbox,
+					success:function(json){
+						str += "<td>"+json.teamName+"</td>";
+						
+					},
+					error:function(){
+						alert("오류");
+					}
+				 });
+				 
+				 str += "</tr><tr>"+"<th>Manager</th>"+"<td><input type='text' name='teamManager'></td></tr>";
 				 str += "<input type='submit'  class='btn btn-primary btn-sm' value='수정'>";
 				 str += "<a  class='btn btn-primary btn-sm' id='tcancel' >취소</a> </table></form></div>";
 				 $(str).appendTo("#detailview");
