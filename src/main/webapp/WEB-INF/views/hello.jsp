@@ -41,9 +41,9 @@
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
 	$(function() {
+		$('.carousel').carousel()
 		var num = 0;
 		page = 1;
-		
 		$.ajax({
 			url:"/company/dashboard/noticeCount",
 			dataType:"text",
@@ -53,13 +53,7 @@
 				}
 				$("#ocount").text(text);
 			}
-	
-			
 		});
-		
-		
-		
-		
 		$.ajax({				// 처음 메시지 가져오기
 			url: "/company/dashboard/msgLatelyByDate",	// 변경
 			dataType: "json",
@@ -124,7 +118,7 @@
 									<div class="icon">
 										<i class="fa fa-bullhorn"></i>
 									</div>
-									<a href="#" class="small-box-footer"> More info <i
+									<a href="/company/notice/index" class="small-box-footer"> More info <i
 										class="fa fa-arrow-circle-right"></i>
 									</a>
 								</div>
@@ -140,7 +134,7 @@
 									<div class="icon">
 										<i class="fa fa-laptop"></i>
 									</div>
-									<a href="#" class="small-box-footer"> More info <i
+									<a href="/company/studys/index" class="small-box-footer"> More info <i
 										class="fa fa-arrow-circle-right"></i>
 									</a>
 								</div>
@@ -156,7 +150,7 @@
 									<div class="icon">
 										<i class="fa fa-envelope"></i>
 									</div>
-									<a href="#" class="small-box-footer"> More info <i
+									<a href="/company/message/index" class="small-box-footer"> More info <i
 										class="fa fa-arrow-circle-right"></i>
 									</a>
 								</div>
@@ -172,7 +166,7 @@
 									<div class="icon">
 										<i class="fa fa-th-list"></i>
 									</div>
-									<a href="#" class="small-box-footer"> More info <i
+									<a href="/company/process/index" class="small-box-footer"> More info <i
 										class="fa fa-arrow-circle-right"></i>
 									</a>
 								</div>
