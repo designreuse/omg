@@ -27,7 +27,6 @@ public class DashboardController {
 	@RequestMapping("noticeCount")
 	public @ResponseBody Integer Ocount(){
 		Integer count = dashService.Ocount();
-		System.out.println(count);
 		return count;
 	}
 	
@@ -37,7 +36,6 @@ public class DashboardController {
 		Employees user = (Employees)session.getAttribute("user");
 		String id = user.getEmployeeId();
 		Integer result = dashService.studyCount(id);
-		System.out.println(result);
 		return result;
 	}
 	
