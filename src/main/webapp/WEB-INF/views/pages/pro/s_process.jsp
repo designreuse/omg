@@ -306,7 +306,6 @@
 														<table border="1" style="border-top: solid;">
 															<tbody ><!-- 프로잭트 기술 등록 하기 -->
 																<tr><th colspan="2" style="background-color: #ccffaa;text-align: center;"> 프로젝트 등록 </th></tr>
-																<tr><th>프 로 젝 트<br>ID</th><td><input type="text" name="proid" /></td></tr>
 																<tr><th>프 로 젝 트</th><td><input type="text" name="proname" /></td></tr>
 																<tr><th>금 액(천만원) </th><td><input type="text" name="proprice" /></td></tr>
 																<tr><th>시작일<br>(y-m-d)</th><td><input type="date" name="start" /></td></tr>

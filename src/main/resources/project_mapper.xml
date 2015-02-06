@@ -17,7 +17,7 @@
 	<insert id="proInsert" parameterType="Projects">
 		insert into 
 		projects(project_id,project_name,project_price,start_date,end_date,department_id) 
-		values(#{projectId},#{projectName},#{projectPrice},#{startDate},#{endDate},upper(#{departmentId}))
+		values('pro'||pro_seq.nextval,#{projectName},#{projectPrice},#{startDate},#{endDate},upper(#{departmentId}))
 	</insert>
 	
 	<update id="proUpdate" parameterType="Projects">

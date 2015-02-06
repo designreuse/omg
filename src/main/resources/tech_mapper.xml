@@ -17,9 +17,9 @@
 	</select>
 
 	<!--jem하는곳 -->
-	<insert id="jem" parameterType="map">
+	<insert id="jem" parameterType="String">
 		insert into techs
-		values(#{techId},#{techName})
+		values('tech'||tech_seq.nextval,#{techName})
 
 	</insert>
 </mapper>
