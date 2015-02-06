@@ -127,7 +127,7 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 
 	@Override
-	public int Ocount() {
+	public Integer Ocount() {
 		return session.selectOne("exam.notice.mapper.ocount");
 		
 	}

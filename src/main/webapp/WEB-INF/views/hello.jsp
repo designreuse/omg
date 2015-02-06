@@ -43,6 +43,23 @@
 	$(function() {
 		var num = 0;
 		page = 1;
+		
+		$.ajax({
+			url:"/company/dashboard/noticeCount",
+			dataType:"text",
+			success:function(text){
+				if(text != ""){
+					$("#ocount").empty();
+				}
+				$("#ocount").text(text);
+			}
+	
+			
+		});
+		
+		
+		
+		
 		$.ajax({				// 처음 메시지 가져오기
 			url: "/company/dashboard/msgLatelyByDate",	// 변경
 			dataType: "json",
@@ -102,7 +119,7 @@
 										<h3>
 											Notice
 										</h3>
-										<p>??</p>
+										<p id="ocount">?</p>
 									</div>
 									<div class="icon">
 										<i class="fa fa-bullhorn"></i>

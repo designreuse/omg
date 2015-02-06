@@ -25,8 +25,9 @@ public class DashboardController {
 	
 	// 최근 공지사항 갯수
 	@RequestMapping("noticeCount")
-	public @ResponseBody int Ocount(HttpSession session){
-		int count = dashService.Ocount();
+	public @ResponseBody Integer Ocount(){
+		Integer count = dashService.Ocount();
+		System.out.println(count);
 		return count;
 	}
 	
@@ -36,6 +37,7 @@ public class DashboardController {
 		Employees user = (Employees)session.getAttribute("user");
 		String id = user.getEmployeeId();
 		Integer result = dashService.studyCount(id);
+		System.out.println(result);
 		return result;
 	}
 	
