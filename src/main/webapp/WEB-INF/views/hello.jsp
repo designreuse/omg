@@ -38,6 +38,27 @@
 <!-- Theme style -->
 <link href="/company/resources/css/AdminLTE.css" rel="stylesheet"
 	type="text/css" />
+<script src="/company/resources/js/jquery-1.11.2.js"></script>
+<script>
+	$(function() {
+		var num = 0;
+		page = 1;
+		$.ajax({				// 처음 메시지 가져오기
+			url: "/company/dashboard/msgLatelyByDate",	// 변경
+			dataType: "json",
+			data :  "page="+page,
+			success : function(json) {
+				if(json != ""){
+					$("#msgcnt").empty();
+					$.each(json, function(index, item) {
+						num ++;
+					});
+				}
+				$("#msgcnt").text(num);
+			}
+		});
+	});
+</script>
 </head>
 <body class="skin-blue">
 	<!-- header logo: style can be found in header.less -->
@@ -103,7 +124,7 @@
 								<div class="small-box bg-aqua">
 									<div class="inner">
 										<h3>New message</h3>
-										<p>??</p>
+										<p id="msgcnt">??</p>
 									</div>
 									<div class="icon">
 										<i class="fa fa-envelope"></i>
@@ -164,14 +185,14 @@
 										</div>
 										<div class="item">
 											<img data-src="holder.js/1152x648/auto/#666:#666"
-												src="http://placehold.it/1152x648"
+												src="/company/resources/img/새해복.png"
 												alt="1152x648">
 											<div class="carousel-caption">
 											</div>
 										</div>
 										<div class="item">
 											<img data-src="holder.js/1152x648/auto/#555:#555"
-												src="http://placehold.it/1152x648"
+												src="/company/resources/img/힘내라.png"
 												alt="1152x648">
 											<div class="carousel-caption">
 											</div>

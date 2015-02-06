@@ -20,6 +20,12 @@ public class MessageDAOImpl implements MessageDAO {
 	}
 	
 	@Override
+	public List<Messages> msgLatelyByDate(String userId) {
+		List<Messages> list = sqlSession.selectList("com.omg.message.msgLatelyByDate", userId);
+		return list;
+	}
+	
+	@Override
 	public List<Messages> selectMsgs(int page,String userId) {
 		Map pageInfo = new HashMap();
 		int startPage = (page-1) * 5 + 1;
@@ -72,5 +78,4 @@ public class MessageDAOImpl implements MessageDAO {
 	}
 
 	
-
 }

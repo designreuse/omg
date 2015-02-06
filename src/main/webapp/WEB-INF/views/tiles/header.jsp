@@ -7,7 +7,7 @@
 		var num = 0;
 		page = 1;
 		$.ajax({				// 처음 메시지 가져오기
-			url: "/company/message/Msglist",	// 변경
+			url: "/company/dashboard/msgLatelyByDate",	// 변경
 			dataType: "json",
 			data :  "page="+page,
 			success : function(json) {

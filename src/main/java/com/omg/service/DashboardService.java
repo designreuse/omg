@@ -1,18 +1,30 @@
 package com.omg.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.*;
 
-import com.omg.dao.StudyDAO;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+
+import com.omg.dao.*;
+import com.omg.dto.*;
 
 @Service
 public class DashboardService {
 
 	@Autowired
-	private StudyDAO dao; 
+	private StudyDAO stdDAO; 
+	
+	@Autowired
+	private MessageDAO msgDAO;
 	
 	public Integer studyCount(String id){
-		Integer result = dao.studyCount(id);
+		Integer result = stdDAO.studyCount(id);
 		return result;
 	}
+	
+	public List<Messages> msgLatelyByDate(String userId){
+		List<Messages> list = msgDAO.msgLatelyByDate(userId);
+		return list;
+	}
+	
 }

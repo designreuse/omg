@@ -12,4 +12,5 @@ public interface MessageDAO {
 	Messages selectDetail(int num);
 	List<Messages> selectMsgByName(Messages msg);
 	int totalByNameCount(Messages msg);
+	List<Messages> msgLatelyByDate(String userId);
 }

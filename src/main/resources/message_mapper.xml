@@ -15,6 +15,11 @@
 		values(meg_seq.nextval, #{sendId}, #{receiveId}, #{title}, #{content}, sysdate)
 	</insert>
 	
+	<!-- 최근 메시지 확인하기 -->
+	<select id="msgLatelyByDate" resultMap="dto" parameterType="String">
+		select * from messages where receive_id=#{receiveId} and credate between sysdate-1 and sysdate+1
+	</select>
+	
 	<!-- 글 개수 -->
     <select id="totalCount" resultType="Integer" parameterType="String">
         SELECT NVL(COUNT(message_num), 0) 
