@@ -77,7 +77,7 @@
 					<i class="fa  fa-twitch"></i>인사말
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/hello"><i class="fa fa-dashboard"></i>Home</a></li>
+					<li><a href="/company/dashboard/hello"><i class="fa fa-dashboard"></i>Home</a></li>
 				</ol>
 			</section>
 

@@ -238,7 +238,7 @@
 					<i class="fa fa-th-list"></i>유지보수 부서 업무
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/hello"><i
+					<li><a href="/company/dashboard/hello"><i
 							class="fa fa-dashboard"></i>Home</a></li>
 					<li class="active">유지 보수 업무</li>
 				</ol>

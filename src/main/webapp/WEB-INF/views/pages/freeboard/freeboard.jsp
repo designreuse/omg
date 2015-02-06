@@ -57,7 +57,7 @@
 					<i class="fa  fa-twitch"></i>자유게시판
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/hello"><i
+					<li><a href="/company/dashboard/hello"><i
 							class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">자유게시판</li>
 				</ol>

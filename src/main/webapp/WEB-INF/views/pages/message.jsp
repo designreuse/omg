@@ -114,7 +114,7 @@
 			<section class="content-header">
 				<h1><i class="fa fa-envelope"></i> 메시지함</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/hello"><i class="fa fa-dashboard"></i>Home</a></li>
+					<li><a href="/company/dashboard/hello"><i class="fa fa-dashboard"></i>Home</a></li>
 					<li class="active">메시지함</li>
 				</ol>
 			</section>

@@ -213,7 +213,7 @@ function procol(){
 			<section class="content-header">
 				<h1><i class="fa fa-th-list"></i>개발 부서 업무</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/hello"><i
+					<li><a href="/company/dashboard/hello"><i
 							class="fa fa-dashboard"></i>Home</a></li>
 					<li class="active">개발 부서 업무</li>
 				</ol>
