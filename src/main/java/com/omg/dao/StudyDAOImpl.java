@@ -129,6 +129,12 @@ public class StudyDAOImpl implements StudyDAO {
 		List<String> list = sqlSession.selectList("com.omg.study.selectTech");
 		return list;
 	}
+
+	@Override
+	public Integer studyCount(String id) {
+		Integer result = sqlSession.selectOne("com.omg.study.studyCount",id);
+		return result;
+	}
 	
 	
  

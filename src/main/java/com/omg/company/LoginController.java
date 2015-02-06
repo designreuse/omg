@@ -57,7 +57,7 @@ public class LoginController {
 			session.setAttribute("image", "/company/resources/img/avatar2.png");
 		}
 		session.setAttribute("user", outputEmp);					// 세션에 로그인 한사람 정보 저장
-		return "redirect:hello";									// 인사말로이동
+		return "redirect:dashboard/hello";									// 인사말로이동
 	}
 	
 	@RequestMapping("/pass")										// 비밀번호 찾기 화면
@@ -100,9 +100,5 @@ public class LoginController {
 		return manager;
 	}
 	
-	// 근하신년 페이지
-	@RequestMapping("/hello")
-	public String helloView(){
-		return "hello";
-	}
+	
 }
