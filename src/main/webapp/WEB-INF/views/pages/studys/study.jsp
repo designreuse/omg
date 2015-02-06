@@ -160,7 +160,6 @@
 					data :  "page="+startpage,
 					success : function(json) {
 						if(json != ""){
-							var data = json;
 							$("#studylist").empty();
 							$.each(json, function(index, item) {
 								var td = "<td><a href='stuList?Num2="+item.studyNum+"'>"+item.studyNum+"</a></td>"+
@@ -254,6 +253,11 @@
 		
 	});
 </script>
+
+<style>
+	th {text-align: center;}
+</style>
+
 </head>
 <body class="skin-blue">
 	<!-- header logo: style can be found in header.less -->

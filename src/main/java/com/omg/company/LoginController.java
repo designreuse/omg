@@ -99,6 +99,8 @@ public class LoginController {
 		}
 		return manager;
 	}
+	
+	// 근하신년 페이지
 	@RequestMapping("/hello")
 	public String helloView(){
 		return "hello";
