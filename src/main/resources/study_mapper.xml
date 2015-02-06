@@ -131,4 +131,13 @@
         FROM studys
 	</select>
 	
+	<!-- 대시보드에 들어갈 참여중인 스터디 수 count -->
+	<select id="studyCount" parameterType="String" resultType="Integer">
+		select count(s.study_num) 
+		from studys s, study_supply a, employees e
+		where s.study_num=a.study_num
+		and s.writer = e.employee_id
+		and a.employee_id=#{employeeId}
+	</select>
+	
 </mapper>

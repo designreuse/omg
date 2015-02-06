@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<title>The OMG ~~</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -49,16 +49,14 @@
 		<jsp:include page="/WEB-INF/views/tiles/sidebar.jsp"></jsp:include>
 		<!-- Right side column. Contains the navbar and content of the page -->
 		<!-- 내용부분... -->
-		<aside class="right-side">
+		<aside class="right-side" >
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
 					<i class="fa  fa-twitch"></i>인사말
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/hello"><i class="fa fa-dashboard"></i>
-							Home</a></li>
-
+					<li><a href="/company/hello"><i class="fa fa-dashboard"></i>Home</a></li>
 				</ol>
 			</section>
 
@@ -68,28 +66,12 @@
 						<div class="row">
 							<div class="col-lg-3 col-xs-6">
 								<!-- small box -->
-								<div class="small-box bg-aqua">
-									<div class="inner">
-										<h3>150</h3>
-										<p>New Orders</p>
-									</div>
-									<div class="icon">
-										<i class="fa fa-envelope"></i>
-									</div>
-									<a href="#" class="small-box-footer"> More info <i
-										class="fa fa-arrow-circle-right"></i>
-									</a>
-								</div>
-							</div>
-							<!-- ./col -->
-							<div class="col-lg-3 col-xs-6">
-								<!-- small box -->
 								<div class="small-box bg-green">
 									<div class="inner">
 										<h3>
-											53<sup style="font-size: 20px">%</sup>
+											Notice
 										</h3>
-										<p>Bounce Rate</p>
+										<p>??</p>
 									</div>
 									<div class="icon">
 										<i class="fa fa-bullhorn"></i>
@@ -104,8 +86,8 @@
 								<!-- small box -->
 								<div class="small-box bg-yellow">
 									<div class="inner">
-										<h3>44</h3>
-										<p>User Registrations</p>
+										<h3>Study</h3>
+										<p>??</p>
 									</div>
 									<div class="icon">
 										<i class="fa fa-laptop"></i>
@@ -118,10 +100,26 @@
 							<!-- ./col -->
 							<div class="col-lg-3 col-xs-6">
 								<!-- small box -->
+								<div class="small-box bg-aqua">
+									<div class="inner">
+										<h3>New message</h3>
+										<p>??</p>
+									</div>
+									<div class="icon">
+										<i class="fa fa-envelope"></i>
+									</div>
+									<a href="#" class="small-box-footer"> More info <i
+										class="fa fa-arrow-circle-right"></i>
+									</a>
+								</div>
+							</div>
+							<!-- ./col -->
+							<div class="col-lg-3 col-xs-6">
+								<!-- small box -->
 								<div class="small-box bg-red">
 									<div class="inner">
-										<h3>65</h3>
-										<p>Unique Visitors</p>
+										<h3>Business</h3>
+										<p>-</p>
 									</div>
 									<div class="icon">
 										<i class="fa fa-th-list"></i>
@@ -136,21 +134,57 @@
 					</div>
 				</div>
 			</section>
+
 			<!-- Main content -->
 			<section class="content">
-				<div>
+				<div align="center">
 					<div class="col-xs-12">
 						<div class="box">
-							<!-- 	<div style="width: %">
-								<a href="#" class="btn btn-default btn-lg">Block level button</a>
-							</div>	 -->
-							<div
-								style="font-weight: bold; background-image: url('/company/resources/img/난초.png'); background-repeat: no-repeat; background-position: center;">
-								<br> <br> <br> <br> <br> <br> <br>
-								<br> <br> <br> <br> <br> <br> <br>
-								<br> <br> <br> <br> <br> <br> <br>
-								<br> <br> <br> <br> <br> <br> <br>
-								<br> <br> <br> <br> <br>
+							<div class="bs-example">
+								<div id="carousel-example-captions"
+									class="carousel slide bs-docs-carousel-example">
+									<ol class="carousel-indicators">
+										<li data-target="#carousel-example-captions" data-slide-to="0"
+											class="active"></li>
+										<li data-target="#carousel-example-captions" data-slide-to="1"
+											class=""></li>
+										<li data-target="#carousel-example-captions" data-slide-to="2"
+											class=""></li>
+									</ol>
+									<div class="carousel-inner">
+										<div class="item active">
+											<img data-src="holder.js/1152x648/auto/#777:#777"
+												src="/company/resources/img/난초.png"
+												alt="1152x648">
+											<div class="carousel-caption">
+												<!-- <h3>First slide label</h3>
+												<p>Nulla vitae elit libero, a pharetra augue mollis
+													interdum.</p> -->
+											</div>
+										</div>
+										<div class="item">
+											<img data-src="holder.js/1152x648/auto/#666:#666"
+												src="http://placehold.it/1152x648"
+												alt="1152x648">
+											<div class="carousel-caption">
+											</div>
+										</div>
+										<div class="item">
+											<img data-src="holder.js/1152x648/auto/#555:#555"
+												src="http://placehold.it/1152x648"
+												alt="1152x648">
+											<div class="carousel-caption">
+											</div>
+										</div>
+									</div>
+									<a class="left carousel-control"
+										href="#carousel-example-captions" data-slide="prev"> <span
+										class="icon-prev"></span>
+									</a> <a class="right carousel-control"
+										href="#carousel-example-captions" data-slide="next"> <span
+										class="icon-next"></span>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -161,14 +195,9 @@
 		<!-- /.right-side -->
 	</div>
 	<!-- ./wrapper -->
-
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script
-		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
-		type="text/javascript"></script>
+	<script	src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
 	<!-- AdminLTE App -->
-	<script src="/company/resources/js/AdminLTE/app.js"
-		type="text/javascript"></script>
+	<script src="/company/resources/js/AdminLTE/app.js" type="text/javascript"></script>
 </body>
 </html>
