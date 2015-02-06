@@ -17,7 +17,7 @@
 	
 	<!-- 최근 메시지 확인하기 -->
 	<select id="msgLatelyByDate" resultMap="dto" parameterType="String">
-		select * from messages where receive_id=#{receiveId} and credate between sysdate-2 and sysdate+2
+		select m.MESSAGE_NUM, m.TITLE, m.CONTENT ,m.CREDATE, e.name sendName from messages m, employees e where m.send_id = e.employee_id and receive_id=#{receive_id} and credate between sysdate-2 and sysdate+2
 	</select>
 	
 	<!-- 글 개수 -->

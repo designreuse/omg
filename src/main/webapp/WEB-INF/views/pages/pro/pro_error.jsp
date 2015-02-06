@@ -28,7 +28,7 @@
                                 </B>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="/company/hello"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="/company/dashboard/hello"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">부서 확인 불가</li>
                     </ol>
                 </section>

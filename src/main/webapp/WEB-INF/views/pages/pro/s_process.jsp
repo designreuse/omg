@@ -284,7 +284,7 @@
 			<section class="content-header">
 				<h1><i class="fa fa-th-list"></i> <b>영업 부서 업무</b></h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/hello"><i class="fa fa-dashboard"></i>Home</a></li>
+					<li><a href="/company/dashboard/hello"><i class="fa fa-dashboard"></i>Home</a></li>
 					<li class="active"> 영업 부서 업무 </li>
 				</ol>
 			</section>

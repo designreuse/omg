@@ -184,7 +184,7 @@
 			<section class="content-header">
 				<h1><i class="fa fa-th-list"></i><b>인사 &amp; 회계 부서 업무</b></h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/hello"><i
+					<li><a href="/company/dashboard/hello"><i
 							class="fa fa-dashboard"></i>Home</a></li>
 					<li class="active">인사 &amp; 회계 부서 업무</li>
 				</ol>
