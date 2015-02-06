@@ -16,5 +16,5 @@ public interface NoticeDAO {
 	int countNotice(int notice_num);//조회수
 	List<Notice> listdept(int page, String dept,String checked);//리스트 부서별로
 	
-	int Ocount();
+	Integer Ocount();
 }

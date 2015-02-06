@@ -67,15 +67,13 @@ public class RProComtroller {
 	
 	// 프로젝트 등록하기
 	@RequestMapping(value="/insertpro", method=RequestMethod.POST)
-	public String insertpro(HttpSession session, 
-			@RequestParam("proid") String proId,
+	public String insertpro(HttpSession session,
 			@RequestParam("proname") String proName,
 			@RequestParam("proprice") long price,
 			@RequestParam("start") Date start,
 			@RequestParam("end") Date end,
 			@RequestParam("deptid") String deptId){
 		Projects protemp = new Projects();
-		protemp.setProjectId(proId);
 		protemp.setProjectName(proName);
 		protemp.setProjectPrice(price);
 		protemp.setStartDate(start);
@@ -436,10 +434,9 @@ public class RProComtroller {
 	//jem하는대
 	@RequestMapping(value="jem")
 	public @ResponseBody int jem(HttpSession session,
-			@RequestParam("techId") String techId,
 			@RequestParam("techName") String techName){
 		
-		return runService.jem(techId, techName);
+		return runService.jem(techName);
 		
 		 
 	}

@@ -37,7 +37,7 @@
 	<!-- 새로운 스터디 등록(insert) -->
 	<insert id="insertStudy" parameterType="Studys">
 		insert into studys(study_num,study_name,member_cnt,writer,studyday,start_date,tech_name)
-		 values(num.nextval,#{studyName},#{memberCnt},#{writer},#{studyday},#{startDate},#{techName})
+		 values(stu_num.nextval,#{studyName},#{memberCnt},#{writer},#{studyday},#{startDate},#{techName})
 	</insert>
 	
 	<!-- 기술테이블에서 기술 조회 (select) -->

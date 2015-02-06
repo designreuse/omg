@@ -26,14 +26,8 @@ public class TechDAOImpl implements TechDAO {
 	}
 
 	@Override
-	public int jem(String techId, String techName) {
-		
-		Map<String, String> map =new HashMap<String, String>();
-		
-		map.put("techId", techId);
-		map.put("techName", techName);
-		
-		return sqlSession.insert("com.omg.techs.jem",map);
+	public int jem(String techName) {		
+		return sqlSession.insert("com.omg.techs.jem",techName);
 		
 	}
 }

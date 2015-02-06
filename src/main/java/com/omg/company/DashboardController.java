@@ -24,7 +24,11 @@ public class DashboardController {
 	}
 	
 	// 최근 공지사항 갯수
-	
+	@RequestMapping("noticeCount")
+	public @ResponseBody Integer Ocount(){
+		Integer count = dashService.Ocount();
+		return count;
+	}
 	
 	// 자신이 신청한 스터디 갯수
 	@RequestMapping("studyCount")

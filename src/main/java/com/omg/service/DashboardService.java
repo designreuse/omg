@@ -30,7 +30,7 @@ public class DashboardService {
 		return list;
 	}
 	
-	public int Ocount() {
+	public Integer Ocount() {
 		return notDAO.Ocount();
 	}
 	

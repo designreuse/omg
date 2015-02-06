@@ -37,7 +37,7 @@
 	}
 </script>
 <header class="header">
-	<a href="/company/notice/index" class="logo"> <!-- 화면 로그 --> <!-- Add the class icon to your logo image or logo icon to add the margining -->
+	<a href="/company/dashboard/hello" class="logo"> <!-- 화면 로그 --> <!-- Add the class icon to your logo image or logo icon to add the margining -->
 		OMG Smart Pro
 	</a>
 	<!-- Header Navbar: style can be found in header.less -->

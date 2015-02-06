@@ -12,12 +12,12 @@
 	
 	<insert id="sendMessage" parameterType="Messages">
 		insert into messages(message_num, send_id, receive_id, title, content, credate) 
-		values(meg_seq.nextval, #{sendId}, #{receiveId}, #{title}, #{content}, sysdate)
+		values(mgs_seq.nextval, #{sendId}, #{receiveId}, #{title}, #{content}, sysdate)
 	</insert>
 	
 	<!-- 최근 메시지 확인하기 -->
 	<select id="msgLatelyByDate" resultMap="dto" parameterType="String">
-		select m.MESSAGE_NUM, m.TITLE, m.CONTENT ,m.CREDATE, e.name sendName from messages m, employees e where m.send_id = e.employee_id and receive_id=#{receive_id} and credate between sysdate-2 and sysdate+2
+		select m.MESSAGE_NUM, m.TITLE, m.CONTENT ,m.CREDATE, e.name sendName from messages m, employees e where m.send_id = e.employee_id and receive_id=#{receive_id} and credate between sysdate-3 and sysdate+1
 	</select>
 	
 	<!-- 글 개수 -->
