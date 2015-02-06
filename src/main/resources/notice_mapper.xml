@@ -32,37 +32,44 @@
 
 
 	<select id="detailNotice" resultMap="dto2" parameterType="int">
-		select notice_num, title, content, WRITER, e.NAME NAME, CREDATE, n.COUNT 
-		from notices n ,employees e 
-		where n.writer = e.employee_id 
-		and notice_num=#{notice_num}
+		select
+		notice_num, title, content, WRITER, e.NAME NAME, CREDATE, n.COUNT
+		from
+		notices n ,employees e
+		where n.writer = e.employee_id
+		and
+		notice_num=#{notice_num}
 
 	</select>
 
 
 
 	<delete id="deleteNotice" parameterType="string">
-		delete from notices where notice_num = #{delete}
+		delete from notices
+		where notice_num = #{delete}
 	</delete>
 
 
 	<update id="updateNotice" parameterType="Notice">
 
 		update notices
-		set content=#{content},title=#{title},checked=#{checked}
-		where notice_num=#{notice_num}
+		set
+		content=#{content},title=#{title},checked=#{checked}
+		where
+		notice_num=#{notice_num}
 
 	</update>
 
 	<update id="countNotice" parameterType="Integer">
 		update notices
-		set count=count+1
+		set
+		count=count+1
 		where notice_num=#{notice_num}
 	</update>
 
 
 
-	<!-- 리스트 CDATA는 등호들을 문자화 시켜준다  그냥 공지사항 리스트 보이기-->
+	<!-- 리스트 CDATA는 등호들을 문자화 시켜준다 그냥 공지사항 리스트 보이기 -->
 	<select id="listboard" parameterType="java.util.Map" resultMap="dto2">
 		<![CDATA[ SELECT * FROM (
 	    	SELECT ROW_NUMBER() OVER(ORDER BY notice_num DESC) rnum, 
@@ -81,11 +88,11 @@
 	<select id="totalCount" resultType="Integer" parameterType="map">
 		SELECT NVL(COUNT(notice_num), 0) FROM notices
 		<if test="dept!=null">
-		where department_id=#{dept}
-		and checked=#{checked}
+			where department_id=#{dept}
+			and checked=#{checked}
 		</if>
 		<if test="dept==null">
-		where checked='O'
+			where checked='O'
 		</if>
 
 
@@ -95,7 +102,7 @@
 
 
 
-	<!--부서별로 글쓴 리스트 나타내기  -->
+	<!--부서별로 글쓴 리스트 나타내기 -->
 	<select id="listdept" parameterType="map" resultMap="dto2">
 		<if test="dept==null">
 			<![CDATA[ SELECT * FROM (
@@ -106,8 +113,8 @@
 	        	)  WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
 	        		ORDER BY notice_num DESC
 	    	]]>
-	    </if>
-	    <if test="dept!=null">
+		</if>
+		<if test="dept!=null">
 	    	<![CDATA[ SELECT * FROM (
 	    	SELECT ROW_NUMBER() OVER(ORDER BY notice_num DESC) rnum, 
 	    			notice_num,credate,content,title,checked,writer,department_id,count FROM notices			
@@ -116,7 +123,7 @@
 	        )  WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
 	        	ORDER BY notice_num DESC
 	    ]]>
-	    </if>
+		</if>
 	</select>
 
 
@@ -126,5 +133,17 @@
 		where
 		department_id=#{departmentId} and checked=#{checked}
 	</select>
+
+
+
+	<!--O 가 들어있는 개수 세기 -->
+	<select id="ocount" resultType="Integer">
+		select count(notice_num)
+		from notices
+		where credate between (sysdate-1) and (sysdate +1)
+		and checked ='O'
+	</select>
+
+
 
 </mapper>

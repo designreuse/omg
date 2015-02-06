@@ -17,6 +17,9 @@ public class DashboardService {
 	@Autowired
 	private MessageDAO msgDAO;
 	
+	@Autowired
+	private NoticeDAO notDAO;
+	
 	public Integer studyCount(String id){
 		Integer result = stdDAO.studyCount(id);
 		return result;
@@ -25,6 +28,10 @@ public class DashboardService {
 	public List<Messages> msgLatelyByDate(String userId){
 		List<Messages> list = msgDAO.msgLatelyByDate(userId);
 		return list;
+	}
+	
+	public int Ocount() {
+		return notDAO.Ocount();
 	}
 	
 }
