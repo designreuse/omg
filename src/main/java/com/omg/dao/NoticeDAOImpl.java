@@ -126,5 +126,12 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 
 
+	@Override
+	public int Ocount() {
+		return session.selectOne("exam.notice.mapper.ocount");
+		
+	}
+
+
 
 }
