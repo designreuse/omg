@@ -27,6 +27,6 @@ public interface StudyDAO {
 	Integer totalCount();
 	
 	List<String> selectTech();	
-	 
+	Integer studyCount(String id);
 	
 }
