@@ -67,6 +67,7 @@
 							 }
 						td += "<td>"+item.deptName+"</a></td>"+
 							 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+							 "<td>"+item.techCount+"</td>"+
 							 "<td>"+item.startDate+"</td>"+
 							 "<td>"+item.endDate+"</td>"+
 							 "<td>"+item.projectPrice+"</td>";
@@ -130,6 +131,7 @@
 								 }
 							td += "<td>"+item.deptName+"</a></td>"+
 								 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+								 "<td>"+item.techCount+"</td>"+
 								 "<td>"+item.startDate+"</td>"+
 								 "<td>"+item.endDate+"</td>"+
 								 "<td>"+item.projectPrice+"</td>";
@@ -177,24 +179,32 @@
 		
 		// 전체 선택
 		$("#fulllist").click(function() {
+			startpage = 1;
+			endpage = 0;
 			listck = 0;
 			ckdatelist(1,0);
 		});
 		
 		// 승인대기
 		$("#proInglist").click(function() {
+			startpage = 1;
+			endpage = 0;
 			listck = 1;
 			ckdatelist(1,1);
 		});
 		
 		// 승인불가
 		$("#proNotlist").click(function() {
+			startpage = 1;
+			endpage = 0;
 			listck = 2;
 			ckdatelist(1,2);
 		});
 		
 		// 승인완료
 		$("#proEndlist").click(function() {
+			startpage = 1;
+			endpage = 0;
 			listck = 3;
 			ckdatelist(1,3);
 		});
@@ -204,9 +214,10 @@
 			startpage--;
 			if(startpage >= 1){
 				ckdatelist(startpage,listck);
-				//
 				$("#page").text(startpage);
 				$("#nextdesc").removeClass("disabled");
+				$("#nextasc").removeClass("disabled");
+				//alert(startpage+"    "+ endpage);
 				if(startpage == 1){
 					$("#nextasc").addClass("disabled");
 				}
@@ -220,9 +231,10 @@
 			startpage++;
 			if(startpage <= endpage){
 				ckdatelist(startpage,listck);
-				//
 				$("#page").text(startpage);
 				$("#nextasc").removeClass("disabled");
+				$("#nextdesc").removeClass("disabled");
+				//alert(startpage+"    "+ endpage);
 				if(startpage == endpage){
 					$("#nextdesc").addClass("disabled");
 				}
@@ -242,7 +254,6 @@
 				alert('선택해주세요');
 			}
 			if(cbox.length != 0){		// 삭제 로직
-				//$(this).attr("href", "proDelete?proIds="+cbox);
 				$.ajax({
 					url : "proDelete",
 					dataType : "text",
@@ -368,7 +379,8 @@
 																<th class="name">프로젝트 ID</th>
 															</c:if>
 															<th class="name"> 부 서 </th>
-															<th class="subject"> 프로젝트명 제목(기술등록) </th>
+															<th class="subject"> 프로젝트명 제목(기술등록)</th>
+															<th class="time"> 기 술(한개만)</th>
 															<th class="time"> 시 작 일 </th>
 															<th class="time"> 종 료 일 </th>
 															<th class="time"> 가 격(천만원) </th>

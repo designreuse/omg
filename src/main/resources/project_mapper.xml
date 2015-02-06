@@ -38,9 +38,9 @@
 	<!-- 리스트 뿌려주기 -->
 	<select id="salProjects" resultMap="pro" parameterType="map">
 		<![CDATA[ SELECT * FROM (
-	    	SELECT ROW_NUMBER() OVER(ORDER BY start_date, end_date DESC) rnum, p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, t.team_name teamName,  d.department_name deptName 
-	    	FROM projects p, departments d, teams t 
-	    	WHERE p.department_id = d.department_id and p.team_id = t.team_id(+) ]]> 
+	    	SELECT ROW_NUMBER() OVER(ORDER BY start_date DESC) rnum, p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, t.team_name teamName,  d.department_name deptName, (select count(DISTINCT tech_id) from project_tech where project_id = p.project_id) techCount
+			FROM projects p, departments d, teams t 
+			WHERE p.department_id = d.department_id and p.team_id = t.team_id(+) ]]> 
 	 		<if test="apping != null">
 	    		and p.approval is null 
 	    	</if> -->
@@ -48,11 +48,11 @@
 	    		and p.approval = 'X'
 	    	</if>
 	    	<if test="append != null">
-	    		<![CDATA[and p.end_date <= sysdate and approval = 'O']]> 
+	    		<![CDATA[and approval = 'O']]> 
 	    	</if>
 	    <![CDATA[)  
 	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
-	        ORDER BY start_date, end_date DESC
+	        ORDER BY start_date DESC
 	    ]]> 
 	</select>
 	<!-- 글 개수 -->
@@ -67,7 +67,7 @@
 	    		<![CDATA[and approval = 'X']]> 
 	    	</if>
 	    	<if test="append != null">
-	    		<![CDATA[and end_date <= sysdate and approval = 'O']]> 
+	    		<![CDATA[and approval = 'O']]> 
 	    	</if>
 	    	and 1=1
 	    </where>
@@ -128,7 +128,7 @@
     <!-- 리스트 뿌려주기 -->
 	<select id="runProjects" resultMap="pro" parameterType="map">
 		<![CDATA[ SELECT * FROM (
-	    	SELECT ROW_NUMBER() OVER(ORDER BY start_date, end_date DESC) rnum, p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, t.team_name teamName,  d.department_name deptName 
+	    	SELECT ROW_NUMBER() OVER(ORDER BY start_date, end_date DESC) rnum, p.project_id, p.project_name, p.start_date, p.end_date, p.project_price, p.approval_name, p.approval, t.team_name teamName,  d.department_name deptName, (select count(DISTINCT tech_id) from project_tech where project_id = p.project_id) techCount
 	    	FROM projects p, departments d, teams t 
 	    	WHERE p.department_id = d.department_id and p.team_id = t.team_id(+) and p.end_date >= sysdate)  
 	    	WHERE rnum >= #{startPage} AND rnum <= #{endPage} 
