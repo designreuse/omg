@@ -57,6 +57,16 @@
 				$("#msgcnt").text(num);
 			}
 		});
+		$.ajax({				 
+			url: "/company/dashboard/studyCount",	 
+			dataType: "text",
+			success : function(text) {
+				if(text != ""){
+					$("#studycnt").empty();
+				}
+				$("#studycnt").text(text);
+			}
+		});
 	});
 </script>
 </head>
@@ -108,7 +118,7 @@
 								<div class="small-box bg-yellow">
 									<div class="inner">
 										<h3>Study</h3>
-										<p>??</p>
+										<p id="studycnt">??</p>
 									</div>
 									<div class="icon">
 										<i class="fa fa-laptop"></i>
