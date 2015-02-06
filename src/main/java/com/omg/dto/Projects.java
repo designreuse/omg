@@ -17,6 +17,7 @@ public class Projects {
 	/// 추가
 	private String deptName;
 	private String teamName;
+	private int techCount;
 	
 	public String getProjectId() {
 		return projectId;
@@ -86,6 +87,12 @@ public class Projects {
 	}
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
+	}
+	public int getTechCount() {
+		return techCount;
+	}
+	public void setTechCount(int techCount) {
+		this.techCount = techCount;
 	}
 	
 }

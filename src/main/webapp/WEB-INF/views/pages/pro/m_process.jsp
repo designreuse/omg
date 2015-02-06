@@ -54,28 +54,21 @@
 
 		//현재 투입중인 프로젝트리스트
 		$.ajax({
-
 			url : "relist",
 			dataType : "json",
 			success : function(json) {
 				$("#relist").empty();
-				var sta = "";
+				var str = "";
 				$.each(json, function(index, item) {
-
-					sta += "<tr>";
-					sta += "<th>" + item.projectName + "</th>";
-					sta += "<th>" + item.techName + "</th>";
-					sta += "<td>" + item.startDate + "</td>";
-					sta += "<td>" + item.endDate + "<td>";
-					sta += "</tr>";
-
+				str += "<tr>";
+				str += "<td>" + item.projectName + "</td>";
+				str += "<td>" + item.techName + "</td>";
+				str += "<td>" + item.startDate + "</td>";
+				str += "<td>" + item.endDate + "</td>";
+				str += "</tr>";
+				$("#relist").append(str);
 				});
-				$("#relist").append(sta);
-			},
-			error : function() {
-				alert("relist 애러다");
 			}
-
 		});
 		});
 		
@@ -91,28 +84,17 @@
 					$("#exlist").empty();
 					var str = "";
 					$.each(json, function(index, item) {
-						//index는 012345씩증가한다 item은 json를 하나씩 저장함
-						//json에서 index번째를 item에 저장한다는뜻
-
 						str += "<tr>";
 						str += "<td>" + item.projectName + "</td>";
 						str += "<td>" + item.techName + "</td>";
 						str += "<td>" + item.startDate + "</td>";
-						str += "<td>" + item.endDate + "<td>";
+						str += "<td>" + item.endDate + "</td>";
 						str += "</tr>";
-
 					});
 					$("#exlist").append(str);
-					//list 아래에 str을 위에서 선언한대로 찍는다
-
-				},
-				error : function() {
-					alert("exlist 에러이다");
 				}
-
 			});
 		});
-
 
 			//첫화면 프로젝트 이름이랑 잉여리스트랑 인원투입나오게하기
 			$.ajax({
@@ -434,7 +416,6 @@
 											<div class="box-body">
 												<div class="table-responsive">
 													<table class="table table-bordered" border="1">
-
 														<thead>
 															<tr>
 																<th>Project명</th>
@@ -443,10 +424,7 @@
 																<th>End day</th>
 															</tr>
 														</thead>
-														<tbody id="relist">
-														</tbody>
-
-
+														<tbody id="relist"></tbody>
 													</table>
 												</div>
 											</div>
@@ -508,30 +486,23 @@
 			});
 
 			//현재 투입중인 프로젝트리스트
-			$.ajax({
-
-				url : "relist",
-				dataType : "json",
-				success : function(json) {
-					$("#relist").empty();
-					var sta = "";
-					$.each(json, function(index, item) {
-
-						sta += "<tr>";
-						sta += "<td>" + item.projectName + "</td>";
-						sta += "<td>" + item.techName + "</td>";
-						sta += "<td>" + item.startDate + "</td>";
-						sta += "<td>" + item.endDate + "<td>";
-						sta += "</tr>";
-
-					});
-					$("#relist").append(sta);
-				},
-				error : function() {
-					alert("relist 애러다");
-				}
-
-			});
+				$.ajax({
+			url : "relist",
+			dataType : "json",
+			success : function(json) {
+				$("#relist").empty();
+				var str = "";
+				$.each(json, function(index, item) {
+				str += "<tr>";
+				str += "<td>" + item.projectName + "</td>";
+				str += "<td>" + item.techName + "</td>";
+				str += "<td>" + item.startDate + "</td>";
+				str += "<td>" + item.endDate + "</td>";
+				str += "</tr>";
+				$("#relist").append(str);
+				});
+			}
+		});
 			</script>
 
 

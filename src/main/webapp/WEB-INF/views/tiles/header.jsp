@@ -95,8 +95,7 @@
 									보기</a>
 							</div>
 							<div class="pull-right">
-								<a href="/company/logout" class="btn btn-default btn-flat">로그인
-									아웃</a>
+								<a href="/company/logout" class="btn btn-default btn-flat">로그 아웃</a>
 							</div>
 						</li>
 					</ul>

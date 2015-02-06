@@ -38,17 +38,23 @@
 						 "<td>"+item.startDate+"</td>"+
 						 "<td>"+item.endDate+"</td>"+
 						 "<td>"+item.projectPrice+"</td>";
-						 if(item.approval == 'O'){
-							td +="<td>"+item.approval+"</td>";
-						 }else if(item.approval == 'X'){
-							td +="<td style='color:red;'>"+item.approval+"</td>";
+						 if(item.techCount > 0){
+							td += "<td style='color:blue;'>등록</td>";
+							if(item.approval == 'O'){
+								td +="<td>"+item.approval+"</td>";
+							}else if(item.approval == 'X'){
+								td +="<td style='color:red;'>"+item.approval+"</td>";
+							}else{
+								td +="<td style='color:blue;'>대기중</td>";
+							}
+							td +="<td><select id='approval' name='approval' proid='"+item.projectId+"' proname='"+item.projectName+"'>"+
+						 	 	 "<option value=''>-선택-</option>"+
+						 	 	 "<option value='승인'>승인</option><option value='불가'>불가</option>"+
+						 	 	 "<option value='STOP'>대기</option></select>";
 						 }else{
-							td +="<td style='color:blue;'>승인대기</td>";
+							td += "<td style='color:red;'>미등록</td><td>-</td><td>-</td>";
 						 }
-					td +="<td><select id='approval' name='approval' proid='"+item.projectId+"' proname='"+item.projectName+"'>"+
-						 "<option value=''>-선택-</option>"+
-						 "<option value='승인'>승인</option><option value='불가'>불가</option>"+
-						 "<option value='STOP'>대기</option></select>";
+					
 					$("<tr>"+td+"</tr>").appendTo($("#list"));
 				});
 			}
@@ -268,7 +274,7 @@
 							"<tr><th>기술 id</th><td><input type='text' id='techId'></td></tr>"+
 							"<tr><th>기술 명</th><td><input type='text' id='techName'></td></tr>"+
 							"</thead></table><div align='right'>"+
-							"<a id='techInBtn' class='btn btn-default btn-sm'>입력</a></div></div>";
+							"<a id='techInBtn' class='btn btn-default btn-sm' >입력</a></div></div>";
 			
 			$("#runTechInView").append(runInTech);
 			
@@ -276,7 +282,7 @@
 			var proProcess = "<div class='row pad'><div class='input-group' style='float: right !important; margin: 10px;'>"+
 							 "</div></div><div class='table-responsive'><table class='table table-bordered' border='1'>"+
 							 "<thead><tr align='center'>"+
-							 "<th>프로잭트명</th><th>부 서</th><th>시 작 일</th><th>종 료 일</th><th>가 격</th><th>승 인</th><th>승 인 여 부</th>"+
+							 "<th>프로잭트명</th><th>부 서</th><th>시 작 일</th><th>종 료 일</th><th>가 격(천만원)</th><th>기술등록여부</th><th>승 인</th><th>승 인 여 부</th>"+
 							 "</tr></thead><tbody id='list'></tbody></table></div>";
 			$("#detailview").append(proProcess);
 			
@@ -332,8 +338,31 @@
 		
 		
 		$("#runTechInView").on("click", "#techInBtn", function() {
-			alert('입력하게 해주세여');
+			var techId = $("#techId").val();//input으로 따로만든 값을 가져올때는 val을쓴다 attr는 속성으로 준것을 가져옴
+			var techName = $("#techName").val();
+			 check = -1;
+			$.ajax({
+				url:"jem",
+				data:"techId="+techId+"&techName="+techName,
+				dataType:"json",
+				success:function(json){
+				if(json=="1"){
+					check = 1;
+				}else{
+					check = -1;
+				}
+				}
+				
+				
+			});
+			if(check=1){
+
+				salFun();
+			}else{
+				alert("다시");
+			}
 		});
+		
 	});
 </script>
 </head>
