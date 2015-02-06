@@ -41,7 +41,7 @@
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
 	$(function() {
-		$('.carousel').carousel()
+		$('.carousel').carousel(0);
 		var num = 0;
 		page = 1;
 		$.ajax({
