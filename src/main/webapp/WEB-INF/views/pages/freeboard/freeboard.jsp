@@ -94,7 +94,7 @@
 
 									<c:forEach var="board" items="${freelist}" varStatus="i">
 										<tr>
-											<td>${i.count}</td>
+											<td>${board.freeboardNum}</td>
 											<td><a
 												href="/company/freeboard/freedetail?freeboardNum=${board.freeboardNum}">${board.title}</a></td>
 											<td>${board.credate}</td>

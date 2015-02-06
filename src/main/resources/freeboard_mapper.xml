@@ -78,7 +78,7 @@
 		(COMMENTS_NUM, FREEBOARD_NUM, COMMENTS_WRITER,
 		COMMENTS_CONTENT,
 		COMMENTS_CREDATE)
-		values(COMMENTS_SEQ.nextval , #{freeboardNum},
+		values(COM_SEQ.nextval , #{freeboardNum},
 		#{commentsWriter}, #{commentsContent},
 		sysdate)
 	</insert>
