@@ -40,7 +40,7 @@
 			<section class="content-header">
 				<h1> <i class="fa fa-laptop"></i>Study 목록</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/notice"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="/company/hello"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">스터디 인원 조회</li>
 				</ol>
 			</section> 

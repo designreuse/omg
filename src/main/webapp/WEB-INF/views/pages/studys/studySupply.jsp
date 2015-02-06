@@ -38,7 +38,7 @@
 			<section class="content-header">
 				<h1> <i class="fa fa-laptop"></i>Study 개설</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/notice"><i class="fa fa-dashboard"></i>
+					<li><a href="/company/hello"><i class="fa fa-dashboard"></i>
 							Home</a></li>
 					<li class="active">스터디 정보 입력</li>
 				</ol>

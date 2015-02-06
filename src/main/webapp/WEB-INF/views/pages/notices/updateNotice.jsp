@@ -39,7 +39,7 @@
 					<i class="fa fa-bullhorn"></i>공지게시판
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/notice/index"><i
+					<li><a href="/company/hello"><i
 							class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">게시글 입력</li>
 				</ol>

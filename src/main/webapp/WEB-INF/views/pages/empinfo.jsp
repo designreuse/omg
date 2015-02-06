@@ -174,7 +174,7 @@
 			<section class="content-header">
 				<h1><i class="fa  fa-users"></i>직원조회</h1>
 				<ol class="breadcrumb">
-					<li><a href="/company/notice/index"><i
+					<li><a href="/company/hello"><i
 							class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">직원조회</li>
 				</ol>
