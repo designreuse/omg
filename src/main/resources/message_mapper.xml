@@ -17,7 +17,7 @@
 	
 	<!-- 최근 메시지 확인하기 -->
 	<select id="msgLatelyByDate" resultMap="dto" parameterType="String">
-		select * from messages where receive_id=#{receiveId} and credate between sysdate-1 and sysdate+1
+		select * from messages where receive_id=#{receiveId} and credate between sysdate-2 and sysdate+2
 	</select>
 	
 	<!-- 글 개수 -->

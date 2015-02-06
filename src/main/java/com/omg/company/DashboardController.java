@@ -26,8 +26,14 @@ public class DashboardController {
 	// 최근 공지사항 갯수
 	
 	
-	// 자신이 신청한 메시지 갯수
-	
+	// 자신이 신청한 스터디 갯수
+	@RequestMapping("studyCount")
+	public @ResponseBody Integer studyCount(HttpSession session){
+		Employees user = (Employees)session.getAttribute("user");
+		String id = user.getEmployeeId();
+		Integer result = dashService.studyCount(id);
+		return result;
+	}
 	
 	// 자신이 받은 최근 메시지 겟수
 	@RequestMapping("msgLatelyByDate")
