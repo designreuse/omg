@@ -40,7 +40,7 @@ public class RunService {
 		return list;
 	}
 	
-	public int jem(String techId, String techName) {
-		return techDAO.jem(techId, techName);
+	public int jem( String techName) {
+		return techDAO.jem( techName);
 	}
 }

@@ -271,7 +271,6 @@
 							"<div class='table-responsive' id='apptable'>"+
 							"<table class='table table-bordered' border='1' >"+
 							"<thead align='left'>"+
-							"<tr><th>기술 id</th><td><input type='text' id='techId'></td></tr>"+
 							"<tr><th>기술 명</th><td><input type='text' id='techName'></td></tr>"+
 							"</thead></table><div align='right'>"+
 							"<a id='techInBtn' class='btn btn-default btn-sm' >입력</a></div></div>";
@@ -418,7 +417,7 @@
       										</a>
       						    			<ul class="dropdown-menu">
       						    				<c:forEach var="item" items="${AllTechList}">
-        											<li><a>(${item.techId})<b>${item.techName}</b></a></li>
+        											<li><b>${item.techName}</b></li>
     											</c:forEach>
        										</ul>
     									</div>
