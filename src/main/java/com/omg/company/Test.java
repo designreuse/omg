@@ -9,7 +9,7 @@ public class Test {
 	
 	@RequestMapping("/test")
 	public String testView(){
-		return "pages/pro/pro_error";
+		return "hello";
 	}
 	
 	@RequestMapping("/test2")

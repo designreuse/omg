@@ -126,7 +126,7 @@ function procol(){
 						$("#startPro").empty();
 						var str = "";
 						$.each(json,function(index, item) {
-											str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>"
+											str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>";
 											str += "<tr>";
 											str += "<td>" + item.projectName
 													+ "</td>";
@@ -731,6 +731,7 @@ function procol(){
 																	$("#putlist").append(str);
 																}
 															});
+										
 															
 														//spare 리스트부분 ajax
 															$.ajax({
@@ -758,7 +759,7 @@ function procol(){
 																}
 										});
 										
-									
+										});
 									
 									
 									//프로젝트 투입인원리스트에서 제거 눌럿을때
@@ -881,7 +882,7 @@ function procol(){
 															}
 									});
 								});	
-							});
+
 						});
 					</script>
 			</section>
