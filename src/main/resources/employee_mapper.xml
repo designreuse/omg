@@ -100,7 +100,7 @@
 	
 	<!-- 인사.회계팀 일반사용자 부서별 직원정보 조회 -->
 	<select id="p_selectEmp" parameterType="map" resultMap="dto2">
-		<![CDATA[ SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY hiredate DESC) rnum, e.employee_id, e.name, d.department_name, t.team_name, p.position_name, e.salary, e.hiredate, e.phone, e.address, e.commition
+		<![CDATA[ SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY hiredate DESC) rnum, e.employee_id, e.name, e.birth,d.department_name, t.team_name, p.position_name, e.salary, e.hiredate, e.phone, e.address, e.commition
 		from employees e, departments d, teams t, position p
 		where e.department_id = d.department_id
 		and  e.team_id = t.team_id(+)
@@ -130,8 +130,8 @@
 	
 	<!-- 인사.회계팀 일반사용자 직원 등록 -->
 	<insert id="p_insertEmp" parameterType="Employees">
-		insert into employees (employee_id, name, phone, address, salary, manager, position_id, department_id, team_id, hiredate, password, gender)
-		values(#{employeeId},#{name},#{phone},#{address},#{salary},#{manager},#{positionId},#{departmentId},#{teamId},#{hiredate},#{password},#{gender})
+		insert into employees (employee_id, name, phone, address, salary, manager, position_id, department_id, team_id, hiredate, birth,password, gender)
+		values(#{employeeId},#{name},#{phone},#{address},#{salary},#{manager},#{positionId},#{departmentId},#{teamId},#{hiredate},#{birth},#{password},#{gender})
 	</insert>
 	
 		

@@ -149,7 +149,7 @@ public class MProController {
 	public String setTeam(HttpSession session,
 			@RequestParam("teamId") String teamId,
 			@RequestParam("projectId") String projectId) {
-		System.out.println(teamId+"       " +projectId);
+		
 		mproService.setTeam(projectId, teamId);
 		
 		return "redirect:index";
@@ -162,6 +162,14 @@ public class MProController {
 		List<MProcess> startPro = mproService.startProjects(emps.getEmployeeId());
 		return startPro;
 
+	}
+	
+	@RequestMapping(value="/fk")
+	public @ResponseBody int fk(HttpSession session,@RequestParam("proId")String proId){
+		
+			int fk = mproService.fk(proId);
+		
+		return fk;
 	}
 	
 }

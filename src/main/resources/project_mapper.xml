@@ -143,6 +143,6 @@
     </select>
     
     <update id="runProInApp" parameterType="map">
-    	update projects set approval = #{approval}, approval_name = #{approvalName}	where project_id = #{projectId} 
+    	update projects set approval = #{approval}, approval_name = #{approvalName}, team_id = null	where project_id = #{projectId} 
     </update>
 </mapper>
