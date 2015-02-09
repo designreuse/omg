@@ -93,7 +93,7 @@ where p.project_id = pe.project_id and pe.employee_id = emp.employee_id and pos.
 and p.project_id =#{projectId}
 and emp.employee_id=e.employee_id
 )
-
+order by p.position_id
 </select>
 
 <!--투입인원 찾기  -->
