@@ -57,7 +57,7 @@
 		//권한을 줘서 각각의 필요로하는 게시판에 들어가기
 		$.ajax({
 			url : "checkDept",
-			dataType : "text",
+			dataType : "text",    //데이터 타입을 text 형식으로 받는다란 뜻인데 json이랑 차이가머니
 			success : function(txt) {
 				if (txt == "M") { // 유지보수
 					$("#manage").removeClass("disabled");
