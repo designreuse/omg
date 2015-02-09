@@ -68,32 +68,20 @@ and pro.approval = 'O']]>
 
 <!--잉여리스트  -->
 <select id="sparelist" resultMap="dto">
-<!-- select e.NAME, e.PHONE, e.EMAIL, p.POSITION_NAME, e.TEAM_ID 
-from employees e, position p
-where e.POSITION_ID = p.POSITION_ID
-and e.EMPLOYEE_ID not in (
-select e.EMPLOYEE_ID from employees e, project_emp pe
-where e.EMPLOYEE_ID = pe.EMPLOYEE_ID)
-and e.team_id = #{teamId} 
-select *
-from employees e, position p
-where e.POSITION_ID = p.POSITION_ID
-and e.team_id=#{teamId}
-order by e.position_id-->
 
-select *
-from employees e, position p
-where e.POSITION_ID = p.POSITION_ID
-and e.team_id=#{teamId}
-and not exists
-(
-select *
-from projects p , project_emp pe, employees emp,position pos
-where p.project_id = pe.project_id and pe.employee_id = emp.employee_id and pos.position_id = emp.position_id  
-and p.project_id =#{projectId}
-and emp.employee_id=e.employee_id
+<![CDATA[
+ select * from employees e inner join position p on e.POSITION_ID = p.POSITION_ID
+left outer join project_emp pe on e.EMPLOYEE_ID = pe.EMPLOYEE_ID
+left outer join projects pro on pro.PROJECT_ID = pe.PROJECT_ID
+where e.team_id = #{teamId}
+and ((pro.START_DATE <= sysdate and pro.END_DATE >= sysdate) or pro.START_DATE is null)
+and e.EMPLOYEE_ID not in(
+select e.EMPLOYEE_ID from projects p , project_emp pe, employees e, position pos
+where p.project_id = pe.project_id and pe.EMPLOYEE_ID = e.EMPLOYEE_ID and pos.position_id = e.position_id  
+and p.project_id = #{projectId}
 )
 order by p.position_id
+ ]]>
 </select>
 
 <!--투입인원 찾기  -->
