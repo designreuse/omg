@@ -137,46 +137,35 @@ function procol(){
 		
 		function cpview() {
 			$.ajax({
-					url : "startPro",
-					dataType : "json",
-					success : function(json) {
-						$("#startPro").empty();
-						var str = "";
+				url : "startPro",
+				dataType : "json",
+				success : function(json) {
+					$("#startPro").empty();
+					var str = "";
 						
-						$.each(json,function(index, item) {
-											str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>";
-											str += "<tr>";
-											str += "<td>" + item.projectName
-													+ "</td>";
-											str += "<td>" + item.techName
-													+ "</td>";
-											str += "<td>" + item.startDate
-													+ "</td>";
-											str += "<td>" + item.endDate
-													+ "</td>";
-											$.ajax({
-														url : "selectTeam",
-														dataType : "json",
-														async : false,
-														success : function(json) {
-															str += "<td><select id='selectTeam'  name='selectTeam'>";
-															$.each(json,function(index,item) {
-																				str += "<option value="+item.teamId+">"
-																						+ item.teamName
-																						+ "</option>";
-																			});
-															str += "</select></td>";
-														}
-													});
-											str += "<td>"
-													+ "<a id='setTeam' class='btn btn-default btn-sm' proId='"+item.projectId+"'>"+"결정"+"</a>"
-													+ "</td>";
-											str += "</tr>";
-										});
-						$("#startPro").append(str);
-						
-					}
-				});
+					$.each(json,function(index, item) {
+						str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>";
+						str += "<tr><td>" + item.projectName+ "</td>";
+						str += "<td>" + item.techName+ "</td>";
+						str += "<td>" + item.startDate+ "</td>";
+						str += "<td>" + item.endDate+ "</td>";
+						$.ajax({
+							url : "selectTeam",
+							dataType : "json",
+							async : false,
+							success : function(json) {
+								str += "<td><select id='selectTeam'  name='selectTeam'>";
+								$.each(json,function(index,item) {
+									str += "<option value="+item.teamId+">"+ item.teamName+ "</option>";
+								});
+								str += "</select></td>";
+							}
+						});
+						str += "<td><a id='setTeam' class='btn btn-default btn-sm' proId='"+item.projectId+"'>"+"결정"+"</a></td></tr>";
+					});
+					$("#startPro").append(str);	
+				}
+			});
 		}
 		$.ajax({
 			url : "start",
@@ -184,17 +173,13 @@ function procol(){
 			success : function(json) {
 				$("#startlist").empty();
 				var str = "";
-				
-					$.each(json, function(index, item) {	
-						str += "<tr>";
-						str += "<td>" +"<a id='open' projectId="+item.projectId+">"+ item.projectName + "</td>";
-						str += "<td>" + item.techName + "</td>";
-						str += "<td>" + item.startDate + "</td>";
-						str += "<td>" + item.endDate + "</td>";
-						str += "</tr>";	
-					});
-					$("#startlist").append(str);
-			
+				$.each(json, function(index, item) {	
+					str += "<tr><td>" +"<a id='open' projectId="+item.projectId+">"+ item.projectName + "</td>";
+					str += "<td>" + item.techName + "</td>";
+					str += "<td>" + item.startDate + "</td>";
+					str += "<td>" + item.endDate + "</td></tr>";	
+				});
+				$("#startlist").append(str);
 			}
 		});
 		
@@ -214,7 +199,6 @@ function procol(){
 		});	
 	});
 </script>
-
 </head>
 <body class="skin-blue">
 	<!-- header logo: style can be found in header.less -->
@@ -257,7 +241,6 @@ function procol(){
 												<a id="Proing" class="btn btn-warning btn-flat">진행중인
 													프로젝트</a>
 											</div>
-
 											<div style="margin-top: 15px;">
 												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
 											</div>
@@ -267,13 +250,9 @@ function procol(){
 												<h3 class="box-title">Start Project</h3>
 											</div>
 											<div class="box-body">
-												<!-- /.col (LEFT) -->
-
 												<!-- /.row -->
 												<div class="table-responsive">
-
 													<table class="table table-bordered" border="1">
-
 														<thead>
 															<tr>
 																<th>Project명</th>
@@ -290,11 +269,6 @@ function procol(){
 													</table>
 												</div>
 											</div>
-
-											<!-- /.col (RIGHT) -->
-											<!-- /.row -->
-
-											<!-- /.box-body -->
 											<div class="box-footer clearfix">
 												<div class="pull-right"></div>
 											</div>
@@ -305,52 +279,38 @@ function procol(){
 							</div>
 						</div>
 					</div>
-
 				</c:if>
 				<script>				
-					$("#bnt_window")
-							.on(
-									"click",
-									"#ex",
-									function() {
-										$("#detailview").empty();
-										$("#h3").html("<b>My Career</b>");
-										var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
-												+ "<div class='box-body'><div class='table-responsive'>"
-												+ "<table class='table table-bordered' border='1'>"
-												+ "<thead><tr><th>Project명</th>"
-												+ "<th>관련 기술</th><th>Start day</th><th>End day</th>"
-												+ "</tr></thead><tbody id='proList'></tbody></table></div></div>";
-										$(ex).appendTo($("#detailview"));
-									});
-					
-					
-
+					$("#bnt_window").on("click","#ex",function() {
+						$("#detailview").empty();
+						$("#h3").html("<b>My Career</b>");
+							var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
+									+ "<div class='box-body'><div class='table-responsive'>"
+									+ "<table class='table table-bordered' border='1'>"
+									+ "<thead><tr><th>Project명</th>"
+									+ "<th>관련 기술</th><th>Start day</th><th>End day</th>"
+									+ "</tr></thead><tbody id='proList'></tbody></table></div></div>";
+							$(ex).appendTo($("#detailview"));
+						});
 					//current project눌럿을때
 					$("#Start").click(function() {
 						$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
 					});
 
-					$("#bnt_window")
-							.on(
-									"click",
-									"#Proing",
-									function() {
-
-										$("#detailview").empty();
-										$("#h3").html("<b>진행중인 프로젝트</b>");
-										var spare = "<div class='box-header'><h3 class='box-title'>개발부의 프로젝트</h3></div><div class='box-body'>"
-												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
-												+ "<thead><tr><th>ProId</th><th>ProName</th><th>Start day</th><th>End day</th><th>TEAM_ID</th>"
-												+ "</tr></thead><tbody id='ProingList'>"
-												+ "</tbody></table></div></div>";
-										$(spare).appendTo($("#detailview"));
-									});
+					$("#bnt_window").on("click","#Proing",function() {
+						$("#detailview").empty();
+						$("#h3").html("<b>진행중인 프로젝트</b>");
+						var spare = "<div class='box-header'><h3 class='box-title'>개발부의 프로젝트</h3></div><div class='box-body'>"
+									+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+									+ "<thead><tr><th>ProId</th><th>ProName</th><th>Start day</th><th>End day</th><th>TEAM_ID</th>"
+									+ "</tr></thead><tbody id='ProingList'>"
+									+ "</tbody></table></div></div>";
+						$(spare).appendTo($("#detailview"));
+					});
 				</script>
 
 				<!-- 일반팀원 -->
-				<c:if
-					test="${user.teamId!=null && teamMgr.teamManager!=user.employeeId}">
+				<c:if test="${user.teamId!=null && teamMgr.teamManager!=user.employeeId}">
 					<div class="mailbox row">
 						<div class="col-xs-12">
 							<div class="box box-solid">
@@ -361,8 +321,7 @@ function procol(){
 												<h3 class="box-title" id="h3"><b>Current Project</b></h3>
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="Current" class="btn btn-danger btn-flat">Current
-													Project</a>
+												<a id="Current" class="btn btn-danger btn-flat">Current Project</a>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
@@ -375,7 +334,6 @@ function procol(){
 											<div class="box-body">
 												<div class="table-responsive">
 													<table class="table table-bordered" border="1">
-
 														<thead>
 															<tr>
 																<th>Project명</th>
@@ -411,7 +369,6 @@ function procol(){
 												</div>
 											</div>
 											<!--colleageu리스트 끝  -->
-
 											<!-- /.box-body -->
 											<div class="box-footer clearfix">
 												<div class="pull-right"></div>
@@ -428,12 +385,10 @@ function procol(){
 					$("#Current").click(function() {
 						$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
 					});
-
 				</script>
 
 				<!-- 팀장 -->
-				<c:if
-					test="${teamMgr.teamManager==user.employeeId && (teamMgr.teamId=='D01' || teamMgr.teamId=='D02' || teamMgr.teamId=='D03' || teamMgr.teamId=='D04')}">
+				<c:if test="${teamMgr.teamManager==user.employeeId && (teamMgr.teamId=='D01' || teamMgr.teamId=='D02' || teamMgr.teamId=='D03' || teamMgr.teamId=='D04')}">
 					<div class="mailbox row">
 						<div class="col-xs-12">
 							<div class="box box-solid">
@@ -450,7 +405,6 @@ function procol(){
 												<a id="Current" class="btn btn-warning btn-flat">Current
 													Project</a>
 											</div>
-
 											<div style="margin-top: 15px;">
 												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
 											</div>
@@ -460,17 +414,10 @@ function procol(){
 												<h3 class="box-title">New Project</h3>
 											</div>
 											<div class="box-body">
-
-
-
-
-												<!-- /.col (LEFT) -->
-
 												<!-- /.row -->
 												<div class="table-responsive">
 													<form action="setTeam">
 														<table class="table table-bordered" border="1">
-
 															<thead>
 																<tr>
 																	<th>프로젝트명</th>
@@ -486,13 +433,6 @@ function procol(){
 													</form>
 												</div>
 											</div>
-
-
-
-
-											<!-- /.col (RIGHT) -->
-											<!-- /.row -->
-
 											<!-- /.box-body -->
 											<div class="box-footer clearfix">
 												<div class="pull-right"></div>
@@ -504,429 +444,343 @@ function procol(){
 							</div>
 						</div>
 					</div>
-
 				</c:if>
 				<script>
-					$("#bnt_window")
-							.on(
-									"click",
-									"#ex",
-									function() {
-										$("#detailview").empty();
-										$("#h3").html("<b>My Career</b>");
-										var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
-												+ "<div class='box-body'><div class='table-responsive'>"
-												+ "<table class='table table-bordered' border='1'>"
-												+ "<thead><tr><th>Project명</th>"
-												+ "<th>관련 기술</th><th>Start day</th><th>End day</th>"
-												+ "</tr></thead><tbody id='proList'></tbody></table></div></div>";
-										$(ex).appendTo($("#detailview"));
-									});
+					$("#bnt_window").on("click","#ex",function() {
+						$("#detailview").empty();
+						$("#h3").html("<b>My Career</b>");
+						var ex = "<div class='box-header'><h3 class='box-title'>My Career</h3></div>"
+								+ "<div class='box-body'><div class='table-responsive'>"
+								+ "<table class='table table-bordered' border='1'>"
+								+ "<thead><tr><th>Project명</th>"
+								+ "<th>관련 기술</th><th>Start day</th><th>End day</th>"
+								+ "</tr></thead><tbody id='proList'></tbody></table></div></div>";
+						$(ex).appendTo($("#detailview"));
+					});
 
 					$("#NewP").click(function() {
 						$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
 					});
 
-					$("#bnt_window")
-							.on(
-									"click",
-									"#Current",
-									function() {
-										
-										$("#detailview").empty();
-										$("#h3").html("<b>진행중인 프로젝트</b>");
-										var spare = "<div class='box-header'><h3 class='box-title'>현재 프로젝트</h3></div><div class='box-body'>"
-												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
-												+ "<thead><tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
-												+ "</tr></thead><tbody id='dPro'>"
-												+ "</tbody></table></div></div>"
-												+ "<div class='box-header'><h3 class='box-title'>Colleague</h3></div><div class='box-body'>"
-												+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
-												+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
-												+ "</tr></thead><tbody id='ListColleague'>"
-												+ "</tbody></table></div></div>";
-										$(spare).appendTo($("#detailview"));
-										procol();
-									}); 
+					$("#bnt_window").on("click","#Current",function() {	
+						$("#detailview").empty();
+						$("#h3").html("<b>진행중인 프로젝트</b>");
+						var spare = "<div class='box-header'><h3 class='box-title'>현재 프로젝트</h3></div><div class='box-body'>"
+									+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+									+ "<thead><tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
+									+ "</tr></thead><tbody id='dPro'>"
+									+ "</tbody></table></div></div>"
+									+ "<div class='box-header'><h3 class='box-title'>Colleague</h3></div><div class='box-body'>"
+									+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
+									+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
+									+ "</tr></thead><tbody id='ListColleague'>"
+									+ "</tbody></table></div></div>";
+						$(spare).appendTo($("#detailview"));
+						procol();
+					}); 
 						
 					
-						$("#startlist").on("click","#open",function(){
+					$("#startlist").on("click","#open",function(){
 						var proId=$(this).attr("projectId");
 						
 			 			$("#detailview").empty();
 						$("#h3").html("<b>새 프로젝트</b>");
-						var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
-										+"<div class='box-body'><div class='table-responsive'>"
-										+"<table class='table table-bordered' border='1'><thead>"
-										+"<tr><th>프로젝트명</th><th>기술</th><th>start date</th><th>end date</th>"
-										+"</tr></thead><tbody id='viewlist'>"
-										+"</tbody></table></div></div>"
-					
-					
-										+"<div class='box-header'><h3 class='box-title'>프로젝트에 투입될 인원</h3>"
-										+"</div><div class='box-body'><div class='table-responsive'>"
-										+"<table class='table table-bordered' border='1'><thead>"
-										+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
-										+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
-										+"</tbody></table></div></div>"
-
-
-
-										+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
-										+"</div><div class='box-body'><div class='table-responsive'>"
-										+"<table class='table table-bordered' border='1'>"
-										+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-										+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
-										+"</thead><tbody id='sparelist'></tbody></table>"
-										+"</div></div>";
-
-										$(st).appendTo($("#detailview"));
-										
-
-										$.ajax({
-											url :"view",
-											data:"proId="+proId,
-											dataType:"json",
-											success :function(json) {
-												$("#viewlist").empty();
-												var str = "";
-												$.each(json, function(index, item) {
-											
-													str += "<tr>";
-													str += "<td>" + item.projectName + "</td>";
-													str += "<td>" + item.techName + "</td>";
-													str += "<td>" + item.startDate + "</td>";
-													str += "<td>" + item.endDate + "</td>";
-													str += "</tr>";
-
-												});
-
-												$("#viewlist").append(str);
-											}
-										});
-
-										
-										
-										$.ajax({
-											url :"put",
-											dataType :"json",
-											data:"projectId="+proId,  //"projectId"에는 컨트롤러에 들어갈이름 ajax에는 뒤에꺼 proId
-											success : function(json) {
-												$("#putlist").empty();
-												var str = "";
-												
-												$.each(json, function(index, item) {
-							
-													str += "<tr>";
-													str += "<td>" + (index + 1) + "</td>";
-													str += "<td>" + item.name + "</td>";
-													str += "<td>" + item.phone + "</td>";
-													str += "<td>" + item.email + "</td>";
-													str += "<td>" + item.positionName + "</td>";
-													str += "<td>" +"<a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"제거"+"</a>"+"</td>";
-													str += "</tr>";
-
-												});
-
-												$("#putlist").append(str);
-											}
-										});
-										
-									//spare 리스트부분 ajax
-										$.ajax({
-											url : "spare",
-											data:"proId="+proId,
-											dataType : "json",
-											
-											success : function(json) {
-												$("#sparelist").empty();
-												var str = "";
-												$.each(json, function(index, item) {
-
-													str += "<tr>";
-													str += "<td>" + (index + 1) + "</td>";
-													str += "<td>" + item.name + "</td>";
-													str += "<td>" + item.phone + "</td>";
-													str += "<td>" + item.email + "</td>";
-													str += "<td>" + item.positionName + "</td>";
-													str += "<td>" + item.projectName + "</td>";
-													str += "<td>" + item.startDate + "</td>";
-													str += "<td>" + item.endDate + "</td>";
-													/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
-													str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
-													str += "</tr>";
-													
-												});
-												$("#sparelist").append(str);
-											}
-									});
+						var st = "<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
+								+"<div class='box-body'><div class='table-responsive'>"
+								+"<table class='table table-bordered' border='1'><thead>"
+								+"<tr><th>프로젝트명</th><th>기술</th><th>start date</th><th>end date</th>"
+								+"</tr></thead><tbody id='viewlist'>"
+								+"</tbody></table></div></div>"
 									
-									//잉여리스트에서 추가 눌렀을때
-										$("#detailview").on("click","#setpeople",function(){
-											var empId = $(this).attr("empId");
-											var proId = $(this).attr("proId");
-							
-											$.ajax({
-												url:"setpeople",
-												data:"empId="+empId+"&proId="+proId,
-												dataType:"json",
-												async:false,
-												success : function(json) {
-													
-												}
-												
-											});
+								+"<div class='box-header'><h3 class='box-title'>프로젝트에 투입될 인원</h3>"
+								+"</div><div class='box-body'><div class='table-responsive'>"
+								+"<table class='table table-bordered' border='1'><thead>"
+								+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
+								+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
+								+"</tbody></table></div></div>"
 
-											$("#detailview").empty();
-											$("#h3").html("<b>새 프로젝트</b>");
-											var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
-															+"<div class='box-body'><div class='table-responsive'>"
-															+"<table class='table table-bordered' border='1'><thead>"
-															+"<tr><th>프로젝트명</th><th>기술</th><th>start date</th><th>end date</th>"
-															+"</tr></thead><tbody id='viewlist'>"
-															+"</tbody></table></div></div>"
+								+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
+								+"</div><div class='box-body'><div class='table-responsive'>"
+								+"<table class='table table-bordered' border='1'>"
+								+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
+								+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+								+"</thead><tbody id='sparelist'></tbody></table>"
+								+"</div></div>";
+
+						$(st).appendTo($("#detailview"));
 										
-										
-															+"<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
-															+"</div><div class='box-body'><div class='table-responsive'>"
-															+"<table class='table table-bordered' border='1'><thead>"
-															+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
-															+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
-															+"</tbody></table></div></div>"
 
-
-
-															+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
-															+"</div><div class='box-body'><div class='table-responsive'>"
-															+"<table class='table table-bordered' border='1'>"
-															+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-															+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
-															+"</thead><tbody id='sparelist'></tbody></table>"
-															+"</div></div>";
-
-															$(st).appendTo($("#detailview"));
-															
-
-															$.ajax({
-																url :"view",
-																data:"proId="+proId,
-																dataType:"json",
-																success :function(json) {
-																	$("#viewlist").empty();
-																	var str = "";
-																	$.each(json, function(index, item) {
-																
-																		str += "<tr>";
-																		str += "<td>" + item.projectName + "</td>";
-																		str += "<td>" + item.techName + "</td>";
-																		str += "<td>" + item.startDate + "</td>";
-																		str += "<td>" + item.endDate + "</td>";
-																		str += "</tr>";
-
-																	});
-
-																	$("#viewlist").append(str);
-																}
-															});
-
-															
-															
-															$.ajax({
-																url :"put",
-																dataType :"json",
-																data:"projectId="+proId,  //"projectId"에는 컨트롤러에 들어갈이름 ajax에는 뒤에꺼 proId
-																success : function(json) {
-																	$("#putlist").empty();
-																	var str = "";
-																	
-																	$.each(json, function(index, item) {
-												
-																		str += "<tr>";
-																		str += "<td>" + (index + 1) + "</td>";
-																		str += "<td>" + item.name + "</td>";
-																		str += "<td>" + item.phone + "</td>";
-																		str += "<td>" + item.email + "</td>";
-																		str += "<td>" + item.positionName + "</td>";
-																		str += "<td>" +"<a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"제거"+"</a>"+"</td>";
-																		str += "</tr>";
-
-																	});
-
-																	$("#putlist").append(str);
-																}
-															});
-										
-															
-														//spare 리스트부분 ajax
-															$.ajax({
-																url : "spare",
-																data:"proId="+proId,
-																dataType : "json",
-																
-																success : function(json) {
-																	$("#sparelist").empty();
-																	var str = "";
-																	$.each(json, function(index, item) {
-
-																		str += "<tr>";
-																		str += "<td>" + (index + 1) + "</td>";
-																		str += "<td>" + item.name + "</td>";
-																		str += "<td>" + item.phone + "</td>";
-																		str += "<td>" + item.email + "</td>";
-																		str += "<td>" + item.positionName + "</td>";
-																		str += "<td>" + item.projectName + "</td>";
-																		str += "<td>" + item.startDate + "</td>";
-																		str += "<td>" + item.endDate + "</td>";
-																		/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
-																		str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
-																		str += "</tr>";
-																		
-																	});
-																	$("#sparelist").append(str);
-																}
-										});
-										
-										});
-
-									
-									//프로젝트 투입인원리스트에서 제거 눌럿을때
-									$("#detailview").on("click","#delete",function(){
-
-										var empId = $(this).attr("empId");
-										var proId = $(this).attr("proId");
-										$.ajax({
-											url:"delete",
-											data:"empId="+empId+"&proId="+proId,
-											dataType:"json",
-											success:function(json){
-										
-											}
-											
-											
-											
-										});
-										$("#detailview").empty();
-										$("#h3").html("<b>새 프로젝트</b>");
-										var st = 		"<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
-														+"<div class='box-body'><div class='table-responsive'>"
-														+"<table class='table table-bordered' border='1'><thead>"
-														+"<tr><th>프로젝트명</th><th>기술</th><th>start date</th><th>end date</th>"
-														+"</tr></thead><tbody id='viewlist'>"
-														+"</tbody></table></div></div>"
-									
-									
-														+"<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
-														+"</div><div class='box-body'><div class='table-responsive'>"
-														+"<table class='table table-bordered' border='1'><thead>"
-														+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
-														+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
-														+"</tbody></table></div></div>"
-
-
-
-														+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
-														+"</div><div class='box-body'><div class='table-responsive'>"
-														+"<table class='table table-bordered' border='1'>"
-														+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-														+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
-														+"</thead><tbody id='sparelist'></tbody></table>"
-														+"</div></div>";
-
-														$(st).appendTo($("#detailview"));
-														
-
-														$.ajax({
-															url :"view",
-															data:"proId="+proId,
-															dataType:"json",
-															success :function(json) {
-																$("#viewlist").empty();
-																var str = "";
-																$.each(json, function(index, item) {
-															
-																	str += "<tr>";
-																	str += "<td>" + item.projectName + "</td>";
-																	str += "<td>" + item.techName + "</td>";
-																	str += "<td>" + item.startDate + "</td>";
-																	str += "<td>" + item.endDate + "</td>";
-																	str += "</tr>";
-
-																});
-
-																$("#viewlist").append(str);
-															}
-														});
-
-														
-														
-														$.ajax({
-															url :"put",
-															dataType :"json",
-															data:"projectId="+proId,  //"projectId"에는 컨트롤러에 들어갈이름 ajax에는 뒤에꺼 proId
-															success : function(json) {
-																$("#putlist").empty();
-																var str = "";
-																
-																$.each(json, function(index, item) {
-											
-																	str += "<tr>";
-																	str += "<td>" + (index + 1) + "</td>";
-																	str += "<td>" + item.name + "</td>";
-																	str += "<td>" + item.phone + "</td>";
-																	str += "<td>" + item.email + "</td>";
-																	str += "<td>" + item.positionName + "</td>";
-																	str += "<td>" +"<a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"제거"+"</a>"+"</td>";
-																	str += "</tr>";
-
-																});
-
-																$("#putlist").append(str);
-															}
-														});
-														
-													//spare 리스트부분 ajax
-														$.ajax({
-															url : "spare",
-															data:"proId="+proId,
-															dataType : "json",
-															
-															success : function(json) {
-																$("#sparelist").empty();
-																var str = "";
-																$.each(json, function(index, item) {
-
-																	str += "<tr>";
-																	str += "<td>" + (index + 1) + "</td>";
-																	str += "<td>" + item.name + "</td>";
-																	str += "<td>" + item.phone + "</td>";
-																	str += "<td>" + item.email + "</td>";
-																	str += "<td>" + item.positionName + "</td>";
-																	str += "<td>" + item.projectName + "</td>";
-																	str += "<td>" + item.startDate + "</td>";
-																	str += "<td>" + item.endDate + "</td>";
-																	str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
-																	str += "</tr>";
-																	
-																});
-																$("#sparelist").append(str);
-															}
-									});
-								});	
-
+						$.ajax({
+							url :"view",
+							data:"proId="+proId,
+							dataType:"json",
+							success :function(json) {
+								$("#viewlist").empty();
+								var str = "";
+								$.each(json, function(index, item) {
+									str += "<tr><td>" + item.projectName + "</td>";
+									str += "<td>" + item.techName + "</td>";
+									str += "<td>" + item.startDate + "</td>";
+									str += "<td>" + item.endDate + "</td></tr>";
+								});
+								$("#viewlist").append(str);
+							}
 						});
-					</script>
+
+						$.ajax({
+							url :"put",
+							dataType :"json",
+							data:"projectId="+proId,  //"projectId"에는 컨트롤러에 들어갈이름 ajax에는 뒤에꺼 proId
+							success : function(json) {
+								$("#putlist").empty();
+								var str = "";
+								$.each(json, function(index, item) {
+									str += "<tr><td>" + (index + 1) + "</td>";
+									str += "<td>" + item.name + "</td>";
+									str += "<td>" + item.phone + "</td>";
+									str += "<td>" + item.email + "</td>";
+									str += "<td>" + item.positionName + "</td>";
+									str += "<td><a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>제거</a></td></tr>";
+								});
+								$("#putlist").append(str);
+							}
+						});
+										
+						//spare 리스트부분 ajax
+						$.ajax({
+							url : "spare",
+							data:"proId="+proId,
+							dataType : "json",
+							success : function(json) {
+								$("#sparelist").empty();
+								var str = "";
+								$.each(json, function(index, item) {
+									str += "<tr><td>" + (index + 1) + "</td>";
+									str += "<td>" + item.name + "</td>";
+									str += "<td>" + item.phone + "</td>";
+									str += "<td>" + item.email + "</td>";
+									str += "<td>" + item.positionName + "</td>";
+									str += "<td>" + item.projectName + "</td>";
+									str += "<td>" + item.startDate + "</td>";
+									str += "<td>" + item.endDate + "</td>";
+				/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
+									str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
+								});
+								$("#sparelist").append(str);
+							}
+						});
+									
+						//잉여리스트에서 추가 눌렀을때
+						$("#detailview").on("click","#setpeople",function(){
+							var empId = $(this).attr("empId");
+							var proId = $(this).attr("proId");
+							
+							$.ajax({
+								url:"setpeople",
+								data:"empId="+empId+"&proId="+proId,
+								dataType:"json",
+								async:false,
+								success : function(json) {
+								}
+							});
+
+							$("#detailview").empty();
+							$("#h3").html("<b>새 프로젝트</b>");
+							var st = "<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
+									+"<div class='box-body'><div class='table-responsive'>"
+									+"<table class='table table-bordered' border='1'><thead>"
+									+"<tr><th>프로젝트명</th><th>기술</th><th>start date</th><th>end date</th>"
+									+"</tr></thead><tbody id='viewlist'>"
+									+"</tbody></table></div></div>"
+										
+									+"<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
+									+"</div><div class='box-body'><div class='table-responsive'>"
+									+"<table class='table table-bordered' border='1'><thead>"
+									+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
+									+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
+									+"</tbody></table></div></div>"
+
+									+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
+									+"</div><div class='box-body'><div class='table-responsive'>"
+									+"<table class='table table-bordered' border='1'>"
+									+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
+									+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+									+"</thead><tbody id='sparelist'></tbody></table>"
+									+"</div></div>";
+
+							$(st).appendTo($("#detailview"));
+															
+							$.ajax({
+								url :"view",
+								data:"proId="+proId,
+								dataType:"json",
+								success :function(json) {
+									$("#viewlist").empty();
+									var str = "";
+									$.each(json, function(index, item) {
+										str += "<tr><td>" + item.projectName + "</td>";
+										str += "<td>" + item.techName + "</td>";
+										str += "<td>" + item.startDate + "</td>";
+										str += "<td>" + item.endDate + "</td></tr>";
+									});
+
+									$("#viewlist").append(str);
+								}
+							});
+
+							$.ajax({
+								url :"put",
+								dataType :"json",
+								data:"projectId="+proId,  //"projectId"에는 컨트롤러에 들어갈이름 ajax에는 뒤에꺼 proId
+								success : function(json) {
+									$("#putlist").empty();
+									var str = "";
+									$.each(json, function(index, item) {
+										str += "<tr><td>" + (index + 1) + "</td>";
+										str += "<td>" + item.name + "</td>";
+										str += "<td>" + item.phone + "</td>";
+										str += "<td>" + item.email + "</td>";
+										str += "<td>" + item.positionName + "</td>";
+										str += "<td>" +"<a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>제거</a></td></tr>";
+									});
+									$("#putlist").append(str);
+								}
+							});
+										
+							//spare 리스트부분 ajax
+							$.ajax({
+								url : "spare",
+								data:"proId="+proId,
+								dataType : "json",
+								success : function(json) {
+									$("#sparelist").empty();
+									var str = "";
+									$.each(json, function(index, item) {
+										str += "<tr><td>" + (index + 1) + "</td>";
+										str += "<td>" + item.name + "</td>";
+										str += "<td>" + item.phone + "</td>";
+										str += "<td>" + item.email + "</td>";
+										str += "<td>" + item.positionName + "</td>";
+										str += "<td>" + item.projectName + "</td>";
+										str += "<td>" + item.startDate + "</td>";
+										str += "<td>" + item.endDate + "</td>";
+				/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
+										str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
+									});
+									$("#sparelist").append(str);
+								}
+							});
+						});
+
+									
+						//프로젝트 투입인원리스트에서 제거 눌럿을때
+						$("#detailview").on("click","#delete",function(){
+							var empId = $(this).attr("empId");
+							var proId = $(this).attr("proId");
+							$.ajax({
+								url:"delete",
+								data:"empId="+empId+"&proId="+proId,
+								dataType:"json",
+								success:function(json){
+								}
+							});
+										
+							$("#detailview").empty();
+							$("#h3").html("<b>새 프로젝트</b>");
+							var st = "<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
+									+"<div class='box-body'><div class='table-responsive'>"
+									+"<table class='table table-bordered' border='1'><thead>"
+									+"<tr><th>프로젝트명</th><th>기술</th><th>start date</th><th>end date</th>"
+									+"</tr></thead><tbody id='viewlist'>"
+									+"</tbody></table></div></div>"
+										
+									+"<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
+									+"</div><div class='box-body'><div class='table-responsive'>"
+									+"<table class='table table-bordered' border='1'><thead>"
+									+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
+									+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
+									+"</tbody></table></div></div>"
+
+									+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
+									+"</div><div class='box-body'><div class='table-responsive'>"
+									+"<table class='table table-bordered' border='1'>"
+									+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
+									+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+									+"</thead><tbody id='sparelist'></tbody></table>"
+									+"</div></div>";
+
+							$(st).appendTo($("#detailview"));
+															
+							$.ajax({
+								url :"view",
+								data:"proId="+proId,
+								dataType:"json",
+								success :function(json) {
+									$("#viewlist").empty();
+									var str = "";
+									$.each(json, function(index, item) {
+										str += "<tr><td>" + item.projectName + "</td>";
+										str += "<td>" + item.techName + "</td>";
+										str += "<td>" + item.startDate + "</td>";
+										str += "<td>" + item.endDate + "</td></tr>";
+									});
+
+									$("#viewlist").append(str);
+								}
+							});
+
+							$.ajax({
+								url :"put",
+								dataType :"json",
+								data:"projectId="+proId,  //"projectId"에는 컨트롤러에 들어갈이름 ajax에는 뒤에꺼 proId
+								success : function(json) {
+									$("#putlist").empty();
+									var str = "";
+									$.each(json, function(index, item) {
+										str += "<tr><td>" + (index + 1) + "</td>";
+										str += "<td>" + item.name + "</td>";
+										str += "<td>" + item.phone + "</td>";
+										str += "<td>" + item.email + "</td>";
+										str += "<td>" + item.positionName + "</td>";
+										str += "<td>" +"<a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>제거</a></td></tr>";
+									});
+									$("#putlist").append(str);
+								}
+							});
+										
+							//spare 리스트부분 ajax
+							$.ajax({
+								url : "spare",
+								data:"proId="+proId,
+								dataType : "json",
+								success : function(json) {
+									$("#sparelist").empty();
+									var str = "";
+									$.each(json, function(index, item) {
+										str += "<tr><td>" + (index + 1) + "</td>";
+										str += "<td>" + item.name + "</td>";
+										str += "<td>" + item.phone + "</td>";
+										str += "<td>" + item.email + "</td>";
+										str += "<td>" + item.positionName + "</td>";
+										str += "<td>" + item.projectName + "</td>";
+										str += "<td>" + item.startDate + "</td>";
+										str += "<td>" + item.endDate + "</td>";
+				/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
+										str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
+									});
+									$("#sparelist").append(str);
+								}
+							});
+						});
+					});
+				</script>
 			</section>
 		</aside>
 	</div>
-
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script
-		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
 		type="text/javascript"></script>
 	<!-- AdminLTE App -->
-	<script src="/company/resources/js/AdminLTE/app.js"
-		type="text/javascript"></script>
+	<script src="/company/resources/js/AdminLTE/app.js" type="text/javascript"></script>
 </body>
 </html>
-
