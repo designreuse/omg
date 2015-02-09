@@ -149,7 +149,7 @@ public class MProController {
 	public String setTeam(HttpSession session,
 			@RequestParam("teamId") String teamId,
 			@RequestParam("projectId") String projectId) {
-		System.out.println(teamId+"       " +projectId);
+		
 		mproService.setTeam(projectId, teamId);
 		
 		return "redirect:index";

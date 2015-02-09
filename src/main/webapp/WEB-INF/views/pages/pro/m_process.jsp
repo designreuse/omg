@@ -613,14 +613,14 @@
 									+ "<th>price</th></tr></thead><tbody id='viewlist'>"
 									+ "</tbody></table></div></div>"
 
-									+ "<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
+									+ "<div class='box-header'><h3 class='box-title'>Insert People</h3>"
 									+ "</div><div class='box-body'><div class='table-responsive'>"
 									+ "<table class='table table-bordered' border='1'><thead>"
 									+ "<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
 									+ "<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
 									+ "</tbody></table></div></div>"
 
-									+ "<div class='box-header'><h3 class='box-title'>잉여리스트</h3>"
+									+ "<div class='box-header'><h3 class='box-title'>Team List</h3>"
 									+ "</div><div class='box-body'><div class='table-responsive'>"
 									+ "<table class='table table-bordered' border='1'>"
 									+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
@@ -774,14 +774,14 @@
 									+ "<th>price</th></tr></thead><tbody id='viewlist'>"
 									+ "</tbody></table></div></div>"
 
-									+ "<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
+									+ "<div class='box-header'><h3 class='box-title'>Insert People</h3>"
 									+ "</div><div class='box-body'><div class='table-responsive'>"
 									+ "<table class='table table-bordered' border='1'><thead>"
 									+ "<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
 									+ "<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
 									+ "</tbody></table></div></div>"
 
-									+ "<div class='box-header'><h3 class='box-title'>잉여리스트</h3>"
+									+ "<div class='box-header'><h3 class='box-title'>Team List</h3>"
 									+ "</div><div class='box-body'><div class='table-responsive'>"
 									+ "<table class='table table-bordered' border='1'>"
 									+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
@@ -927,22 +927,22 @@
 							});
 
 							$("#detailview").empty();
-							$("#h3").html("<b>새 프로젝트</b>");
-							var st = "<div class='box-header'><h3 class='box-title'>새 프로젝트</h3></div>"
+							$("#h3").html("<b>New Project</b>");
+							var st = "<div class='box-header'><h3 class='box-title'>New Project</h3></div>"
 									+ "<div class='box-body'><div class='table-responsive'>"
 									+ "<table class='table table-bordered' border='1'><thead>"
 									+ "<tr><th>프로젝트명</th><th>start date</th><th>end date</th>"
 									+ "<th>price</th></tr></thead><tbody id='viewlist'>"
 									+ "</tbody></table></div></div>"
 
-									+ "<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
+									+ "<div class='box-header'><h3 class='box-title'>Insert People</h3>"
 									+ "</div><div class='box-body'><div class='table-responsive'>"
 									+ "<table class='table table-bordered' border='1'><thead>"
 									+ "<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
 									+ "<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
 									+ "</tbody></table></div></div>"
 
-									+ "<div class='box-header'><h3 class='box-title'>잉여리스트</h3>"
+									+ "<div class='box-header'><h3 class='box-title'>Team List</h3>"
 									+ "</div><div class='box-body'><div class='table-responsive'>"
 									+ "<table class='table table-bordered' border='1'>"
 									+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
