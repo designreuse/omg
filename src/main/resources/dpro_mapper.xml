@@ -68,7 +68,7 @@ and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
 and pro.approval = 'O'
 and pro.TEAM_ID is null
-and pro.START_DATE>=sysdate
+and pro.START_DATE>=sysdate-1
 and emp.EMPLOYEE_ID = #{employeeId} ]]>
 </select>
 
@@ -92,15 +92,16 @@ where PROJECT_ID = #{projectId}
 </update>
 
 <select id="spareList" resultMap="dto">
-select * from employees e, position p
-where e.POSITION_ID = p.POSITION_ID
-and e.team_id = #{teamId}
-and not exists(
-select * from projects p , project_emp pe, employees emp, position pos
-where p.project_id = pe.project_id and pe.employee_id = emp.employee_id and pos.position_id = emp.position_id  
+<![CDATA[ select * from employees e inner join position p on e.POSITION_ID = p.POSITION_ID
+left outer join project_emp pe on e.EMPLOYEE_ID = pe.EMPLOYEE_ID
+left outer join projects pro on pro.PROJECT_ID = pe.PROJECT_ID
+where e.team_id = #{teamId}
+and ((pro.START_DATE <= sysdate and pro.END_DATE >= sysdate) or pro.START_DATE is null)
+and e.EMPLOYEE_ID not in(
+select e.EMPLOYEE_ID from projects p , project_emp pe, employees e, position pos
+where p.project_id = pe.project_id and pe.EMPLOYEE_ID = e.EMPLOYEE_ID and pos.position_id = e.position_id  
 and p.project_id = #{projectId}
-and emp.employee_id = e.employee_id
-)
+) ]]>
 </select>
 
 <select id="putList" resultMap="dto" parameterType="String">
@@ -121,7 +122,7 @@ and prote.PROJECT_ID = pro.PROJECT_ID
 and prote.TECH_ID = tech.TECH_ID
 and pro.approval = 'O'
 and pro.TEAM_ID = #{teamId}
-and pro.START_DATE>=sysdate
+and pro.START_DATE>=sysdate-1
 ]]>
 </select>
 
@@ -134,7 +135,7 @@ and prote.PROJECT_ID = pro.PROJECT_ID
 and prote.TECH_ID = tech.TECH_ID
 and pro.approval = 'O'
 and pro.project_id = #{proId}
-and pro.START_DATE>=sysdate
+and pro.START_DATE>=sysdate-1
 ]]>
 </select>
 

@@ -542,7 +542,7 @@ function procol(){
 										+"</tbody></table></div></div>"
 					
 					
-										+"<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
+										+"<div class='box-header'><h3 class='box-title'>프로젝트에 투입될 인원</h3>"
 										+"</div><div class='box-body'><div class='table-responsive'>"
 										+"<table class='table table-bordered' border='1'><thead>"
 										+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
@@ -551,11 +551,11 @@ function procol(){
 
 
 
-										+"<div class='box-header'><h3 class='box-title'>잉여리스트</h3>"
+										+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
 										+"</div><div class='box-body'><div class='table-responsive'>"
 										+"<table class='table table-bordered' border='1'>"
 										+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-										+"<th>Email</th><th>Position</th><th>추가</th></tr>"
+										+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
 										+"</thead><tbody id='sparelist'></tbody></table>"
 										+"</div></div>";
 
@@ -628,6 +628,9 @@ function procol(){
 													str += "<td>" + item.phone + "</td>";
 													str += "<td>" + item.email + "</td>";
 													str += "<td>" + item.positionName + "</td>";
+													str += "<td>" + item.projectName + "</td>";
+													str += "<td>" + item.startDate + "</td>";
+													str += "<td>" + item.endDate + "</td>";
 													/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 													str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
 													str += "</tr>";
@@ -672,11 +675,11 @@ function procol(){
 
 
 
-															+"<div class='box-header'><h3 class='box-title'>잉여리스트</h3>"
+															+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
 															+"</div><div class='box-body'><div class='table-responsive'>"
 															+"<table class='table table-bordered' border='1'>"
 															+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-															+"<th>Email</th><th>Position</th><th>추가</th></tr>"
+															+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
 															+"</thead><tbody id='sparelist'></tbody></table>"
 															+"</div></div>";
 
@@ -750,6 +753,9 @@ function procol(){
 																		str += "<td>" + item.phone + "</td>";
 																		str += "<td>" + item.email + "</td>";
 																		str += "<td>" + item.positionName + "</td>";
+																		str += "<td>" + item.projectName + "</td>";
+																		str += "<td>" + item.startDate + "</td>";
+																		str += "<td>" + item.endDate + "</td>";
 																		/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 																		str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
 																		str += "</tr>";
@@ -760,7 +766,7 @@ function procol(){
 										});
 										
 										});
-									
+
 									
 									//프로젝트 투입인원리스트에서 제거 눌럿을때
 									$("#detailview").on("click","#delete",function(){
@@ -797,11 +803,11 @@ function procol(){
 
 
 
-														+"<div class='box-header'><h3 class='box-title'>잉여리스트</h3>"
+														+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
 														+"</div><div class='box-body'><div class='table-responsive'>"
 														+"<table class='table table-bordered' border='1'>"
 														+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-														+"<th>Email</th><th>Position</th><th>추가</th></tr>"
+														+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
 														+"</thead><tbody id='sparelist'></tbody></table>"
 														+"</div></div>";
 
@@ -874,6 +880,9 @@ function procol(){
 																	str += "<td>" + item.phone + "</td>";
 																	str += "<td>" + item.email + "</td>";
 																	str += "<td>" + item.positionName + "</td>";
+																	str += "<td>" + item.projectName + "</td>";
+																	str += "<td>" + item.startDate + "</td>";
+																	str += "<td>" + item.endDate + "</td>";
 																	str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
 																	str += "</tr>";
 																	
