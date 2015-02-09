@@ -282,7 +282,7 @@
 		<aside class="right-side">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1><i class="fa fa-th-list"></i> <b>영업 부서 업무</b></h1>
+				<h1><i class="fa fa-th-list"></i>영업 부서 업무</h1>
 				<ol class="breadcrumb">
 					<li><a href="/company/dashboard/hello"><i class="fa fa-dashboard"></i>Home</a></li>
 					<li class="active"> 영업 부서 업무 </li>
