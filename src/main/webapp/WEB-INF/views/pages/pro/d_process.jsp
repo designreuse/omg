@@ -33,13 +33,18 @@ function procol(){
 		success : function(json) {
 			$("#dPro").empty();
 			var str = "";
-			str += "<tr>";
-			str += "<td>" + json.projectName + "</td>";
-			str += "<td>" + json.techName + "</td>";
-			str += "<td>" + json.startDate + "</td>";
-			str += "<td>" + json.endDate + "</td>";
-			str += "</tr>";
-			$("#dPro").append(str);
+			if(json != ""){
+				str += "<tr>";
+				str += "<td>" + json.projectName + "</td>";
+				str += "<td>" + json.techName + "</td>";
+				str += "<td>" + json.startDate + "</td>";
+				str += "<td>" + json.endDate + "</td>";
+				str += "</tr>";
+				$("#dPro").append(str);
+			}else{
+				str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
+				$("#dPro").append(str);
+			}
 		}
 	});
 
@@ -49,21 +54,24 @@ function procol(){
 		dataType : "json",
 		async : false,
 		success : function(json) {
-			console.log();
 			$("#ListColleague").empty();
 			var str = "";
-			$.each(json, function(index, item) {
-				str += "<tr>";
-				str += "<td>" + (index + 1) + "</td>";
-				str += "<td>" + item.name + "</td>";
-				str += "<td>" + item.phone + "</td>";
-				str += "<td>" + item.email + "</td>";
-				str += "<td>" + item.positionName + "</td>";
-				str += "</tr>";
-			});
-			$("#ListColleague").append(str);
+			if(json != ""){
+				$.each(json, function(index, item) {
+					str += "<tr>";
+					str += "<td>" + (index + 1) + "</td>";
+					str += "<td>" + item.name + "</td>";
+					str += "<td>" + item.phone + "</td>";
+					str += "<td>" + item.email + "</td>";
+					str += "<td>" + item.positionName + "</td>";
+					str += "</tr>";
+				});
+				$("#ListColleague").append(str);
+			}else{//
+				str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
+				$("#ListColleague").append(str);
+			}
 		}
-
 	});
 }
 	$(function() {
@@ -79,37 +87,46 @@ function procol(){
 				success : function(json) {
 					$("#proList").empty();
 					var str = "";
-					$.each(json, function(index, item) {
-						str += "<tr>";
-						str += "<td>" + item.projectName + "</td>";
-						str += "<td>" + item.techName + "</td>";
-						str += "<td>" + item.startDate + "</td>";
-						str += "<td>" + item.endDate + "</td>";
-						str += "</tr>";
-					});
-					$("#proList").append(str);
+					if(json != ""){
+						$.each(json, function(index, item) {
+							str += "<tr>";
+							str += "<td>" + item.projectName + "</td>";
+							str += "<td>" + item.techName + "</td>";
+							str += "<td>" + item.startDate + "</td>";
+							str += "<td>" + item.endDate + "</td>";
+							str += "</tr>";
+						});
+						$("#proList").append(str);
+					}else{
+						str += "<tr><td colspan='6' style='color: blue;' align='center'>개발한 프로젝트가 없습니다.</td></tr>";
+						$("#proList").append(str);
+					}
 				}
 			});
 		});
 		
 		$("#Proing").click(function() {
-
 			$.ajax({
 				url : "proing", /* 부장페이지에서의 현재 진행중인 프로젝트 전체 */
 				dataType : "json",
 				success : function(json) {
 					$("#ProingList").empty();
 					var str = "";
-					$.each(json, function(index, item) {
-						str += "<tr>";
-						str += "<td>" + item.projectId + "</td>";
-						str += "<td>" + item.projectName + "</td>";
-						str += "<td>" + item.startDate + "</td>";
-						str += "<td>" + item.endDate + "</td>";
-						str += "<td>" + item.teamName + "</td>";
-						str += "</tr>";
-					});
-					$("#ProingList").append(str);
+					if(json != ""){
+						$.each(json, function(index, item) {
+							str += "<tr>";
+							str += "<td>" + item.projectId + "</td>";
+							str += "<td>" + item.projectName + "</td>";
+							str += "<td>" + item.startDate + "</td>";
+							str += "<td>" + item.endDate + "</td>";
+							str += "<td>" + item.teamName + "</td>";
+							str += "</tr>";
+						});
+						$("#ProingList").append(str);
+					}else{
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>개발부서에서 진행중인 프로젝트가 없습니다.</td></tr>";
+						$("#ProingList").append(str);
+					}
 				}
 			});
 		});
@@ -125,6 +142,7 @@ function procol(){
 					success : function(json) {
 						$("#startPro").empty();
 						var str = "";
+						
 						$.each(json,function(index, item) {
 											str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>";
 											str += "<tr>";
@@ -156,6 +174,7 @@ function procol(){
 											str += "</tr>";
 										});
 						$("#startPro").append(str);
+						
 					}
 				});
 		}
@@ -165,18 +184,17 @@ function procol(){
 			success : function(json) {
 				$("#startlist").empty();
 				var str = "";
-				$.each(json, function(index, item) {
-
-					str += "<tr>";
-					str += "<td>" +"<a id='open' projectId="+item.projectId+">"+ item.projectName + "</td>";
-					str += "<td>" + item.techName + "</td>";
-					str += "<td>" + item.startDate + "</td>";
-					str += "<td>" + item.endDate + "</td>";
-					str += "</tr>";
-
-				});
-
-				$("#startlist").append(str);
+				
+					$.each(json, function(index, item) {	
+						str += "<tr>";
+						str += "<td>" +"<a id='open' projectId="+item.projectId+">"+ item.projectName + "</td>";
+						str += "<td>" + item.techName + "</td>";
+						str += "<td>" + item.startDate + "</td>";
+						str += "<td>" + item.endDate + "</td>";
+						str += "</tr>";	
+					});
+					$("#startlist").append(str);
+			
 			}
 		});
 		
@@ -267,6 +285,7 @@ function procol(){
 															</tr>
 														</thead>
 														<tbody id="startPro">
+															<tr><td colspan="6" style="color: blue;" align="center">개발부서에 할당된 프로젝트가 없습니다.</td></tr>
 														</tbody>
 													</table>
 												</div>
@@ -386,6 +405,7 @@ function procol(){
 															</tr>
 														</thead>
 														<tbody id="ListColleague">
+															<tr><td colspan="6" style="color: blue;" align="center">팀장에게 할당된 프로젝트가 없습니다.</td></tr>
 														</tbody>
 													</table>
 												</div>
@@ -460,6 +480,7 @@ function procol(){
 																</tr>
 															</thead>
 															<tbody id="startlist">
+																<tr><td colspan="6" style="color: blue;" align="center">부장에게 할당된 프로젝트가 없습니다.</td></tr>
 															</tbody>
 														</table>
 													</form>
@@ -593,7 +614,7 @@ function procol(){
 											success : function(json) {
 												$("#putlist").empty();
 												var str = "";
-												
+												if(json != ""){
 												$.each(json, function(index, item) {
 							
 													str += "<tr>";
@@ -608,6 +629,10 @@ function procol(){
 												});
 
 												$("#putlist").append(str);
+											}else{
+												str+="<tr><td colspan='6' style='color: blue;' align='center'>프로젝트에 투입된 인원이 없습니다.</td></tr>";
+												$("#putlist").append(str);
+												}
 											}
 										});
 										
@@ -626,11 +651,31 @@ function procol(){
 													str += "<td>" + (index + 1) + "</td>";
 													str += "<td>" + item.name + "</td>";
 													str += "<td>" + item.phone + "</td>";
-													str += "<td>" + item.email + "</td>";
-													str += "<td>" + item.positionName + "</td>";
-													str += "<td>" + item.projectName + "</td>";
-													str += "<td>" + item.startDate + "</td>";
-													str += "<td>" + item.endDate + "</td>";
+													if(item.email != null){
+														str += "<td>" + item.email + "</td>";
+														}else{
+															str += "<td>-</td>";
+														}
+														if(item.positionName != null){
+														str += "<td>" + item.positionName + "</td>";
+														}else{
+															str += "<td>-</td>";
+														}
+														if(item.projectName != null){
+														str += "<td>" + item.projectName + "</td>";
+														}else{
+															str += "<td>-</td>";
+														}
+														if(item.startDate != null){
+														str += "<td>" + item.startDate + "</td>";
+														}else{
+															str += "<td>-</td>";
+														}
+														if(item.endDate != null){
+														str += "<td>" + item.endDate + "</td>";
+														}else{
+															str += "<td>-</td>";
+														}
 													/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 													str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
 													str += "</tr>";
@@ -670,7 +715,7 @@ function procol(){
 															+"</div><div class='box-body'><div class='table-responsive'>"
 															+"<table class='table table-bordered' border='1'><thead>"
 															+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
-															+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
+															+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'><tr><td colspan='6' style='color: blue;' align='center'>프로젝트에 투입된 인원이 없습니다.</td></tr>"
 															+"</tbody></table></div></div>"
 
 
@@ -717,7 +762,7 @@ function procol(){
 																success : function(json) {
 																	$("#putlist").empty();
 																	var str = "";
-																	
+																	if(json != ""){
 																	$.each(json, function(index, item) {
 												
 																		str += "<tr>";
@@ -732,6 +777,11 @@ function procol(){
 																	});
 
 																	$("#putlist").append(str);
+																	
+																}else{
+																	str+="<tr><td colspan='6' style='color: blue;' align='center'>프로젝트에 투입된 인원이 없습니다.</td></tr>";
+																	$("#putlist").append(str);
+																	}
 																}
 															});
 										
@@ -751,11 +801,31 @@ function procol(){
 																		str += "<td>" + (index + 1) + "</td>";
 																		str += "<td>" + item.name + "</td>";
 																		str += "<td>" + item.phone + "</td>";
+																		if(item.email != null){
 																		str += "<td>" + item.email + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
+																		if(item.positionName != null){
 																		str += "<td>" + item.positionName + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
+																		if(item.projectName != null){
 																		str += "<td>" + item.projectName + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
+																		if(item.startDate != null){
 																		str += "<td>" + item.startDate + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
+																		if(item.endDate != null){
 																		str += "<td>" + item.endDate + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
 																		/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 																		str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
 																		str += "</tr>";
@@ -846,6 +916,7 @@ function procol(){
 																$("#putlist").empty();
 																var str = "";
 																
+																if(json != ""){
 																$.each(json, function(index, item) {
 											
 																	str += "<tr>";
@@ -860,7 +931,11 @@ function procol(){
 																});
 
 																$("#putlist").append(str);
-															}
+																}else{
+																	str+="<tr><td colspan='6' style='color: blue;' align='center'>프로젝트에 투입된 인원이 없습니다.</td></tr>";
+																	$("#putlist").append(str);
+																	}
+																}
 														});
 														
 													//spare 리스트부분 ajax

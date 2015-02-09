@@ -85,4 +85,7 @@ public class DProService {
 		List<DProcess> list = dProDAO.viewlist(proId);
 		return list;
 	}
+	public int fk(String proId) {
+		return dProDAO.fk(proId);
+	}
 }

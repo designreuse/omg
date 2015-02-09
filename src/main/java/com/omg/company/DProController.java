@@ -179,4 +179,11 @@ public class DProController {
 		List<DProcess> list = dProService.viewlist(proId);
 		return list;
 	}
+	@RequestMapping(value="/fk")
+	public @ResponseBody int fk(HttpSession session, @RequestParam("proId")String proId){
+		
+			int fk = dProService.fk(proId);
+		
+		return fk;
+	}
 }

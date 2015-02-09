@@ -117,5 +117,10 @@ public class DProDAOImpl implements DProDAO {
 		List<DProcess> list = sqlSession.selectList("com.omg.dpro.view", proId);
 		return list;
 	}
+	@Override
+	public int fk(String proId) {
+		return sqlSession.update("com.omg.dpro.fk",proId);
+		
+	}
 
 }
