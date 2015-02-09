@@ -80,6 +80,7 @@
 						str += "<td class='small-col'><input name='cbox' value='"+item.employeeId+"' type='checkbox' /></td>";
 						str += "<td>" + item.employeeId + "</td>";
 						str += "<td>" +"<a  id='update' empid="+item.employeeId+">" +item.name+"</a>"+"</td>";
+						str += "<td>" +item.birth + "</td>";
 						str += "<td>" +item.deptName + "</td>";
 						if(item.teamName==null){
 							str += "<td>부장</td>";
@@ -230,6 +231,7 @@
 														<th>선 택</th>
 														<th>사 번</th>
 														<th>이 름</th>
+														<th>생 일</th>
 														<th>부 서</th>
 														<th>팀</th>
 														<th>직 책</th>
@@ -556,6 +558,7 @@
 					str += "<div class='table-responsive'><form action='p_insert' method='POST'><table class='table table-bordered' border='1'>";
 					str += "<tr>"+"<th>사 번</th>"+"<td><input type='text' name='id'id='id'><span id='empId'></span></td></tr>";
 					str += "<tr>"+"<th>이 름</th>"+"<td><input type='text'name='name'></td></tr>";
+					str += "<tr>"+"<th>생 일</th>"+"<td><input type='date' name='birth'></td></tr>";
 					str += "<tr>"+"<th>입사일</th>"+"<td><input type='date' name='hiredate'></td></tr>";
 					str += "<tr>"+"<th>Manager</th>"+"<td><input type='text' name='manager'></td></tr>";
 					str += "<tr>"+"<th>부 서</th>";

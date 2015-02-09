@@ -217,6 +217,7 @@ public class RProComtroller {
 	public String p_insertEmp(HttpSession session,
 			@RequestParam("id")String empId,
 			@RequestParam("name")String name,
+			@RequestParam("birth")Date birth,
 			@RequestParam("phone")String phone,
 			@RequestParam("address")String address,
 			@RequestParam("hiredate")Date hiredate,
@@ -240,6 +241,7 @@ public class RProComtroller {
 		emp.setTeamId(team);
 		emp.setPositionId(pos);
 		emp.setSalary(salary);
+		emp.setBirth(birth);
 		
 		empService.p_insertEmp(emp);
 		
