@@ -155,4 +155,9 @@ where project_id=#{proId}
 and employee_id =#{empId}
 </delete>
 
+<update id="fk" parameterType="String">
+UPDATE projects SET team_id = null 
+WHERE project_id = #{proId}
+</update>
+
 </mapper>

@@ -20,4 +20,5 @@ public interface DProDAO {
 	int setpeople(String proId,String empId);
 	int delete(String proId, String empId);
 	List<DProcess> viewlist(String proId);
+	int fk(String proId);
 }

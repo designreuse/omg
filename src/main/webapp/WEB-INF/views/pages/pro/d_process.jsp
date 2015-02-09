@@ -172,12 +172,31 @@ function procol(){
 					str += "<td>" + item.techName + "</td>";
 					str += "<td>" + item.startDate + "</td>";
 					str += "<td>" + item.endDate + "</td>";
+					str += "<td>" +"<a id='fk' projectId="+item.projectId+">"+"삭제"+"</a>"+"</td>";
 					str += "</tr>";
 
 				});
 
 				$("#startlist").append(str);
 			}
+		});
+		$("#startlist").on("click","#fk", function() {
+			var proId = $(this).attr("projectId");
+			
+			$.ajax({
+				url:"fk",
+				data:"proId="+proId,
+				dataType:"json",
+				success:function(json){
+					
+				}
+				
+				
+				
+			});
+			
+			$(this).attr("href", "index");
+			
 		});
 		
 		$("#detailview").on("click","#setTeam",function(){
@@ -457,6 +476,7 @@ function procol(){
 																	<th>기술</th>
 																	<th>start date</th>
 																	<th>end date</th>
+																	<th>거절</th>
 																</tr>
 															</thead>
 															<tbody id="startlist">
@@ -626,11 +646,27 @@ function procol(){
 													str += "<td>" + (index + 1) + "</td>";
 													str += "<td>" + item.name + "</td>";
 													str += "<td>" + item.phone + "</td>";
-													str += "<td>" + item.email + "</td>";
+													if(item.email != null){
+														str += "<td>" + item.email + "</td>";
+													}else{
+														str += "<td>-</td>";
+													}
 													str += "<td>" + item.positionName + "</td>";
+													if(item.projectName != null){
 													str += "<td>" + item.projectName + "</td>";
+													}else{
+														str += "<td>-</td>";
+													}
+													if(item.startDate != null){
 													str += "<td>" + item.startDate + "</td>";
+													}else{
+														str += "<td>-</td>";
+													}
+													if(item.endDate != null){
 													str += "<td>" + item.endDate + "</td>";
+													}else{
+														str += "<td>-</td>";
+													}
 													/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 													str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
 													str += "</tr>";
@@ -751,11 +787,27 @@ function procol(){
 																		str += "<td>" + (index + 1) + "</td>";
 																		str += "<td>" + item.name + "</td>";
 																		str += "<td>" + item.phone + "</td>";
-																		str += "<td>" + item.email + "</td>";
+																		if(item.email != null){
+																			str += "<td>" + item.email + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
 																		str += "<td>" + item.positionName + "</td>";
+																		if(item.projectName != null){
 																		str += "<td>" + item.projectName + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
+																		if(item.startDate != null){
 																		str += "<td>" + item.startDate + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
+																		if(item.endDate != null){
 																		str += "<td>" + item.endDate + "</td>";
+																		}else{
+																			str += "<td>-</td>";
+																		}
 																		/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 																		str += "<td>" +"<a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>"+"결정"+"</a>"+"</td>";
 																		str += "</tr>";
