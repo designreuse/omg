@@ -119,7 +119,7 @@
 			endpage = 0;
 			listck = 'R';
 			$("#empTitle").empty();
-			$("#empTitle").text("『경영 부서 인원』");
+			$("#empTitle").text("경영 부서 인원");
 			$("#datalist").empty();
 			empInFoList(startpage,listck);
 		});
