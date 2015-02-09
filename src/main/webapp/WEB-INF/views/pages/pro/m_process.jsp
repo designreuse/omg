@@ -93,6 +93,10 @@
 			});
 		});
 
+
+
+		
+		
 		//첫화면 프로젝트 이름이랑 잉여리스트랑 인원투입나오게하기
 		$.ajax({
 			url : "start",
@@ -109,6 +113,7 @@
 					str += "<td>" + item.startDate + "</td>";
 					str += "<td>" + item.endDate + "</td>";
 					str += "<td>" + item.price + "</td>";
+					str += "<td>" +"<a id='fk' projectId="+item.projectId+">"+"삭제"+"</a>"+"</td>";
 					str += "</tr>";
 
 				});
@@ -117,6 +122,27 @@
 			}
 		});
 
+		$("#startlist").on("click","#fk", function() {
+			var proId = $(this).attr("projectId");
+			alert(proId);
+			
+			$.ajax({
+				url:"fk",
+				data:"proId="+proId,
+				dataType:"json",
+				success:function(json){
+					
+				}
+				
+				
+				
+			});
+			
+			$(this).attr("href", "index");
+			
+		});
+		
+		
 		/*프로젝트 받은거 다보여주기  */
 		$("#Proing").click(function() {
 
@@ -384,6 +410,7 @@
 																<th>start date</th>
 																<th>end date</th>
 																<th>price</th>
+																<th>거절</th>
 															</tr>
 														</thead>
 														<tbody id="startlist">

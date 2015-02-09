@@ -78,4 +78,7 @@ public class MproService {
 		List<MProcess> list =dao.startProjects(employeeId);
 		return list;
 	}
+	public int fk(String proId) {
+		return dao.fk(proId);
+	}
 }

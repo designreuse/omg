@@ -186,4 +186,12 @@ and emp.EMPLOYEE_ID = #{employeeId} ]]>
 </select>
 
 
+<update id="fk" parameterType="String">
+
+UPDATE projects SET team_id = null 
+WHERE project_id = #{proId}
+</update>
+
+
+
 </mapper>

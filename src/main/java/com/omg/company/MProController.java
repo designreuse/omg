@@ -164,4 +164,12 @@ public class MProController {
 
 	}
 	
+	@RequestMapping(value="/fk")
+	public @ResponseBody int fk(HttpSession session,@RequestParam("proId")String proId){
+		
+			int fk = mproService.fk(proId);
+		
+		return fk;
+	}
+	
 }

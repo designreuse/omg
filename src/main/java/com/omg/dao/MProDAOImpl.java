@@ -123,6 +123,12 @@ public class MProDAOImpl implements MProDAO {
 		return setteam;
 	}
 
+	@Override
+	public int fk(String proId) {
+		return session.update("com.omg.mpro.fk",proId);
+		
+	}
+
 
 	
 	
