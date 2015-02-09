@@ -153,4 +153,10 @@ public class ProjectDAOImpl implements ProjectDAO {
 		int ret = sqlSession.update("com.omg.projects.runProInApp", map);
 		return ret;
 	}
+
+	@Override
+	public int clearProEmp(String proId) {
+		int ret = sqlSession.delete("com.omg.projects.clearProEmp", proId);
+		return ret;
+	}
 }

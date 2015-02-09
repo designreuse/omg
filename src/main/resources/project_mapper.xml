@@ -145,4 +145,8 @@
     <update id="runProInApp" parameterType="map">
     	update projects set approval = #{approval}, approval_name = #{approvalName}, team_id = null	where project_id = #{projectId} 
     </update>
+    
+    <delete id="clearProEmp" parameterType="String">
+    	delete from project_emp where project_id = #{proid}
+    </delete>
 </mapper>
