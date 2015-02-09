@@ -26,4 +26,5 @@ public interface ProjectDAO {
 	List<Projects> runSelectPro(int page);
 	int runSelectProTotle();
 	int runProInApp(String proId, String app, String appName);
+	int clearProEmp(String proId);
 }

@@ -29,8 +29,11 @@ public class RunService {
 	}
 	
 	// 프로젝트 승인부분(수정하는 것)
-	public int runProInApp(String proId, String app, String appName) {
+	public int runProInApp(String proId, String app, String appName){
 		int ret = proDAO.runProInApp(proId, app, appName);
+		if(ret >= 1){
+			proDAO.clearProEmp(proId);
+		}
 		return ret;
 	}
 	
