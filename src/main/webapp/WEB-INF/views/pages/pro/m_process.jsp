@@ -35,6 +35,7 @@
 				success : function(json) {
 					$("#colist").empty();
 					var str = "";
+					if(json != ""){
 					$.each(json, function(index, item) {
 						str += "<tr>";
 						str += "<td>" + (index + 1) + "</td>";
@@ -45,6 +46,10 @@
 						str += "</tr>";
 					});
 					$("#colist").append(str);
+					}else{
+						str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
+						$("#colist").append(str);
+					}
 				}
 			});
 
@@ -55,6 +60,7 @@
 				success : function(json) {
 					$("#relist").empty();
 					var str = "";
+					if(json != ""){
 					$.each(json, function(index, item) {
 						str += "<tr>";
 						str += "<td>" + item.projectName + "</td>";
@@ -64,6 +70,10 @@
 						str += "</tr>";
 						$("#relist").append(str);
 					});
+					}else{
+						str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
+						$("#relist").append(str);
+					}
 				}
 			});
 		});
@@ -76,6 +86,7 @@
 				success : function(json) {
 					$("#exlist").empty();
 					var str = "";
+					if(json != ""){
 					$.each(json, function(index, item) {
 						str += "<tr>";
 						str += "<td>" + item.projectName + "</td>";
@@ -85,6 +96,11 @@
 						str += "</tr>";
 					});
 					$("#exlist").append(str);
+					}else{
+						str+="<tr><td colspan='4' style='color: blue;' align='center'>과거에 했엇던 프로젝트리스트가 없습니다.</td></tr>";
+						$("#exlist").append(str);
+						
+					}
 				}
 			});
 		});
@@ -96,6 +112,7 @@
 			success : function(json) {
 				$("#startlist").empty();
 				var str = "";
+				if(json!=""){
 				$.each(json, function(index, item) {
 					str += "<tr>";
 					str += "<td>"
@@ -109,6 +126,10 @@
 					str += "</tr>";
 				});
 				$("#startlist").append(str);
+				}else{
+					str+="<tr><td colspan='5' style='color: blue;' align='center'>부장에게 받은 프로젝트가 없습니다.</td></tr>";
+					$("#startlist").append(str);
+				}
 			}
 		});
 
@@ -135,6 +156,7 @@
 				success : function(json) {
 					$("#ProingList").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json, function(index, item) {
 						str += "<tr>";
 						str += "<td>" + item.projectId + "</td>";
@@ -145,6 +167,10 @@
 						str += "</tr>";
 					});
 					$("#ProingList").append(str);
+					}else{
+						str+="<tr><td colspan='5' style='color: blue;' align='center'>수행중인 프로젝트가 없습니다.</td></tr>";
+						$("#ProingList").append(str);
+					}
 				}
 			});
 		});
@@ -158,6 +184,7 @@
 				success : function(json) {
 					$("#startPro").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json, function(index, item) {
 						str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>";
 						str += "<tr>";
@@ -180,6 +207,10 @@
 						str += "<td><a id='setTeam' class='btn btn-default btn-sm' proId='"+item.projectId+"'>결정</a></td></tr>";
 					});
 					$("#startPro").append(str);
+					}else{
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>받은 프로젝트가 없습니다.</td></tr>";
+						$("#startPro").append(str);
+					}
 				}
 			});
 
@@ -456,6 +487,7 @@
 						success : function(json) {
 							$("#colist").empty();
 							var str = "";
+							if(json!=""){
 							$.each(json, function(index, item) {
 								str += "<tr>";
 								str += "<td>" + (index + 1) + "</td>";
@@ -466,6 +498,10 @@
 								str += "</tr>";
 							});
 							$("#colist").append(str);
+							}else{
+								str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
+								$("#colist").append(str);
+							}
 						}
 					});
 
@@ -476,6 +512,7 @@
 						success : function(json) {
 							$("#relist").empty();
 							var str = "";
+							if(json!=""){
 							$.each(json, function(index, item) {
 								str += "<tr>";
 								str += "<td>" + item.projectName + "</td>";
@@ -485,6 +522,10 @@
 								str += "</tr>";
 								$("#relist").append(str);
 							});
+							}else{
+								str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
+								$("#relist").append(str);
+							}
 						}
 					});
 				</script>
@@ -577,6 +618,7 @@
 				success : function(json) {
 					$("#viewlist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json, function(index, item) {
 						str += "<tr><td>" + item.projectName+ "</td>";
 						str += "<td>" + item.startDate+ "</td>";
@@ -585,6 +627,10 @@
 					});
 
 					$("#viewlist").append(str);
+					}else{
+						str+="<tr><td colspan='4' style='color: blue;' align='center'>부장에게 받은 프로젝트가 없습니다.</td></tr>";
+						$("#viewlist").append(str);
+					}
 				}
 			});
 
@@ -595,6 +641,7 @@
 				success : function(json) {
 					$("#putlist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json,function(index,item) {
 						str += "<tr><td>"+ (index + 1)+ "</td>";
 						str += "<td>"+ item.employeeName+ "</td>";
@@ -605,6 +652,10 @@
 					});
 
 					$("#putlist").append(str);
+					}else{
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>투입된 인원이 없습니다.</td></tr>";
+						$("#putlist").append(str);
+					}
 				}
 			});
 
@@ -616,6 +667,7 @@
 				success : function(json) {
 					$("#sparelist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json,function(index,item) {
 						str += "<tr><td>"+ (index + 1)+ "</td>";
 						str += "<td>"+ item.employeeName+ "</td>";
@@ -645,6 +697,10 @@
 						str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 					});
 					$("#sparelist").append(str);
+					}else{
+						str+="<tr><td colspan='8' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						$("#sparelist").append(str);
+					}
 				}
 			});
 		});
@@ -696,6 +752,7 @@
 				success : function(json) {
 					$("#viewlist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json, function(index, item) {
 						str += "<tr><td>" + item.projectName+ "</td>";
 						str += "<td>" + item.startDate+ "</td>";
@@ -704,6 +761,10 @@
 					});
 
 					$("#viewlist").append(str);
+					}else{
+						str+="<tr><td colspan='4' style='color: blue;' align='center'>부장에게 받은 프로젝트가 없습니다.</td></tr>";
+						$("#viewlist").append(str);
+					}
 				}
 			});
 
@@ -714,6 +775,7 @@
 				success : function(json) {
 					$("#putlist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json,function(index,item) {
 						str += "<tr><td>"+ (index + 1)+ "</td>";
 						str += "<td>"+ item.employeeName+ "</td>";
@@ -724,6 +786,10 @@
 					});
 
 					$("#putlist").append(str);
+					}else{
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>투입된 인원이 없습니다.</td></tr>";
+						$("#putlist").append(str);
+					}
 				}
 			});
 
@@ -735,6 +801,7 @@
 				success : function(json) {
 					$("#sparelist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json,function(index,item) {
 						str += "<tr><td>"+ (index + 1)+ "</td>";
 						str += "<td>"+ item.employeeName+ "</td>";
@@ -764,6 +831,10 @@
 						str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 					});
 					$("#sparelist").append(str);
+					}else{
+						str+="<tr><td colspan='8' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						$("#sparelist").append(str);
+					}
 				}
 			});
 
@@ -816,6 +887,7 @@
 				success : function(json) {
 					$("#viewlist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json, function(index, item) {
 						str += "<tr><td>" + item.projectName+ "</td>";
 						str += "<td>" + item.startDate+ "</td>";
@@ -823,6 +895,10 @@
 						str += "<td>" + item.price + "</td></tr>";
 					});
 					$("#viewlist").append(str);
+					}else{
+						str+="<tr><td colspan='4' style='color: blue;' align='center'>부장에게 받은 프로젝트가 없습니다.</td></tr>";
+						$("#viewlist").append(str);
+					}
 				}
 			});
 
@@ -833,6 +909,7 @@
 				success : function(json) {
 					$("#putlist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json,function(index,item) {
 						str += "<tr><td>"+ (index + 1)+ "</td>";
 						str += "<td>"+ item.employeeName+ "</td>";
@@ -842,6 +919,10 @@
 						str += "<td><a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>제거</a></td></tr>";
 					});
 					$("#putlist").append(str);
+					}else{
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>투입된 인원이 없습니다.</td></tr>";
+						$("#putlist").append(str);
+					}
 				}
 			});
 
@@ -853,6 +934,7 @@
 				success : function(json) {
 					$("#sparelist").empty();
 					var str = "";
+					if(json!=""){
 					$.each(json,function(index,item) {
 						str += "<tr><td>"+ (index + 1)+ "</td>";
 						str += "<td>"+ item.employeeName+ "</td>";
@@ -882,6 +964,10 @@
 						str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 					});
 					$("#sparelist").append(str);
+					}else{
+						str+="<tr><td colspan='8' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						$("#sparelist").append(str);
+					}
 				}
 			});
 		});
