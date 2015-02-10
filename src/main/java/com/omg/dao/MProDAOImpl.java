@@ -17,12 +17,13 @@ public class MProDAOImpl implements MProDAO {
 	@Override
 	public List<MProcess> relist(String employeeId) {
 			List<MProcess> list =session.selectList("com.omg.mpro.relist",employeeId);
+
 		return list;
 	}
 
 	@Override
-	public List<MProcess> colist(String employeeId) {
-		List<MProcess> list =session.selectList("com.omg.mpro.colist",employeeId);
+	public List<MProcess> colist(String proId) {
+		List<MProcess> list =session.selectList("com.omg.mpro.colist",proId);
 		return list;
 	}
 

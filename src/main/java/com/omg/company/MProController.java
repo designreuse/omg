@@ -37,17 +37,16 @@ public class MProController {
 		
 		List<MProcess> list = mproService.relist(emps.getEmployeeId());
 		
-		
+
 		return list;
 	}
 	@RequestMapping("/colist")
-	public @ResponseBody List<MProcess> colist(HttpSession session, Model model, String employeeId){
+	public @ResponseBody List<MProcess> colist(HttpSession session, @RequestParam("proId") String proId){
 		
-		Employees emps = (Employees)session.getAttribute("user"); 
+
 		
-		List<MProcess> list = mproService.colist(emps.getEmployeeId());
-		
-		
+		List<MProcess> list = mproService.colist(proId);
+
 		return list;
 	}
 	

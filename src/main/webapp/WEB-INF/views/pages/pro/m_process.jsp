@@ -29,32 +29,9 @@
 	$(function() {
 		//현재 같은프로젝트하는 동료리스트
 		$("#re").click(function() {
-			$.ajax({
-				url : "colist",
-				dataType : "json",
-				success : function(json) {
-					$("#colist").empty();
-					var str = "";
-					if(json != ""){
-					$.each(json, function(index, item) {
-						str += "<tr>";
-						str += "<td>" + (index + 1) + "</td>";
-						str += "<td>" + item.employeeName + "</td>";
-						str += "<td>" + item.phone + "</td>";
-						str += "<td>" + item.email + "</td>";
-						str += "<td>" + item.positionName + "</td>";
-						str += "</tr>";
-					});
-					$("#colist").append(str);
-					}else{
-						str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
-						$("#colist").append(str);
-					}
-				}
-			});
 
 			//현재 투입중인 프로젝트리스트
-			$.ajax({
+			 $.ajax({
 				url : "relist",
 				dataType : "json",
 				success : function(json) {
@@ -63,20 +40,28 @@
 					if(json != ""){
 					$.each(json, function(index, item) {
 						str += "<tr>";
-						str += "<td>" + item.projectName + "</td>";
+						str += "<td>" + "<a id='colleague' projectId=" +item.projectId+">"+ item.projectName+ "</a></td>";
 						str += "<td>" + item.techName + "</td>";
 						str += "<td>" + item.startDate + "</td>";
 						str += "<td>" + item.endDate + "</td>";
 						str += "</tr>";
-						$("#relist").append(str);
+					
 					});
+					$("#relist").append(str);
 					}else{
 						str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
 						$("#relist").append(str);
 					}
 				}
 			});
+			
 		});
+
+			
+			
+		
+			
+			
 
 		//과거에 했엇던 프로젝트리스트
 		$("#ex").click(function() {
@@ -406,7 +391,8 @@
 					</div>
 					<!--칼럼12로 나누기 끝  -->
 				</c:if>
-				<!--일반 페이지  -->
+				
+				<!--일반사원 페이지  -->
 				<c:if test="${user.teamId!=null && teamMgr.teamManager!=user.employeeId}">
 					<div class="mailbox row">
 						<div class="col-xs-12">
@@ -446,26 +432,8 @@
 													</table>
 												</div>
 											</div>
-											<div class="box-header">
-												<h3 class="box-title">Colleague</h3>
-											</div>
-											<div class="box-body">
-												<div class="table-responsive">
-													<table class="table table-bordered" border="1">
-														<thead>
-															<tr>
-																<th>NO.</th>
-																<th>Name</th>
-																<th>Phone</th>
-																<th>Email</th>
-																<th>Position</th>
-															</tr>
-														</thead>
-														<tbody id="colist">
-														</tbody>
-													</table>
-												</div>
-											</div>
+									
+											
 											<!--colleageu리스트 끝  -->
 
 											<!-- /.box-body -->
@@ -480,30 +448,7 @@
 						</div>
 					</div>
 				</c:if>
-				<script>
-					$.ajax({
-						url : "colist",
-						dataType : "json",
-						success : function(json) {
-							$("#colist").empty();
-							var str = "";
-							if(json!=""){
-							$.each(json, function(index, item) {
-								str += "<tr>";
-								str += "<td>" + (index + 1) + "</td>";
-								str += "<td>" + item.employeeName + "</td>";
-								str += "<td>" + item.phone + "</td>";
-								str += "<td>" + item.email + "</td>";
-								str += "<td>" + item.positionName + "</td>";
-								str += "</tr>";
-							});
-							$("#colist").append(str);
-							}else{
-								str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
-								$("#colist").append(str);
-							}
-						}
-					});
+			<script>
 
 					//현재 투입중인 프로젝트리스트
 					$.ajax({
@@ -512,22 +457,100 @@
 						success : function(json) {
 							$("#relist").empty();
 							var str = "";
-							if(json!=""){
+							if(json != ""){
 							$.each(json, function(index, item) {
+								
 								str += "<tr>";
-								str += "<td>" + item.projectName + "</td>";
+								str += "<td>" + "<a id='colleague' projectId=" +item.projectId+">"+ item.projectName+ "</a></td>";
 								str += "<td>" + item.techName + "</td>";
 								str += "<td>" + item.startDate + "</td>";
 								str += "<td>" + item.endDate + "</td>";
 								str += "</tr>";
-								$("#relist").append(str);
+								
 							});
+							$("#relist").append(str);
 							}else{
 								str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
 								$("#relist").append(str);
 							}
 						}
 					});
+					
+					
+					$("#detailview").on("click","#colleague",function(){
+						var proId = $(this).attr("projectId");
+
+						$("#detailview").empty();
+						$("#h3").html("<b>Current list</b>");
+						var re = "<div class='box-header'><h3 class='box-title'>Current Project</h3></div>"
+								+ "<div class='box-body'><div class='table-responsive'>"
+								+ "<table class='table table-bordered' border='1'><thead>"
+								+ "<tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
+								+ "</tr></thead><tbody id='relist'></tbody></table></div></div>"
+								+ "<div class='box-header'><h3 class='box-title'>Colleague</h3></div>"
+								+ "<div class='box-body'><div class='table-responsive'>"
+								+ "<table class='table table-bordered' border='1'><thead>"
+								+ "<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
+								+ "</tr></thead><tbody id='colist'></tbody></table></div></div>";
+								$(re).appendTo($("#detailview"));
+					
+								//현재 투입중인 프로젝트리스트
+								$.ajax({
+									url : "relist",
+									dataType : "json",
+									success : function(json) {
+										$("#relist").empty();
+										var str = "";
+										if(json != ""){
+										$.each(json, function(index, item) {
+											str += "<tr>";
+											str += "<td>" + "<a id='colleague' projectId=" +item.projectId+">"+ item.projectName+ "</a></td>";
+											str += "<td>" + item.techName + "</td>";
+											str += "<td>" + item.startDate + "</td>";
+											str += "<td>" + item.endDate + "</td>";
+											str += "</tr>";
+											
+										});
+										$("#relist").append(str);
+										}else{
+											str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
+											$("#relist").append(str);
+										}
+									}
+								});
+								
+								
+								
+					// 동료보기 리스트
+						$.ajax({
+							
+							url : "colist",
+							data:"proId="+proId,
+							dataType : "json",
+							success : function(json) {
+								$("#colist").empty();
+								var str = "";
+								if(json != ""){
+								$.each(json, function(index, item) {
+									str += "<tr>";
+									str += "<td>" + (index + 1) + "</td>";
+									str += "<td>" + item.employeeName + "</td>";
+									str += "<td>" + item.phone + "</td>";
+									str += "<td>" + item.email + "</td>";
+									str += "<td>" + item.positionName + "</td>";
+									str += "</tr>";
+								});
+								//"<a id='open' projectId="+item.projectId+">"
+								$("#colist").append(str);
+								}else{
+									str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
+									$("#colist").append(str);
+								}
+							}
+						});
+					
+					});
+				
 				</script>
 			</section>
 			<!--세션끝  -->
@@ -564,7 +587,7 @@
 			$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
 		});
 
-		//인원추가버튼 눌럿을때
+		//팀장 current list 화면처음
 		$("#bnt_window").on("click","#re",function() {
 			$("#detailview").empty();
 			$("#h3").html("<b>Current list</b>");
@@ -572,16 +595,95 @@
 					+ "<div class='box-body'><div class='table-responsive'>"
 					+ "<table class='table table-bordered' border='1'><thead>"
 					+ "<tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
-					+ "</tr></thead><tbody id='relist'></tbody></table></div></div>"
+					+ "</tr></thead><tbody id='relist'></tbody></table></div></div>";
 
+			
+			$(re).appendTo($("#detailview"));
+		});
+
+		$("#detailview").on("click","#colleague",function(){
+			$("#detailview").empty();
+
+			var proId = $(this).attr("projectId");
+
+		
+			$("#h3").html("<b>Current list</b>");
+			var re = "<div class='box-header'><h3 class='box-title'>Current Project</h3></div>"
+					+ "<div class='box-body'><div class='table-responsive'>"
+					+ "<table class='table table-bordered' border='1'><thead>"
+					+ "<tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
+					+ "</tr></thead><tbody id='relist'></tbody></table></div></div>"
 					+ "<div class='box-header'><h3 class='box-title'>Colleague</h3></div>"
 					+ "<div class='box-body'><div class='table-responsive'>"
 					+ "<table class='table table-bordered' border='1'><thead>"
 					+ "<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
 					+ "</tr></thead><tbody id='colist'></tbody></table></div></div>";
-			$(re).appendTo($("#detailview"));
+					$(re).appendTo($("#detailview"));
+		
+					//현재 투입중인 프로젝트리스트
+					$.ajax({
+						url : "relist",
+						dataType : "json",
+						success : function(json) {
+							$("#relist").empty();
+							var str = "";
+							if(json != ""){
+							$.each(json, function(index, item) {
+								str += "<tr>";
+								str += "<td>" + "<a id='colleague' projectId=" +item.projectId+">"+ item.projectName+ "</a></td>";
+								str += "<td>" + item.techName + "</td>";
+								str += "<td>" + item.startDate + "</td>";
+								str += "<td>" + item.endDate + "</td>";
+								str += "</tr>";
+							
+							});
+							$("#relist").append(str);
+							}else{
+								str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
+								$("#relist").append(str);
+							}
+						}
+					});
+					
+					
+					
+		// 동료보기 리스트
+			$.ajax({
+				
+				url : "colist",
+				data:"proId="+proId,
+				dataType : "json",
+				success : function(json) {
+					$("#colist").empty();
+					var str = "";
+					if(json != ""){
+					$.each(json, function(index, item) {
+						str += "<tr>";
+						str += "<td>" + (index + 1) + "</td>";
+						str += "<td>" + item.employeeName + "</td>";
+						str += "<td>" + item.phone + "</td>";
+						str += "<td>" + item.email + "</td>";
+						str += "<td>" + item.positionName + "</td>";
+						str += "</tr>";
+					});
+					//"<a id='open' projectId="+item.projectId+">"
+					$("#colist").append(str);
+					}else{
+						str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
+						$("#colist").append(str);
+					}
+				}
+			});
+		
 		});
-
+		
+		
+		
+		
+		
+		
+		
+		
 		$("#startlist").on("click","#open",function() {
 			var proId = $(this).attr("projectId");
 			$("#detailview").empty();
@@ -605,7 +707,7 @@
 					+ "</div><div class='box-body'><div class='table-responsive'>"
 					+ "<table class='table table-bordered' border='1'>"
 					+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-					+ "<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+					+ "<th>Email</th><th>Position</th><th>추가</th></tr>"
 					+ "</thead><tbody id='sparelist'></tbody></table>"
 					+ "</div></div>";
 
@@ -678,27 +780,13 @@
 							str += "<td>"+ item.email+ "</td>";
 						}
 						str += "<td>"+ item.positionName+ "</td>";
-						if (item.projectName == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ projectName+ "</td>";
-						}
-						if (item.startDate == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ startDate+ "</td>";
-						}
-						if (item.endDate == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ endDate+ "</td>";
-						}
+
 						/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 						str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 					});
 					$("#sparelist").append(str);
 					}else{
-						str+="<tr><td colspan='9' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
 						$("#sparelist").append(str);
 					}
 				}
@@ -739,7 +827,7 @@
 					+ "</div><div class='box-body'><div class='table-responsive'>"
 					+ "<table class='table table-bordered' border='1'>"
 					+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-					+ "<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+					+ "<th>Email</th><th>Position</th><th>추가</th></tr>"
 					+ "</thead><tbody id='sparelist'></tbody></table>"
 					+ "</div></div>";
 
@@ -812,27 +900,13 @@
 							str += "<td>"+ item.email+ "</td>";
 						}
 						str += "<td>"+ item.positionName+ "</td>";
-						if (item.projectName == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ projectName+ "</td>";
-						}
-						if (item.startDate == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ startDate+ "</td>";
-						}
-						if (item.endDate == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ endDate+ "</td>";
-						}
+
 						/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 						str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 					});
 					$("#sparelist").append(str);
 					}else{
-						str+="<tr><td colspan='9' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
 						$("#sparelist").append(str);
 					}
 				}
@@ -875,7 +949,7 @@
 					+ "</div><div class='box-body'><div class='table-responsive'>"
 					+ "<table class='table table-bordered' border='1'>"
 					+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-					+ "<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+					+ "<th>Email</th><th>Position</th><th>추가</th></tr>"
 					+ "</thead><tbody id='sparelist'></tbody></table>"
 					+ "</div></div>";
 			$(st).appendTo($("#detailview"));
@@ -945,27 +1019,13 @@
 							str += "<td>"+ item.email+ "</td>";
 						}
 						str += "<td>"+ item.positionName+ "</td>";
-						if (item.projectName == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ projectName+ "</td>";
-						}
-						if (item.startDate == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ startDate+ "</td>";
-						}
-						if (item.endDate == null) {
-							str += "<td>-</td>";
-						} else {
-							str += "<td>"+ endDate+ "</td>";
-						}
+
 						/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 						str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 					});
 					$("#sparelist").append(str);
 					}else{
-						str+="<tr><td colspan='9' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
 						$("#sparelist").append(str);
 					}
 				}
