@@ -136,6 +136,7 @@
 				SelectEmpByDept(startpage,dept);
 				$("#page").text(startpage);
 				$("#nextdesc").removeClass("disabled");
+				$("#nextasc").removeClass("disabled");
 				if(startpage == 1){
 					$("#nextasc").addClass("disabled");
 				}
@@ -152,6 +153,7 @@
 				SelectEmpByDept(startpage,dept);
 				$("#page").text(startpage);
 				$("#nextasc").removeClass("disabled");
+				$("#nextdesc").removeClass("disabled");
 				if(startpage == endpage){
 					$("#nextdesc").addClass("disabled");
 				}
@@ -164,7 +166,8 @@
 			startpage = 1;
 			endpage = 0;
 			$("#list").empty();
-			SelectEmpByDept(startpage,$(this).val());
+			dept = $(this).val();
+			SelectEmpByDept(startpage,dept);
 		});
 	});
 	
