@@ -196,7 +196,7 @@
 									<div class="carousel-inner">
 										<div class="item active">
 											<img data-src="holder.js/1152x648/auto/#777:#777"
-												src="/company/resources/img/난초.png"
+												src="/company/resources/img/바탕화면.png"
 												alt="1152x648">
 											<div class="carousel-caption">
 												<!-- <h3>First slide label</h3>
