@@ -557,7 +557,11 @@ function procol(){
 									str += "<tr><td>" + (index + 1) + "</td>";
 									str += "<td>" + item.name + "</td>";
 									str += "<td>" + item.phone + "</td>";
-									str += "<td>" + item.email + "</td>";
+									if(item.email != null){
+										str += "<td>" + item.email + "</td>";
+										}else{
+										str += "<td>-</td>";
+										}
 									str += "<td>" + item.positionName + "</td>";
 									str += "<td><a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>제거</a></td></tr>";
 								});
@@ -683,7 +687,11 @@ function procol(){
 										str += "<tr><td>" + (index + 1) + "</td>";
 										str += "<td>" + item.name + "</td>";
 										str += "<td>" + item.phone + "</td>";
+										if(item.email != null){
 										str += "<td>" + item.email + "</td>";
+										}else{
+										str += "<td>-</td>";
+										}
 										str += "<td>" + item.positionName + "</td>";
 										str += "<td><a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>제거</a></td></tr>";
 									});
@@ -807,7 +815,11 @@ function procol(){
 											str += "<tr><td>" + (index + 1) + "</td>";
 											str += "<td>" + item.name + "</td>";
 											str += "<td>" + item.phone + "</td>";
-											str += "<td>" + item.email + "</td>";
+											if(item.email != null){
+												str += "<td>" + item.email + "</td>";
+												}else{
+												str += "<td>-</td>";
+												}
 											str += "<td>" + item.positionName + "</td>";
 											str += "<td><a id='delete' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>제거</a></td></tr>";
 										});
@@ -831,11 +843,31 @@ function procol(){
 										str += "<tr><td>" + (index + 1) + "</td>";
 										str += "<td>" + item.name + "</td>";
 										str += "<td>" + item.phone + "</td>";
-										str += "<td>" + item.email + "</td>";
-										str += "<td>" + item.positionName + "</td>";
-										str += "<td>" + item.projectName + "</td>";
-										str += "<td>" + item.startDate + "</td>";
-										str += "<td>" + item.endDate + "</td>";
+										if(item.email != null){
+											str += "<td>" + item.email + "</td>";
+											}else{
+												str += "<td>-</td>";
+											}
+											if(item.positionName != null){
+											str += "<td>" + item.positionName + "</td>";
+											}else{
+												str += "<td>-</td>";
+											}
+											if(item.projectName != null){
+											str += "<td>" + item.projectName + "</td>";
+											}else{
+												str += "<td>-</td>";
+											}
+											if(item.startDate != null){
+											str += "<td>" + item.startDate + "</td>";
+											}else{
+												str += "<td>-</td>";
+											}
+											if(item.endDate != null){
+											str += "<td>" + item.endDate + "</td>";
+											}else{
+												str += "<td>-</td>";
+											}
 										str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 									});
 									$("#sparelist").append(str);
