@@ -698,7 +698,7 @@
 					});
 					$("#sparelist").append(str);
 					}else{
-						str+="<tr><td colspan='8' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						str+="<tr><td colspan='9' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
 						$("#sparelist").append(str);
 					}
 				}
@@ -832,7 +832,7 @@
 					});
 					$("#sparelist").append(str);
 					}else{
-						str+="<tr><td colspan='8' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						str+="<tr><td colspan='9' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
 						$("#sparelist").append(str);
 					}
 				}
@@ -965,7 +965,7 @@
 					});
 					$("#sparelist").append(str);
 					}else{
-						str+="<tr><td colspan='8' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
+						str+="<tr><td colspan='9' style='color: blue;' align='center'>추가할 인원이 없습니다.</td></tr>";
 						$("#sparelist").append(str);
 					}
 				}
