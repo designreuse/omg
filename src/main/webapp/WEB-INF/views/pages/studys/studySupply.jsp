@@ -81,6 +81,7 @@
 										<th>기술 선택</th>
 										<td>
 											<select name="techname">
+												<option value="기타">기타</option>
 											    <c:forEach  items="${techs}" var="tech" >
 											    	<option value="${tech}">${tech}</option>
 											    </c:forEach>
