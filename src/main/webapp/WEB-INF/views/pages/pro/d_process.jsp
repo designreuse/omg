@@ -182,11 +182,28 @@ function procol(){
 					str += "<td>" + item.techName + "</td>";
 					str += "<td>" + item.startDate + "</td>";
 					str += "<td>" + item.endDate + "</td>";
+					str += "<td>" + "<a id='fk' projectId="+item.projectId+">"
+					+ "삭제" + "</a>" + "</td>";
 					str += "</tr>";	
 				});
 				$("#startlist").append(str);
 			}
 		});
+		$("#startlist").on("click", "#fk", function() {
+			var proId = $(this).attr("projectId");
+
+			$.ajax({
+				url : "fk",
+				data : "proId=" + proId,
+				dataType : "json",
+				success : function(json) {
+
+				}
+			});
+
+			$(this).attr("href", "index");
+		});
+
 		
 		$("#detailview").on("click","#setTeam",function(){
 			var projectId = $(this).attr("proId");
@@ -426,6 +443,7 @@ function procol(){
 																	<th>기술</th>
 																	<th>start date</th>
 																	<th>end date</th>
+																	<th>거절</th>
 																</tr>
 															</thead>
 															<tbody id="startlist">
