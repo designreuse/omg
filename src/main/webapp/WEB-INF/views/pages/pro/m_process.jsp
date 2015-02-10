@@ -16,7 +16,7 @@
 <link
 	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css" />
-<!-- Ionicons -->
+<!-- Ionicons --> 
 <link
 	href="//code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css"
 	rel="stylesheet" type="text/css" />
