@@ -165,7 +165,7 @@ function procol(){
 						});
 						str += "<td><a id='setTeam' class='btn btn-default btn-sm' proId='"+item.projectId+"'>결정</a></td></tr>";
 					});
-					$("#startPro").append(str);\
+					$("#startPro").append(str);
 				}
 			});
 		}
