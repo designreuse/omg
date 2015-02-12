@@ -18,8 +18,8 @@ public class DProDAOImpl implements DProDAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<DProcess> listColleague(String employeeId) {
-		return sqlSession.selectList("com.omg.dpro.listColleague", employeeId);
+	public List<DProcess> listColleague(String proId) {
+		return sqlSession.selectList("com.omg.dpro.listColleague", proId);
 	}
 
 	@Override
@@ -29,9 +29,9 @@ public class DProDAOImpl implements DProDAO {
 	}
 
 	@Override
-	public DProcess dPro(String employeeId) {
+	public List<DProcess> dPro(String employeeId) {
 
-		return sqlSession.selectOne("com.omg.dpro.dpro", employeeId);
+		return sqlSession.selectList("com.omg.dpro.dpro", employeeId);
 	}
 	//부장
 	@Override

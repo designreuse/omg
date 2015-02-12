@@ -16,8 +16,8 @@ public class DProService {
 	@Autowired
 	private DProDAO dProDAO;
 
-	public List<DProcess> listColleague(String employeeId) {
-		List<DProcess> listColleague = dProDAO.listColleague(employeeId);
+	public List<DProcess> listColleague(String proId) {
+		List<DProcess> listColleague = dProDAO.listColleague(proId);
 		return listColleague;
 	}
 
@@ -26,8 +26,8 @@ public class DProService {
 		return listPro;
 	}
 
-	public DProcess dPro(String employeeId) {
-		DProcess dp = dProDAO.dPro(employeeId);
+	public List<DProcess> dPro(String employeeId) {
+		List<DProcess> dp = dProDAO.dPro(employeeId);
 		return dp;
 	}
 
