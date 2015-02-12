@@ -107,7 +107,7 @@
 					str += "<td>" + item.endDate + "</td>";
 					str += "<td>" + item.price + "</td>";
 					str += "<td>" + "<a id='fk' projectId="+item.projectId+">"
-						+ "삭제" + "</a>" + "</td>";
+						+ "반려" + "</a>" + "</td>";
 					str += "</tr>";
 				});
 				$("#startlist").append(str);
@@ -366,7 +366,7 @@
 																<th>start date</th>
 																<th>end date</th>
 																<th>price</th>
-																<th>거절</th>
+																<th>반려</th>
 															</tr>
 														</thead>
 														<tbody id="startlist">
