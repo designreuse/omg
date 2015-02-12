@@ -780,7 +780,7 @@
 							str += "<td>"+ item.email+ "</td>";
 						}
 						str += "<td>"+ item.positionName+ "</td>";
-
+							
 						/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 						str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 					});
