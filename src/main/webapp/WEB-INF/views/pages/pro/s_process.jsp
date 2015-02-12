@@ -25,6 +25,67 @@
 	type="text/css" />
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
+function ckdatelist(startpage,date) {
+	$.ajax({          			// 프로잭트 리스트 보여주기
+		url : "salProlist",
+		dataType : "json",
+		data : "page="+startpage+"&date="+date,
+		async: false,
+		success : function(json) {
+			if(json != ""){
+				$("#prolist").empty();
+				$.each(json, function(index, item) {
+					td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>";
+						 if(permit == "T"){
+							 td += "<td>"+item.projectId+"</a></td>";
+						 }
+					td += "<td>"+item.deptName+"</a></td>"+
+						 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
+						 "<td>"+item.techCount+"</td>"+
+						 "<td>"+item.startDate+"</td>"+
+						 "<td>"+item.endDate+"</td>"+
+						 "<td>"+item.projectPrice+"</td>";
+						 if(item.approval == null){
+								td += "<td style='color:blue;'>승인대기</td>"+
+									  "<td style='color:blue;'>확인중</td>";
+						 }else if(item.approval == 'X'){
+							 td += "<td style='color:red;'>"+item.approval+"</td>"+
+							 	   "<td style='color:red;'>"+item.approvalName+"</td>";
+						 }else {
+							 td += "<td>"+item.approval+"</td>";
+							 if(item.approvalName == null){
+								 td +="<td style='color:blue;'>확인중</td>";
+							 }else{
+								 td +="<td>"+item.approvalName+"</td>"; 
+							 }
+						}
+					$("<tr>"+td+"</tr>").appendTo($("#prolist"));
+				});
+			}
+		}
+	});
+	
+	$.ajax({										// ProjectList 페이지 총페이지수 구하기
+		url: "salPrototle" ,
+		dataType: "text",
+		data : "date="+date,
+		async: false,
+		success : function(text) {
+			endpage = parseInt(((text-1) / 15) + 1);
+			if(text > 10){
+				$("#page").text(startpage);
+				$("#total").text(endpage);
+				$("#nextasc").addClass("disabled");
+				$("#nextdesc").removeClass("disabled");
+			}else{
+				$("#page").text(1);
+				$("#total").text(1);
+				$("#nextasc").addClass("disabled");
+				$("#nextdesc").addClass("disabled");
+			}
+		}
+	});
+}
 	$(function() {
 		$.ajax({
 			url: "/company/managerck",
@@ -115,67 +176,7 @@
 			}
 		});
 		
-		function ckdatelist(startpage,date) {
-			$.ajax({          			// 프로잭트 리스트 보여주기
-				url : "salProlist",
-				dataType : "json",
-				data : "page="+startpage+"&date="+date,
-				async: false,
-				success : function(json) {
-					if(json != ""){
-						$("#prolist").empty();
-						$.each(json, function(index, item) {
-							td = "<td class='small-col'><input name='cbox' value='"+item.projectId+"' app='"+item.approval+"' type='checkbox' /></td>";
-								 if(permit == "T"){
-									 td += "<td>"+item.projectId+"</a></td>";
-								 }
-							td += "<td>"+item.deptName+"</a></td>"+
-								 "<td><a id='proInTech' class='btn btn-default' proid='"+item.projectId+"' proname='"+item.projectName+"' app='"+item.approval+"'>"+item.projectName+"</a></td>"+
-								 "<td>"+item.techCount+"</td>"+
-								 "<td>"+item.startDate+"</td>"+
-								 "<td>"+item.endDate+"</td>"+
-								 "<td>"+item.projectPrice+"</td>";
-								 if(item.approval == null){
-										td += "<td style='color:blue;'>승인대기</td>"+
-											  "<td style='color:blue;'>확인중</td>";
-								 }else if(item.approval == 'X'){
-									 td += "<td style='color:red;'>"+item.approval+"</td>"+
-									 	   "<td style='color:red;'>"+item.approvalName+"</td>";
-								 }else {
-									 td += "<td>"+item.approval+"</td>";
-									 if(item.approvalName == null){
-										 td +="<td style='color:blue;'>확인중</td>";
-									 }else{
-										 td +="<td>"+item.approvalName+"</td>"; 
-									 }
-								}
-							$("<tr>"+td+"</tr>").appendTo($("#prolist"));
-						});
-					}
-				}
-			});
-			
-			$.ajax({										// ProjectList 페이지 총페이지수 구하기
-				url: "salPrototle" ,
-				dataType: "text",
-				data : "date="+date,
-				async: false,
-				success : function(text) {
-					endpage = parseInt(((text-1) / 15) + 1);
-					if(text > 10){
-						$("#page").text(startpage);
-						$("#total").text(endpage);
-						$("#nextasc").addClass("disabled");
-						$("#nextdesc").removeClass("disabled");
-					}else{
-						$("#page").text(1);
-						$("#total").text(1);
-						$("#nextasc").addClass("disabled");
-						$("#nextdesc").addClass("disabled");
-					}
-				}
-			});
-		}
+		
 		
 		// 전체 선택
 		$("#fulllist").click(function() {

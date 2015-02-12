@@ -72,9 +72,7 @@ public class SalaryService {
 		for(String s : proids){
 			protechdel += projectDAO.salProTechDelete(s);
 		}
-		if(protechdel != -1){
-			ret = projectDAO.deletePro(proids);
-		}
+		ret = projectDAO.deletePro(proids);
 		return ret;
 	}
 	
