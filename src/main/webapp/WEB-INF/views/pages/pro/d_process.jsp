@@ -26,7 +26,7 @@
 <script src="/company/resources/js/jquery-1.11.2.js"></script>
 <script>
 /*진행중인 프로젝트와 동료리스트*/
-function procol(){
+ function procol(){
 	$.ajax({
 		url : "dPro",
 		dataType : "json",
@@ -51,37 +51,13 @@ function procol(){
 	});
 
 	 
-	$.ajax({
-		url : "ListColleague",
-		data:"proId="+proId,
-		dataType : "json",
-		async : false,
-		success : function(json) {
-			$("#ListColleague").empty();
-			var str = "";
-			if(json != ""){
-				$.each(json, function(index, item) {
-					str += "<tr>";
-					str += "<td>" + (index + 1) + "</td>";
-					str += "<td>" + item.name + "</td>";
-					str += "<td>" + item.phone + "</td>";
-					str += "<td>" + item.email + "</td>";
-					str += "<td>" + item.positionName + "</td>";
-					str += "</tr>";
-				});
-				$("#ListColleague").append(str);
-			}else{//
-				str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
-				$("#ListColleague").append(str);
-			}
-		}
-	});
-}
+	
+} 
 	$(function() {
 		$("#Current").click(function() {
 			procol();
 		});
-		
+		procol();
 		/* 부장 경력 */
 		$("#ex").click(function() {
 			$.ajax({
@@ -106,6 +82,7 @@ function procol(){
 					}
 				}
 			});
+			
 		});
 		
 		$("#Proing").click(function() {
@@ -132,8 +109,9 @@ function procol(){
 					}
 				}
 			});
+			
 		});
-		procol();
+		
 		/*부장이 넘겨받은 프로젝트*/
 		cpview();
 		function cpview() {
@@ -186,7 +164,7 @@ function procol(){
 					str += "<td>" + item.startDate + "</td>";
 					str += "<td>" + item.endDate + "</td>";
 					str += "<td>" + "<a id='fk' projectId="+item.projectId+">"
-					+ "삭제" + "</a>" + "</td>";
+					+ "반환" + "</a>" + "</td>";
 					str += "</tr>";	
 				});
 				$("#startlist").append(str);
@@ -330,6 +308,7 @@ function procol(){
 								+ "</tr></thead><tbody id='ProingList'>"
 								+ "</tbody></table></div></div>";
 						$(spare).appendTo($("#detailview"));
+						
 					});
 				</script>
 
@@ -388,6 +367,7 @@ function procol(){
 					$("#Current").click(function() {
 						$(this).attr("href", "index"); /*경로를 나타낼 떄 href를 쓰고 갈 위치를 적을것을 뒤에다쓴다  */
 					});
+					
 				</script>
 
 				<!-- 팀장 -->
@@ -426,7 +406,7 @@ function procol(){
 																	<th>기술</th>
 																	<th>start date</th>
 																	<th>end date</th>
-																	<th>거절</th>
+																	<th>반려</th>
 																</tr>
 															</thead>
 															<tbody id="startlist">
@@ -479,7 +459,7 @@ function procol(){
 					
 					$("#detailview").on("click","#colleague",function(){
 						$("#detailview").empty();
-
+	
 						var proId = $(this).attr("projectId");
 
 					
@@ -495,6 +475,8 @@ function procol(){
 								+ "<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
 								+ "</tr></thead><tbody id='ListColleague'></tbody></table></div></div>";
 								$(re).appendTo($("#detailview"));
+								
+								
 					
 								//현재 투입중인 프로젝트리스트
 								$.ajax({
@@ -519,7 +501,9 @@ function procol(){
 											$("#dPro").append(str);
 										}
 									}
+								
 								});
+								
 								
 								$.ajax({
 									
@@ -692,14 +676,15 @@ function procol(){
 									+"<table class='table table-bordered' border='1'><thead>"
 									+"<tr><th>프로젝트명</th><th>기술</th><th>start date</th><th>end date</th>"
 									+"</tr></thead><tbody id='viewlist'>"
+									+"</tbody></table></div></div>"
+									
 									+"<div class='box-header'><h3 class='box-title'>프로젝트에투입될인원</h3>"
-				
 									+"</div><div class='box-body'><div class='table-responsive'>"
 									+"<table class='table table-bordered' border='1'><thead>"
 									+"<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th>"
-									+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'><tr><td colspan='6' style='color: blue;' align='center'>프로젝트에 투입된 인원이 없습니다.</td></tr>"
+									+"<th>Position</th><th>제거</th></tr></thead><tbody id='putlist'>"
 									+"</tbody></table></div></div>"
-
+	
 									+"<div class='box-header'><h3 class='box-title'>팀원 리스트</h3>"
 									+"</div><div class='box-body'><div class='table-responsive'>"
 									+"<table class='table table-bordered' border='1'>"
