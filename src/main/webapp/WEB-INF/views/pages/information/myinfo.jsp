@@ -44,6 +44,7 @@
 	<div class="col-xs-12" align="center">
 		<a href="update?employeeId=${user.employeeId}" class="btn btn-default" style="font-family: 'Jeju Gothic', serif; font-size: 12pt">수정</a>
 		<a href="myTechDetail?employeeId=${user.employeeId}" class="btn btn-default" style="font-family: 'Jeju Gothic', serif; font-size: 12pt">보유기술</a>
+		<a href="#" onclick="parent.close();" class="btn btn-default" style="font-family: 'Jeju Gothic', serif; font-size: 12pt">창닫기</a>
 	</div>
 </div>
 <!-- ./wrapper -->
