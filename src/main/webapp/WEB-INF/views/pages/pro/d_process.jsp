@@ -34,12 +34,14 @@ function procol(){
 			$("#dPro").empty();
 			var str = "";
 			if(json != ""){
+				$.each(json, function(index, item) {
 				str += "<tr>";
-				str += "<td>" + json.projectName + "</td>";
-				str += "<td>" + json.techName + "</td>";
-				str += "<td>" + json.startDate + "</td>";
-				str += "<td>" + json.endDate + "</td>";
+				str += "<td>" + "<a id='colleague' projectId=" +item.projectId+">"+ item.projectName+ "</a></td>";
+				str += "<td>" + item.techName + "</td>";
+				str += "<td>" + item.startDate + "</td>";
+				str += "<td>" + item.endDate + "</td>";
 				str += "</tr>";
+				});
 				$("#dPro").append(str);
 			}else{
 				str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
@@ -51,6 +53,7 @@ function procol(){
 	 
 	$.ajax({
 		url : "ListColleague",
+		data:"proId="+proId,
 		dataType : "json",
 		async : false,
 		success : function(json) {
@@ -368,27 +371,7 @@ function procol(){
 													</table>
 												</div>
 											</div>
-											<div class="box-header">
-												<h3 class="box-title">Colleague</h3>
-											</div>
-											<div class="box-body">
-												<div class="table-responsive">
-													<table class="table table-bordered" border="1">
-														<thead>
-															<tr>
-																<th>NO.</th>
-																<th>Name</th>
-																<th>Phone</th>
-																<th>Email</th>
-																<th>Position</th>
-															</tr>
-														</thead>
-														<tbody id="ListColleague">
-															<tr><td colspan="6" style="color: blue;" align="center">팀장에게 할당된 프로젝트가 없습니다.</td></tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
+											
 											<!-- /.box-body -->
 											<div class="box-footer clearfix">
 												<div class="pull-right"></div>
@@ -489,15 +472,84 @@ function procol(){
 								+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
 								+ "<thead><tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
 								+ "</tr></thead><tbody id='dPro'>"
-								+ "</tbody></table></div></div>"
-								+ "<div class='box-header'><h3 class='box-title'>Colleague</h3></div><div class='box-body'>"
-								+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
-								+ "<thead><tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
-								+ "</tr></thead><tbody id='ListColleague'>"
 								+ "</tbody></table></div></div>";
 						$(spare).appendTo($("#detailview"));
 						procol();
 					}); 
+					
+					$("#detailview").on("click","#colleague",function(){
+						$("#detailview").empty();
+
+						var proId = $(this).attr("projectId");
+
+					
+						$("#h3").html("<b>Current list</b>");
+						var re = "<div class='box-header'><h3 class='box-title'>Current Project</h3></div>"
+								+ "<div class='box-body'><div class='table-responsive'>"
+								+ "<table class='table table-bordered' border='1'><thead>"
+								+ "<tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
+								+ "</tr></thead><tbody id='dPro'></tbody></table></div></div>"
+								+ "<div class='box-header'><h3 class='box-title'>Colleague</h3></div>"
+								+ "<div class='box-body'><div class='table-responsive'>"
+								+ "<table class='table table-bordered' border='1'><thead>"
+								+ "<tr><th>NO.</th><th>Name</th><th>Phone</th><th>Email</th><th>Position</th>"
+								+ "</tr></thead><tbody id='ListColleague'></tbody></table></div></div>";
+								$(re).appendTo($("#detailview"));
+					
+								//현재 투입중인 프로젝트리스트
+								$.ajax({
+									url : "dPro",
+									dataType : "json",
+									success : function(json) {
+										$("#dPro").empty();
+										var str = "";
+										if(json != ""){
+										$.each(json, function(index, item) {
+											str += "<tr>";
+											str += "<td>" + "<a id='colleague' projectId=" +item.projectId+">"+ item.projectName+ "</a></td>";
+											str += "<td>" + item.techName + "</td>";
+											str += "<td>" + item.startDate + "</td>";
+											str += "<td>" + item.endDate + "</td>";
+											str += "</tr>";
+										
+										});
+										$("#dPro").append(str);
+										}else{
+											str+="<tr><td colspan='4' style='color: blue;' align='center'>진행중인 프로젝트가 없습니다.</td></tr>";
+											$("#dPro").append(str);
+										}
+									}
+								});
+								
+								$.ajax({
+									
+									url : "ListColleague",
+									data:"proId="+proId,
+									dataType : "json",
+									success : function(json) {
+										$("#ListColleague").empty();
+										var str = "";
+										if(json != ""){
+										$.each(json, function(index, item) {
+											str += "<tr>";
+											str += "<td>" + (index + 1) + "</td>";
+											str += "<td>" + item.name + "</td>";
+											str += "<td>" + item.phone + "</td>";
+											str += "<td>" + item.email + "</td>";
+											str += "<td>" + item.positionName + "</td>";
+											str += "</tr>";
+										});
+										//"<a id='open' projectId="+item.projectId+">"
+										$("#ListColleague").append(str);
+										}else{
+											str+="<tr><td colspan='5' style='color: blue;' align='center'>동료가 없습니다.</td></tr>";
+											$("#ListColleague").append(str);
+										}
+									}
+								});
+							
+							});
+								
 						
 					
 					$("#startlist").on("click","#open",function(){

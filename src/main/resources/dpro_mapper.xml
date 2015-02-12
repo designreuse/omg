@@ -29,24 +29,18 @@ and pe.project_id = pro.project_id
 and prote.project_id = pro.project_id
 and prote.tech_id = tech.tech_id
 and e.employee_id= #{employeeId}
-and sysdate >= start_date and sysdate <= end_date]]>
+and sysdate >= start_date and sysdate <= end_date
+and pro.approval = 'O']]>
 </select>
 
-<select id="listColleague" resultMap="dto">
-<![CDATA[
-select * from project_emp pe, employees e, position po
-where pe.EMPLOYEE_ID=e.EMPLOYEE_ID
+<select id="listColleague" resultMap="dto" parameterType="String">
+
+select * from project_emp pe, employees e, position po, projects pro
+where pe.EMPLOYEE_ID=e.EMPLOYEE_ID and pe.project_id = pro.project_id
 and e.position_id=po.position_id
-and project_id=
-(
-select pe.PROJECT_ID from employees e, project_emp pe, projects pro, project_tech prote, techs tech
-where pe.employee_id= e.employee_id
-and pe.project_id = pro.project_id
-and prote.project_id = pro.project_id
-and prote.tech_id = tech.tech_id
-and sysdate >= start_date and sysdate <= end_date
-and e.employee_id= #{employeeId})
-]]>
+and pro.project_id = #{proId}
+and pro.approval = 'O'
+
 </select>
 
 <select id="listProjects" resultMap="dto" parameterType="String">

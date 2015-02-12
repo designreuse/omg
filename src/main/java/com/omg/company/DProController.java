@@ -50,9 +50,9 @@ public class DProController {
 
 	@RequestMapping(value = "/dPro")
 	public @ResponseBody
-	DProcess dPro(HttpSession session) {
+	List<DProcess> dPro(HttpSession session) {
 		Employees emps = (Employees) session.getAttribute("user");
-		DProcess dPro = dProService.dPro(emps.getEmployeeId());
+		List<DProcess> dPro = dProService.dPro(emps.getEmployeeId());
 		/*
 		 * System.out.println(dPro.getProjectName());
 		 * System.out.println(dPro.getTechName());
@@ -64,11 +64,10 @@ public class DProController {
 
 	@RequestMapping(value = "/ListColleague")
 	public @ResponseBody
-	List<DProcess> ListColleague(HttpSession session) {
-		Employees emps = (Employees) session.getAttribute("user");
-		List<DProcess> listdColleague = dProService.listColleague(emps
-				.getEmployeeId());
-		/* System.out.println(listdPro.get(0).getEmployeeId()); */
+	List<DProcess> ListColleague(HttpSession session, @RequestParam("proId") String proId) {
+		
+		List<DProcess> listdColleague = dProService.listColleague(proId);
+		
 		return listdColleague;
 
 	}
