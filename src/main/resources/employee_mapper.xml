@@ -11,6 +11,7 @@
 		<result property="posName" column="position_name"/>
 		<result property="teamName" column="team_name"/>
 		<result property="techName" column="tech_name"/>
+		<result property="positionName" column="position_name"/>
 	</resultMap>
 	
 	<resultMap type="Employees" id="dto2">
@@ -51,7 +52,7 @@
 	</select>
 	
 	<select id="selectEmpList" resultMap="dto">
-		select * from employees
+		select * from employees e
 	</select>
 	
 	<select id="selectEmpinfo" resultMap="dto" parameterType="String">

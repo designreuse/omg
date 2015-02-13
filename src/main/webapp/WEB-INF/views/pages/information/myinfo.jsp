@@ -33,8 +33,7 @@
 	<div class="col-md-2" style="background-color: #f0f7fd; border-left: 10px solid #eee; border-color: #d0e3f0; font-family: 'Jeju Gothic', serif; font-size: 14pt">
 		이름:${user.name}<br style="line-height: 150%;" />
 		사번:${user.employeeId}<br	style="line-height: 150%;" /> 
-		비밀번호:${user.password}<br style="line-height: 150%;" /> 
-		직책:${user.positionId}<br	style="line-height: 150%;" />
+		비밀번호:${user.password}<br style="line-height: 150%;" />
 		전화번호:${user.phone}<br	style="line-height: 150%;" /> 
 		주소:${user.address}<br style="line-height: 150%;" /> 
 		이메일:${user.email}<br	style="line-height: 150%;" /> 

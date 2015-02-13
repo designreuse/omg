@@ -1,12 +1,13 @@
+<%@page import="com.omg.dto.Employees"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<% Employees user = (Employees)session.getAttribute("user"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>The OMG ~~</title>
+<title>The OMG ~~<%=user.getName()%></title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>

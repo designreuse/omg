@@ -1,11 +1,13 @@
+<%@page import="com.omg.dto.Employees"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% Employees user = (Employees)session.getAttribute("user"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>The OMG ~~</title>
+<title>The OMG ~~<%=user.getName()%></title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -111,9 +113,9 @@
 								<div class="small-box bg-green">
 									<div class="inner">
 										<h3>
-											Notice
+											<span id="ocount">?</span>
 										</h3>
-										<p id="ocount">?</p>
+										Notice
 									</div>
 									<div class="icon">
 										<i class="fa fa-bullhorn"></i>
@@ -128,8 +130,8 @@
 								<!-- small box -->
 								<div class="small-box bg-yellow">
 									<div class="inner">
-										<h3>Study</h3>
-										<p id="studycnt">??</p>
+										<h3><span id="studycnt">??</span></h3>
+										Study
 									</div>
 									<div class="icon">
 										<i class="fa fa-laptop"></i>
@@ -144,8 +146,8 @@
 								<!-- small box -->
 								<div class="small-box bg-aqua">
 									<div class="inner">
-										<h3>New message</h3>
-										<p id="msgcnt">??</p>
+										<h3><span id="msgcnt">??</span></h3>
+										New message
 									</div>
 									<div class="icon">
 										<i class="fa fa-envelope"></i>
