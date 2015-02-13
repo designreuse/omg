@@ -120,35 +120,41 @@
 				dataType : "json",
 				success : function(json) {
 					$("#startPro").empty();
-					var str = "";			
-					$.each(json,function(index, item) {
-						str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>";
-						str += "<tr>";
-						str += "<td>" + item.projectName
-								+ "</td>";
-						str += "<td>" + item.techName
-								+ "</td>";
-						str += "<td>" + item.startDate
-								+ "</td>";
-						str += "<td>" + item.endDate
-								+ "</td>";
-						$.ajax({
-							url : "selectTeam",
-							dataType : "json",
-							async : false,
-							success : function(json) {
-								str += "<td><select id='selectTeam'  name='selectTeam'>";
-								$.each(json,function(index,item) {
-									str += "<option value="+item.teamId+">"+ item.teamName+"</option>";
-								});
-								str += "</select></td>";
-							}
+					var str = "";
+					if(json != ""){
+						$.each(json,function(index, item) {
+							str += "<tr><input type='hidden' name='projectId' value="+item.projectId+"></tr>";
+							str += "<tr>";
+							str += "<td>" + item.projectName
+									+ "</td>";
+							str += "<td>" + item.techName
+									+ "</td>";
+							str += "<td>" + item.startDate
+									+ "</td>";
+							str += "<td>" + item.endDate
+									+ "</td>";
+							$.ajax({
+								url : "selectTeam",
+								dataType : "json",
+								async : false,
+								success : function(json) {
+									str += "<td><select id='selectTeam'  name='selectTeam'>";
+									$.each(json,function(index,item) {
+										str += "<option value="+item.teamId+">"+ item.teamName+"</option>";
+									});
+									str += "</select></td>";
+								}
+							});
+							str += "<td><a id='setTeam' class='btn btn-default btn-sm' proId='"+item.projectId+"'>결정</a></td></tr>";
 						});
-						str += "<td><a id='setTeam' class='btn btn-default btn-sm' proId='"+item.projectId+"'>결정</a></td></tr>";
-					});
 					$("#startPro").append(str);
+					}else{
+						str+="<tr><td colspan='6' style='color: blue;' align='center'>받은 프로젝트가 없습니다.</td></tr>";
+						$("#startPro").append(str);
+					}
 				}
 			});
+			
 		}
 		
 		$.ajax({
@@ -231,13 +237,13 @@
 									<div class="row">
 										<div class="col-md-2 col-sm-4" id="bnt_window">
 											<div class="box-header">
-												<h3 class="box-title" id="h3"><b>시작되는 프로젝트</b></h3>
+												<h3 class="box-title" id="h3"><b>Booked Project</b></h3>
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="Start" class="btn btn-danger btn-flat">시작되는 프로젝트</a>
+												<a id="Start" class="btn btn-danger btn-flat">Booked Project</a>
 											</div>
 											<div style="margin-top: 15px;">
-												<a id="Proing" class="btn btn-warning btn-flat">진행중인 프로젝트</a>
+												<a id="Proing" class="btn btn-warning btn-flat">Progressing Project</a>
 											</div>
 											<div style="margin-top: 15px;">
 												<a id="ex" class="btn btn-primary btn-flat">My Career</a>
