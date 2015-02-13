@@ -36,7 +36,7 @@ public class LoginController {
 		
 		int ck = logService.selectManager(outputEmp);
 		if(ck == 1 || ck == 2 || ck == 3){
-			session.setAttribute("permit", "관리자 모드");			// 관리자 확인하는 것
+			session.setAttribute("permit", "관리자");			// 관리자 확인하는 것
 			if(ck == 1){										// 경영부
 				session.setAttribute("Manager", "run");
 			}else if(ck == 2){									// 부장
@@ -49,7 +49,7 @@ public class LoginController {
 				session.setAttribute("Manager", null);
 			}
 		}else{
-			session.setAttribute("permit", "사용자 모드");
+			session.setAttribute("permit", "사용자");
 		}
 		if(outputEmp.getGender().equalsIgnoreCase("M")){
 			session.setAttribute("image", "/company/resources/img/avatar5.png");
