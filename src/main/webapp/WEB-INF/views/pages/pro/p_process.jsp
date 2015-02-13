@@ -606,7 +606,7 @@
 					str += "<tr>"+"<th>연 봉</th>"+"<td><input type='text'  id='t_sal' name='salary'><span id='sal'></span></td></tr>";
 					str += "<tr>"+"<th>핸드폰</th>"+"<td><input type='text'name='phone'></td></tr>";
 					str += "<tr>"+"<th>주 소</th>"+"<td><input type='text' name='address'></td></tr>";
-					str += "<tr>"+"<th>성 별</th>"+"<td><input type='text'name='gender'></td></tr>";
+					str += "<tr>"+"<th>성 별</th>"+"<td><input type='text'name='gender'><span>(남자:M 여자:W)</span></td></tr>";
 					str += "<tr>"+"<th>비밀번호</th>"+"<td><input type='text' name='password'></td>"; 
 					str += "</tr></table>"; 
 					str += "<input type='submit'  class='btn btn-primary btn-sm' value='등록'>";

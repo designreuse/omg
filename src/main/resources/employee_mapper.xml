@@ -131,7 +131,7 @@
 	<!-- 인사.회계팀 일반사용자 직원 등록 -->
 	<insert id="p_insertEmp" parameterType="Employees">
 		insert into employees (employee_id, name, phone, address, salary, manager, position_id, department_id, team_id, hiredate, birth,password, gender)
-		values(#{employeeId},#{name},#{phone},#{address},#{salary},#{manager},#{positionId},#{departmentId},#{teamId},#{hiredate},#{birth},#{password},#{gender})
+		values(#{employeeId},#{name},#{phone},#{address},#{salary},#{manager},#{positionId},#{departmentId},#{teamId},#{hiredate},#{birth},#{password},upper(#{gender}))
 	</insert>
 	
 		
