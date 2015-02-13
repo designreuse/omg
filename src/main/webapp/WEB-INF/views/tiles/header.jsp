@@ -74,9 +74,13 @@
 				<!-- User Account: style can be found in dropdown.less -->
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <i
-						class="glyphicon glyphicon-user"></i> <span>
-							${user.name}[${permit}(${user.employeeId})] <i class="caret"></i>
-					</span>
+						class="glyphicon glyphicon-user"></i> 
+						<c:if test="${permit == '관리자'}">
+							<span style="color: yellow;"><b>${user.name}[${permit}(${user.employeeId})]</b> <i class="caret"></i></span>
+						</c:if>
+						<c:if test="${permit == '사용자'}">
+							<span style="color: #00ff00;">${user.name}[${permit}(${user.employeeId})] <i class="caret"></i></span>
+						</c:if>
 					</a>
 					<ul class="dropdown-menu">
 					<!-- User image -->
