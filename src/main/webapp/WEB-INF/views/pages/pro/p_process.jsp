@@ -68,6 +68,26 @@
 		
 		//첫 화면.
 		function SelectEmpByDept(startpage,dept){
+			
+			
+			function GetCommaValue(num) {     // 숫자에 콤마 삽입  
+		        var len, point, str;  
+		  
+		        num = num + "";  
+		        point = num.length % 3  ;
+		        len = num.length;  
+		  
+		        str = num.substring(0, point);  
+		        while (point < len) {  
+		            if (str != "") str += ",";  
+		            str += num.substring(point, point + 3);  
+		            point += 3;  
+		        }  
+		        return str; 
+		        
+		      }
+			
+			
 			$.ajax({			
 				url: "p_selectEmp",
 				data : "dept="+dept +"&page="+startpage , //보낼때의 값이다 index/1?dept= 의 주소에 값을 넣을때 쓴다
@@ -89,7 +109,7 @@
 							str += "<td>" +item.teamName+"</td>";	
 						}
 						str += "<td>" +item.posName+"</td>";
-						str += "<td>" +item.salary+"</td>";
+						str += "<td>" +GetCommaValue(item.salary)+"</td>";
 						str += "<td>" +item.commition+"</td>";
 						str += "<td>" +item.hiredate + "</td>";
 						str += "<td>" +item.phone+"</td>";

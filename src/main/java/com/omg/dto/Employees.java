@@ -10,7 +10,7 @@ public class Employees {
 	private String teamId;
 	private String departmentId;
 	private String positionId;
-	private String postionName;
+
 	private String manager;
 	private String email;
 	private double commition;
@@ -30,13 +30,6 @@ public class Employees {
 	private int minSalary;
 	
 	
-	
-	public String getPostionName() {
-		return postionName;
-	}
-	public void setPostionName(String postionName) {
-		this.postionName = postionName;
-	}
 	public String getTechName() {
 		return techName;
 	}

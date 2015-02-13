@@ -11,7 +11,6 @@
 		<result property="posName" column="position_name"/>
 		<result property="teamName" column="team_name"/>
 		<result property="techName" column="tech_name"/>
-		<result property="positionName" column="position_name"/>
 	</resultMap>
 	
 	<resultMap type="Employees" id="dto2">
