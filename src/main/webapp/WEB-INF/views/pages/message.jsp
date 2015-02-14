@@ -41,6 +41,7 @@
 			$.ajax({
 				url :"usersurech",
 				dataType : "json",
+				async: false,
 				success : function(json) {
 					$.each(json, function(index, item) { // foreach해줌 
 						var button = "<a id='btn"+(cnt++)+"' class='btn btn-default' data='"+item.name+"' >"+item.name+"("+item.employeeId+")"+"</a>";
