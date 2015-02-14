@@ -53,6 +53,7 @@
 		$("#usernames").on("click", "a[id^=btn]", function() {
 			var name = $(this).attr("data");
 			$("#surech").prop("value", name);
+			$("#usernames").empty();
 		});
 		
 		// 보내는 사람 누르면 보내는 상자 자동 생성
