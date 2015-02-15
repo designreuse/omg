@@ -11,7 +11,8 @@
 					alt="User Image" />
 			</div>
 			<div class="pull-left info">
-				<p>hello. ${user.name}님</p>
+				<p>환영합니다.</p>
+				<h4 style="color: blue;"><b>${user.name}님</b></h4>
 				<!-- 폰트 수정 남음 -->
 			</div>
 		</div>
