@@ -51,7 +51,7 @@
 	</select>
 	
 	<select id="selectEmpList" resultMap="dto">
-		select * from employees e order by name
+		select * from employees e order by name 
 	</select>
 	
 	<select id="selectEmpinfo" resultMap="dto" parameterType="String">
