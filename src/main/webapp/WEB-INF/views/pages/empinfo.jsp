@@ -44,7 +44,6 @@
 					$.each(json, function(index, item) { // foreach해줌 
 						var td = "<td>" + item.name + "</td>" + "<td>"
 								+ item.phone + "</td>" + "<td>"
-								+ item.address + "</td>" + "<td>";
 								if(item.email == null){
 									td +=  "-</td>" + "<td>";
 								}else{
@@ -204,7 +203,6 @@
 														<tr>
 															<th>이름</th>
 															<th>Phone</th>
-															<th>주소</th>
 															<th>Email</th>
 															<th>직책</th>
 															<th>Team</th>
