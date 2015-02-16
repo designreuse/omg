@@ -618,7 +618,13 @@
 						success:function(json){
 							str += "<td><select name='pos'>";
 							$.each(json,function(index,item){
-								str += "<option value="+item.positionId+">"+item.positionName+"</option>";
+								if(item.positionId=='pos1'){
+									
+								}
+								else{
+									str += "<option value="+item.positionId+">"+item.positionName+"</option>";	
+								}
+								
 							});
 							str += "</select></td></tr>";
 						}
