@@ -100,7 +100,7 @@
 	
 	<!-- 인사.회계팀 일반사용자 부서별 직원정보 조회 -->
 	<select id="p_selectEmp" parameterType="map" resultMap="dto2">
-		<![CDATA[ SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY e.team_id asc) rnum, e.employee_id, e.name, e.birth,d.department_name, t.team_name, p.position_name, e.salary, e.hiredate, e.phone, e.address, e.commition
+		<![CDATA[ SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY e.team_id, e.position_id asc) rnum, e.employee_id, e.name, e.birth,d.department_name, t.team_name, p.position_name, e.salary, e.hiredate, e.phone, e.address, e.commition
 		from employees e, departments d, teams t, position p
 		where e.department_id = d.department_id
 		and  e.team_id = t.team_id(+)
