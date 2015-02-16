@@ -55,7 +55,7 @@
 	</select>
 	
 	<select id="selectEmpinfo" resultMap="dto" parameterType="String">
-		select * from employees where department_id = #{deptID}
+		select * from employees where department_id = #{deptID} order by team_id, position_id
 	</select>
 	
 	<select id="selectPassword" resultMap="dto" parameterType="Employees">
