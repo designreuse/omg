@@ -251,7 +251,7 @@
 										</div>
 										<div id="detailview" class="col-md-10 col-sm-8">
 											<div class="box-header">
-												<h3 class="box-title">Start Project</h3>
+												<h3 class="box-title">Booked Project</h3>
 											</div>
 											<div class="box-body">
 												<!-- /.row -->
@@ -307,8 +307,8 @@
 
 					$("#bnt_window").on("click","#Proing",function() {
 						$("#detailview").empty();
-						$("#h3").html("<b>진행중인 프로젝트</b>");
-						var spare = "<div class='box-header'><h3 class='box-title'>개발부의 프로젝트</h3></div><div class='box-body'>"
+						$("#h3").html("<b>Progressing Project</b>");
+						var spare = "<div class='box-header'><h3 class='box-title'>Progressing Project</h3></div><div class='box-body'>"
 								+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
 								+ "<thead><tr><th>ProId</th><th>ProName</th><th>Start day</th><th>End day</th><th>TEAM_ID</th>"
 								+ "</tr></thead><tbody id='ProingList'>"
@@ -453,8 +453,8 @@
 
 					$("#bnt_window").on("click","#Current",function() {
 						$("#detailview").empty();
-						$("#h3").html("<b>진행중인 프로젝트</b>");
-						var spare = "<div class='box-header'><h3 class='box-title'>현재 프로젝트</h3></div><div class='box-body'>"
+						$("#h3").html("<b>Current Project</b>");
+						var spare = "<div class='box-header'><h3 class='box-title'>Current Project</h3></div><div class='box-body'>"
 								+ "<div class='table-responsive'><table class='table table-bordered' border='1'>"
 								+ "<thead><tr><th>Project명</th><th>관련 기술</th><th>Start day</th><th>End day</th>"
 								+ "</tr></thead><tbody id='dPro'>"
