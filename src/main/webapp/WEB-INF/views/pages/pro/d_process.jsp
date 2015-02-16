@@ -162,7 +162,8 @@
 			dataType : "json",
 			success : function(json) {
 				$("#startlist").empty();
-				var str = "";	
+				var str = "";
+				if(json != ""){
 				$.each(json, function(index, item) {	
 					str += "<tr>";
 					str += "<td>" +"<a id='open' projectId="+item.projectId+">"+ item.projectName + "</td>";
@@ -174,7 +175,11 @@
 					str += "</tr>";	
 				});
 				$("#startlist").append(str);
+			}else{
+				str+="<tr><td colspan='5' style='color: blue;' align='center'>부장님에게 받은 프로젝트가 없습니다.</td></tr>";
+				$("#startlist").append(str);
 			}
+		}
 		});
 		$("#startlist").on("click", "#fk", function() {
 			var proId = $(this).attr("projectId");
@@ -416,7 +421,7 @@
 																</tr>
 															</thead>
 															<tbody id="startlist">
-																<tr><td colspan="6" style="color: blue;" align="center">부장에게 할당된 프로젝트가 없습니다.</td></tr>
+																<tr><td colspan="5" style="color: blue;" align="center">팀장에게 할당된 프로젝트가 없습니다.</td></tr>
 															</tbody>
 														</table>
 													</form>
@@ -564,7 +569,7 @@
 								+"</div><div class='box-body'><div class='table-responsive'>"
 								+"<table class='table table-bordered' border='1'>"
 								+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-								+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+								+"<th>Email</th><th>Position</th><th>추가</th></tr>"
 								+"</thead><tbody id='sparelist'></tbody></table>"
 								+"</div></div>";
 
@@ -638,21 +643,7 @@
 										}else{
 											str += "<td>-</td>";
 										}
-										if(item.projectName != null){
-										str += "<td>" + item.projectName + "</td>";
-										}else{
-											str += "<td>-</td>";
-										}
-										if(item.startDate != null){
-										str += "<td>" + item.startDate + "</td>";
-										}else{
-											str += "<td>-</td>";
-										}
-										if(item.endDate != null){
-										str += "<td>" + item.endDate + "</td>";
-										}else{
-											str += "<td>-</td>";
-										}
+										
 									/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 									str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 								});
@@ -695,7 +686,7 @@
 									+"</div><div class='box-body'><div class='table-responsive'>"
 									+"<table class='table table-bordered' border='1'>"
 									+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-									+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+									+"<th>Email</th><th>Position</th><th>추가</th></tr>"
 									+"</thead><tbody id='sparelist'></tbody></table>"
 									+"</div></div>";
 
@@ -768,21 +759,7 @@
 										}else{
 											str += "<td>-</td>";
 										}
-										if(item.projectName != null){
-										str += "<td>" + item.projectName + "</td>";
-										}else{
-											str += "<td>-</td>";
-										}
-										if(item.startDate != null){
-										str += "<td>" + item.startDate + "</td>";
-										}else{
-											str += "<td>-</td>";
-										}
-										if(item.endDate != null){
-										str += "<td>" + item.endDate + "</td>";
-										}else{
-											str += "<td>-</td>";
-										}
+										
 										/* str += "<td>" + "<input type='hidden' value='"+item.employeeId+"' name='empId'><input type='hidden' value='"+proId+"' name='proId'>" +"</td>"; */
 										str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 									});
@@ -823,7 +800,7 @@
 									+"</div><div class='box-body'><div class='table-responsive'>"
 									+"<table class='table table-bordered' border='1'>"
 									+"<thead><tr><th>NO.</th><th>Name</th><th>Phone</th>"
-									+"<th>Email</th><th>Position</th><th>Current Project</th><th>start date</th><th>end date</th><th>추가</th></tr>"
+									+"<th>Email</th><th>Position</th><th>추가</th></tr>"
 									+"</thead><tbody id='sparelist'></tbody></table>"
 									+"</div></div>";
 
@@ -896,21 +873,7 @@
 											}else{
 												str += "<td>-</td>";
 											}
-											if(item.projectName != null){
-											str += "<td>" + item.projectName + "</td>";
-											}else{
-												str += "<td>-</td>";
-											}
-											if(item.startDate != null){
-											str += "<td>" + item.startDate + "</td>";
-											}else{
-												str += "<td>-</td>";
-											}
-											if(item.endDate != null){
-											str += "<td>" + item.endDate + "</td>";
-											}else{
-												str += "<td>-</td>";
-											}
+											
 										str += "<td><a id='setpeople' class='btn btn-default btn-sm' empId='"+item.employeeId+"' proId ='"+proId+"'>결정</a></td></tr>";
 									});
 									$("#sparelist").append(str);
