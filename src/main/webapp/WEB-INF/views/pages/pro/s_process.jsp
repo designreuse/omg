@@ -384,7 +384,7 @@ function ckdatelist(startpage,date) {
 															<th class="time"> 기 술(한개만)</th>
 															<th class="time"> 시 작 일 </th>
 															<th class="time"> 종 료 일 </th>
-															<th class="time"> 가 격(천만원) </th>
+															<th class="time"> 가 격(억) </th>
 															<th class="time">승 인 여 부</th>
 															<th class="time"> 승 인 자 </th>
 														</tr>
