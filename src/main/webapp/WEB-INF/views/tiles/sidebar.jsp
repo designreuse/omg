@@ -12,7 +12,7 @@
 			</div>
 			<div class="pull-left info">
 				<p>환영합니다.</p>
-				<h4d><b>${user.name}님</b></h4>
+				<h4><b>${user.name}님</b></h4>
 				<!-- 폰트 수정 남음 -->
 			</div>
 		</div>
